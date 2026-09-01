@@ -1,0 +1,44 @@
+# NexoTalentos: Executive Search & Contratación Estratégica con Agentes IA
+
+> Nexo Talentos es la firma boutique líder en España especializada en Headhunting de perfiles directivos (C-Level), mandos clave, talento tecnológico de alto rendimiento y Hub de Talento Nearshore LATAM con arbitraje de costes.
+
+## Resumen Ejecutivo
+- **Sedes Físicas**: Paseo de la Castellana 95 (Madrid) y Avinguda Diagonal 640 / Distrito 22@ (Barcelona).
+- **Cobertura**: España (Madrid, Barcelona, Valencia, País Vasco, Málaga, Sevilla) y Conexión Nearshore LATAM (Colombia, Argentina, México, Chile).
+- **SLA Prometido**: Entrega de terna directiva validada en **18 días hábiles**.
+- **Garantía Legal & Laboral**: 100% blindaje frente al Art. 43 del Estatuto de los Trabajadores (prevención de cesión ilegal de trabajadores) y cumplimiento de la Directiva UE 2023/970 de transparencia retributiva y el EU AI Act (Reglamento de Inteligencia Artificial para RRHH).
+- **Garantía de Sustitución**: Hasta 12 meses de cobertura sin coste adicional.
+
+## Catálogo de Servicios
+1. **C-Level & Executive Search**: Selección confidencial de directores generales, CEO, CTO, CFO, CMO y directores de división.
+2. **Talento Tech, Cloud & AI**: Reclutamiento de Tech Leads, Arquitectos Cloud, Data Scientists, Ingenieros de Machine Learning y Fullstack Senior.
+3. **Hub de Talento Nearshore LATAM**: Arbitraje salarial del 55% al 62% con contratación del Top 1.8% de talento bilingüe en Colombia, Argentina y México con facturación B2B en España y solapamiento horario del 100%.
+4. **Assessment Center & Diagnóstico IA**: Auditoría situacional, simulaciones de comités y evaluación predictiva de competencias de liderazgo.
+5. **RPO & Scaleups**: Células de reclutamiento dedicadas para rondas de financiación y expansiones aceleradas.
+6. **Consultoría de Compensación & Guía Salarial**: Benchmark retributivo 2026 en España (percentiles P25, P50, P75, P90) y planes de compensación flexible (Art. 42 LIRPF).
+
+## Suite de Agentes IA Disponibles 24/7
+- **Senior Headhunter AI**: Análisis de viabilidad de procesos de búsqueda ejecutiva y tiempos de cobertura.
+- **Career & CV Advisor AI**: Auditoría predictiva de currículums directivos y preparación para entrevistas situacionales STAR.
+- **Salary Benchmark AI**: Consulta en tiempo real de bandas salariales para perfiles tecnológicos y de gestión en España.
+- **Talent Strategist B2B**: Calculadora financiera del coste de vacante desierta y retorno de inversión en reclutamiento.
+
+## Estructura Web & Navegación para Agentes
+- `/`: Portada institucional, bifurcación para Empresas y Candidatos, buscador de requerimientos B2B y hub de talento LATAM.
+- `/servicios`: Catálogo integral de 6 servicios con especificaciones técnicas, metodologías y SLAs.
+- `/por-que-elegirnos`: Matriz comparativa vs. consultoras tradicionales y métricas auditadas.
+- `/proceso`: Metodología en 5 fases desde la inmersión cultural hasta el onboarding y seguimiento de 12 meses.
+- `/vacantes`: Portal de empleo directivo y tecnológico con rangos salariales transparentes y aplicación directa.
+- `/guia-salarial`: Estudio retributivo interactivo España 2026 por perfiles, experiencia y ciudades.
+- `/calculadora-roi`: Simulador financiero de pérdida económica por vacantes sin cubrir.
+- `/agentes-ia`: Suite interactiva con los 4 modelos conversacionales de talento.
+- `/blog`: Tratado legal, normativo y directivo sobre Art. 43 ET, EU AI Act y retribución flexible.
+- `/contacto`: Formulario seguro RGPD y canal prioritario de WhatsApp corporativo (+34 614 143 763).
+
+## Contacto & Consultoría B2B
+- **Email Corporativo**: empresas@nexotalentos.com / contacto@nexotalentos.com
+- **Teléfono Central**: +34 910 88 44 20
+- **Consultor Directo Senior WhatsApp**: +34 614 143 763
+- **Horario**: Lunes a Viernes 08:30 - 20:00 CEST (Comité de Búsqueda C-Level 24/7).
+
+[Nexo Talentos](https://nexotalentos.com)

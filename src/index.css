@@ -1,0 +1,207 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --nexo-navy: #082041;
+  --nexo-teal: #00A9A3;
+  --nexo-neutral: #F2F7F7;
+  --nexo-gray: #5B6775;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+}
+
+/* ==========================================================================
+   SISTEMA DE TRANSICIONES Y FÍSICAS DE RESORTE (APPLE STYLE / GPU OPTIMIZED)
+   ========================================================================== */
+
+/* Habilitar la View Transitions API para Navegación Fluida */
+@view-transition {
+  navigation: auto;
+}
+
+/* Transiciones de raíz con curvas de desaceleración orgánicas */
+::view-transition-old(root) {
+  animation: 320ms cubic-bezier(0.4, 0, 0.2, 1) both fade-out-subtle;
+}
+
+::view-transition-new(root) {
+  animation: 420ms cubic-bezier(0.25, 1, 0.5, 1) both slide-from-bottom-spring;
+}
+
+/* Keyframes optimizados exclusivamente para GPU (transform y opacity) */
+@keyframes fade-out-subtle {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(0.995); }
+}
+
+@keyframes slide-from-bottom-spring {
+  from {
+    transform: translateY(14px) scale(0.995);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes spring-bounce-subtle {
+  0% { transform: scale(0.95); opacity: 0; }
+  60% { transform: scale(1.02); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes subtle-float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.04); }
+}
+
+/* Accesibilidad: Respeto estricto de reduce-motion */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+    view-transition-name: none !important;
+  }
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.font-display {
+  font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+}
+
+.font-heading {
+  font-family: 'Cabinet Grotesk', 'Outfit', sans-serif;
+}
+
+/* Curvas de Bézier Estilo Apple */
+.ease-spring {
+  transition-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.ease-spring-snappy {
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ease-apple-smooth {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Clases de interacción táctil y física */
+.btn-spring-press {
+  transition: transform 300ms cubic-bezier(0.25, 1, 0.5, 1), box-shadow 300ms cubic-bezier(0.25, 1, 0.5, 1), background-color 200ms ease;
+  will-change: transform;
+}
+
+.btn-spring-press:hover {
+  transform: translateY(-2px) scale(1.015);
+}
+
+.btn-spring-press:active {
+  transform: translateY(1px) scale(0.975);
+}
+
+.card-spring-hover {
+  transition: transform 400ms cubic-bezier(0.25, 1, 0.5, 1), border-color 300ms ease, box-shadow 400ms cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform;
+}
+
+.card-spring-hover:hover {
+  transform: translateY(-4px) scale(1.008);
+}
+
+/* Micro-animaciones de entrada */
+.animate-spring-in {
+  animation: spring-bounce-subtle 500ms cubic-bezier(0.25, 1, 0.5, 1) both;
+}
+
+.animate-subtle-float {
+  animation: subtle-float 6s ease-in-out infinite;
+}
+
+/* Custom scrollbar refinado */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+/* Glassmorphism de precisión */
+.glass-panel {
+  background: rgba(15, 23, 42, 0.82);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-panel-light {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(226, 232, 240, 0.85);
+}
+
+.glass-glow-cyan {
+  box-shadow: 0 10px 40px -10px rgba(6, 182, 212, 0.28);
+}
+
+.glass-glow-emerald {
+  box-shadow: 0 10px 40px -10px rgba(16, 185, 129, 0.28);
+}
+
+.glass-glow-blue {
+  box-shadow: 0 10px 40px -10px rgba(59, 130, 246, 0.28);
+}
+
+/* Carrusel Infinito para Móviles */
+@keyframes infinite-carousel-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-infinite-carousel {
+  display: flex;
+  width: max-content;
+  animation: infinite-carousel-left 32s linear infinite;
+  will-change: transform;
+}
+
+.animate-infinite-carousel:hover,
+.animate-infinite-carousel:active,
+.carousel-paused {
+  animation-play-state: paused;
+}
+

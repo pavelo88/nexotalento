@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /*?*
+Disallow: /private/
+
+# Permitir a los agentes de IA leer la web para AIO (AI Overviews)
+User-agent: GPTBot
+Allow: /
+User-agent: Claude-Web
+Allow: /
+
+Sitemap: https://nexotalentos.com/sitemap.xml
