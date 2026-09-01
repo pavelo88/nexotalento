@@ -248,16 +248,17 @@ export const LatamEliteTalentSection: React.FC<LatamEliteTalentSectionProps> = (
                   {roles.map((r, idx) => (
                     <button
                       key={idx}
+                      type="button"
                       onClick={() => setSelectedRoleIndex(idx)}
                       className={`p-3.5 rounded-2xl text-left border transition-all cursor-pointer ${
                         selectedRoleIndex === idx
-                          ? 'bg-gradient-to-tr from-cyan-500/20 to-blue-500/20 border-cyan-500 text-white shadow-md'
+                          ? 'bg-gradient-to-tr from-cyan-500/20 to-blue-500/20 border-cyan-500 text-slate-950 dark:text-white shadow-md font-bold'
                           : theme === 'dark'
                             ? 'bg-slate-900/60 border-slate-800 text-slate-300 hover:border-slate-700'
                             : 'bg-slate-50 border-slate-200 text-slate-700 hover:border-slate-300'
                       }`}
                     >
-                      <span className="text-[10px] font-bold text-cyan-500 block mb-1">
+                      <span className="text-[10px] font-bold text-cyan-600 dark:text-cyan-400 block mb-1">
                         {r.badge}
                       </span>
                       <p className="text-xs font-bold leading-tight">{r.title}</p>
@@ -267,16 +268,16 @@ export const LatamEliteTalentSection: React.FC<LatamEliteTalentSectionProps> = (
               </div>
 
               {/* Details of Selected Role */}
-              <div className={`p-4 rounded-2xl border text-xs space-y-1.5 ${
-                theme === 'dark' ? 'bg-slate-900/70 border-slate-800' : 'bg-slate-50 border-slate-200'
+              <div className={`p-4 rounded-2xl border text-xs space-y-2 ${
+                theme === 'dark' ? 'bg-slate-900/70 border-slate-800 text-slate-300' : 'bg-slate-100/90 border-slate-300 text-slate-800'
               }`}>
-                <div className="flex items-center justify-between text-slate-400">
-                  <span className="font-semibold">Stack / Competencias:</span>
-                  <span className="text-cyan-400 font-bold">{currentRole.skills}</span>
+                <div className="flex items-center justify-between">
+                  <span className="font-semibold text-slate-600 dark:text-slate-400">Stack / Competencias:</span>
+                  <span className="text-cyan-700 dark:text-cyan-400 font-bold">{currentRole.skills}</span>
                 </div>
-                <div className="flex items-center justify-between text-slate-400">
-                  <span className="font-semibold">Experiencia &amp; Idiomas:</span>
-                  <span className="text-slate-200 font-medium">{currentRole.experience}</span>
+                <div className="flex items-center justify-between">
+                  <span className="font-semibold text-slate-600 dark:text-slate-400">Experiencia &amp; Idiomas:</span>
+                  <span className="text-slate-900 dark:text-slate-200 font-bold">{currentRole.experience}</span>
                 </div>
               </div>
 
@@ -290,7 +291,7 @@ export const LatamEliteTalentSection: React.FC<LatamEliteTalentSectionProps> = (
                   }`}>
                     2. Número de Profesionales a Incorporar:
                   </label>
-                  <span className="text-sm font-extrabold text-cyan-400 bg-cyan-500/10 px-2.5 py-0.5 rounded-lg border border-cyan-500/30">
+                  <span className="text-sm font-extrabold text-cyan-600 dark:text-cyan-400 bg-cyan-500/10 px-2.5 py-0.5 rounded-lg border border-cyan-500/30">
                     {teamSize} {teamSize === 1 ? 'persona' : 'personas'}
                   </span>
                 </div>
@@ -305,7 +306,7 @@ export const LatamEliteTalentSection: React.FC<LatamEliteTalentSectionProps> = (
                   data-webmcp-field="latam-team-size"
                   className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-cyan-500"
                 />
-                <div className="flex justify-between text-[10px] text-slate-400 mt-1">
+                <div className={`flex justify-between text-[10px] mt-1 ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>
                   <span>1 especialista</span>
                   <span>5 equipo core</span>
                   <span>10 squad completo</span>
@@ -323,36 +324,40 @@ export const LatamEliteTalentSection: React.FC<LatamEliteTalentSectionProps> = (
                 
                 <div className="flex items-center justify-between pb-4 border-b border-slate-800 mb-5">
                   <div>
-                    <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">
+                    <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-600 dark:text-slate-400">
                       Impacto Económico Estimado (Anual)
                     </span>
-                    <h3 className="text-base font-bold font-heading">
+                    <h3 className="text-base font-bold font-heading text-slate-900 dark:text-white">
                       Ahorro Estructural en Masa Salarial
                     </h3>
                   </div>
-                  <div className="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 text-xs font-black">
+                  <div className="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 border border-emerald-500/40 text-xs font-black">
                     -{savingsPercentage}% Ahorro
                   </div>
                 </div>
 
                 {/* Comparison Rows */}
                 <div className="space-y-3.5 mb-6 text-xs">
-                  <div className="flex items-center justify-between p-3 rounded-xl bg-slate-950/40 border border-slate-800">
+                  <div className={`flex items-center justify-between p-3.5 rounded-xl border ${
+                    theme === 'dark' ? 'bg-slate-950/40 border-slate-800' : 'bg-slate-100 border-slate-300'
+                  }`}>
                     <div>
-                      <p className="font-bold text-slate-300">Coste Total Empresa en España</p>
-                      <p className="text-[10px] text-slate-400">Salario Bruto + ~30% Seg. Social Empresa</p>
+                      <p className={`font-bold ${theme === 'dark' ? 'text-slate-300' : 'text-slate-900'}`}>Coste Total Empresa en España</p>
+                      <p className={`text-[10px] ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>Salario Bruto + ~30% Seg. Social Empresa</p>
                     </div>
-                    <span className="text-sm sm:text-base font-black text-slate-300">
+                    <span className={`text-sm sm:text-base font-black ${theme === 'dark' ? 'text-slate-300' : 'text-slate-900'}`}>
                       {(spainTotalPerDev * teamSize).toLocaleString('es-ES')} € / año
                     </span>
                   </div>
 
-                  <div className="flex items-center justify-between p-3 rounded-xl bg-cyan-950/30 border border-cyan-500/40">
+                  <div className={`flex items-center justify-between p-3.5 rounded-xl border ${
+                    theme === 'dark' ? 'bg-cyan-950/30 border-cyan-500/40' : 'bg-cyan-50 border-cyan-300'
+                  }`}>
                     <div>
-                      <p className="font-bold text-cyan-300">Coste Total Hub LATAM Elite (Nexo)</p>
-                      <p className="text-[10px] text-cyan-500/80">Todo incluido · Factura B2B · 0% contingencias</p>
+                      <p className={`font-bold ${theme === 'dark' ? 'text-cyan-300' : 'text-cyan-950'}`}>Coste Total Hub LATAM Elite (Nexo)</p>
+                      <p className={`text-[10px] ${theme === 'dark' ? 'text-cyan-400/80' : 'text-cyan-800 font-semibold'}`}>Todo incluido · Factura B2B · 0% contingencias</p>
                     </div>
-                    <span className="text-sm sm:text-base font-black text-cyan-400">
+                    <span className={`text-sm sm:text-base font-black ${theme === 'dark' ? 'text-cyan-400' : 'text-cyan-800'}`}>
                       {(latamTotalPerDev * teamSize).toLocaleString('es-ES')} € / año
                     </span>
                   </div>
@@ -360,13 +365,13 @@ export const LatamEliteTalentSection: React.FC<LatamEliteTalentSectionProps> = (
 
                 {/* Total Savings Big Box */}
                 <div className="p-4 rounded-2xl bg-gradient-to-r from-emerald-500/20 via-teal-500/20 to-cyan-500/20 border border-emerald-500/40 text-center mb-6">
-                  <span className="text-[11px] font-bold text-emerald-400 uppercase tracking-wider block mb-0.5">
+                  <span className="text-[11px] font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-wider block mb-0.5">
                     Ahorro Neto Anual para la Compañía
                   </span>
-                  <div className="text-3xl sm:text-4xl font-black font-heading text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-300">
+                  <div className="text-3xl sm:text-4xl font-black font-heading text-emerald-700 dark:text-transparent dark:bg-clip-text dark:bg-gradient-to-r dark:from-emerald-400 dark:via-teal-300 dark:to-cyan-300">
                     {totalAnnualSavings.toLocaleString('es-ES')} €
                   </div>
-                  <p className="text-[10px] text-slate-400 mt-1">
+                  <p className={`text-[10px] mt-1 font-medium ${theme === 'dark' ? 'text-slate-400' : 'text-slate-700'}`}>
                     Equivalente a reinvertir en marketing, producto o contratar {Math.round(totalAnnualSavings / latamTotalPerDev)} perfil(es) adicional(es).
                   </p>
                 </div>
@@ -374,6 +379,7 @@ export const LatamEliteTalentSection: React.FC<LatamEliteTalentSectionProps> = (
                 {/* Action CTA */}
                 <div className="flex flex-col sm:flex-row gap-3">
                   <button
+                    type="button"
                     onClick={() => {
                       if (onOpenContact) onOpenContact();
                       else if (onNavigate) onNavigate('/contacto');
@@ -390,7 +396,7 @@ export const LatamEliteTalentSection: React.FC<LatamEliteTalentSectionProps> = (
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="py-3 px-4 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/40 text-emerald-400 font-bold text-xs flex items-center justify-center gap-2 transition-all"
+                    className="py-3 px-4 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/40 text-emerald-700 dark:text-emerald-400 font-bold text-xs flex items-center justify-center gap-2 transition-all"
                   >
                     <MessageSquare className="w-4 h-4" />
                     <span>WhatsApp Directo</span>
@@ -405,10 +411,12 @@ export const LatamEliteTalentSection: React.FC<LatamEliteTalentSectionProps> = (
 
         {/* Editorial Pullquote */}
         <div className="mt-12 text-center max-w-3xl mx-auto">
-          <blockquote className="text-base sm:text-lg italic font-serif text-slate-300 leading-relaxed">
+          <blockquote className={`text-base sm:text-lg italic font-serif leading-relaxed ${
+            theme === 'dark' ? 'text-slate-300' : 'text-slate-800 font-medium'
+          }`}>
             «Las compañías líderes ya no compiten por el escaso talento en un radio de 50 kilómetros. Construyen hubs globales de alto impacto que multiplican su velocidad de entrega reduciendo sus costes fijos.»
           </blockquote>
-          <p className="text-xs font-bold text-cyan-400 mt-2">
+          <p className="text-xs font-bold text-cyan-700 dark:text-cyan-400 mt-2">
             — Nexo Executive Talent Report · Tendencias Globales 2026
           </p>
         </div>

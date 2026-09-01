@@ -163,13 +163,13 @@ export const Hero: React.FC<HeroProps> = ({
               </p>
 
               {/* Image Showcase: Modern Boardroom & Tech Leaders in Madrid/Barcelona */}
-              <div className="relative rounded-2xl overflow-hidden mb-6 border border-cyan-500/20 shadow-md group aspect-[16/9] max-h-52">
+              <div className="relative rounded-2xl overflow-hidden mb-6 border border-cyan-500/20 shadow-md group h-48 sm:h-52 w-full">
                 <img 
-                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&auto=format&fit=crop&q=80" 
+                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&auto=format&fit=crop&q=80" 
                   alt="Equipo Directivo y Headhunting en Madrid"
-                  width="600"
-                  height="338"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  width="800"
+                  height="450"
+                  className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
                   loading="eager"
                   fetchPriority="high"
                 />
@@ -280,13 +280,13 @@ export const Hero: React.FC<HeroProps> = ({
               </p>
 
               {/* Image Showcase: Modern Tech Talent & Executive Strategy */}
-              <div className="relative rounded-2xl overflow-hidden mb-6 border border-emerald-500/20 shadow-md group aspect-[16/9] max-h-52">
+              <div className="relative rounded-2xl overflow-hidden mb-6 border border-emerald-500/20 shadow-md group h-48 sm:h-52 w-full">
                 <img 
-                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&auto=format&fit=crop&q=80" 
+                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&auto=format&fit=crop&crop=top&q=80" 
                   alt="Candidato Profesional de Éxito"
-                  width="600"
-                  height="338"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  width="800"
+                  height="450"
+                  className="w-full h-full object-cover object-[center_15%] transition-transform duration-700 group-hover:scale-105"
                   loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-transparent flex items-end p-4">

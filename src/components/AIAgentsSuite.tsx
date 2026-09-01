@@ -103,16 +103,16 @@ const AGENTS_METADATA: Record<AgentType, {
 function renderFormattedMessage(text: string) {
   const lines = text.split('\n');
   return (
-    <div className="space-y-1.5 text-xs sm:text-sm leading-relaxed">
+    <div className="space-y-2 text-xs sm:text-sm leading-relaxed">
       {lines.map((line, idx) => {
         const trimmed = line.trim();
-        if (!trimmed) return <div key={idx} className="h-1.5" />;
+        if (!trimmed) return <div key={idx} className="h-1" />;
 
         // Header 3 or 4
         if (trimmed.startsWith('### ') || trimmed.startsWith('#### ')) {
           const headingText = trimmed.replace(/^#{3,4}\s+/, '');
           return (
-            <h4 key={idx} className="font-bold text-sm sm:text-base text-cyan-400 dark:text-cyan-300 mt-2 mb-1">
+            <h4 key={idx} className="font-extrabold text-sm sm:text-base text-cyan-800 dark:text-cyan-300 mt-2 mb-1">
               {headingText}
             </h4>
           );
@@ -123,8 +123,8 @@ function renderFormattedMessage(text: string) {
           const bulletText = trimmed.substring(2);
           return (
             <div key={idx} className="flex items-start gap-2 pl-1 my-0.5">
-              <span className="text-cyan-500 font-bold shrink-0 mt-0.5">•</span>
-              <span>{renderInlineFormatting(bulletText)}</span>
+              <span className="text-cyan-600 dark:text-cyan-400 font-black shrink-0 mt-0.5">•</span>
+              <span className="text-slate-800 dark:text-slate-200">{renderInlineFormatting(bulletText)}</span>
             </div>
           );
         }
@@ -139,9 +139,13 @@ function renderFormattedMessage(text: string) {
           const cells = trimmed.split('|').filter(Boolean).map(c => c.trim());
           const isHeader = idx === 0 || lines[idx - 1]?.includes('---');
           return (
-            <div key={idx} className="grid grid-cols-3 sm:grid-cols-4 gap-1 p-1 bg-slate-500/10 rounded my-1 text-[11px]">
+            <div key={idx} className={`grid grid-cols-3 sm:grid-cols-4 gap-1 p-1.5 rounded my-1 text-[11px] ${
+              isHeader 
+                ? 'bg-cyan-100/70 dark:bg-cyan-950/40 text-cyan-900 dark:text-cyan-200 font-extrabold border border-cyan-300/60 dark:border-cyan-800/40' 
+                : 'bg-slate-200/50 dark:bg-slate-800/40 text-slate-900 dark:text-slate-200 border border-slate-200 dark:border-slate-800'
+            }`}>
               {cells.map((cell, cIdx) => (
-                <div key={cIdx} className={`${isHeader ? 'font-bold text-cyan-400 dark:text-cyan-300' : ''}`}>
+                <div key={cIdx} className={isHeader ? 'font-black' : 'font-medium'}>
                   {renderInlineFormatting(cell)}
                 </div>
               ))}
@@ -150,7 +154,7 @@ function renderFormattedMessage(text: string) {
         }
 
         return (
-          <p key={idx} className="my-0.5">
+          <p key={idx} className="my-0.5 text-slate-800 dark:text-slate-200">
             {renderInlineFormatting(line)}
           </p>
         );
@@ -165,7 +169,7 @@ function renderInlineFormatting(text: string) {
   return parts.map((part, i) => {
     if (part.startsWith('**') && part.endsWith('**')) {
       return (
-        <strong key={i} className="font-bold text-slate-900 dark:text-white">
+        <strong key={i} className="font-extrabold text-slate-950 dark:text-white">
           {part.slice(2, -2)}
         </strong>
       );
@@ -224,7 +228,7 @@ export const AIAgentsSuite: React.FC<AIAgentsSuiteProps> = ({
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const chatScrollContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (initialAgent) {
@@ -233,7 +237,9 @@ export const AIAgentsSuite: React.FC<AIAgentsSuiteProps> = ({
   }, [initialAgent]);
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (chatScrollContainerRef.current) {
+      chatScrollContainerRef.current.scrollTop = chatScrollContainerRef.current.scrollHeight;
+    }
   }, [messages, activeAgent]);
 
   const currentAgentInfo = AGENTS_METADATA[activeAgent];
@@ -432,6 +438,7 @@ export const AIAgentsSuite: React.FC<AIAgentsSuiteProps> = ({
       {/* Messages Scroll Area */}
       <div 
         id="agent-chat-messages-container"
+        ref={chatScrollContainerRef}
         className="flex-1 overflow-y-auto p-4 space-y-4 max-h-[440px] min-h-[300px]"
       >
         {currentChatMessages.map((msg) => {
@@ -463,11 +470,11 @@ export const AIAgentsSuite: React.FC<AIAgentsSuiteProps> = ({
                   <div className={`flex items-center justify-between gap-2 mb-2 pb-1.5 border-b ${
                     theme === 'dark' ? 'border-slate-700/50' : 'border-slate-300'
                   }`}>
-                    <span className="text-[11px] font-bold text-cyan-400 dark:text-cyan-300 flex items-center gap-1">
+                    <span className="text-[11px] font-bold text-cyan-700 dark:text-cyan-300 flex items-center gap-1">
                       <Sparkles className="w-3 h-3 text-amber-500" />
                       {currentAgentInfo.name}
                     </span>
-                    <span className="text-[10px] opacity-70">{msg.timestamp}</span>
+                    <span className="text-[10px] opacity-70 text-slate-600 dark:text-slate-400">{msg.timestamp}</span>
                   </div>
                 )}
 
@@ -479,18 +486,19 @@ export const AIAgentsSuite: React.FC<AIAgentsSuiteProps> = ({
                 {/* Copy Helper */}
                 {isAssistant && (
                   <div className={`mt-2.5 pt-1.5 border-t flex items-center justify-between text-[11px] ${
-                    theme === 'dark' ? 'border-slate-700/40 text-slate-400' : 'border-slate-300/60 text-slate-500'
+                    theme === 'dark' ? 'border-slate-700/40 text-slate-400' : 'border-slate-300 text-slate-600'
                   }`}>
-                    <span className="text-[10px] opacity-75">Nexo Talentos AI System</span>
+                    <span className="text-[10px] opacity-80 font-medium">Nexo Talentos AI System</span>
                     <button
+                      type="button"
                       onClick={() => handleCopyText(msg.id, msg.content)}
-                      className="hover:text-cyan-500 flex items-center gap-1 transition-colors font-medium"
+                      className="hover:text-cyan-600 dark:hover:text-cyan-400 flex items-center gap-1 transition-colors font-semibold cursor-pointer"
                       title="Copiar respuesta"
                     >
                       {copiedId === msg.id ? (
                         <>
-                          <Check className="w-3 h-3 text-emerald-500" />
-                          <span className="text-emerald-500 font-bold">Copiado</span>
+                          <Check className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
+                          <span className="text-emerald-600 dark:text-emerald-400 font-bold">Copiado</span>
                         </>
                       ) : (
                         <>
@@ -520,38 +528,37 @@ export const AIAgentsSuite: React.FC<AIAgentsSuiteProps> = ({
               <Bot className="w-4 h-4" />
             </div>
             <div className={`rounded-2xl rounded-tl-sm px-4 py-3 flex items-center gap-2 border ${
-              theme === 'dark' ? 'bg-slate-800/90 border-slate-700/60' : 'bg-slate-100 border-slate-200'
+              theme === 'dark' ? 'bg-slate-800/90 border-slate-700/60 text-slate-200' : 'bg-slate-100 border-slate-300 text-slate-800'
             }`}>
               <span className="w-2 h-2 rounded-full bg-cyan-500 animate-bounce" />
               <span className="w-2 h-2 rounded-full bg-cyan-500 animate-bounce delay-100" />
               <span className="w-2 h-2 rounded-full bg-cyan-500 animate-bounce delay-200" />
-              <span className="text-xs ml-2 opacity-80">
+              <span className="text-xs ml-2 font-medium">
                 Analizando con inteligencia de mercado español...
               </span>
             </div>
           </div>
         )}
-
-        <div ref={messagesEndRef} />
       </div>
 
       {/* Suggested Quick Prompts */}
       <div className={`p-3 border-t ${
         theme === 'dark' ? 'bg-slate-950/60 border-slate-800/60' : 'bg-slate-50 border-slate-200'
       }`}>
-        <p className={`text-[11px] font-bold mb-2 flex items-center gap-1.5 ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>
-          <HelpCircle className="w-3.5 h-3.5 text-cyan-500" />
+        <p className={`text-[11px] font-bold mb-2 flex items-center gap-1.5 ${theme === 'dark' ? 'text-slate-400' : 'text-slate-700'}`}>
+          <HelpCircle className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-500" />
           Preguntas sugeridas para {currentAgentInfo.name.replace('Nexo ', '')}:
         </p>
         <div className="flex flex-wrap gap-1.5">
           {currentAgentInfo.quickPrompts.map((prompt, i) => (
             <button
               key={i}
+              type="button"
               onClick={() => handleSendMessage(prompt)}
-              className={`text-xs px-2.5 py-1 rounded-lg border transition-all text-left truncate max-w-full ${
+              className={`text-xs px-2.5 py-1.5 rounded-lg border transition-all text-left truncate max-w-full cursor-pointer font-medium ${
                 theme === 'dark'
                   ? 'bg-slate-900/80 hover:bg-cyan-950/60 hover:text-cyan-300 text-slate-300 border-slate-800 hover:border-cyan-500/40'
-                  : 'bg-white hover:bg-cyan-50 hover:text-cyan-800 text-slate-700 border-slate-200 hover:border-cyan-400'
+                  : 'bg-white hover:bg-cyan-50 hover:text-cyan-900 text-slate-800 border-slate-300 hover:border-cyan-500 shadow-xs'
               }`}
             >
               {prompt}

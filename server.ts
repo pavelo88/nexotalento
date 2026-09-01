@@ -30,13 +30,17 @@ function sanitizeInput(input: unknown): string {
     .trim();
 }
 
-// Multi-Provider AI Engine (Gemini -> NVIDIA NIM API -> Heuristic Knowledge Engine)
+// Multi-Provider AI Engine (Gemini -> NVIDIA NIM API -> OpenAI-compatible -> Expert Knowledge Engine)
 const GEMINI_KEY = process.env.GEMINI_API_KEY;
 const NVIDIA_KEY = 
   process.env.NVIDIA_API_KEY || 
   process.env.NVIDIA_KEY || 
   process.env.NV_API_KEY || 
-  process.env.NVIDIA_NIM_API_KEY;
+  process.env.NVIDIA_NIM_API_KEY ||
+  process.env.NVIDIA_NIM_KEY ||
+  process.env.NVIDIA_CLOUD_KEY;
+
+const OPENAI_KEY = process.env.OPENAI_API_KEY;
 
 let genAIClient: GoogleGenAI | null = null;
 function getGenAI(): GoogleGenAI | null {
@@ -53,11 +57,33 @@ function getGenAI(): GoogleGenAI | null {
   return genAIClient;
 }
 
-// Call NVIDIA NIM API (Llama 3.3 70B / 3.1 70B)
-async function callNvidiaAPI(systemPrompt: string, userMessage: string, jsonMode = false): Promise<string | null> {
+// Call NVIDIA NIM API (Llama 3.3 70B / Nemotron / Mistral)
+async function callNvidiaAPI(
+  systemPrompt: string, 
+  userMessage: string, 
+  history?: Array<{ role: string; content: string }>,
+  jsonMode = false
+): Promise<string | null> {
   if (!NVIDIA_KEY) return null;
 
   try {
+    const formattedMessages = [
+      { role: "system", content: systemPrompt }
+    ];
+
+    if (history && history.length > 0) {
+      for (const h of history.slice(-6)) {
+        if (h.content && h.role) {
+          formattedMessages.push({
+            role: h.role === 'assistant' ? 'assistant' : 'user',
+            content: h.content
+          });
+        }
+      }
+    }
+
+    formattedMessages.push({ role: "user", content: userMessage });
+
     const response = await fetch("https://integrate.api.nvidia.com/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -66,11 +92,8 @@ async function callNvidiaAPI(systemPrompt: string, userMessage: string, jsonMode
       },
       body: JSON.stringify({
         model: "meta/llama-3.3-70b-instruct",
-        messages: [
-          { role: "system", content: systemPrompt },
-          { role: "user", content: userMessage }
-        ],
-        temperature: 0.4,
+        messages: formattedMessages,
+        temperature: 0.5,
         max_tokens: 1500,
         response_format: jsonMode ? { type: "json_object" } : undefined
       })
@@ -78,6 +101,24 @@ async function callNvidiaAPI(systemPrompt: string, userMessage: string, jsonMode
 
     if (!response.ok) {
       console.warn(`NVIDIA API Error status: ${response.status} ${response.statusText}`);
+      // Try fallback model on NVIDIA
+      const fallbackResp = await fetch("https://integrate.api.nvidia.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${NVIDIA_KEY}`,
+        },
+        body: JSON.stringify({
+          model: "nvidia/llama-3.1-nemotron-70b-instruct",
+          messages: formattedMessages,
+          temperature: 0.5,
+          max_tokens: 1500
+        })
+      });
+      if (fallbackResp.ok) {
+        const fbData = await fallbackResp.json() as any;
+        return fbData?.choices?.[0]?.message?.content || null;
+      }
       return null;
     }
 
@@ -90,39 +131,114 @@ async function callNvidiaAPI(systemPrompt: string, userMessage: string, jsonMode
   }
 }
 
+// Call OpenAI Compatible API if configured
+async function callOpenAICompatibleAPI(
+  systemPrompt: string, 
+  userMessage: string, 
+  history?: Array<{ role: string; content: string }>
+): Promise<string | null> {
+  if (!OPENAI_KEY) return null;
+
+  try {
+    const formattedMessages = [
+      { role: "system", content: systemPrompt }
+    ];
+
+    if (history && history.length > 0) {
+      for (const h of history.slice(-6)) {
+        if (h.content && h.role) {
+          formattedMessages.push({
+            role: h.role === 'assistant' ? 'assistant' : 'user',
+            content: h.content
+          });
+        }
+      }
+    }
+
+    formattedMessages.push({ role: "user", content: userMessage });
+
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${OPENAI_KEY}`,
+      },
+      body: JSON.stringify({
+        model: "gpt-4o-mini",
+        messages: formattedMessages,
+        temperature: 0.5,
+        max_tokens: 1500
+      })
+    });
+
+    if (!response.ok) return null;
+    const data = await response.json() as any;
+    return data?.choices?.[0]?.message?.content || null;
+  } catch (err) {
+    console.warn("Error calling OpenAI API:", err);
+    return null;
+  }
+}
+
 // Universal AI Caller
-async function generateAIResponse(systemPrompt: string, userMessage: string, jsonMode = false): Promise<{ text: string; provider: 'gemini' | 'nvidia' | 'heuristic' }> {
+async function generateAIResponse(
+  systemPrompt: string, 
+  userMessage: string, 
+  history?: Array<{ role: string; content: string }>,
+  jsonMode = false
+): Promise<{ text: string; provider: 'gemini' | 'nvidia' | 'openai' | 'heuristic' }> {
   // 1. Try Gemini if configured
   const ai = getGenAI();
   if (ai) {
     try {
+      const contentsList: Array<{ role: string; parts: Array<{ text: string }> }> = [];
+
+      if (history && history.length > 0) {
+        for (const h of history.slice(-4)) {
+          if (h.content) {
+            contentsList.push({
+              role: h.role === 'assistant' ? 'model' : 'user',
+              parts: [{ text: h.content }]
+            });
+          }
+        }
+      }
+
+      contentsList.push({
+        role: "user",
+        parts: [{ text: `${systemPrompt}\n\nConsulta actual del usuario: "${userMessage}"` }]
+      });
+
       const response = await ai.models.generateContent({
         model: "gemini-2.5-flash",
-        contents: [
-          {
-            role: "user",
-            parts: [{ text: `${systemPrompt}\n\nPregunta/Datos: "${userMessage}"` }]
-          }
-        ],
+        contents: contentsList,
         ...(jsonMode ? { config: { responseMimeType: "application/json" } } : {})
       });
       if (response.text) {
         return { text: response.text, provider: 'gemini' };
       }
     } catch (geminiError) {
-      console.warn("Gemini falló o no tiene créditos, intentando NVIDIA:", geminiError);
+      console.warn("Gemini falló o no tiene créditos, intentando NVIDIA/OpenAI:", geminiError);
     }
   }
 
-  // 2. Try NVIDIA if configured
+  // 2. Try NVIDIA NIM API if configured
   if (NVIDIA_KEY) {
-    const nvidiaReply = await callNvidiaAPI(systemPrompt, userMessage, jsonMode);
+    const nvidiaReply = await callNvidiaAPI(systemPrompt, userMessage, history, jsonMode);
     if (nvidiaReply) {
       return { text: nvidiaReply, provider: 'nvidia' };
     }
   }
 
-  // 3. Fallback to Heuristic Engine
+  // 3. Try OpenAI API if configured
+  if (OPENAI_KEY) {
+    const openAIReply = await callOpenAICompatibleAPI(systemPrompt, userMessage, history);
+    if (openAIReply) {
+      return { text: openAIReply, provider: 'openai' };
+    }
+  }
+
+  // 4. Fallback to Heuristic Engine
   return { text: '', provider: 'heuristic' };
 }
 
@@ -229,37 +345,161 @@ Tu objetivo es asesorar a empresas y directivos con respuestas muy breves (2-3 o
 };
 
 // Fallback high-fidelity knowledge generator if no API key is supplied
-function generateSmartFallbackResponse(agentType: string, query: string): string {
-  const q = query.toLowerCase();
+function generateSmartFallbackResponse(agentType: string, query: string, history?: Array<{ role: string; content: string }>): string {
+  const q = query.toLowerCase().trim();
 
-  if (agentType === 'nexia' || agentType === 'sales_closer') {
-    if (q.includes('informátic') || q.includes('programad') || q.includes('developer') || q.includes('tech') || q.includes('software') || q.includes('cto') || q.includes('devops')) {
-      return `¡Genial! En Nexo Talentos somos especialistas en selección de perfiles tecnológicos e informáticos, desde desarrolladores Senior hasta CTOs.\n\nPara afinar la búsqueda: ¿qué tecnologías o stack específico necesitan que domine y sería para trabajar en Madrid, Barcelona o en remoto?`;
+  // 1. Detect if user is a Job Seeker / Candidate ("busco trabajo", "no quiero contratar", "quiero enviar mi CV", "candidato", "soy profesional", etc.)
+  const isCandidateQuery = 
+    q.includes('busco') || 
+    q.includes('buscando') || 
+    q.includes('empleo') || 
+    q.includes('trabajo') || 
+    q.includes('no quiero contratar') || 
+    q.includes('candidat') || 
+    q.includes('postular') || 
+    q.includes('inscribir') || 
+    q.includes('mi cv') || 
+    q.includes('enviar cv') ||
+    q.includes('curriculum');
+
+  if (isCandidateQuery) {
+    if (agentType === 'evaluator' || q.includes('cv') || q.includes('auditar') || q.includes('perfil')) {
+      return `### 💼 Asesoría de Carrera & Evaluación de Candidatos — Nexo Talentos
+
+¡Excelente! En **Nexo Talentos** representamos a profesionales directivos, mandos intermedios y especialistas tecnológicos sénior para procesos de selección confidenciales en España y Europa.
+
+#### 🚀 Pasos recomendados para tu candidatura:
+1. **Auditoría Gratuita de CV con IA:** Puedes usar nuestra herramienta interactiva en la barra superior (**Auditar CV**) para obtener una puntuación de encaje y optimización según la metodología STAR.
+2. **Explora Nuestras Vacantes Activas:** Revisa las posiciones abiertas en la sección **Vacantes** (100% con bandas salariales públicas).
+3. **Envío Directo a Consultoría:** Puedes remitir tu CV en formato PDF a nuestro equipo de *Talent Acquisition* en **candidatos@nexotalentos.es**.
+
+¿En qué área profesional o sector te gustaría enfocar tu próximo reto directivo o técnico?`;
     }
 
-    if (q.includes('precio') || q.includes('tarifa') || q.includes('cuanto cuesta') || q.includes('comision') || q.includes('honorarios')) {
-      return `Trabajamos con un modelo transparente orientado a éxito y adaptado a la posición. Además, te garantizamos la presentación de una **terna validada en 18 días hábiles** y **12 meses de reposición sin coste**.\n\n¿Para qué perfil te gustaría recibir una propuesta económica personalizada?`;
-    }
+    return `¡Entendido perfectamente! Si eres un profesional o directivo en búsqueda de una nueva oportunidad o cambio de trayectoria:
 
-    if (q.includes('remoto') || q.includes('madrid') || q.includes('barcelona') || q.includes('híbrido') || q.includes('urgente') || q.includes('dias')) {
-      return `Perfecto, tomo nota de estos requisitos. Con nuestro método de *Direct Search* podemos presentarte los primeros finalistas evaluados en menos de 18 días.\n\n¿Cuál es el nombre de tu empresa o correo/teléfono para prepararte la propuesta? O si lo prefieres, ¿te viene mejor coordinar por **WhatsApp**, por **llamada telefónica** o agendamos una **teleconferencia**?`;
-    }
+1. **Consulta nuestras Vacantes Activas:** Disponemos de procesos abiertos con bandas salariales 100% transparentes en Madrid, Barcelona y posiciones en remoto.
+2. **Optimiza tu Perfil:** Puedes evaluar tu currículum de forma instantánea usando nuestra herramienta de **Auditar CV con IA** en el menú superior.
+3. **Contacto de Selección:** Nuestro equipo de reclutamiento recibe perfiles directivos y tech en **candidatos@nexotalentos.es** o vía WhatsApp al **+34 614 143 763**.
 
-    if (q.includes('whatsapp') || q.includes('llamada') || q.includes('telefono') || q.includes('reunion') || q.includes('zoom') || q.includes('teams') || q.includes('teleconferencia')) {
-      return `¡Excelente! Nuestro Socio Consultor se pondrá en contacto contigo de inmediato para coordinar la sesión y revisar los detalles del perfil.\n\nPuedes también escribirnos directamente a nuestro WhatsApp oficial pulsando el botón verde inferior o al **+34 614 143 763**. ¿Hay algún horario que prefieras?`;
-    }
-
-    return `¡Entendido! En Nexo Talentos nos encargamos de todo el proceso de atracción y evaluación para garantizarte una terna final en 18 días.\n\nCuéntame un poco más: ¿qué responsabilidades principales tendrá la posición y para cuándo tenéis previsto incorporarla?`;
+¿Qué tipo de posición (tecnología, operaciones, finanzas, comercial o dirección general) encaja con tu experiencia?`;
   }
 
+  // 2. Specific questions for Senior Headhunter AI
+  if (agentType === 'headhunter' || q.includes('director general') || q.includes('cto') || q.includes('metodología') || q.includes('confidencialidad') || q.includes('executive search')) {
+    
+    // Duration for Director General in Madrid
+    if (q.includes('director general') || q.includes('tiempo') || q.includes('cuánto tarda') || q.includes('cuanto tarda') || q.includes('plazo') || q.includes('18 días')) {
+      return `### ⏱️ Cronograma de Executive Search: Director General en Madrid (18 Días Hábiles)
+
+En **Nexo Talentos**, nuestro compromiso para posiciones C-Level y Directores Generales en Madrid se estructura en un proceso riguroso y ágil:
+
+| Fase del Proceso | Plazo | Entregables & Metodología |
+| :--- | :--- | :--- |
+| **Fase 1: Kickoff & Mapeo Competencial** | Días 1 – 3 | Definición del perfil ideal (Scorecard), matriz de competencias y mapeo confidencial de competidores directos en España. |
+| **Fase 2: Direct Search (Caza Activa)** | Días 4 – 10 | Contacto discreto con talento pasivo (+45.000 líderes en base de datos), validación inicial de motivación y encaje retributivo. |
+| **Fase 3: Entrevistas STAR & Evaluación 360°** | Días 11 – 15 | Evaluación por incidentes críticos (STAR), verificación algorítmica y contraste ciego de referencias con ex-superiores. |
+| **Fase 4: Presentación de Terna & Cierre** | Días 16 – 18 | Presentación de 3 a 5 finalistas contrastados, acompañamiento en ofertas y firma del contrato. |
+
+🛡️ **Garantía Total:** Incluye **12 meses de garantía de reposición sin coste** si el candidato no se consolida.
+
+¿Deseas que coordinemos una reunión confidencial con un Senior Partner de nuestra sede en Paseo de la Castellana 95 (Madrid)?`;
+    }
+
+    // CTO in Barcelona
+    if (q.includes('cto') || q.includes('barcelona') || q.includes('tecnología') || q.includes('tech lead')) {
+      return `### 💻 Requisitos Clave para la Contratación de un CTO en Barcelona (2026)
+
+Para liderar la estrategia técnica en el ecosistema de Barcelona (22@, Scaleups y Multinacionales), los requisitos críticos validados por nuestro equipo de Executive Search son:
+
+1. **Liderazgo de Equipos de Ingeniería (+25 a 80 desarrolladores):**
+   * Experiencia estructurando squads multidisciplinares bajo metodologías ágiles (Spotify model, Scrum, Kanban).
+   * Reducción de deuda técnica y fomento de cultura de excelencia de código (CI/CD, QA automation).
+
+2. **Arquitectura Cloud & Escalabilidad:**
+   * Dominio de arquitecturas distribuidas, Microservicios, AWS/GCP/Azure, Kubernetes y diseño de APIs de alta concurrencia.
+   * Integración de modelos de IA / LLMs en la capa de producto y gobernanza de datos (RGPD & EU AI Act).
+
+3. **Visión de Negocio & Negociación con C-Level:**
+   * Capacidad de traducir métricas técnicas en impacto de negocio (Uptime 99.99%, reducción de costes de infra, Time-to-Market).
+   * Gestión de presupuestos de R&D y optimización de licencias.
+
+4. **Benchmark Salarial Barcelona 2026:**
+   * **Banda Retributiva:** 95.000 € – 160.000 € Fijo Bruto + 15%–30% Variable + Stock Options (Ley de Startups 28/2022).
+   * **Idiomas:** Inglés fluido (C1/Bilingüe) imprescindible para hubs internacionales.
+
+¿Tenéis ya redactado el Job Description o necesitáis que definamos la estrategia de caza directa?`;
+    }
+
+    // Competency Evaluation Methodology
+    if (q.includes('metodología') || q.includes('metodologia') || q.includes('evaluación') || q.includes('evaluacion') || q.includes('competencias')) {
+      return `### 🎯 Metodología de Evaluación por Competencias de Nexo Talentos
+
+Nuestro proceso combina rigor científico, evaluación situacional y verificación de impacto para garantizar una tasa de éxito del 98.4%:
+
+1. **Entrevistas Conductuales Estructuradas (Modelo STAR):**
+   * **Situación:** Contexto y magnitud del reto de negocio gestionado por el candidato.
+   * **Tarea:** Responsabilidad directa y objetivos cuantitativos asignados.
+   * **Acción:** Decisiones estratégicas y liderazgo de personas ejecutado.
+   * **Resultado:** % de incremento en facturación/EBITDA, ahorros y retención de talento verificados.
+
+2. **Assessment Competencial 360°:**
+   * Evaluación de 8 competencias directivas críticas: *Visión Estratégica, Liderazgo Inspirador, Resiliencia ante Crisis, Negociación Compleja, Orientación a Resultados, Transformación Digital, Compliance Laboral y Gestión del Cambio*.
+
+3. **Contraste Confidencial de Referencias (Blind Reference Check):**
+   * Contactamos con un mínimo de 3 a 5 ex-superiores (CEOs, Consejeros o Directores de RRHH) para validar integridad, estilo de liderazgo y causa real de salida.
+
+4. **Compliance & Directiva UE 2023/970:**
+   * Procesos sin sesgos inconscientes, evaluando idoneidad real al puesto con absoluta trazabilidad.
+
+¿Te gustaría recibir un ejemplo de informe competencial ejecutivo de un candidato de nuestra terna?`;
+    }
+
+    // Confidentiality in Headhunting
+    if (q.includes('confidencial') || q.includes('competencia') || q.includes('caza') || q.includes('discreción')) {
+      return `### 🛡️ Protocolo de Confidencialidad y Direct Search en la Competencia
+
+En **Nexo Talentos**, la confidencialidad es un pilar contractual fundamental en cada proceso de Executive Search:
+
+* **Mapeo Ciego (Blind Market Mapping):** Identificamos y contactamos al talento en activo de competidores directos sin revelar la identidad de tu empresa hasta que el candidato firma un Acuerdo de Confidencialidad (NDA).
+* **Protección de Marca Empleadora:** No publicamos ofertas abiertas que alerten al mercado o a la propia organización sobre sustituciones o cambios directivos sensibles.
+* **Respeto a Cláusulas Off-Limits:** Respetamos estrictamente los acuerdos éticos de no captación con nuestros clientes corporativos asociados.
+* **Seguridad Contractual (Art. 21 Estatuto de los Trabajadores):** Auditamos la existencia de pactos de no competencia vigentes para evitar contingencias legales a la empresa contratante.
+
+¿Deseas activar una búsqueda confidencial para una posición estratégica?`;
+    }
+  }
+
+  // 3. Questions for NexIA (Virtual Talent Assistant)
+  if (agentType === 'nexia' || agentType === 'sales_closer') {
+    if (q.includes('informátic') || q.includes('programad') || q.includes('developer') || q.includes('tech') || q.includes('software') || q.includes('devops')) {
+      return `¡Genial! En Nexo Talentos somos especialistas en selección de perfiles tecnológicos e informáticos, desde desarrolladores Senior hasta CTOs y Data Leads.\n\nPara presentarte perfiles contrastados: ¿qué tecnologías o stack específico necesitáis que domine y sería para trabajar en Madrid, Barcelona o en remoto?`;
+    }
+
+    if (q.includes('precio') || q.includes('tarifa') || q.includes('cuanto cuesta') || q.includes('cuánto cuesta') || q.includes('comision') || q.includes('honorarios') || q.includes('coste')) {
+      return `Trabajamos con un modelo transparente orientado a éxito y adaptado a la posición (Executive Search o Selección Especializada). Además, te garantizamos la presentación de una **terna validada en 18 días hábiles** y **12 meses de reposición sin coste**.\n\n¿Para qué perfil te gustaría recibir una propuesta económica personalizada?`;
+    }
+
+    if (q.includes('remoto') || q.includes('madrid') || q.includes('barcelona') || q.includes('híbrido') || q.includes('urgente') || q.includes('dias') || q.includes('días')) {
+      return `Perfecto, tomo nota de estos requisitos. Con nuestro método de *Direct Search* podemos presentarte los primeros finalistas evaluados en menos de 18 días hábiles.\n\n¿Cuál es el nombre de tu empresa o correo/teléfono para prepararte la propuesta? O si lo prefieres, ¿te viene mejor coordinar por **WhatsApp**, por **llamada telefónica** o agendamos una **teleconferencia**?`;
+    }
+
+    if (q.includes('whatsapp') || q.includes('llamada') || q.includes('telefono') || q.includes('teléfono') || q.includes('reunion') || q.includes('reunión') || q.includes('zoom') || q.includes('teams') || q.includes('teleconferencia')) {
+      return `¡Excelente! Nuestro Socio Consultor se pondrá en contacto contigo de inmediato para coordinar la sesión y revisar los detalles del perfil.\n\nPuedes también escribirnos directamente a nuestro WhatsApp oficial pulsando el botón verde o al **+34 614 143 763**. ¿Hay algún horario que prefieras?`;
+    }
+
+    return `¡Entendido! En **Nexo Talentos** nos encargamos de todo el proceso de atracción y evaluación directa de talento para garantizarte una **terna final en 18 días hábiles con 12 meses de garantía**.\n\nCuéntame un poco más: ¿qué responsabilidades principales tendrá la posición y para cuándo tenéis previsto incorporarla?`;
+  }
+
+  // 4. Salary Benchmark AI
   if (agentType === 'salary' || q.includes('salario') || q.includes('sueldo') || q.includes('banda') || q.includes('retribuc') || q.includes('irpf')) {
     return `### 📊 Inteligencia Retributiva & Benchmark Salarial España (2026)
 
-Según el **Estudio de Compensación Directiva y Tratado de Gestión de Talento 2026 de Nexo Talentos** para Madrid, Barcelona y principales polos empresariales en España:
+Según el **Estudio de Compensación Directiva y Mercado Retributivo 2026 de Nexo Talentos** para Madrid, Barcelona y principales polos empresariales en España:
 
 | Posición Directiva / Tech | Salario Fijo Bruto (€/año) | Variable / Bonus (%) | Beneficios & Equity Clave |
 | :--- | :--- | :--- | :--- |
-| **Chief Executive Officer (CEO / Pyme-Scaleup)** | 120.000 € – 195.000 € | 25% – 45% | Phantom Shares / Equity, Seguro Médico, Vehículo |
+| **Chief Executive Officer (CEO / Pyme-Scaleup)** | 120.000 € – 195.000 € | 25% – 45% | Phantom Shares / Equity, Seguro Médico, D&O |
 | **Chief Technology Officer (CTO)** | 95.000 € – 160.000 € | 15% – 30% | Stock Options (Ley 28/2022), Teletrabajo 100% |
 | **Head of AI / Data Science Director** | 85.000 € – 140.000 € | 15% – 25% | Presupuesto R&D, Flexibilidad horaria |
 | **Chief Financial Officer (CFO)** | 85.000 € – 145.000 € | 20% – 35% | Retribución flexible optimizada, D&O |
@@ -275,11 +515,11 @@ Según el **Estudio de Compensación Directiva y Tratado de Gestión de Talento 
 #### ⚖️ Directiva Europea de Transparencia Salarial (UE 2023/970):
 * Es **obligatorio publicar la banda salarial** en las ofertas de empleo antes de la primera entrevista.
 * **Prohibición legal** de preguntar el historial salarial previo al candidato.
-* Auditoría retributiva obligatoria si la brecha salarial de género es ≥5%.
 
 ¿Deseas que analicemos el paquete retributivo de una posición concreta con tus parámetros de facturación?`;
   }
 
+  // 5. Evaluator (Career / CV Advisor)
   if (agentType === 'evaluator' || q.includes('cv') || q.includes('curriculum') || q.includes('entrevista') || q.includes('perfil') || q.includes('pacto')) {
     return `### 🎯 Diagnóstico de Perfil Ejecutivo & Preparación de Entrevistas (Metodología 2026)
 
@@ -304,6 +544,7 @@ Para posicionarte en las ternas de **Executive Search de Nexo Talentos** y super
 👉 *Puedes usar el botón de **Auditar CV con IA** en el menú para obtener un desglose pormenorizado de tu perfil.*`;
   }
 
+  // 6. Strategic Advisor
   if (agentType === 'advisor' || q.includes('cesion') || q.includes('contrato') || q.includes('outsourcing') || q.includes('bonific') || q.includes('roi')) {
     return `### 📈 Asesoría Estratégica B2B: Compliance Laboral, Bonificaciones & ROI de Contratación
 
@@ -318,7 +559,6 @@ Para posicionarte en las ternas de **Executive Search de Nexo Talentos** y super
 * **Conversión a Indefinido de Prácticas:** 128 €/mes (147 € si es mujer) durante 3 años.
 * **Desempleados de Larga Duración:** 110 €/mes (128 € mujeres o mayores de 45 años) por 3 años.
 * **Sustitución por Maternidad/Embarazo:** Exención de 366 €/mes en cuotas a la Seguridad Social.
-* *Requisito:* Mantenimiento del puesto durante un mínimo de 3 años continuados y Plan de Igualdad registrado en REGCON para empresas de 50+ empleados.
 
 #### 3. ROI del Headhunting de Nexo Talentos vs Vacante Desierta:
 * **Coste de Vacante Desierta (Cost of Vacancy):** Entre 2,5x y 3x el salario diario de la posición en facturación perdida y sobrecarga.
@@ -346,6 +586,7 @@ app.post("/api/chat", async (req, res) => {
   try {
     const rawMessage = req.body?.message;
     const rawAgentType = req.body?.agentType || "headhunter";
+    const history = Array.isArray(req.body?.history) ? req.body.history : undefined;
 
     const message = sanitizeInput(rawMessage);
     const agentType = sanitizeInput(rawAgentType);
@@ -356,7 +597,7 @@ app.post("/api/chat", async (req, res) => {
     }
 
     const systemPrompt = AGENT_SYSTEM_PROMPTS[agentType] || AGENT_SYSTEM_PROMPTS.headhunter;
-    const aiResult = await generateAIResponse(systemPrompt, message);
+    const aiResult = await generateAIResponse(systemPrompt, message, history);
 
     if (aiResult.text) {
       res.json({ reply: aiResult.text, agentType, provider: aiResult.provider });
@@ -364,7 +605,7 @@ app.post("/api/chat", async (req, res) => {
     }
 
     // Heuristic Fallback
-    const fallbackText = generateSmartFallbackResponse(agentType, message);
+    const fallbackText = generateSmartFallbackResponse(agentType, message, history);
     res.json({ reply: fallbackText, agentType, provider: "heuristic", fallback: true });
   } catch (error) {
     console.error("Error en /api/chat:", error);
@@ -433,7 +674,7 @@ Devuelve EXCLUSIVAMENTE un JSON válido con este formato:
 }`;
 
     const userMessage = `CV a evaluar:\n"""\n${cvText}\n"""`;
-    const aiResult = await generateAIResponse(systemPrompt, userMessage, true);
+    const aiResult = await generateAIResponse(systemPrompt, userMessage, undefined, true);
 
     if (aiResult.text) {
       try {

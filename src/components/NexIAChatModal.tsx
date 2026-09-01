@@ -42,7 +42,7 @@ export const NexIAChatModal: React.FC<NexIAChatModalProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const chatScrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const whatsappNumber = '34614143763';
@@ -51,8 +51,10 @@ export const NexIAChatModal: React.FC<NexIAChatModalProps> = ({
     if (isOpen) {
       setTimeout(() => {
         inputRef.current?.focus();
-        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-      }, 150);
+        if (chatScrollRef.current) {
+          chatScrollRef.current.scrollTop = chatScrollRef.current.scrollHeight;
+        }
+      }, 100);
     }
   }, [isOpen, messages]);
 
@@ -209,7 +211,10 @@ export const NexIAChatModal: React.FC<NexIAChatModalProps> = ({
         </div>
 
         {/* Chat Messages Area (Full Vertical Space) */}
-        <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-3.5 relative z-10">
+        <div 
+          ref={chatScrollRef}
+          className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-3.5 relative z-10"
+        >
           {messages.map((msg) => {
             const isAssistant = msg.role === 'assistant';
             return (
@@ -287,8 +292,6 @@ export const NexIAChatModal: React.FC<NexIAChatModalProps> = ({
               </div>
             </div>
           )}
-
-          <div ref={messagesEndRef} />
         </div>
 
         {/* Input Bar (No wasted vertical space, directly attached at bottom) */}
