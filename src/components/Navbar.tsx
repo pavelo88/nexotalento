@@ -147,7 +147,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     : 'bg-white/95 border-slate-200 text-slate-900 backdrop-blur-2xl'
                 }`}>
                   <button
-                    onClick={() => handleLinkClick('/servicios#executive')}
+                    onClick={() => handleLinkClick('/servicios#executive' as any)}
                     className={`w-full text-left p-2.5 rounded-xl transition-all flex items-start gap-3 group ${
                       theme === 'dark' ? 'hover:bg-slate-900' : 'hover:bg-slate-50'
                     }`}
@@ -167,7 +167,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   </button>
 
                   <button
-                    onClick={() => handleLinkClick('/servicios#tech')}
+                    onClick={() => handleLinkClick('/servicios#tech' as any)}
                     className={`w-full text-left p-2.5 rounded-xl transition-all flex items-start gap-3 group ${
                       theme === 'dark' ? 'hover:bg-slate-900' : 'hover:bg-slate-50'
                     }`}
@@ -186,7 +186,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   </button>
 
                   <button
-                    onClick={() => handleLinkClick('/servicios#rpo')}
+                    onClick={() => handleLinkClick('/servicios#rpo' as any)}
                     className={`w-full text-left p-2.5 rounded-xl transition-all flex items-start gap-3 group ${
                       theme === 'dark' ? 'hover:bg-slate-900' : 'hover:bg-slate-50'
                     }`}

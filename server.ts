@@ -7,7 +7,7 @@ import { AI_KNOWLEDGE_BASE } from "./ai-knowledge";
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = Number(process.env.PORT) || 3001;
 
 // Security & Body Parser
 app.use(express.json({ limit: "5mb" }));
