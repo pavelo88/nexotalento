@@ -10,6 +10,7 @@ import {
   Building,
   CheckCircle2
 } from 'lucide-react';
+import { sanitizeInput } from '../utils/security';
 
 interface JobSpecGeneratorModalProps {
   isOpen: boolean;
@@ -20,34 +21,38 @@ export const JobSpecGeneratorModal: React.FC<JobSpecGeneratorModalProps> = ({
   isOpen, 
   onClose 
 }) => {
-  const [roleTitle, setRoleTitle] = useState('Chief Technology Officer (CTO)');
-  const [department, setDepartment] = useState('Tecnología & Producto');
-  const [experienceYears, setExperienceYears] = useState('8-10 años');
-  const [location, setLocation] = useState('Madrid / Híbrido (2 días oficina)');
-  const [keyRequirements, setKeyRequirements] = useState(
-    'Liderazgo de equipos de más de 20 ingenieros, experiencia en escalado de arquitecturas Cloud GCP/AWS, gestión presupuestaria y visión estratégica de negocio.'
-  );
+  const [roleTitle, setRoleTitle] = useState('Director de Tecnología (CTO)');
+  const [department, setDepartment] = useState('Tecnología & Digital');
+  const [experienceYears, setExperienceYears] = useState('8-12 años');
+  const [location, setLocation] = useState('Madrid / Híbrido');
+  const [keyRequirements, setKeyRequirements] = useState('');
 
   const [isGenerating, setIsGenerating] = useState(false);
-  const [generatedSpec, setGeneratedSpec] = useState<string | null>(null);
+  const [generatedSpec, setGeneratedSpec] = useState('');
   const [copied, setCopied] = useState(false);
 
   if (!isOpen) return null;
 
   const handleGenerate = async () => {
     setIsGenerating(true);
-    setGeneratedSpec(null);
+    setGeneratedSpec('');
+
+    const cleanTitle = sanitizeInput(roleTitle, 100);
+    const cleanDept = sanitizeInput(department, 100);
+    const cleanExp = sanitizeInput(experienceYears, 50);
+    const cleanLoc = sanitizeInput(location, 100);
+    const cleanReqs = sanitizeInput(keyRequirements, 2000);
 
     try {
-      const res = await fetch('/api/job-spec-generator', {
+      const res = await fetch('/api/job-spec', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          roleTitle,
-          department,
-          experienceYears,
-          location,
-          keyRequirements
+          roleTitle: cleanTitle,
+          department: cleanDept,
+          experienceYears: cleanExp,
+          location: cleanLoc,
+          keyRequirements: cleanReqs
         })
       });
 

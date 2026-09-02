@@ -17,6 +17,8 @@ import {
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
+import { isValidEmail, isValidPhone, sanitizeInput } from '../utils/security';
+
 export const ContactSection: React.FC = () => {
   const [tab, setTab] = useState<'empresa' | 'candidato'>('empresa');
   const [name, setName] = useState('');
@@ -26,6 +28,7 @@ export const ContactSection: React.FC = () => {
   const [role, setRole] = useState('Director General / C-Level');
   const [serviceType, setServiceType] = useState('Executive Search');
   const [message, setMessage] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
@@ -36,7 +39,28 @@ export const ContactSection: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name || !email) return;
+    setErrorMsg('');
+
+    const cleanName = sanitizeInput(name, 100);
+    const cleanEmail = email.trim();
+    const cleanPhone = sanitizeInput(phone, 30);
+    const cleanCompany = sanitizeInput(company, 150);
+    const cleanMessage = sanitizeInput(message, 2000);
+
+    if (!cleanName || cleanName.length < 2) {
+      setErrorMsg('Por favor ingresa un nombre válido.');
+      return;
+    }
+
+    if (!isValidEmail(cleanEmail)) {
+      setErrorMsg('Por favor ingresa un correo electrónico válido (ej. usuario@empresa.com).');
+      return;
+    }
+
+    if (cleanPhone && !isValidPhone(cleanPhone)) {
+      setErrorMsg('Por favor ingresa un número de teléfono válido.');
+      return;
+    }
 
     setIsSubmitting(true);
     try {
@@ -44,13 +68,13 @@ export const ContactSection: React.FC = () => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          name,
-          email,
-          phone,
-          company: tab === 'empresa' ? company : 'Candidato Confidencial',
+          name: cleanName,
+          email: cleanEmail,
+          phone: cleanPhone,
+          company: tab === 'empresa' ? cleanCompany : 'Candidato Confidencial',
           role,
           serviceType: tab === 'empresa' ? serviceType : 'Candidatura Espontánea / Base de Talento',
-          message
+          message: cleanMessage
         })
       });
       setSubmitted(true);
@@ -233,6 +257,13 @@ export const ContactSection: React.FC = () => {
                   <span>Soy Candidato / Enviar CV</span>
                 </button>
               </div>
+
+              {errorMsg && (
+                <div className="mb-4 p-3 bg-red-500/10 border border-red-500/30 rounded-xl text-red-400 text-xs font-semibold flex items-center gap-2">
+                  <AlertCircle className="w-4 h-4 shrink-0" />
+                  <span>{errorMsg}</span>
+                </div>
+              )}
 
               {submitted ? (
                 <div className="text-center py-12 space-y-4 animate-fadeIn">

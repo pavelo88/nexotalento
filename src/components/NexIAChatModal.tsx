@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useTheme } from '../context/ThemeContext';
+import { sanitizeInput } from '../utils/security';
 import { 
   Bot, 
   Send, 
@@ -27,7 +28,8 @@ interface ChatMessage {
 
 export const NexIAChatModal: React.FC<NexIAChatModalProps> = ({
   isOpen,
-  onClose
+  onClose,
+  onNavigateToContact
 }) => {
   const { theme } = useTheme();
   const [messages, setMessages] = useState<ChatMessage[]>([
@@ -67,7 +69,8 @@ export const NexIAChatModal: React.FC<NexIAChatModalProps> = ({
   };
 
   const handleSendMessage = async (textToSend?: string) => {
-    const text = (textToSend || inputMessage).trim();
+    const rawText = textToSend || inputMessage;
+    const text = sanitizeInput(rawText, 1500);
     if (!text || isLoading) return;
 
     const userMessageId = `user-${Date.now()}`;

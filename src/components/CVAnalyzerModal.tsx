@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { CVAnalysisResult } from '../types';
+import { sanitizeInput } from '../utils/security';
 import { 
   FileSearch, 
   X, 
@@ -67,7 +68,9 @@ Formación: Doble Grado ADE y Finanzas (CUNEF) + Certificación CFA Nivel II.`
   };
 
   const handleAnalyze = async () => {
-    if (!cvText.trim() || isAnalyzing) return;
+    const cleanCV = sanitizeInput(cvText, 8000);
+    if (!cleanCV || isAnalyzing) return;
+
     setIsAnalyzing(true);
     setResult(null);
 
@@ -76,9 +79,9 @@ Formación: Doble Grado ADE y Finanzas (CUNEF) + Certificación CFA Nivel II.`
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          cvText,
-          targetRole,
-          industry
+          cvText: cleanCV,
+          targetRole: sanitizeInput(targetRole, 100),
+          industry: sanitizeInput(industry, 100)
         })
       });
 
