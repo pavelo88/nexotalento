@@ -165,15 +165,16 @@ export const Hero: React.FC<HeroProps> = ({
               {/* Image Showcase: Modern Boardroom & Tech Leaders in Madrid/Barcelona */}
               <div className="relative rounded-2xl overflow-hidden mb-6 border border-cyan-500/20 shadow-md group h-48 sm:h-52 w-full">
                 <img 
-                  srcSet="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400&auto=format&fit=crop&q=80 400w, https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&auto=format&fit=crop&q=80 800w"
-                  sizes="(max-width: 640px) 400px, 800px"
-                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&auto=format&fit=crop&q=80" 
+                  srcSet="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400&auto=format&fit=crop&q=75 400w, https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&auto=format&fit=crop&q=75 600w"
+                  sizes="(max-width: 640px) 400px, 600px"
+                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&auto=format&fit=crop&q=75" 
                   alt="Equipo Directivo y Headhunting en Madrid"
-                  width="800"
-                  height="450"
+                  width="600"
+                  height="338"
                   className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
                   loading="eager"
                   fetchPriority="high"
+                  decoding="async"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-transparent flex items-end p-4">
                   <div className="flex items-center justify-between w-full text-white text-xs">
@@ -284,12 +285,15 @@ export const Hero: React.FC<HeroProps> = ({
               {/* Image Showcase: Modern Tech Talent & Executive Strategy */}
               <div className="relative rounded-2xl overflow-hidden mb-6 border border-emerald-500/20 shadow-md group h-48 sm:h-52 w-full">
                 <img 
-                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&auto=format&fit=crop&crop=top&q=80" 
+                  srcSet="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&auto=format&fit=crop&crop=top&q=75 400w, https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&auto=format&fit=crop&crop=top&q=75 600w"
+                  sizes="(max-width: 640px) 400px, 600px"
+                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&auto=format&fit=crop&crop=top&q=75" 
                   alt="Candidato Profesional de Éxito"
-                  width="800"
-                  height="450"
+                  width="600"
+                  height="338"
                   className="w-full h-full object-cover object-[center_15%] transition-transform duration-700 group-hover:scale-105"
                   loading="lazy"
+                  decoding="async"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-transparent flex items-end p-4">
                   <div className="flex items-center justify-between w-full text-white text-xs">
