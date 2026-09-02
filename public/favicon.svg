@@ -1,32 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
-  <defs>
-    <linearGradient id="bg-grad" x1="0" y1="0" x2="512" y2="512" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#082041"/>
-      <stop offset="1" stop-color="#041021"/>
-    </linearGradient>
-    <filter id="subtle-shadow" x="-10%" y="-10%" width="130%" height="130%">
-      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000000" flood-opacity="0.25"/>
-    </filter>
-  </defs>
-
-  <!-- App Icon Rounded Container -->
-  <rect width="512" height="512" rx="115" fill="url(#bg-grad)" />
-  <rect width="508" height="508" x="2" y="2" rx="113" stroke="#00A9A3" stroke-width="3" stroke-opacity="0.3" fill="none" />
-
-  <!-- The Official NT Monogram / Isotipo -->
-  <g filter="url(#subtle-shadow)">
-    <!-- N: Left Vertical Bar (White / Light contrast on dark tile) -->
-    <rect x="76" y="90" width="70" height="332" rx="35" fill="#FFFFFF" />
-
-    <!-- N: Diagonal Bar -->
-    <!-- Starts upper left near vertical bar and extends down to bottom right -->
-    <path d="M120 100 L380 395 C395 412 390 435 372 447 C354 458 330 454 316 438 L68 152 C54 136 58 112 76 100 C94 88 118 92 120 100 Z" 
-          fill="#FFFFFF" />
-
-    <!-- T: Horizontal Top Bar (Nexo Teal #00A9A3) -->
-    <rect x="195" y="90" width="245" height="70" rx="35" fill="#00A9A3" />
-
-    <!-- T: Vertical Stem (Nexo Teal #00A9A3) -->
-    <rect x="282" y="140" width="70" height="205" rx="35" fill="#00A9A3" />
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- N (Dark Blue) -->
+  <path d="M 25 90 L 25 30 L 80 90" stroke="#082041" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" />
+  <!-- T (Teal) -->
+  <path d="M 50 30 L 100 30 M 85 30 L 85 75" stroke="#00A9A3" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" />
 </svg>

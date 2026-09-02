@@ -131,25 +131,17 @@ export const BragBar: React.FC = () => {
             : 'bg-gradient-to-l from-white to-transparent'
         }`} />
 
-        {/* Animated Marquee Strip */}
-        <div className="animate-infinite-carousel flex items-center gap-4 py-1">
+        {/* Animated Marquee Strip (Luxury Slow Pace) */}
+        <div className="animate-infinite-carousel flex items-center gap-12 sm:gap-20 py-4 opacity-80 hover:opacity-100 transition-opacity duration-700" style={{ animationDuration: '60s' }}>
           {[...trustedCompanies, ...trustedCompanies, ...trustedCompanies].map((company, index) => (
             <div
               key={index}
-              className={`shrink-0 w-52 sm:w-56 p-3 sm:p-3.5 rounded-2xl border flex items-center gap-3 transition-all duration-300 hover:scale-105 select-none ${
-                theme === 'dark'
-                  ? 'bg-slate-900/90 border-slate-800 hover:border-cyan-500/50 text-slate-200'
-                  : 'bg-white border-slate-200 hover:border-cyan-500/50 text-slate-800 shadow-sm'
+              className={`shrink-0 flex items-center gap-4 transition-all duration-500 hover:scale-105 select-none grayscale hover:grayscale-0 ${
+                theme === 'dark' ? 'text-slate-400 hover:text-white' : 'text-slate-500 hover:text-slate-900'
               }`}
             >
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-500/20 to-blue-500/20 border border-cyan-500/40 flex items-center justify-center font-extrabold text-[11px] text-cyan-400 shrink-0">
-                {company.initial}
-              </div>
-              <div className="overflow-hidden text-left min-w-0">
-                <p className="text-xs sm:text-sm font-bold truncate">{company.name}</p>
-                <p className={`text-[10px] truncate ${theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}`}>
-                  {company.sector}
-                </p>
+              <div className="text-xl sm:text-2xl font-heading font-black tracking-tighter uppercase opacity-80">
+                {company.name}
               </div>
             </div>
           ))}

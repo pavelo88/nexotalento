@@ -34,7 +34,7 @@ const FAQS: FAQItem[] = [
 ];
 
 export const FAQSection: React.FC = () => {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const toggle = (idx: number) => {
     setOpenIndex(openIndex === idx ? null : idx);

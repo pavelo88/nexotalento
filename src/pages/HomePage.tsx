@@ -29,7 +29,7 @@ export const HomePage: React.FC<HomePageProps> = ({
   onOpenJobSpecGenerator
 }) => {
   return (
-    <div>
+    <div className="lg:px-[8%] xl:px-[12%] overflow-hidden space-y-16 sm:space-y-24 bg-slate-50 dark:bg-slate-950 transition-colors duration-500">
       {/* 1. Hero Section (Split Screen Desktop + Mobile CTAs) */}
       <Hero
         onOpenAIAgent={onOpenAIAgent}
@@ -41,7 +41,7 @@ export const HomePage: React.FC<HomePageProps> = ({
       <BragBar />
 
       {/* 3. Executive Interactive Requirement Wizard (Fast 3-step configurator) */}
-      <div id="solicitar-talento">
+      <div id="solicitar-talento" className="py-8">
         <B2BRequirementWizard onOpenContact={() => onNavigate('/contacto')} />
       </div>
 

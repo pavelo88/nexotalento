@@ -152,7 +152,7 @@ export const Hero: React.FC<HeroProps> = ({
 
               {/* Title */}
               <h2 className="text-2xl sm:text-3xl font-extrabold font-heading tracking-tight mb-3">
-                Encuentra Talento Técnico, Directivo &amp; C-Level
+                Encuentra Talento Técnico, Directivo &amp; <br /> C-Level
               </h2>
 
               {/* Persuasive copy */}
@@ -269,7 +269,7 @@ export const Hero: React.FC<HeroProps> = ({
 
               {/* Title */}
               <h2 className="text-2xl sm:text-3xl font-extrabold font-heading tracking-tight mb-3">
-                Impulsa tu Carrera hacia Puestos de Alto Impacto
+                Impulsa tu Carrera Directiva hacia <br /> Puestos de Alto Impacto
               </h2>
 
               {/* Persuasive copy */}

@@ -541,31 +541,7 @@ export const AIAgentsSuite: React.FC<AIAgentsSuiteProps> = ({
         )}
       </div>
 
-      {/* Suggested Quick Prompts */}
-      <div className={`p-3 border-t ${
-        theme === 'dark' ? 'bg-slate-950/60 border-slate-800/60' : 'bg-slate-50 border-slate-200'
-      }`}>
-        <p className={`text-[11px] font-bold mb-2 flex items-center gap-1.5 ${theme === 'dark' ? 'text-slate-400' : 'text-slate-700'}`}>
-          <HelpCircle className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-500" />
-          Preguntas sugeridas para {currentAgentInfo.name.replace('Nexo ', '')}:
-        </p>
-        <div className="flex flex-wrap gap-1.5">
-          {currentAgentInfo.quickPrompts.map((prompt, i) => (
-            <button
-              key={i}
-              type="button"
-              onClick={() => handleSendMessage(prompt)}
-              className={`text-xs px-2.5 py-1.5 rounded-lg border transition-all text-left truncate max-w-full cursor-pointer font-medium ${
-                theme === 'dark'
-                  ? 'bg-slate-900/80 hover:bg-cyan-950/60 hover:text-cyan-300 text-slate-300 border-slate-800 hover:border-cyan-500/40'
-                  : 'bg-white hover:bg-cyan-50 hover:text-cyan-900 text-slate-800 border-slate-300 hover:border-cyan-500 shadow-xs'
-              }`}
-            >
-              {prompt}
-            </button>
-          ))}
-        </div>
-      </div>
+
 
       {/* Input Box */}
       <div className={`p-3.5 border-t ${

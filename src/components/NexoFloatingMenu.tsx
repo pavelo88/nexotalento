@@ -102,9 +102,9 @@ export const NexoFloatingMenu: React.FC<NexoFloatingMenuProps> = ({
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setIsMenuOpen(false)}
-                className="w-full text-left p-3.5 rounded-2xl bg-[#1a2133] hover:bg-[#20293f] border border-slate-700/70 hover:border-emerald-500/60 transition-all duration-200 group flex items-center gap-3.5 shadow-md hover:scale-[1.01]"
+                className="w-full text-left p-3.5 rounded-2xl bg-[#1a2133] hover:bg-[#20293f] border border-slate-700/70 hover:border-[#25D366]/60 transition-all duration-200 group flex items-center gap-3.5 shadow-md hover:scale-[1.01]"
               >
-                <div className="w-11 h-11 rounded-2xl bg-emerald-500 flex items-center justify-center text-slate-950 shrink-0 shadow-lg shadow-emerald-950/40 group-hover:scale-105 transition-transform font-bold">
+                <div className="w-11 h-11 rounded-2xl bg-[#25D366] flex items-center justify-center text-white shrink-0 shadow-lg shadow-[#25D366]/40 group-hover:scale-105 transition-transform font-bold">
                   <MessageSquare className="w-6 h-6" />
                 </div>
                 <div className="flex-1 min-w-0">

@@ -2,11 +2,12 @@ import express from "express";
 import path from "path";
 import dotenv from "dotenv";
 import { GoogleGenAI } from "@google/genai";
+import { AI_KNOWLEDGE_BASE } from "./ai-knowledge";
 
 dotenv.config();
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3001;
 
 // Security & Body Parser
 app.use(express.json({ limit: "5mb" }));
@@ -248,6 +249,8 @@ const AGENT_SYSTEM_PROMPTS: Record<string, string> = {
 Sedes: Paseo de la Castellana 95 (Madrid) y Av. Diagonal 640 (Barcelona). Teléfono: +34 910 88 44 20. WhatsApp Consultor: +34 614 143 763.
 
 Tu conocimiento experto se fundamenta en el marco legal y de mercado de España 2026:
+${AI_KNOWLEDGE_BASE}
+
 1. MARCO LEGAL & DISTINCIÓN DE MODELOS:
    - Agencias de Colocación (Ley 3/2023 de Empleo): Intermediación pura autorizada por SEPE. El candidato es contratado directamente por el cliente. Honorarios típicos de Headhunting: 20% a 33% del Salario Bruto Anual (SBA).
    - Empresas de Trabajo Temporal (ETT, Ley 14/1994): Única excepción legal para cesión de mano de obra con garantías de 25x SMI.
@@ -347,6 +350,11 @@ Tu objetivo es asesorar a empresas y directivos con respuestas muy breves (2-3 o
 // Fallback high-fidelity knowledge generator if no API key is supplied
 function generateSmartFallbackResponse(agentType: string, query: string, history?: Array<{ role: string; content: string }>): string {
   const q = query.toLowerCase().trim();
+
+  // 0. Detect Greetings
+  if (q === 'hola' || q === 'hola!' || q === 'buenas' || q === 'hola nexia' || q === 'hi') {
+    return `¡Hola! Qué gusto saludarte. Soy NexIA, tu asesora de talento.\n\nEstoy aquí para ayudarte a encontrar el perfil directivo o tecnológico ideal en tiempo récord o a potenciar tu carrera. ¿De qué perfil te gustaría que hablemos hoy?`;
+  }
 
   // 1. Detect if user is a Job Seeker / Candidate ("busco trabajo", "no quiero contratar", "quiero enviar mi CV", "candidato", "soy profesional", etc.)
   const isCandidateQuery = 

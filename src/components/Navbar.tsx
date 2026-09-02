@@ -93,68 +93,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             : 'bg-white/75 backdrop-blur-md border-b border-slate-200/80 py-3.5'
       }`}
     >
-      {/* Top minimal micro bar for HQ & Direct WhatsApp in Spain - Inverted Colors & Animated Hide on Scroll */}
-      <div 
-        className={`hidden lg:block max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-300 ease-in-out ${
-          isScrolled 
-            ? 'max-h-0 opacity-0 -translate-y-2 mb-0 overflow-hidden pointer-events-none py-0' 
-            : 'max-h-14 opacity-100 translate-y-0 mb-2 overflow-visible'
-        }`}
-      >
-        <div className={`flex items-center justify-between text-xs px-3.5 py-1.5 rounded-xl border shadow-sm transition-colors duration-200 ${
-          theme === 'dark'
-            ? 'bg-slate-900/95 text-slate-200 border-slate-800'
-            : 'bg-slate-100/95 text-slate-800 border-slate-300'
-        }`}>
-          <div className="flex items-center gap-3">
-            <span className="flex items-center gap-1.5">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
-              </span>
-              <span className={theme === 'dark' ? 'text-slate-100 font-medium' : 'text-slate-900 font-semibold'}>
-                <strong>Sedes en Madrid</strong> (Castellana 95) &amp; Barcelona (Diagonal 640)
-              </span>
-            </span>
-            <span className={theme === 'dark' ? 'text-slate-600' : 'text-slate-400'}>·</span>
-            <span className={`font-semibold flex items-center gap-1 ${
-              theme === 'dark' ? 'text-cyan-300' : 'text-sky-800 font-bold'
-            }`}>
-              <Clock className="w-3 h-3" /> Terna final en 18 días con 12 meses de garantía
-            </span>
-          </div>
-
-          <div className="flex items-center gap-4">
-            <a
-              href="https://wa.me/34614143763?text=Hola%20Nexo%20Talentos,%20deseo%20consultar%20con%20un%20Senior%20Talent%20Partner"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Contactar por WhatsApp con consultor directo"
-              className={`hover:opacity-80 transition-opacity flex items-center gap-1.5 font-bold text-[11px] ${
-                theme === 'dark' ? 'text-emerald-300' : 'text-emerald-800 font-extrabold'
-              }`}
-            >
-              <MessageSquare className="w-3.5 h-3.5" /> Consultor Directo: +34 614 143 763
-            </a>
-            <a 
-              href="tel:+34910884420" 
-              aria-label="Llamar al teléfono +34 910 88 44 20"
-              className={`hover:text-cyan-500 transition-colors flex items-center gap-1 font-medium ${
-                theme === 'dark' ? 'text-slate-200' : 'text-slate-900 font-bold'
-              }`}
-            >
-              <Phone className={`w-3.5 h-3.5 ${theme === 'dark' ? 'text-cyan-300' : 'text-sky-700'}`} /> +34 910 88 44 20
-            </a>
-            <span className={`px-2 py-0.5 rounded text-[10px] font-bold border ${
-              theme === 'dark' 
-                ? 'bg-cyan-950/80 text-cyan-300 border-cyan-800/50' 
-                : 'bg-cyan-100 text-cyan-900 border-cyan-300'
-            }`}>
-              🇪🇸 Cobertura España &amp; LATAM
-            </span>
-          </div>
-        </div>
-      </div>
+      {/* Top micro bar removed for cleaner Apple-style look */}
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between gap-4">
@@ -208,7 +147,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     : 'bg-white/95 border-slate-200 text-slate-900 backdrop-blur-2xl'
                 }`}>
                   <button
-                    onClick={() => handleLinkClick('/servicios')}
+                    onClick={() => handleLinkClick('/servicios#executive')}
                     className={`w-full text-left p-2.5 rounded-xl transition-all flex items-start gap-3 group ${
                       theme === 'dark' ? 'hover:bg-slate-900' : 'hover:bg-slate-50'
                     }`}
@@ -228,7 +167,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   </button>
 
                   <button
-                    onClick={() => handleLinkClick('/servicios')}
+                    onClick={() => handleLinkClick('/servicios#tech')}
                     className={`w-full text-left p-2.5 rounded-xl transition-all flex items-start gap-3 group ${
                       theme === 'dark' ? 'hover:bg-slate-900' : 'hover:bg-slate-50'
                     }`}
@@ -247,7 +186,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   </button>
 
                   <button
-                    onClick={() => handleLinkClick('/servicios')}
+                    onClick={() => handleLinkClick('/servicios#rpo')}
                     className={`w-full text-left p-2.5 rounded-xl transition-all flex items-start gap-3 group ${
                       theme === 'dark' ? 'hover:bg-slate-900' : 'hover:bg-slate-50'
                     }`}
@@ -280,67 +219,25 @@ export const Navbar: React.FC<NavbarProps> = ({
               )}
             </div>
 
-            {/* 3. Por Qué Elegirnos Dropdown */}
-            <div className="relative">
-              <button
-                onClick={() => toggleDropdown('por-que')}
-                className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-all flex items-center gap-1 ${
-                  currentPath === '/por-que-elegirnos' || currentPath === '/proceso' || currentPath === '/testimonios' || activeDropdown === 'por-que'
-                    ? theme === 'dark' ? 'text-cyan-300 bg-cyan-950/60 font-bold' : 'text-cyan-900 bg-cyan-100 font-extrabold'
-                    : theme === 'dark' ? 'text-slate-300 hover:text-white hover:bg-slate-900/60' : 'text-slate-700 hover:text-slate-950 hover:bg-slate-100'
-                }`}
-              >
-                <span>Por Qué Elegirnos</span>
-                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${activeDropdown === 'por-que' ? 'rotate-180 text-cyan-500' : ''}`} />
-              </button>
-
-              {activeDropdown === 'por-que' && (
-                <div className={`absolute top-full left-0 mt-2 w-72 rounded-2xl shadow-2xl border p-2 animate-fadeIn z-50 ${
-                  theme === 'dark' 
-                    ? 'bg-slate-950/95 border-slate-800 text-slate-100 backdrop-blur-2xl' 
-                    : 'bg-white/95 border-slate-200 text-slate-900 backdrop-blur-2xl'
-                }`}>
-                  <button
-                    onClick={() => handleLinkClick('/por-que-elegirnos')}
-                    className={`w-full text-left p-2.5 rounded-xl transition-all flex items-center gap-3 ${
-                      theme === 'dark' ? 'hover:bg-slate-900' : 'hover:bg-slate-50'
-                    }`}
-                  >
-                    <ShieldCheck className="w-4 h-4 text-cyan-500 shrink-0" />
-                    <div>
-                      <div className="text-xs font-bold">Garantía de 12 Meses</div>
-                      <div className={`text-[11px] ${theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}`}>Reposición sin costes adicionales</div>
-                    </div>
-                  </button>
-
-                  <button
-                    onClick={() => handleLinkClick('/proceso')}
-                    className={`w-full text-left p-2.5 rounded-xl transition-all flex items-center gap-3 ${
-                      theme === 'dark' ? 'hover:bg-slate-900' : 'hover:bg-slate-50'
-                    }`}
-                  >
-                    <Clock className="w-4 h-4 text-emerald-500 shrink-0" />
-                    <div>
-                      <div className="text-xs font-bold">Método Nexo en 18 Días</div>
-                      <div className={`text-[11px] ${theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}`}>Precisión y confidencialidad garantizada</div>
-                    </div>
-                  </button>
-
-                  <button
-                    onClick={() => handleLinkClick('/testimonios')}
-                    className={`w-full text-left p-2.5 rounded-xl transition-all flex items-center gap-3 ${
-                      theme === 'dark' ? 'hover:bg-slate-900' : 'hover:bg-slate-50'
-                    }`}
-                  >
-                    <Award className="w-4 h-4 text-amber-500 shrink-0" />
-                    <div>
-                      <div className="text-xs font-bold">Testimonios &amp; Casos de Éxito</div>
-                      <div className={`text-[11px] ${theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}`}>+450 colocaciones directivas con 98.4% éxito</div>
-                    </div>
-                  </button>
-                </div>
-              )}
-            </div>
+            {/* 3. Vacantes */}
+            <button
+              onClick={() => handleLinkClick('/vacantes')}
+              className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all flex items-center gap-1 ${
+                currentPath === '/vacantes' 
+                  ? theme === 'dark'
+                    ? 'text-cyan-300 bg-slate-800/50' 
+                    : 'text-slate-900 bg-slate-100'
+                  : theme === 'dark'
+                    ? 'text-slate-300 hover:text-white hover:bg-slate-800/50'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/50'
+              }`}
+            >
+              Vacantes
+              <span className="flex h-1.5 w-1.5 relative">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
+              </span>
+            </button>
 
             {/* 4. Herramientas IA Dropdown */}
             <div className="relative">
