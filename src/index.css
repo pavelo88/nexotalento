@@ -199,6 +199,11 @@
   will-change: transform;
 }
 
+.animate-infinite-carousel > * {
+  content-visibility: auto;
+  contain-intrinsic-size: 100px 40px;
+}
+
 .animate-infinite-carousel:hover,
 .animate-infinite-carousel:active,
 .carousel-paused {
