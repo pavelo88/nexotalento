@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" fill="none">
+  <!-- Official NT Monogram in Original Brand Colors -->
+  <g transform="translate(10, 10)">
+    <!-- N: Left Vertical Bar (#082041 Nexo Navy) -->
+    <rect x="60" y="50" width="70" height="380" rx="35" fill="#082041" />
+
+    <!-- N: Diagonal Bar (#082041 Nexo Navy) -->
+    <path d="M95 50 L375 390 C392 410 388 438 368 452 C348 465 320 460 305 440 L35 110 C18 90 22 62 42 48 C62 35 90 40 95 50 Z" fill="#082041" />
+
+    <!-- T: Horizontal Crossbar (#00A9A3 Nexo Teal) -->
+    <rect x="180" y="50" width="260" height="70" rx="35" fill="#00A9A3" />
+
+    <!-- T: Vertical Stem (#00A9A3 Nexo Teal) -->
+    <rect x="275" y="100" width="70" height="230" rx="35" fill="#00A9A3" />
+  </g>
+</svg>
