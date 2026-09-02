@@ -165,6 +165,8 @@ export const Hero: React.FC<HeroProps> = ({
               {/* Image Showcase: Modern Boardroom & Tech Leaders in Madrid/Barcelona */}
               <div className="relative rounded-2xl overflow-hidden mb-6 border border-cyan-500/20 shadow-md group h-48 sm:h-52 w-full">
                 <img 
+                  srcSet="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400&auto=format&fit=crop&q=80 400w, https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&auto=format&fit=crop&q=80 800w"
+                  sizes="(max-width: 640px) 400px, 800px"
                   src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&auto=format&fit=crop&q=80" 
                   alt="Equipo Directivo y Headhunting en Madrid"
                   width="800"
