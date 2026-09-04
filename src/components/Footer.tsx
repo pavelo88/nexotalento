@@ -12,7 +12,12 @@ import {
   ShieldCheck,
   Sparkles,
   Phone,
-  Mail
+  Mail,
+  Linkedin,
+  Facebook,
+  Instagram,
+  Twitter,
+  Youtube
 } from 'lucide-react';
 
 interface FooterProps {
@@ -111,7 +116,7 @@ export const Footer: React.FC<FooterProps> = ({
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-cyan-400 shrink-0" />
-                <span><strong>Email Corporativo:</strong> talento@nexotalentos.com</span>
+                <span><strong>Email Corporativo:</strong> <span>talento</span><span className="text-cyan-400">&#64;</span><span>nexotalentos.com</span></span>
               </div>
             </div>
           </div>
@@ -241,13 +246,33 @@ export const Footer: React.FC<FooterProps> = ({
         {/* Bottom copyright & SEO footer */}
         <div className="mt-12 pt-8 border-t border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4 text-[11px] text-slate-400">
           <p>© {new Date().getFullYear()} Nexo Talentos S.L. Todos los derechos reservados. CIF / NIF B-88492011. Madrid &amp; Barcelona.</p>
-          <div className="flex items-center gap-4">
+          
+          {/* Redes Sociales */}
+          <div className="flex items-center gap-4 text-slate-500">
+            <a href="https://linkedin.com/company/nexotalentos" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors" aria-label="LinkedIn">
+              <Linkedin className="w-4 h-4" />
+            </a>
+            <a href="https://facebook.com/nexotalentos" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors" aria-label="Facebook">
+              <Facebook className="w-4 h-4" />
+            </a>
+            <a href="https://instagram.com/nexotalentos" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors" aria-label="Instagram">
+              <Instagram className="w-4 h-4" />
+            </a>
+            <a href="https://twitter.com/nexotalentos" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors" aria-label="X (Twitter)">
+              <Twitter className="w-4 h-4" />
+            </a>
+            <a href="https://youtube.com/@nexotalentos" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors" aria-label="YouTube">
+              <Youtube className="w-4 h-4" />
+            </a>
+          </div>
+
+          <div className="flex items-center gap-4 flex-wrap justify-center">
             <span className="hover:text-white cursor-pointer">Aviso Legal</span>
-            <span>•</span>
+            <span className="hidden sm:inline">•</span>
             <span className="hover:text-white cursor-pointer">Política de Privacidad (RGPD)</span>
-            <span>•</span>
+            <span className="hidden sm:inline">•</span>
             <span className="hover:text-white cursor-pointer">Política de Cookies</span>
-            <span>•</span>
+            <span className="hidden sm:inline">•</span>
             <span className="hover:text-white cursor-pointer">Canal Ético &amp; Cumplimiento</span>
           </div>
         </div>

@@ -145,10 +145,7 @@ export const NexIAChatModal: React.FC<NexIAChatModalProps> = ({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-md animate-fadeIn">
       {/* Modal Container */}
       <div 
-        className="w-full max-w-lg h-[86vh] max-h-[680px] rounded-3xl flex flex-col shadow-2xl relative overflow-hidden transition-all border border-slate-800 bg-[#0f1422] text-slate-100"
-        style={{
-          boxShadow: '0 25px 60px -15px rgba(0, 0, 0, 0.85), 0 0 35px rgba(0, 169, 163, 0.25)'
-        }}
+        className="w-full max-w-lg h-[86vh] max-h-[680px] rounded-3xl flex flex-col shadow-nexo-modal relative overflow-hidden transition-all border border-slate-800 bg-[#0f1422] text-slate-100"
       >
         {/* Subtle Ambient Lighting */}
         <div className="absolute -top-20 -right-20 w-60 h-60 bg-[#00A9A3]/15 rounded-full blur-3xl pointer-events-none" />

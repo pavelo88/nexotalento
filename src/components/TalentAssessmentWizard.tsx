@@ -112,8 +112,9 @@ export const TalentAssessmentWizard: React.FC = () => {
               </div>
               <div className="w-full h-2 bg-slate-900 rounded-full overflow-hidden">
                 <div 
-                  className="h-full bg-gradient-to-r from-cyan-500 to-blue-600 transition-all duration-300"
-                  style={{ width: `${(currentStep / 4) * 100}%` }}
+                  className={`h-full bg-gradient-to-r from-cyan-500 to-blue-600 transition-all duration-300 ${
+                    currentStep === 1 ? 'w-1/4' : currentStep === 2 ? 'w-2/4' : currentStep === 3 ? 'w-3/4' : 'w-full'
+                  }`}
                 />
               </div>
             </div>

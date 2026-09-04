@@ -132,7 +132,7 @@ export const BragBar: React.FC = () => {
         }`} />
 
         {/* Animated Marquee Strip (Luxury Slow Pace) */}
-        <div className="animate-infinite-carousel flex items-center gap-12 sm:gap-20 py-4 opacity-80 hover:opacity-100 transition-opacity duration-700" style={{ animationDuration: '60s' }}>
+        <div className="animate-infinite-carousel flex items-center gap-12 sm:gap-20 py-4 opacity-80 hover:opacity-100 transition-opacity duration-700 [animation-duration:60s]">
           {[...trustedCompanies, ...trustedCompanies, ...trustedCompanies].map((company, index) => (
             <div
               key={index}

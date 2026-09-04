@@ -6,8 +6,8 @@
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" href="/favicon.ico" />
     <meta name="theme-color" content="#082041" />
-    <title>Nexo Talentos | Headhunting, Selección de Personal y Consultoría RRHH España</title>
-    <meta name="description" content="Nexo Talentos: Consultora de Headhunting y Selección de Personal Ejecutivo en Madrid, Barcelona y toda España. Agentes IA de talento, evaluación de perfiles C-Level, Tech y Mandos Intermedios. Contrataciones de alto impacto garantizadas." />
+    <title>Nexo Talentos | Headhunting España [IA 24/7]</title>
+    <meta name="description" content="Nexo Talentos: Consultora de Headhunting en España. Selección de perfiles directivos y tech mediante agentes de IA 24/7. Contratación de alto impacto." />
     <meta name="keywords" content="Nexo Talentos, headhunting España, seleccion de personal Madrid, reclutamiento ejecutivo Barcelona, cazatalentos España, headhunter tech, consultoria de recursos humanos, contratacion perfiles ejecutivos, evaluacion de talento con IA, ofertas de empleo directivas, nearshore latam espana" />
     <meta name="author" content="Nexo Talentos Consultores de Selección" />
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
@@ -191,6 +191,23 @@
         }
       ]
     }
+    </script>
+    <!-- Google Analytics (Deferred para Cero Total Blocking Time) -->
+    <script type="module">
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          const script = document.createElement('script');
+          script.src = 'https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX';
+          script.async = true;
+          document.head.appendChild(script);
+          
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          window.gtag = gtag;
+          gtag('js', new Date());
+          gtag('config', 'G-XXXXXXXXXX');
+        }, 250);
+      });
     </script>
   </head>
   <body class="bg-slate-950 text-slate-100 antialiased selection:bg-cyan-500 selection:text-slate-950 font-sans">

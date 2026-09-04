@@ -131,12 +131,9 @@ export const LatamEliteTalentSection: React.FC<LatamEliteTalentSectionProps> = (
         
         {/* Magazine Editorial Header */}
         <div className="max-w-4xl mx-auto text-center mb-12 sm:mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border shadow-sm mb-4"
-            style={{
-              backgroundColor: theme === 'dark' ? 'rgba(15, 23, 42, 0.8)' : 'rgba(255, 255, 255, 0.9)',
-              borderColor: theme === 'dark' ? 'rgba(6, 182, 212, 0.4)' : 'rgba(6, 182, 212, 0.5)'
-            }}
-          >
+          <div className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full border shadow-sm mb-4 ${
+            theme === 'dark' ? 'bg-slate-900/80 border-cyan-500/40' : 'bg-white/90 border-cyan-500/50'
+          }`}>
             <Globe2 className="w-4 h-4 text-cyan-500 animate-spin-slow" />
             <span className="text-[11px] sm:text-xs font-extrabold uppercase tracking-widest text-cyan-400">
               SPECIAL REPORT · HUB DE TALENTO NEARSHORE LATAM 2026

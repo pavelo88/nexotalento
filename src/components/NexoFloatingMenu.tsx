@@ -37,10 +37,7 @@ export const NexoFloatingMenu: React.FC<NexoFloatingMenuProps> = ({
         {/* Popup Card matching Image 3 Reference */}
         {isMenuOpen && (
           <div 
-            className="mb-4 w-[340px] sm:w-[380px] rounded-3xl p-5 shadow-2xl border border-slate-800 bg-[#121724]/98 backdrop-blur-xl text-slate-100 animate-fadeIn relative overflow-hidden"
-            style={{
-              boxShadow: '0 20px 50px -10px rgba(0, 0, 0, 0.8), 0 0 35px rgba(0, 169, 163, 0.25)'
-            }}
+            className="mb-4 w-[340px] sm:w-[380px] rounded-3xl p-5 shadow-nexo-menu border border-slate-800 bg-[#121724]/98 backdrop-blur-xl text-slate-100 animate-fadeIn relative overflow-hidden"
           >
             {/* Ambient Lighting */}
             <div className="absolute -top-12 -right-12 w-32 h-32 bg-[#00A9A3]/20 rounded-full blur-2xl pointer-events-none" />
@@ -139,14 +136,11 @@ export const NexoFloatingMenu: React.FC<NexoFloatingMenuProps> = ({
         <button
           id="floating-nexo-hub-trigger"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className={`group relative w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 hover:scale-110 active:scale-95 focus:outline-none ${
+          className={`group relative w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center shadow-nexo-btn transition-all duration-300 hover:scale-110 active:scale-95 focus:outline-none ${
             isMenuOpen 
               ? 'bg-slate-900 border-2 border-[#00A9A3] text-white' 
               : 'bg-gradient-to-tr from-[#00A9A3] via-cyan-500 to-blue-600 text-slate-950'
           }`}
-          style={{
-            boxShadow: '0 10px 30px -5px rgba(0, 169, 163, 0.5), 0 0 25px rgba(0, 169, 163, 0.35)'
-          }}
           aria-label={isMenuOpen ? "Cerrar menú de asistencia" : "Abrir Nexo Talent Specialists (IA y WhatsApp)"}
           title="Nexo Talent Specialists (NexIA & WhatsApp)"
         >

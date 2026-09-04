@@ -45,8 +45,7 @@ export const Logo: React.FC<LogoProps> = ({ className = '', size = 'md', showSub
       <div className="flex flex-col">
         <div className="flex items-center gap-1.5 leading-none">
           <span 
-            className={`font-black tracking-tight font-heading transition-colors ${titleSizes[size]}`}
-            style={{ color: navyColor }}
+            className={`font-black tracking-tight font-heading transition-colors ${titleSizes[size]} ${isDark ? 'text-white' : 'text-[#082041]'}`}
           >
             NEXO
           </span>

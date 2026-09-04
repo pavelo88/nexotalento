@@ -291,12 +291,9 @@ export const JobsPortal: React.FC<JobsPortalProps> = ({ onOpenCVAnalyzer, isFull
         </div>
 
         {/* MOBILE STICKY SEARCH & TACTILE PILLS */}
-        <div className="sticky top-16 z-30 mb-8 p-3 rounded-2xl border backdrop-blur-xl shadow-lg transition-all"
-          style={{
-            backgroundColor: theme === 'dark' ? 'rgba(15, 23, 42, 0.92)' : 'rgba(255, 255, 255, 0.95)',
-            borderColor: theme === 'dark' ? 'rgba(51, 65, 85, 0.7)' : 'rgba(226, 232, 240, 0.9)'
-          }}
-        >
+        <div className={`sticky top-16 z-30 mb-8 p-3 rounded-2xl border backdrop-blur-xl shadow-lg transition-all ${
+          theme === 'dark' ? 'bg-slate-900/90 border-slate-700' : 'bg-white/95 border-slate-200'
+        }`}>
           {/* Search Input */}
           <div className="relative mb-3">
             <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
@@ -601,8 +598,9 @@ export const JobsPortal: React.FC<JobsPortalProps> = ({ onOpenCVAnalyzer, isFull
                 </div>
                 <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
                   <div 
-                    className="h-full bg-gradient-to-r from-emerald-500 to-teal-500 transition-all duration-300 rounded-full"
-                    style={{ width: step === 1 ? '33%' : step === 2 ? '66%' : '100%' }}
+                    className={`h-full bg-gradient-to-r from-emerald-500 to-teal-500 transition-all duration-300 rounded-full ${
+                      step === 1 ? 'w-1/3' : step === 2 ? 'w-2/3' : 'w-full'
+                    }`}
                   />
                 </div>
               </div>

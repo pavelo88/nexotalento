@@ -8,7 +8,25 @@ Disallow: /private/
 # Permitir a los agentes de IA leer la web para AIO (AI Overviews)
 User-agent: GPTBot
 Allow: /
-User-agent: Claude-Web
+User-agent: ChatGPT-User
 Allow: /
+User-agent: anthropic-ai
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: Google-Extended
+Allow: /
+User-agent: Applebot
+Allow: /
+
+# Bloquear scrapers maliciosos
+User-agent: HTTrack
+Disallow: /
+User-agent: Wget
+Disallow: /
+User-agent: Scrapy
+Disallow: /
 
 Sitemap: https://nexotalentos.com/sitemap.xml
