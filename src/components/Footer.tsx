@@ -14,6 +14,7 @@ import {
   Phone,
   Mail
 } from 'lucide-react';
+import { COMPANY_CONFIG } from '../config/company';
 
 interface FooterProps {
   onNavigate?: (path: PageRoute) => void;
@@ -89,29 +90,29 @@ export const Footer: React.FC<FooterProps> = ({
           {/* Brand Col (2 cols on lg) */}
           <div className="lg:col-span-2 space-y-4">
             <button onClick={() => handleNav('/')} className="focus:outline-none text-left">
-              <Logo size="md" />
+              <Logo size="md" forceDark={true} />
             </button>
             
             <p className="text-xs text-slate-400 max-w-sm leading-relaxed">
-              Firma líder de <strong>Executive Search, Headhunting y Selección de Talento Directivo y Tecnológico</strong> en España. Entregamos la terna directiva validada en 18 días hábiles con hasta 12 meses de garantía de sustitución.
+              Firma boutique de <strong>Executive Search, Headhunting y Selección de Talento Directivo y Tecnológico</strong> en España. Entregamos tu terna validada en 18 días hábiles con <strong>garantía contractual de 3 a 6 meses</strong> de sustitución.
             </p>
 
             <div className="space-y-2 pt-2 text-slate-300">
               <div className="flex items-center gap-2">
                 <Building2 className="w-4 h-4 text-cyan-400 shrink-0" />
-                <span><strong>Sede Madrid:</strong> Paseo de la Castellana 95, 28046 Madrid</span>
+                <span><strong>Sede Madrid:</strong> {COMPANY_CONFIG.addresses.madrid.full}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Building2 className="w-4 h-4 text-cyan-400 shrink-0" />
-                <span><strong>Sede Barcelona:</strong> Av. Diagonal 640, 08017 Barcelona</span>
+                <span><strong>Sede Barcelona:</strong> {COMPANY_CONFIG.addresses.barcelona.full}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="w-4 h-4 text-cyan-400 shrink-0" />
-                <span><strong>Teléfono Central:</strong> +34 910 88 44 20 | +34 614 143 763</span>
+                <span><strong>Atención Directa:</strong> {COMPANY_CONFIG.phoneDisplay}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-cyan-400 shrink-0" />
-                <span><strong>Email Corporativo:</strong> talento@nexotalentos.com</span>
+                <span><strong>Email Corporativo:</strong> <span>{COMPANY_CONFIG.emailUser}</span><span className="text-cyan-400">&#64;</span><span>{COMPANY_CONFIG.emailDomain}</span></span>
               </div>
             </div>
           </div>
@@ -141,19 +142,7 @@ export const Footer: React.FC<FooterProps> = ({
               <li>
                 <button onClick={() => handleNav('/servicios')} className="hover:text-cyan-400 transition-colors flex items-center gap-1">
                   <ChevronRight className="w-3 h-3 text-cyan-500" />
-                  Interim Management
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleNav('/servicios')} className="hover:text-cyan-400 transition-colors flex items-center gap-1">
-                  <ChevronRight className="w-3 h-3 text-cyan-500" />
-                  Assessment Center con IA
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleNav('/blog')} className="hover:text-cyan-400 transition-colors flex items-center gap-1 font-semibold text-cyan-400">
-                  <ChevronRight className="w-3 h-3 text-cyan-500" />
-                  Blog &amp; Tratado Legal 2026
+                  Assessment Directivo
                 </button>
               </li>
               <li>
@@ -171,46 +160,52 @@ export const Footer: React.FC<FooterProps> = ({
             </ul>
           </div>
 
-          {/* Col 3: Agentes IA & Herramientas */}
+          {/* Col 3: Atención Directa & Consultoría */}
           <div>
-            <h3 className="text-white font-bold text-sm mb-4 font-heading">Herramientas &amp; IA</h3>
+            <h3 className="text-white font-bold text-sm mb-4 font-heading">Atención &amp; Contacto</h3>
             <ul className="space-y-2 text-xs">
               <li>
-                <button onClick={() => onOpenAIAgent('headhunter')} className="hover:text-cyan-400 transition-colors flex items-center gap-1">
-                  <Sparkles className="w-3 h-3 text-cyan-400" />
-                  Agente Headhunter C-Level
-                </button>
+                <a
+                  href={COMPANY_CONFIG.whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-emerald-400 transition-colors flex items-center gap-1 text-emerald-400 font-bold"
+                >
+                  <MessageSquare className="w-3.5 h-3.5 fill-emerald-400" />
+                  WhatsApp Directo (+34 614 143 763)
+                </a>
               </li>
               <li>
-                <button onClick={() => onOpenAIAgent('salary')} className="hover:text-cyan-400 transition-colors flex items-center gap-1">
-                  <Sparkles className="w-3 h-3 text-emerald-400" />
-                  Agente Salarios España
-                </button>
-              </li>
-              <li>
-                <button onClick={() => onOpenAIAgent('evaluator')} className="hover:text-cyan-400 transition-colors flex items-center gap-1">
-                  <Sparkles className="w-3 h-3 text-indigo-400" />
-                  Agente Orientación de CV
-                </button>
-              </li>
-              <li>
-                <button onClick={() => onOpenAIAgent('advisor')} className="hover:text-cyan-400 transition-colors flex items-center gap-1">
-                  <Sparkles className="w-3 h-3 text-amber-400" />
-                  Agente Estratega RRHH
-                </button>
-              </li>
-              <li>
-                <button onClick={onOpenCVAnalyzer} className="hover:text-cyan-400 transition-colors flex items-center gap-1">
+                <button onClick={() => handleNav('/contacto')} className="hover:text-cyan-400 transition-colors flex items-center gap-1">
                   <ChevronRight className="w-3 h-3 text-cyan-500" />
-                  Auditoría de CV en Vivo
+                  Solicitar Briefing de Posición
                 </button>
               </li>
               <li>
                 <button onClick={() => handleNav('/calculadora-roi')} className="hover:text-cyan-400 transition-colors flex items-center gap-1">
                   <ChevronRight className="w-3 h-3 text-cyan-500" />
-                  Calculadora Coste Vacante
+                  Calculadora de Coste de Vacante
                 </button>
               </li>
+              <li>
+                <button onClick={() => handleNav('/proceso')} className="hover:text-cyan-400 transition-colors flex items-center gap-1">
+                  <ChevronRight className="w-3 h-3 text-cyan-500" />
+                  Metodología de Selección en 18 Días
+                </button>
+              </li>
+              <li>
+                <button onClick={() => handleNav('/testimonios')} className="hover:text-cyan-400 transition-colors flex items-center gap-1">
+                  <ChevronRight className="w-3 h-3 text-cyan-500" />
+                  Casos de Éxito de Selección
+                </button>
+              </li>
+              {/* 
+               * =====================================================================
+               * AGENTES IA COMENTADOS SEGÚN REQUERIMIENTO (PRESERVADOS):
+               * <li><button onClick={() => onOpenAIAgent('headhunter')}>Agente Headhunter</button></li>
+               * ...
+               * =====================================================================
+               */}
             </ul>
           </div>
 
@@ -229,9 +224,9 @@ export const Footer: React.FC<FooterProps> = ({
               <div className="p-3 rounded-xl bg-slate-900 border border-slate-800 space-y-1">
                 <p className="font-bold text-white flex items-center gap-1 text-[11px]">
                   <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                  Garantía 12 Meses
+                  Garantía 3 a 6 Meses
                 </p>
-                <p className="text-[10px] text-slate-400">Reposición completa sin coste adicional por contrato.</p>
+                <p className="text-[10px] text-slate-400">Reposición contractual sin coste adicional según nivel de la posición.</p>
               </div>
             </div>
           </div>

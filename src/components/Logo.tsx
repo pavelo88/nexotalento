@@ -5,9 +5,15 @@ interface LogoProps {
   className?: string;
   size?: 'sm' | 'md' | 'lg';
   showSubtitle?: boolean;
+  forceDark?: boolean;
 }
 
-export const Logo: React.FC<LogoProps> = ({ className = '', size = 'md', showSubtitle = true }) => {
+export const Logo: React.FC<LogoProps> = ({ 
+  className = '', 
+  size = 'md', 
+  showSubtitle = true,
+  forceDark = false 
+}) => {
   const { theme } = useTheme();
 
   const iconSizes = {
@@ -22,31 +28,41 @@ export const Logo: React.FC<LogoProps> = ({ className = '', size = 'md', showSub
     lg: 'text-2xl',
   };
 
-  const isDark = theme === 'dark';
-  const navyColor = isDark ? '#FFFFFF' : '#082041';
+  const isDark = forceDark || theme === 'dark';
 
   return (
     <div className={`flex items-center gap-3 select-none ${className}`} id="nexo-brand-logo">
       {/* Official NT Monogram / Isotipo Mark */}
       <div className={`relative ${iconSizes[size]} flex items-center justify-center shrink-0`}>
-        <img 
-          src="/icon-light.png" 
-          alt="Nexo Talentos Logo" 
-          className="w-full h-full object-contain dark:hidden"
-        />
-        <img 
-          src="/icon-dark.png" 
-          alt="Nexo Talentos Logo" 
-          className="w-full h-full object-contain hidden dark:block"
-        />
+        {forceDark ? (
+          <img 
+            src="/icon-dark.png" 
+            alt="Nexo Talentos Logo" 
+            className="w-full h-full object-contain" 
+          />
+        ) : (
+          <>
+            <img 
+              src="/icon-light.png" 
+              alt="Nexo Talentos Logo" 
+              className="w-full h-full object-contain dark:hidden"
+            />
+            <img 
+              src="/icon-dark.png" 
+              alt="Nexo Talentos Logo" 
+              className="w-full h-full object-contain hidden dark:block"
+            />
+          </>
+        )}
       </div>
 
       {/* Brand Typography */}
       <div className="flex flex-col">
         <div className="flex items-center gap-1.5 leading-none">
           <span 
-            className={`font-black tracking-tight font-heading transition-colors ${titleSizes[size]}`}
-            style={{ color: navyColor }}
+            className={`font-black tracking-tight font-heading transition-colors ${titleSizes[size]} ${
+              forceDark ? 'text-white' : 'text-[#082041] dark:text-white'
+            }`}
           >
             NEXO
           </span>

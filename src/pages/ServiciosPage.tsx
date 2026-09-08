@@ -39,7 +39,7 @@ export const ServiciosPage: React.FC<ServiciosPageProps> = ({
       id: 'executive-search',
       category: 'directivo',
       title: 'Executive Search & C-Level (Caza Directa)',
-      badge: 'Garantía 12 Meses • 18 Días SLA',
+      badge: 'Garantía 3 a 6 Meses • 18 Días SLA',
       icon: Briefcase,
       color: 'from-cyan-500 to-blue-600',
       description: 'Identificación, contacto confidencial y selección de Consejeros, CEOs, Directores Generales, CFOs, COOs, CMOs y Directores de Área estratégica para empresas en España y filiales internacionales.',
@@ -78,7 +78,7 @@ export const ServiciosPage: React.FC<ServiciosPageProps> = ({
       ],
       methodology: [
         'Headhunters con formación técnica capaces de evaluar código y arquitectura.',
-        'Acceso a redes exclusivas de talento pasivo no activo en LinkedIn o InfoJobs.',
+        'Acceso a redes exclusivas de profesionales sobresalientes en activo no visibles en portales de empleo.',
         'Negociación de esquemas de compensación flexible (equity, remotework).',
         'Pruebas técnicas y validación de proyectos reales previos.'
       ],
@@ -194,7 +194,7 @@ export const ServiciosPage: React.FC<ServiciosPageProps> = ({
         'Criba algorítmica y técnica exhaustiva: solo el 1.8% de candidatos admitidos.',
         'Solapamiento de 4 a 6 horas diarias con el horario de España y Europa.',
         'Facturación directa y contratos mercantiles sin contingencias de Seguridad Social local.',
-        'Garantía total de sustitución durante los primeros 12 meses.'
+        'Garantía contractual de sustitución de 3 a 6 meses.'
       ],
       sla: 'Terna Validada en 18 Días Hábiles',
       agentRecommendation: 'headhunter' as const

@@ -59,7 +59,7 @@ export const TestimoniosPage: React.FC<TestimoniosPageProps> = ({
       results: [
         'CFO incorporado en el día 18 cumpliendo todos los hitos de la salida a bolsa.',
         'Ahorro del 40% respecto al coste de intermediación habitual de consultoras anglosajonas.',
-        'Garantía de 12 meses cumplida con éxito total.'
+        'Garantía contractual cumplida con éxito total.'
       ],
       quote: 'En un sector tan regulado y especializado como el biotecnológico, encontrar un CFO con visión de mercado y rigor técnico parecía imposible en menos de tres meses. Nexo lo logró en 18 días.',
       author: 'Dra. Meritxell Rovira',
@@ -97,7 +97,7 @@ export const TestimoniosPage: React.FC<TestimoniosPageProps> = ({
       results: [
         'Aumento del OEE (eficiencia general de equipos) del 72% al 86% en el primer año.',
         'Cero incidencias laborales y transición suave con el equipo histórico.',
-        'Acompañamiento de onboarding durante los 12 meses de garantía.'
+        'Acompañamiento de onboarding durante el periodo de garantía contractual.'
       ],
       quote: 'La rapidez y la discreción fueron impecables. Reemplazar un puesto histórico de más de 20 años era un reto enorme y Nexo lo resolvió con maestría.',
       author: 'Iñigo Aranguren',

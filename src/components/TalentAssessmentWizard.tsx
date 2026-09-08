@@ -136,7 +136,7 @@ export const TalentAssessmentWizard: React.FC = () => {
                 <p>• <strong>Posición:</strong> {formData.profileCategory}</p>
                 <p>• <strong>Ubicación:</strong> {formData.location}</p>
                 <p>• <strong>Plazo de Entrega:</strong> Terna en 18 días garantizados</p>
-                <p>• <strong>Garantía:</strong> Hasta 12 meses de reposición sin coste</p>
+                <p>• <strong>Garantía:</strong> Garantía contractual de 3 a 6 meses de sustitución</p>
               </div>
 
               <div className="pt-4">

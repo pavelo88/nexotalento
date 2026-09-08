@@ -32,7 +32,7 @@ export const MethodologySection: React.FC<MethodologySectionProps> = ({ onNaviga
       title: 'Caza Directa & IA',
       days: 'Días 4-8',
       icon: Search,
-      desc: 'Headhunting confidencial sobre talento pasivo, cruzado con filtrado predictivo.'
+      desc: 'Headhunting confidencial sobre profesionales en activo con evaluación exhaustiva.'
     },
     {
       number: '03',
@@ -126,7 +126,7 @@ export const MethodologySection: React.FC<MethodologySectionProps> = ({ onNaviga
           <div className="flex items-center gap-3 text-left">
             <ShieldCheck className="w-6 h-6 text-emerald-500 shrink-0" />
             <p className="text-xs sm:text-sm">
-              <strong>Garantía Total de 12 Meses:</strong> Reposición inmediata sin coste en caso de desajuste o salida anticipada del candidato.
+              <strong>Garantía Contractual de 3 a 6 Meses:</strong> Reposición directa sin coste en caso de desajuste o salida no prevista del candidato.
             </p>
           </div>
 

@@ -35,9 +35,9 @@ export const BragBar: React.FC = () => {
       color: 'text-emerald-500'
     },
     {
-      value: '12 Meses',
-      label: 'Garantía de Sustitución',
-      detail: '100% de cobertura sin coste',
+      value: '3 a 6 Meses',
+      label: 'Garantía Contractual',
+      detail: 'Reposición directa sin coste',
       icon: ShieldCheck,
       color: 'text-indigo-500'
     }

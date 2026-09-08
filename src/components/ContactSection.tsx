@@ -18,6 +18,7 @@ import {
 import confetti from 'canvas-confetti';
 
 import { isValidEmail, isValidPhone, sanitizeInput } from '../utils/security';
+import { COMPANY_CONFIG } from '../config/company';
 
 export const ContactSection: React.FC = () => {
   const [tab, setTab] = useState<'empresa' | 'candidato'>('empresa');
@@ -32,10 +33,7 @@ export const ContactSection: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-  const whatsappPhone = '34614143763';
-  const whatsappUrl = `https://wa.me/${whatsappPhone}?text=${encodeURIComponent(
-    'Hola Nexo Talentos, me gustaría solicitar información sobre vuestros servicios de Executive Search y Selección de Talento Directivo en España.'
-  )}`;
+  const whatsappUrl = COMPANY_CONFIG.whatsappUrl;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -159,16 +157,16 @@ export const ContactSection: React.FC = () => {
               {/* Madrid Office */}
               <div className="p-4 bg-slate-900/70 rounded-2xl border border-slate-800 space-y-1.5 hover:border-slate-700 transition-colors">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-white uppercase tracking-wider">Sede Central Madrid</span>
-                  <span className="text-[10px] text-cyan-400 bg-cyan-950 px-2 py-0.5 rounded-full border border-cyan-800">Castellana</span>
+                  <span className="text-xs font-bold text-white uppercase tracking-wider">Sede Madrid</span>
+                  <span className="text-[10px] text-cyan-400 bg-cyan-950 px-2 py-0.5 rounded-full border border-cyan-800">{COMPANY_CONFIG.addresses.madrid.city}</span>
                 </div>
                 <p className="text-xs text-slate-300 flex items-start gap-1.5 pt-1">
                   <MapPin className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
-                  <span>Paseo de la Castellana 95, Planta 15, 28046 Madrid</span>
+                  <span>{COMPANY_CONFIG.addresses.madrid.full}</span>
                 </p>
                 <p className="text-xs text-slate-400 flex items-center gap-1.5">
                   <Phone className="w-3.5 h-3.5 text-cyan-400" />
-                  <a href="tel:+34910884420" className="hover:text-cyan-300 font-medium">+34 910 88 44 20</a>
+                  <a href={`tel:${COMPANY_CONFIG.phone.replace(/\s+/g, '')}`} className="hover:text-cyan-300 font-medium">{COMPANY_CONFIG.phoneDisplay}</a>
                 </p>
               </div>
 
@@ -176,15 +174,15 @@ export const ContactSection: React.FC = () => {
               <div className="p-4 bg-slate-900/70 rounded-2xl border border-slate-800 space-y-1.5 hover:border-slate-700 transition-colors">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-bold text-white uppercase tracking-wider">Sede Barcelona</span>
-                  <span className="text-[10px] text-blue-400 bg-blue-950 px-2 py-0.5 rounded-full border border-blue-800">Distrito 22@</span>
+                  <span className="text-[10px] text-blue-400 bg-blue-950 px-2 py-0.5 rounded-full border border-blue-800">{COMPANY_CONFIG.addresses.barcelona.city}</span>
                 </div>
                 <p className="text-xs text-slate-300 flex items-start gap-1.5 pt-1">
                   <MapPin className="w-4 h-4 text-blue-400 shrink-0 mt-0.5" />
-                  <span>Avinguda Diagonal 640 &amp; Distrito 22@, 08018 Barcelona</span>
+                  <span>{COMPANY_CONFIG.addresses.barcelona.full}</span>
                 </p>
                 <p className="text-xs text-slate-400 flex items-center gap-1.5">
                   <Phone className="w-3.5 h-3.5 text-blue-400" />
-                  <a href="tel:+34910884420" className="hover:text-cyan-300 font-medium">+34 910 88 44 20</a>
+                  <a href={`tel:${COMPANY_CONFIG.phone.replace(/\s+/g, '')}`} className="hover:text-cyan-300 font-medium">{COMPANY_CONFIG.phoneDisplay}</a>
                 </p>
               </div>
 
@@ -193,7 +191,7 @@ export const ContactSection: React.FC = () => {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <Mail className="w-4 h-4 text-cyan-400" />
-                    <span>contacto@nexotalentos.com</span>
+                    <span><span>{COMPANY_CONFIG.emailUser}</span><span className="text-cyan-400">&#64;</span><span>{COMPANY_CONFIG.emailDomain}</span></span>
                   </div>
                   <span className="text-[10px] text-cyan-400">General</span>
                 </div>
@@ -210,17 +208,7 @@ export const ContactSection: React.FC = () => {
                 </div>
               </div>
 
-              {/* Guarantees & Legal */}
-              <div className="space-y-1.5 pt-2 border-t border-slate-800 text-[11px] text-slate-400">
-                <div className="flex items-center gap-2">
-                  <ShieldCheck className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
-                  <span>Estricta confidencialidad RGPD (NIF: B-88492019)</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Clock className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
-                  <span>Compromiso de entrega de terna en 18 días hábiles</span>
-                </div>
-              </div>
+
             </div>
 
           </div>
@@ -489,6 +477,17 @@ export const ContactSection: React.FC = () => {
                   <p className="text-[11px] text-center text-slate-400 pt-1">
                     🔒 Tratamos tus datos con máxima confidencialidad bajo la normativa europea RGPD.
                   </p>
+
+                  <div className="pt-3 mt-3 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 text-[11px] text-slate-400">
+                    <div className="flex items-center gap-1.5">
+                      <ShieldCheck className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+                      <span>Estricta confidencialidad RGPD (NIF: B-88492019)</span>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <Clock className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+                      <span>Compromiso de entrega de terna en 18 días hábiles</span>
+                    </div>
+                  </div>
                 </form>
               )}
 

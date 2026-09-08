@@ -41,17 +41,17 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
       badge: 'Caza Directa Confidencial',
       icon: Briefcase,
       color: 'from-cyan-500 to-blue-600',
-      description: 'Identificación y captación de Consejeros, CEOs, CFOs y COOs con garantía total de 12 meses y terna en 18 días.',
-      points: ['Mapeo del 100% de la competencia', 'Entrevistas por competencias STAR', 'Terna validada en 18 días']
+      description: 'Identificación y captación de Consejeros, CEOs, CFOs y COOs con garantía de 3 a 6 meses y terna en 18 días.',
+      points: ['Mapeo exhaustivo del mercado', 'Entrevistas por competencias STAR', 'Terna validada en 18 días']
     },
     {
       id: 'tech-ia',
-      title: 'Headhunting Tech & Especialistas IA',
+      title: 'Headhunting Tech & Especialistas Digitales',
       badge: 'Perfiles Críticos',
       icon: Cpu,
       color: 'from-blue-600 to-indigo-600',
-      description: 'Reclutamiento de CTOs, Tech Leads, Cloud Architects y Especialistas en Modelos de Inteligencia Artificial.',
-      points: ['Evaluación técnica de código', 'Acceso al 1% de talento pasivo', 'Modelos híbridos y remotos']
+      description: 'Reclutamiento de CTOs, Tech Leads, Cloud Architects, Data Engineers y Especialistas Digitales.',
+      points: ['Evaluación técnica rigurosa', 'Caza directa de profesionales senior en activo', 'Modelos híbridos y remotos']
     },
     {
       id: 'rpo-scaleup',
@@ -60,7 +60,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
       icon: Users,
       color: 'from-indigo-600 to-purple-600',
       description: 'Externalización total o modular de procesos de selección para scaleups e implantación de nuevos hubs.',
-      points: ['Recruiters dedicados', 'Integración con ATS propio', 'Reducción de coste por hiring']
+      points: ['Recruiters dedicados', 'Integración con ATS propio', 'Reducción de coste por contratación']
     },
     {
       id: 'outsourcing-bpo',
@@ -69,16 +69,16 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
       icon: ShieldCheck,
       color: 'from-emerald-500 to-teal-600',
       description: 'Gestión de servicios técnicos sin riesgo de cesión ilegal (Art. 43 ET), con facturación por entregables y SLA.',
-      points: ['Autonomía organizativa', 'Medios materiales propios', 'Cero contingencias ITSS']
+      points: ['Autonomía organizativa', 'Medios materiales propios', 'Cero contingencias laborales']
     },
     {
       id: 'assessment-center',
-      title: 'Assessment Center & IA Diagnóstica',
-      badge: 'Precisión Predictiva',
+      title: 'Assessment Center & Evaluación Directiva',
+      badge: 'Criterio Humano Experto',
       icon: Award,
       color: 'from-purple-500 to-pink-600',
-      description: 'Auditoría de liderazgo directivo y encaje situacional mediante role-play y algoritmos de evaluación.',
-      points: ['Simulaciones de comité de crisis', 'Test psicométricos estandarizados', 'Informe en 48 horas']
+      description: 'Auditoría presencial o virtual de liderazgo directivo y encaje situacional mediante role-plays y entrevistas de profundidad.',
+      points: ['Simulaciones de comités y retos reales', 'Test competenciales estandarizados', 'Informe ejecutivo en 48 horas']
     },
     {
       id: 'compensacion-salarios',
@@ -87,7 +87,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
       icon: TrendingUp,
       color: 'from-amber-500 to-orange-600',
       description: 'Estudios de retribución fija y variable por percentiles, stock options y auditoría de igualdad retributiva.',
-      points: ['Bandas salariales P25-P90', 'Paquetes de equity y phantom shares', 'Compliance directiva UE']
+      points: ['Bandas salariales P25-P90', 'Paquetes de equity y retención de talento', 'Cumplimiento directiva UE']
     }
   ];
 
@@ -239,12 +239,15 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                   <ArrowRight className="w-3.5 h-3.5" />
                 </button>
               )}
-              <button
-                onClick={() => onOpenAIAgent('headhunter')}
-                className="text-xs text-slate-400 hover:text-white flex items-center gap-1"
+              <a
+                href={`https://wa.me/34614143763?text=${encodeURIComponent(`Hola Nexo Talentos, deseo consultar sobre el servicio de ${currentService.title}`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs text-emerald-400 font-bold hover:underline flex items-center gap-1"
               >
-                <span>Consultar IA</span>
-              </button>
+                <span>Consultar por WhatsApp</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </a>
             </div>
           </div>
 
@@ -330,13 +333,15 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                     <FileCheck className="w-3.5 h-3.5" />
                     <span>Generar Job Spec</span>
                   </button>
-                  <button
-                    onClick={() => onOpenAIAgent('headhunter')}
-                    className="text-xs text-slate-400 hover:text-white flex items-center gap-1"
+                  <a
+                    href={`https://wa.me/34614143763?text=${encodeURIComponent(`Hola Nexo Talentos, deseo consultar sobre el servicio de ${service.title}`)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs text-emerald-400 font-bold hover:underline flex items-center gap-1"
                   >
-                    <span>Consultar</span>
+                    <span>Consultar WhatsApp</span>
                     <ArrowRight className="w-3 h-3" />
-                  </button>
+                  </a>
                 </div>
               </div>
             );

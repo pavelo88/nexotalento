@@ -219,160 +219,40 @@ export const Navbar: React.FC<NavbarProps> = ({
               )}
             </div>
 
-            {/* 3. Vacantes */}
+            {/* 3. Buscar Personal (Pestaña dedicada y funcional) */}
             <button
-              onClick={() => handleLinkClick('/vacantes')}
-              className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all flex items-center gap-1 ${
-                currentPath === '/vacantes' 
-                  ? theme === 'dark'
-                    ? 'text-cyan-300 bg-slate-800/50' 
-                    : 'text-slate-900 bg-slate-100'
-                  : theme === 'dark'
-                    ? 'text-slate-300 hover:text-white hover:bg-slate-800/50'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/50'
+              id="nav-buscar-personal-btn"
+              onClick={() => {
+                if (currentPath !== '/') {
+                  handleLinkClick('/');
+                  setTimeout(() => {
+                    const el = document.getElementById('solicitar-talento');
+                    if (el) {
+                      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                  }, 250);
+                } else {
+                  const el = document.getElementById('solicitar-talento');
+                  if (el) {
+                    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }
+                }
+              }}
+              className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-all flex items-center gap-1.5 ${
+                theme === 'dark' 
+                  ? 'text-slate-200 hover:text-white hover:bg-slate-900/60' 
+                  : 'text-slate-700 hover:text-slate-950 hover:bg-slate-100'
               }`}
             >
-              Vacantes
-              <span className="flex h-1.5 w-1.5 relative">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
-              </span>
+              <Users className="w-4 h-4 text-cyan-500" />
+              <span>Buscar Personal</span>
             </button>
 
-            {/* 4. Herramientas IA Dropdown */}
-            <div className="relative">
-              <button
-                onClick={() => toggleDropdown('ia')}
-                className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-all flex items-center gap-1.5 ${
-                  currentPath === '/guia-salarial' || currentPath === '/calculadora-roi' || activeDropdown === 'ia'
-                    ? theme === 'dark' ? 'text-cyan-300 bg-cyan-950/60 font-bold' : 'text-cyan-900 bg-cyan-100 font-extrabold'
-                    : theme === 'dark' ? 'text-slate-300 hover:text-white hover:bg-slate-900/60' : 'text-slate-700 hover:text-slate-950 hover:bg-slate-100'
-                }`}
-              >
-                <Bot className="w-4 h-4 text-cyan-500" />
-                <span>Herramientas IA</span>
-                <span className="text-[9px] bg-cyan-500/20 text-cyan-800 dark:text-cyan-300 px-1.5 py-0.5 rounded font-extrabold">24/7</span>
-                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${activeDropdown === 'ia' ? 'rotate-180 text-cyan-500' : ''}`} />
-              </button>
-
-              {activeDropdown === 'ia' && (
-                <div className={`absolute top-full left-0 mt-2 w-80 rounded-2xl shadow-2xl border p-2 animate-fadeIn z-50 ${
-                  theme === 'dark' 
-                    ? 'bg-slate-950/95 border-slate-800 text-slate-100 backdrop-blur-2xl' 
-                    : 'bg-white/95 border-slate-200 text-slate-900 backdrop-blur-2xl'
-                }`}>
-                  <button
-                    onClick={() => {
-                      setActiveDropdown(null);
-                      onOpenAIAgent('headhunter');
-                    }}
-                    className={`w-full text-left p-2.5 rounded-xl transition-all flex items-start gap-3 ${
-                      theme === 'dark' ? 'hover:bg-slate-900' : 'hover:bg-slate-50'
-                    }`}
-                  >
-                    <div className="w-8 h-8 rounded-lg bg-cyan-500/10 text-cyan-500 flex items-center justify-center shrink-0">
-                      <Bot className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <div className="text-xs font-bold text-cyan-800 dark:text-cyan-300">
-                        Agentes IA Reclutadores
-                      </div>
-                      <p className={`text-[11px] leading-snug mt-0.5 ${theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}`}>
-                        Consultas 24/7 de perfiles, roles y estrategia.
-                      </p>
-                    </div>
-                  </button>
-
-                  <button
-                    onClick={() => {
-                      setActiveDropdown(null);
-                      onOpenCVAnalyzer();
-                    }}
-                    className={`w-full text-left p-2.5 rounded-xl transition-all flex items-start gap-3 ${
-                      theme === 'dark' ? 'hover:bg-slate-900' : 'hover:bg-slate-50'
-                    }`}
-                  >
-                    <div className="w-8 h-8 rounded-lg bg-indigo-500/10 text-indigo-500 flex items-center justify-center shrink-0">
-                      <FileSearch className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <div className="text-xs font-bold text-indigo-700 dark:text-indigo-300">
-                        Auditor de CV con IA
-                      </div>
-                      <p className={`text-[11px] leading-snug mt-0.5 ${theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}`}>
-                        Diagnóstico competencial y adecuación salarial.
-                      </p>
-                    </div>
-                  </button>
-
-                  <button
-                    onClick={() => {
-                      setActiveDropdown(null);
-                      onOpenJobSpecGenerator();
-                    }}
-                    className={`w-full text-left p-2.5 rounded-xl transition-all flex items-start gap-3 ${
-                      theme === 'dark' ? 'hover:bg-slate-900' : 'hover:bg-slate-50'
-                    }`}
-                  >
-                    <div className="w-8 h-8 rounded-lg bg-purple-500/10 text-purple-500 flex items-center justify-center shrink-0">
-                      <Sparkles className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <div className="text-xs font-bold text-purple-700 dark:text-purple-300">
-                        Generador de Job Descriptions
-                      </div>
-                      <p className={`text-[11px] leading-snug mt-0.5 ${theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}`}>
-                        Crea perfiles ejecutivos optimizados para reclutamiento.
-                      </p>
-                    </div>
-                  </button>
-
-                  <button
-                    onClick={() => handleLinkClick('/guia-salarial')}
-                    className={`w-full text-left p-2.5 rounded-xl transition-all flex items-start gap-3 ${
-                      theme === 'dark' ? 'hover:bg-slate-900' : 'hover:bg-slate-50'
-                    }`}
-                  >
-                    <div className="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-500 flex items-center justify-center shrink-0">
-                      <TrendingUp className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <div className="text-xs font-bold text-emerald-700 dark:text-emerald-300">
-                        Guía Salarial España 2026
-                      </div>
-                      <p className={`text-[11px] leading-snug mt-0.5 ${theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}`}>
-                        Bandas salariales, fijos, variables y beneficios.
-                      </p>
-                    </div>
-                  </button>
-
-                  <button
-                    onClick={() => handleLinkClick('/calculadora-roi')}
-                    className={`w-full text-left p-2.5 rounded-xl transition-all flex items-start gap-3 ${
-                      theme === 'dark' ? 'hover:bg-slate-900' : 'hover:bg-slate-50'
-                    }`}
-                  >
-                    <div className="w-8 h-8 rounded-lg bg-amber-500/10 text-amber-500 flex items-center justify-center shrink-0">
-                      <Calculator className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <div className="text-xs font-bold text-amber-700 dark:text-amber-300">
-                        Calculadora Coste de Vacante
-                      </div>
-                      <p className={`text-[11px] leading-snug mt-0.5 ${theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}`}>
-                        Estima el impacto financiero de una posición desierta.
-                      </p>
-                    </div>
-                  </button>
-                </div>
-              )}
-            </div>
-
-            {/* 5. Vacantes */}
+            {/* 4. Vacantes (Para candidatos) */}
             <button
               onClick={() => handleLinkClick('/vacantes')}
               className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-all flex items-center gap-1.5 ${
-                currentPath === '/vacantes'
+                currentPath === '/vacantes' 
                   ? theme === 'dark' ? 'text-cyan-300 bg-cyan-950/60 font-bold' : 'text-cyan-900 bg-cyan-100 font-extrabold'
                   : theme === 'dark' ? 'text-slate-300 hover:text-white hover:bg-slate-900/60' : 'text-slate-700 hover:text-slate-950 hover:bg-slate-100'
               }`}
@@ -380,6 +260,29 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span>Vacantes</span>
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             </button>
+
+            {/* 5. Calculadora de Coste de Vacante */}
+            <button
+              onClick={() => handleLinkClick('/calculadora-roi')}
+              className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-all flex items-center gap-1.5 ${
+                currentPath === '/calculadora-roi' 
+                  ? theme === 'dark' ? 'text-cyan-300 bg-cyan-950/60 font-bold' : 'text-cyan-900 bg-cyan-100 font-extrabold'
+                  : theme === 'dark' ? 'text-slate-300 hover:text-white hover:bg-slate-900/60' : 'text-slate-700 hover:text-slate-950 hover:bg-slate-100'
+              }`}
+            >
+              <Calculator className="w-3.5 h-3.5 text-amber-500" />
+              <span>Calculadora ROI</span>
+            </button>
+
+            {/* 
+             * =====================================================================
+             * DROPDOWN DE HERRAMIENTAS IA PRESERVADO COMENTADO (POR SI SE REQUIERE):
+             * <div className="relative">
+             *   <button onClick={() => toggleDropdown('ia')}>Herramientas IA</button>
+             *   ...
+             * </div>
+             * =====================================================================
+             */}
 
             {/* 6. Contacto */}
             <button
@@ -395,9 +298,21 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           </nav>
 
-          {/* Right Action Cluster: Theme Toggle + Primary CTA + Mobile Menu */}
+          {/* Right Action Cluster: Theme Toggle + WhatsApp CTA + Primary CTA + Mobile Menu */}
           <div className="flex items-center gap-2 sm:gap-3">
             
+            {/* Direct WhatsApp Action Link */}
+            <a
+              href="https://wa.me/34614143763?text=Hola%20Nexo%20Talentos,%20deseo%20consultar%20sobre%20servicios%20de%20selecci%C3%B3n%20de%20personal"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden xl:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-xs font-bold transition-all"
+              title="Chatear por WhatsApp con un Senior Talent Partner"
+            >
+              <MessageSquare className="w-3.5 h-3.5 fill-emerald-400" />
+              <span>WhatsApp Directo</span>
+            </a>
+
             {/* Dark/Light Mode Switcher */}
             <button
               id="theme-toggle-btn"
@@ -417,23 +332,24 @@ export const Navbar: React.FC<NavbarProps> = ({
               )}
             </button>
 
-            {/* Primary Action Button (Scrolls to interactive requirement builder) */}
+            {/* Primary Action Button (Buscar Personal / Solicitar Talento con handler fiable) */}
             <button
               onClick={() => {
                 if (currentPath !== '/') {
                   handleLinkClick('/');
                   setTimeout(() => {
                     const el = document.getElementById('solicitar-talento');
-                    if (el) el.scrollIntoView({ behavior: 'smooth' });
-                  }, 120);
+                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }, 250);
                 } else {
                   const el = document.getElementById('solicitar-talento');
-                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
               }}
               className="hidden sm:inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-slate-950 font-extrabold text-xs sm:text-sm rounded-xl shadow-lg shadow-cyan-950/40 hover:shadow-cyan-500/25 transition-all hover:scale-[1.03] btn-spring-press group cursor-pointer"
             >
-              <span>Solicitar Talento</span>
+              <Users className="w-4 h-4 text-slate-950" />
+              <span>Buscar Personal</span>
               <ArrowRight className="w-3.5 h-3.5 text-slate-950 group-hover:translate-x-0.5 transition-transform" />
             </button>
 
@@ -481,20 +397,25 @@ export const Navbar: React.FC<NavbarProps> = ({
               Servicios de Selección
             </button>
             <button
-              onClick={() => handleLinkClick('/por-que-elegirnos')}
-              className={`p-2.5 rounded-xl text-left text-xs font-bold ${
-                currentPath === '/por-que-elegirnos' ? 'bg-cyan-500 text-slate-950' : theme === 'dark' ? 'bg-slate-900 text-slate-200' : 'bg-slate-100 text-slate-800'
+              onClick={() => {
+                setMobileMenuOpen(false);
+                if (currentPath !== '/') {
+                  handleLinkClick('/');
+                  setTimeout(() => {
+                    const el = document.getElementById('solicitar-talento');
+                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }, 250);
+                } else {
+                  const el = document.getElementById('solicitar-talento');
+                  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+              }}
+              className={`p-2.5 rounded-xl text-left text-xs font-bold flex items-center justify-between ${
+                theme === 'dark' ? 'bg-cyan-950/80 text-cyan-300 border border-cyan-500/30' : 'bg-cyan-50 text-cyan-900 border border-cyan-200'
               }`}
             >
-              Por Qué Elegirnos
-            </button>
-            <button
-              onClick={() => handleLinkClick('/proceso')}
-              className={`p-2.5 rounded-xl text-left text-xs font-bold ${
-                currentPath === '/proceso' ? 'bg-cyan-500 text-slate-950' : theme === 'dark' ? 'bg-slate-900 text-slate-200' : 'bg-slate-100 text-slate-800'
-              }`}
-            >
-              Método en 18 Días
+              <span>Buscar Personal</span>
+              <Users className="w-3.5 h-3.5" />
             </button>
             <button
               onClick={() => handleLinkClick('/vacantes')}
@@ -505,14 +426,6 @@ export const Navbar: React.FC<NavbarProps> = ({
               Vacantes Activas
             </button>
             <button
-              onClick={() => handleLinkClick('/guia-salarial')}
-              className={`p-2.5 rounded-xl text-left text-xs font-bold ${
-                currentPath === '/guia-salarial' ? 'bg-cyan-500 text-slate-950' : theme === 'dark' ? 'bg-slate-900 text-slate-200' : 'bg-slate-100 text-slate-800'
-              }`}
-            >
-              Guía Salarial 2026
-            </button>
-            <button
               onClick={() => handleLinkClick('/calculadora-roi')}
               className={`p-2.5 rounded-xl text-left text-xs font-bold ${
                 currentPath === '/calculadora-roi' ? 'bg-cyan-500 text-slate-950' : theme === 'dark' ? 'bg-slate-900 text-slate-200' : 'bg-slate-100 text-slate-800'
@@ -521,48 +434,28 @@ export const Navbar: React.FC<NavbarProps> = ({
               Calculadora de Costes
             </button>
             <button
-              onClick={() => handleLinkClick('/testimonios')}
+              onClick={() => handleLinkClick('/contacto')}
               className={`p-2.5 rounded-xl text-left text-xs font-bold ${
-                currentPath === '/testimonios' ? 'bg-cyan-500 text-slate-950' : theme === 'dark' ? 'bg-slate-900 text-slate-200' : 'bg-slate-100 text-slate-800'
+                currentPath === '/contacto' ? 'bg-cyan-500 text-slate-950' : theme === 'dark' ? 'bg-slate-900 text-slate-200' : 'bg-slate-100 text-slate-800'
               }`}
             >
-              Casos de Éxito
+              Contacto
             </button>
           </div>
 
           <div className="pt-2 border-t border-slate-800/80 space-y-2">
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                onOpenAIAgent('headhunter');
-              }}
-              className="w-full py-2.5 px-3 rounded-xl bg-cyan-950/60 border border-cyan-500/40 text-cyan-300 font-bold text-xs flex items-center justify-center gap-2"
-            >
-              <Bot className="w-4 h-4 text-cyan-400" />
-              <span>Agente Headhunter IA (Chat 24/7)</span>
-            </button>
-
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                onOpenCVAnalyzer();
-              }}
-              className="w-full py-2.5 px-3 rounded-xl bg-indigo-950/60 border border-indigo-500/40 text-indigo-300 font-bold text-xs flex items-center justify-center gap-2"
-            >
-              <FileSearch className="w-4 h-4 text-indigo-400" />
-              <span>Auditoría de CV con IA</span>
-            </button>
-
+            {/* WhatsApp Directo Prioritario */}
             <a
               href="https://wa.me/34614143763?text=Hola%20Nexo%20Talentos,%20deseo%20consultar%20con%20un%20Senior%20Talent%20Partner"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full py-2.5 px-3 rounded-xl bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 font-bold text-xs flex items-center justify-center gap-2"
+              className="w-full py-3 px-3 rounded-xl bg-emerald-950/80 border border-emerald-500/50 text-emerald-300 font-bold text-xs flex items-center justify-center gap-2"
             >
-              <MessageSquare className="w-4 h-4 text-emerald-400" />
-              <span>WhatsApp Directo (+34 614 143 763)</span>
+              <MessageSquare className="w-4 h-4 text-emerald-400 fill-emerald-400" />
+              <span>Chatear por WhatsApp (+34 614 143 763)</span>
             </a>
 
+            {/* Botón Buscar Personal Móvil */}
             <button
               onClick={() => {
                 setMobileMenuOpen(false);
@@ -570,18 +463,26 @@ export const Navbar: React.FC<NavbarProps> = ({
                   handleLinkClick('/');
                   setTimeout(() => {
                     const el = document.getElementById('solicitar-talento');
-                    if (el) el.scrollIntoView({ behavior: 'smooth' });
-                  }, 120);
+                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }, 250);
                 } else {
                   const el = document.getElementById('solicitar-talento');
-                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
               }}
               className="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-lg btn-spring-press cursor-pointer"
             >
-              <span>Configurar Requerimiento de Talento</span>
-              <ArrowRight className="w-4 h-4" />
+              <Users className="w-4 h-4" />
+              <span>Solicitar Búsqueda de Personal</span>
             </button>
+
+            {/* 
+             * =====================================================================
+             * BOTONES DE HERRAMIENTAS IA EN MÓVIL COMENTADOS SEGÚN REQUERIMIENTO:
+             * <button onClick={() => onOpenAIAgent('headhunter')}>Agente Headhunter IA</button>
+             * <button onClick={() => onOpenCVAnalyzer()}>Auditoría de CV con IA</button>
+             * =====================================================================
+             */}
           </div>
 
         </div>

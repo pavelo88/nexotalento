@@ -50,7 +50,7 @@ export const ProcesoPage: React.FC<ProcesoPageProps> = ({
       phase: 'Fase 02',
       days: 'Días 4 al 8',
       title: 'Mapeo Exhaustivo, Caza Directa & Algoritmos de IA',
-      subtitle: 'Acceso a talento pasivo de alto impacto que no busca en portales',
+      subtitle: 'Acceso a profesionales sobresalientes en activo que no buscan en portales de empleo',
       icon: Search,
       tag: 'Headhunting Activo',
       description: 'Nuestros consultores sénior activan la búsqueda directa y confidencial sobre directivos en activo. Cruzamos los perfiles con nuestros algoritmos de adecuación predictiva de Inteligencia Artificial para filtrar encaje por experiencia y cultura.',
@@ -97,18 +97,18 @@ export const ProcesoPage: React.FC<ProcesoPageProps> = ({
     {
       phase: 'Fase 05',
       days: 'Día 19+',
-      title: 'Negociación de Oferta, Onboarding & Garantía de 12 Meses',
-      subtitle: 'Cierre exitoso y seguimiento continuo durante el primer año',
+      title: 'Negociación de Oferta, Onboarding & Garantía de 3 a 6 Meses',
+      subtitle: 'Cierre exitoso y acompañamiento de aterrizaje del directivo',
       icon: ShieldCheck,
       tag: 'Garantía & Éxito',
-      description: 'Facilitamos el cierre salarial y contractual para asegurar la aceptación de la oferta. Realizamos un seguimiento periódico a los 30, 90 y 180 días, respaldado por nuestra garantía total de reposición de 12 meses.',
+      description: 'Facilitamos el cierre salarial y contractual para asegurar la aceptación de la oferta. Realizamos un seguimiento periódico a los 30, 90 y 180 días, respaldado por nuestra garantía contractual de reposición de 3 a 6 meses.',
       activities: [
         'Mediación en la negociación del paquete retributivo (fijo + variable + equity).',
         'Plan de Onboarding y acompañamiento de aterrizaje.',
-        'Revisiones trimestrales de satisfacción con el cliente y el directivo.',
+        'Revisiones periódicas de satisfacción con el cliente y el directivo.',
         'Activación de garantía inmediata sin coste si surge cualquier contingencia.'
       ],
-      deliverable: 'Contrato firmado, incorporación efectiva y póliza de garantía.'
+      deliverable: 'Contrato firmado, incorporación efectiva y póliza de garantía contractual.'
     }
   ];
 
@@ -286,12 +286,12 @@ export const ProcesoPage: React.FC<ProcesoPageProps> = ({
                     </div>
                     <div className="flex items-center justify-between">
                       <span>Garantía:</span>
-                      <strong className="text-emerald-500">100% Reposición (12 Meses)</strong>
+                      <strong className="text-emerald-500">Garantía Contractual (3 a 6 Meses)</strong>
                     </div>
                   </div>
 
                   <button
-                    onClick={() => onNavigate('/solicitar-talento')}
+                    onClick={() => onNavigate('/contacto')}
                     className="w-full py-2.5 bg-gradient-to-r from-[#00A9A3] to-blue-600 hover:from-[#00918C] hover:to-blue-500 text-white font-extrabold text-xs rounded-xl transition-all flex items-center justify-center gap-1.5 shadow-md btn-spring-press"
                   >
                     <span>Iniciar Búsqueda en 18 Días</span>

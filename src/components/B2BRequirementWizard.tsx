@@ -288,7 +288,7 @@ export const B2BRequirementWizard: React.FC<B2BRequirementWizardProps> = ({ onOp
                     </div>
                     <div className="flex justify-between items-center py-1">
                       <span className="text-slate-400">Garantía de Sustitución:</span>
-                      <span className="font-bold text-emerald-500">12 Meses sin Coste</span>
+                      <span className="font-bold text-emerald-500">3 a 6 Meses por Contrato</span>
                     </div>
                     <div className="flex justify-between items-center py-1">
                       <span className="text-slate-400">Seguridad Jurídica:</span>

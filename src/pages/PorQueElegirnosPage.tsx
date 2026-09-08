@@ -39,19 +39,19 @@ export const PorQueElegirnosPage: React.FC<PorQueElegirnosPageProps> = ({
     },
     {
       feature: 'Garantía de reposición de directivos',
-      nexo: '12 Meses sin coste adicional',
-      traditional: '3 a 6 meses máximo con restricciones',
+      nexo: '3 a 6 Meses sin coste adicional por contrato',
+      traditional: 'Garantías cortas (30-60 días) con restricciones',
       highlight: true
     },
     {
       feature: 'Metodología de búsqueda y criba',
-      nexo: 'Caza directa + Agentes de IA + Evaluación 360°',
-      traditional: 'Búsqueda manual en base de datos desactualizada',
+      nexo: 'Caza directa de perfiles en activo + Evaluación humana 360°',
+      traditional: 'Publicación pasiva en portales de empleo habituales',
       highlight: false
     },
     {
-      feature: 'Tasa de permanencia a los 12 meses',
-      nexo: '98.4% de éxito y adecuación cultural',
+      feature: 'Tasa de permanencia del candidato',
+      nexo: '98.4% de éxito y encaje cultural duradero',
       traditional: '72% - 78% (Riesgo de rotación temprana)',
       highlight: true
     },
@@ -75,7 +75,7 @@ export const PorQueElegirnosPage: React.FC<PorQueElegirnosPageProps> = ({
     },
     {
       feature: 'Hub Nearshore LATAM (Arbitraje de costes 55%-62%)',
-      nexo: 'Top 1.8% perfiles bilingües con facturación B2B en España',
+      nexo: 'Top perfiles bilingües con facturación B2B en España',
       traditional: 'Sin red internacional ni cobertura de compliance global',
       highlight: true
     }
@@ -85,17 +85,17 @@ export const PorQueElegirnosPage: React.FC<PorQueElegirnosPageProps> = ({
     {
       icon: Clock,
       title: 'Velocidad Sin Precedentes (18 Días)',
-      description: 'Optimizamos la fase de mapeo con algoritmos inteligentes, reduciendo en un 60% el tiempo de contratación de directivos en España.'
+      description: 'Mapeo exhaustivo y contacto directo de perfiles en activo, reduciendo a 18 días hábiles la presentación de la terna final validada.'
     },
     {
       icon: ShieldCheck,
-      title: 'Garantía de Cobertura Total de 12 Meses',
-      description: 'Asumimos el compromiso absoluto: si el candidato contratado no supera el año de desempeño, reiniciamos la búsqueda de forma gratuita.'
+      title: 'Garantía Contractual de 3 a 6 Meses',
+      description: 'Asumimos un compromiso total: si el profesional contratado no se consolida durante el periodo de garantía, reiniciamos la búsqueda sin coste adicional.'
     },
     {
       icon: Sparkles,
-      title: 'Tecnología Propia de Inteligencia Artificial',
-      description: 'Nuestra suite de 4 agentes IA cruza más de 50 variables situacionales para predecir el éxito antes de la primera entrevista.'
+      title: 'Evaluación y Criterio Humano Especializado',
+      description: 'Entrevistas por competencias STAR, auditoría de liderazgo y verificación rigurosa de trayectoria profesional antes de la terna.'
     },
     {
       icon: Users,
@@ -263,7 +263,7 @@ export const PorQueElegirnosPage: React.FC<PorQueElegirnosPageProps> = ({
             <p className={`text-xs leading-relaxed ${
               theme === 'dark' ? 'text-slate-300' : 'text-slate-600'
             }`}>
-              Oficinas en Paseo de la Castellana 95 (Madrid) y Av. Diagonal 640 (Barcelona) para reuniones presenciales con el comité de dirección.
+              Oficinas en Madrid y Barcelona para reuniones presenciales con el comité de dirección y evaluación de candidatos.
             </p>
           </div>
         </div>

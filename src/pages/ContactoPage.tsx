@@ -19,6 +19,7 @@ import {
 import confetti from 'canvas-confetti';
 import { PageRoute } from '../types';
 import { useTheme } from '../context/ThemeContext';
+import { COMPANY_CONFIG } from '../config/company';
 
 interface ContactoPageProps {
   onNavigate: (path: PageRoute) => void;
@@ -141,40 +142,39 @@ export const ContactoPage: React.FC<ContactoPageProps> = ({
           
           {/* Left Column: Detailed Office Directory (5 cols) */}
           <div className="lg:col-span-5 space-y-6">
-            
-            {/* Madrid HQ Card */}
+                   {/* Madrid HQ Card */}
             <div className={`border rounded-3xl p-6 sm:p-7 shadow-xl space-y-3 transition-colors card-spring-hover ${
-              theme === 'dark'
-                ? 'bg-slate-900/80 border-slate-800 hover:border-[#00A9A3]/40'
+              theme === 'dark' 
+                ? 'bg-slate-900/80 border-slate-800 hover:border-[#00A9A3]/40' 
                 : 'bg-white border-slate-200 hover:border-[#00A9A3]/50 shadow-md'
             }`}>
               <div className="flex items-center justify-between">
                 <span className="text-xs font-bold uppercase tracking-wider flex items-center gap-2">
-                  <Building2 className="w-4 h-4 text-[#00A9A3]" /> Sede Central Madrid
+                  <Building2 className="w-4 h-4 text-[#00A9A3]" /> Sede Madrid
                 </span>
                 <span className={`text-[10px] px-2.5 py-0.5 rounded-full border font-bold ${
                   theme === 'dark'
                     ? 'text-[#00A9A3] bg-[#00A9A3]/15 border-[#00A9A3]/30'
                     : 'text-[#00A9A3] bg-[#00A9A3]/10 border-[#00A9A3]/30'
                 }`}>
-                  Castellana
+                  {COMPANY_CONFIG.addresses.madrid.city}
                 </span>
               </div>
               <p className={`text-xs flex items-start gap-2 pt-1 ${
                 theme === 'dark' ? 'text-slate-300' : 'text-slate-600'
               }`}>
                 <MapPin className="w-4 h-4 text-[#00A9A3] shrink-0 mt-0.5" />
-                <span>Paseo de la Castellana 95, Planta 15, 28046 Madrid, España</span>
+                <span>{COMPANY_CONFIG.addresses.madrid.full}</span>
               </p>
               <div className={`pt-2 border-t flex items-center justify-between text-xs ${
                 theme === 'dark' ? 'border-slate-800' : 'border-slate-100'
               }`}>
                 <span className={theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}>Teléfono Sede:</span>
-                <a href="tel:+34910884420" className="text-[#00A9A3] hover:underline font-semibold">+34 910 88 44 20</a>
+                <a href={`tel:${COMPANY_CONFIG.phone.replace(/\s+/g, '')}`} className="text-[#00A9A3] hover:underline font-semibold">{COMPANY_CONFIG.phoneDisplay}</a>
               </div>
               <div className="flex items-center justify-between text-xs">
-                <span className={theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}>Metro cercano:</span>
-                <span className={theme === 'dark' ? 'text-slate-200' : 'text-slate-700 font-medium'}>Santiago Bernabéu / Nuevos Ministerios</span>
+                <span className={theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}>Atención:</span>
+                <span className={theme === 'dark' ? 'text-slate-200' : 'text-slate-700 font-medium'}>Lunes a Viernes (9:00 - 19:30 CET)</span>
               </div>
             </div>
 
@@ -193,24 +193,24 @@ export const ContactoPage: React.FC<ContactoPageProps> = ({
                     ? 'text-blue-400 bg-blue-950 border-blue-800'
                     : 'text-blue-700 bg-blue-50 border-blue-200'
                 }`}>
-                  Diagonal &amp; 22@
+                  {COMPANY_CONFIG.addresses.barcelona.city}
                 </span>
               </div>
               <p className={`text-xs flex items-start gap-2 pt-1 ${
                 theme === 'dark' ? 'text-slate-300' : 'text-slate-600'
               }`}>
                 <MapPin className="w-4 h-4 text-blue-500 shrink-0 mt-0.5" />
-                <span>Avinguda Diagonal 640 &amp; Distrito 22@, 08018 Barcelona, España</span>
+                <span>{COMPANY_CONFIG.addresses.barcelona.full}</span>
               </p>
               <div className={`pt-2 border-t flex items-center justify-between text-xs ${
                 theme === 'dark' ? 'border-slate-800' : 'border-slate-100'
               }`}>
                 <span className={theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}>Teléfono Sede:</span>
-                <a href="tel:+34910884420" className="text-blue-500 hover:underline font-semibold">+34 910 88 44 20</a>
+                <a href={`tel:${COMPANY_CONFIG.phone.replace(/\s+/g, '')}`} className="text-blue-500 hover:underline font-semibold">{COMPANY_CONFIG.phoneDisplay}</a>
               </div>
               <div className="flex items-center justify-between text-xs">
-                <span className={theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}>Metro cercano:</span>
-                <span className={theme === 'dark' ? 'text-slate-200' : 'text-slate-700 font-medium'}>Maria Cristina (L3) / Glòries (L1)</span>
+                <span className={theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}>Atención:</span>
+                <span className={theme === 'dark' ? 'text-slate-200' : 'text-slate-700 font-medium'}>Lunes a Viernes (9:00 - 19:30 CET)</span>
               </div>
             </div>
 

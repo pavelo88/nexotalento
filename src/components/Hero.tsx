@@ -1,33 +1,23 @@
 import React, { useState } from 'react';
 import { useTheme } from '../context/ThemeContext';
 import { 
-  Bot, 
-  Briefcase, 
   ShieldCheck, 
   ArrowRight, 
-  TrendingUp, 
-  Clock, 
-  CheckCircle2, 
-  Award, 
-  FileSearch,
-  MessageSquare,
-  Sparkles,
-  Users,
-  Building2,
-  Rocket,
-  ChevronRight,
-  MapPin
+  MessageSquare, 
+  Building2, 
+  Rocket, 
+  FileSearch 
 } from 'lucide-react';
 import { PageRoute } from '../types';
+import { COMPANY_CONFIG } from '../config/company';
 
 interface HeroProps {
-  onOpenAIAgent: (type?: 'headhunter' | 'evaluator' | 'salary' | 'advisor') => void;
-  onOpenCVAnalyzer: () => void;
+  onOpenAIAgent?: (type?: 'headhunter' | 'evaluator' | 'salary' | 'advisor') => void;
+  onOpenCVAnalyzer?: () => void;
   onNavigate?: (path: PageRoute) => void;
 }
 
 export const Hero: React.FC<HeroProps> = ({ 
-  onOpenAIAgent, 
   onOpenCVAnalyzer,
   onNavigate 
 }) => {
@@ -40,6 +30,10 @@ export const Hero: React.FC<HeroProps> = ({
       el.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  const whatsappCompaniesUrl = `https://wa.me/${COMPANY_CONFIG.whatsapp}?text=${encodeURIComponent(
+    'Hola Nexo Talentos, deseo consultar sobre la búsqueda de un perfil directivo / técnico para mi empresa.'
+  )}`;
 
   return (
     <section 
@@ -66,18 +60,13 @@ export const Hero: React.FC<HeroProps> = ({
         
         {/* Top Trust Badge */}
         <div className="text-center mb-6 sm:mb-8">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border shadow-sm transition-transform hover:scale-105"
-            style={{
-              backgroundColor: theme === 'dark' ? 'rgba(15, 23, 42, 0.8)' : 'rgba(255, 255, 255, 0.9)',
-              borderColor: theme === 'dark' ? 'rgba(6, 182, 212, 0.4)' : 'rgba(6, 182, 212, 0.5)'
-            }}
-          >
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border shadow-sm transition-transform hover:scale-105 bg-slate-900/80 border-cyan-500/40 dark:bg-slate-900/80 dark:border-cyan-500/40">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500" />
             </span>
-            <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider">
-              Firma de Headhunting &amp; Externalización Estratégica en España
+            <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-200">
+              Firma de Headhunting &amp; Selección Ejecutiva en España
             </span>
             <span className="bg-cyan-500/20 text-cyan-400 dark:text-cyan-300 text-[9px] sm:text-[10px] font-extrabold px-2 py-0.5 rounded-full border border-cyan-500/30">
               Edición 2026
@@ -87,23 +76,18 @@ export const Hero: React.FC<HeroProps> = ({
           <h1 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight font-heading max-w-4xl mx-auto leading-tight">
             Gestión del Talento, Executive Search &amp;{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 dark:from-cyan-400 dark:via-blue-400 dark:to-indigo-400">
-              Contratación con Agentes IA
+              Selección Directiva de Alto Impacto
             </span>
           </h1>
           <p className={`mt-2.5 text-xs sm:text-sm max-w-2xl mx-auto ${
             theme === 'dark' ? 'text-slate-300' : 'text-slate-600'
           }`}>
-            Garantizamos la máxima precisión en Madrid, Barcelona y toda España. Terna en <strong>18 días hábiles</strong> y <strong>100% blindaje legal (Art. 43 ET)</strong>.
+            Garantizamos la máxima precisión en Madrid, Barcelona y toda España. Terna en <strong>18 días hábiles</strong> con <strong>garantía contractual de 3 a 6 meses</strong> y <strong>100% blindaje legal (Art. 43 ET)</strong>.
           </p>
         </div>
 
         {/* Mobile Audience Switcher (Visible on Mobile Only) */}
-        <div className="lg:hidden flex items-center justify-center p-1 rounded-2xl border mb-6 max-w-sm mx-auto shadow-sm"
-          style={{
-            backgroundColor: theme === 'dark' ? 'rgba(15, 23, 42, 0.9)' : 'rgba(241, 245, 249, 0.9)',
-            borderColor: theme === 'dark' ? 'rgba(51, 65, 85, 0.7)' : 'rgba(203, 213, 225, 0.8)'
-          }}
-        >
+        <div className="lg:hidden flex items-center justify-center p-1 rounded-2xl border mb-6 max-w-sm mx-auto shadow-sm bg-slate-900/90 border-slate-700/70">
           <button
             onClick={() => setMobileTab('empresas')}
             className={`flex-1 py-2.5 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
@@ -128,7 +112,7 @@ export const Hero: React.FC<HeroProps> = ({
           </button>
         </div>
 
-        {/* DESKTOP SPLIT SCREEN HERO (Bifurcación Inmediata) */}
+        {/* DESKTOP SPLIT SCREEN HERO (Bifurcación Inmediata con Fotos Originales) */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-stretch">
           
           {/* ================= LEFT SIDE: PARA EMPRESAS ================= */}
@@ -159,7 +143,7 @@ export const Hero: React.FC<HeroProps> = ({
               <p className={`text-xs sm:text-sm leading-relaxed mb-6 ${
                 theme === 'dark' ? 'text-slate-300' : 'text-slate-600'
               }`}>
-                Externalización y Headhunting ético sin riesgos de cesión ilegal. Identificamos al <strong>1% de talento pasivo de alto impacto</strong> con evaluación predictiva y cobertura integral.
+                Externalización y Headhunting ético sin riesgos de cesión ilegal. Identificamos al talento directivo y técnico de alto impacto con rigor humano, evaluación predictiva y cobertura integral.
               </p>
 
               {/* Image Showcase: Modern Boardroom & Tech Leaders in Madrid/Barcelona */}
@@ -180,7 +164,7 @@ export const Hero: React.FC<HeroProps> = ({
                   <div className="flex items-center justify-between w-full text-white text-xs">
                     <span className="font-bold flex items-center gap-1.5">
                       <ShieldCheck className="w-4 h-4 text-cyan-400" />
-                      Garantía Total de 12 Meses
+                      Garantía Contractual 3 a 6 Meses
                     </span>
                     <span className="bg-cyan-500/90 text-slate-950 font-extrabold px-2.5 py-0.5 rounded-md text-[10px]">
                       Terna en 18 Días
@@ -196,7 +180,7 @@ export const Hero: React.FC<HeroProps> = ({
                   <p className={`text-[10px] ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600 font-medium'}`}>Terna Validada</p>
                 </div>
                 <div className={`p-2.5 rounded-xl border ${theme === 'dark' ? 'bg-slate-950/60 border-slate-800' : 'bg-white border-slate-200'}`}>
-                  <p className="text-base font-extrabold text-blue-700 dark:text-blue-400">12 Meses</p>
+                  <p className="text-base font-extrabold text-blue-700 dark:text-blue-400">3-6 Meses</p>
                   <p className={`text-[10px] ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600 font-medium'}`}>Garantía Reposición</p>
                 </div>
                 <div className={`p-2.5 rounded-xl border ${theme === 'dark' ? 'bg-slate-950/60 border-slate-800' : 'bg-white border-slate-200'}`}>
@@ -213,7 +197,7 @@ export const Hero: React.FC<HeroProps> = ({
                   if (onNavigate) {
                     onNavigate('/solicitar-talento');
                   } else {
-                    scrollToSection('calculadora-requerimientos');
+                    scrollToSection('solicitar-talento');
                   }
                 }}
                 className="w-full py-3.5 px-6 bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-slate-950 font-extrabold rounded-2xl shadow-lg btn-spring-press flex items-center justify-center gap-2 text-sm group cursor-pointer"
@@ -223,17 +207,19 @@ export const Hero: React.FC<HeroProps> = ({
               </button>
 
               <div className="flex gap-2">
-                <button
-                  onClick={() => onOpenAIAgent('headhunter')}
-                  className={`flex-1 py-2.5 px-3 text-xs font-bold rounded-xl border btn-spring-press flex items-center justify-center gap-1.5 ${
+                <a
+                  href={whatsappCompaniesUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`flex-1 py-2.5 px-3 text-xs font-bold rounded-xl border btn-spring-press flex items-center justify-center gap-1.5 transition-colors ${
                     theme === 'dark'
-                      ? 'bg-slate-900/80 hover:bg-slate-800 text-slate-200 border-slate-700'
-                      : 'bg-white hover:bg-slate-50 text-slate-800 border-slate-200 shadow-sm'
+                      ? 'bg-emerald-950/50 hover:bg-emerald-900/60 text-emerald-300 border-emerald-500/40'
+                      : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border-emerald-300 shadow-sm'
                   }`}
                 >
-                  <Bot className="w-3.5 h-3.5 text-cyan-500" />
-                  <span>Consultar con Headhunter IA</span>
-                </button>
+                  <MessageSquare className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                  <span>Consultar por WhatsApp</span>
+                </a>
                 {onNavigate && (
                   <button
                     onClick={() => onNavigate('/servicios')}
@@ -298,8 +284,8 @@ export const Hero: React.FC<HeroProps> = ({
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-transparent flex items-end p-4">
                   <div className="flex items-center justify-between w-full text-white text-xs">
                     <span className="font-bold flex items-center gap-1.5">
-                      <Sparkles className="w-4 h-4 text-emerald-400" />
-                      Auditoría Salarial &amp; CV con IA
+                      <ShieldCheck className="w-4 h-4 text-emerald-400" />
+                      Confidencialidad Máxima RGPD
                     </span>
                     <span className="bg-emerald-500/90 text-slate-950 font-extrabold px-2.5 py-0.5 rounded-md text-[10px]">
                       +24 Vacantes Activas
@@ -342,17 +328,19 @@ export const Hero: React.FC<HeroProps> = ({
               </button>
 
               <div className="flex gap-2">
-                <button
-                  onClick={onOpenCVAnalyzer}
-                  className={`flex-1 py-2.5 px-3 text-xs font-bold rounded-xl border btn-spring-press flex items-center justify-center gap-1.5 ${
-                    theme === 'dark'
-                      ? 'bg-slate-900/80 hover:bg-slate-800 text-slate-200 border-slate-700'
-                      : 'bg-white hover:bg-slate-50 text-slate-800 border-slate-200 shadow-sm'
-                  }`}
-                >
-                  <FileSearch className="w-3.5 h-3.5 text-emerald-500" />
-                  <span>Auditar mi CV con IA</span>
-                </button>
+                {onOpenCVAnalyzer && (
+                  <button
+                    onClick={onOpenCVAnalyzer}
+                    className={`flex-1 py-2.5 px-3 text-xs font-bold rounded-xl border btn-spring-press flex items-center justify-center gap-1.5 ${
+                      theme === 'dark'
+                        ? 'bg-slate-900/80 hover:bg-slate-800 text-slate-200 border-slate-700'
+                        : 'bg-white hover:bg-slate-50 text-slate-800 border-slate-200 shadow-sm'
+                    }`}
+                  >
+                    <FileSearch className="w-3.5 h-3.5 text-emerald-500" />
+                    <span>Auditar mi CV</span>
+                  </button>
+                )}
                 {onNavigate && (
                   <button
                     onClick={() => onNavigate('/guia-salarial')}
@@ -382,7 +370,7 @@ export const Hero: React.FC<HeroProps> = ({
               if (onNavigate) {
                 onNavigate('/solicitar-talento');
               } else {
-                scrollToSection('calculadora-requerimientos');
+                scrollToSection('solicitar-talento');
               }
             }}
             className="py-3 px-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-extrabold text-xs shadow-md flex items-center justify-center gap-1.5 text-center btn-spring-press"
