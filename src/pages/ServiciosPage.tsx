@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Briefcase, 
   Cpu, 
@@ -33,6 +33,25 @@ export const ServiciosPage: React.FC<ServiciosPageProps> = ({
 }) => {
   const { theme } = useTheme();
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+
+  useEffect(() => {
+    const scrollToHash = () => {
+      const hash = window.location.hash.replace('#', '');
+      if (hash) {
+        setSelectedCategory('all');
+        setTimeout(() => {
+          const el = document.getElementById(hash);
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 150);
+      }
+    };
+
+    scrollToHash();
+    window.addEventListener('hashchange', scrollToHash);
+    return () => window.removeEventListener('hashchange', scrollToHash);
+  }, []);
 
   const detailedServices = [
     {
@@ -111,11 +130,11 @@ export const ServiciosPage: React.FC<ServiciosPageProps> = ({
     {
       id: 'assessment-center',
       category: 'consultoria',
-      title: 'Assessment Center & Diagnóstico Directivo con IA',
-      badge: 'Precisión Predictiva • Error 1.6%',
+      title: 'Assessment Center & Diagnóstico de Liderazgo Directivo',
+      badge: 'Evaluación Rigurosa 360° • Metodología Homologada',
       icon: Award,
       color: 'from-purple-500 to-pink-600',
-      description: 'Auditoría integral de competencias directivas, liderazgo situacional y capacidad de toma de decisiones bajo presión mediante dinámicas de role-play y algoritmos de adecuación de IA.',
+      description: 'Auditoría integral de competencias directivas, liderazgo situacional y capacidad de toma de decisiones bajo presión mediante dinámicas de role-play, simulaciones ejecutivas y contraste psicométrico.',
       targetProfiles: [
         'Promociones internas a comités de dirección',
         'Candidatos finalistas en procesos críticos',
@@ -263,12 +282,15 @@ export const ServiciosPage: React.FC<ServiciosPageProps> = ({
               <div
                 key={serv.id}
                 id={serv.id}
-                className={`border rounded-3xl p-6 sm:p-10 shadow-xl transition-all duration-300 group relative overflow-hidden card-spring-hover ${
+                className={`scroll-mt-28 border rounded-3xl p-6 sm:p-10 shadow-xl transition-all duration-300 group relative overflow-hidden card-spring-hover ${
                   theme === 'dark'
                     ? 'bg-slate-900/70 border-slate-800 hover:border-[#00A9A3]/40'
                     : 'bg-white border-slate-200 hover:border-[#00A9A3]/40 shadow-md'
                 }`}
               >
+                {serv.id === 'executive-search' && <div id="executive" className="absolute -top-28 pointer-events-none" />}
+                {serv.id === 'tech-digital' && <div id="tech" className="absolute -top-28 pointer-events-none" />}
+                {serv.id === 'rpo-scaleup' && <div id="rpo" className="absolute -top-28 pointer-events-none" />}
                 <div className={`absolute top-0 right-0 w-48 h-48 bg-gradient-to-bl ${serv.color} opacity-5 rounded-bl-full pointer-events-none`} />
 
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
@@ -349,17 +371,21 @@ export const ServiciosPage: React.FC<ServiciosPageProps> = ({
                     </div>
 
                     <div className="flex flex-col gap-2 pt-2">
-                      <button
-                        onClick={() => onOpenAIAgent(serv.agentRecommendation)}
+                      <a
+                        href={`https://wa.me/34614143763?text=${encodeURIComponent(
+                          `Hola Nexo Talentos, deseo consultar con un Consultor Sénior sobre el servicio: ${serv.title}`
+                        )}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className={`w-full py-2.5 text-xs font-bold rounded-xl border flex items-center justify-center gap-2 transition-all btn-spring-press ${
                           theme === 'dark'
-                            ? 'bg-slate-900 hover:bg-slate-800 text-[#00A9A3] border-[#00A9A3]/30'
-                            : 'bg-white hover:bg-slate-50 text-[#00A9A3] border-[#00A9A3]/40 shadow-sm'
+                            ? 'bg-emerald-950/40 hover:bg-emerald-900/60 text-emerald-300 border-emerald-500/30'
+                            : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border-emerald-300 shadow-sm'
                         }`}
                       >
-                        <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-                        <span>Consultar Asesor IA para este Servicio</span>
-                      </button>
+                        <MessageSquare className="w-3.5 h-3.5 text-emerald-400" />
+                        <span>Consultar por WhatsApp con Especialista</span>
+                      </a>
 
                       <button
                         onClick={() => onNavigate('/contacto')}

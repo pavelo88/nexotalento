@@ -6,6 +6,7 @@ import { NexoFloatingMenu } from './components/NexoFloatingMenu';
 import { HomePage } from './pages/HomePage';
 import { PageRoute } from './types';
 import { Bot, Sparkles, MessageSquare } from 'lucide-react';
+import { COMPANY_CONFIG } from './config/company';
 
 // Code-Splitting: Lazy load all secondary routes & heavy interactive modals
 const ServiciosPage = lazy(() => import('./pages/ServiciosPage').then(m => ({ default: m.ServiciosPage })));
@@ -17,7 +18,8 @@ const VacantesPage = lazy(() => import('./pages/VacantesPage').then(m => ({ defa
 const GuiaSalarialPage = lazy(() => import('./pages/GuiaSalarialPage').then(m => ({ default: m.GuiaSalarialPage })));
 const CalculadoraRoiPage = lazy(() => import('./pages/CalculadoraRoiPage').then(m => ({ default: m.CalculadoraRoiPage })));
 const BlogPage = lazy(() => import('./pages/BlogPage').then(m => ({ default: m.BlogPage })));
-const AgentesIAPage = lazy(() => import('./pages/AgentesIAPage').then(m => ({ default: m.AgentesIAPage })));
+// PRESERVADO COMENTADO SEGÚN SOLICITUD DE CLIENTE:
+// const AgentesIAPage = lazy(() => import('./pages/AgentesIAPage').then(m => ({ default: m.AgentesIAPage })));
 
 const NexIAChatModal = lazy(() =>
   import('./components/NexIAChatModal').then((m) => ({ default: m.NexIAChatModal }))
@@ -42,7 +44,16 @@ function AppContent() {
   // Parse path on initial load & handle browser back/forward buttons
   useEffect(() => {
     const syncRouteWithLocation = () => {
-      const pathname = window.location.pathname as PageRoute;
+      const fullPath = window.location.pathname;
+      const [pathname] = fullPath.split('#');
+      
+      // Redirigir /agentes-ia a /servicios según solicitud del cliente
+      if (pathname === '/agentes-ia') {
+        window.history.replaceState({}, '', '/servicios');
+        setCurrentPath('/servicios');
+        return;
+      }
+
       const validRoutes: PageRoute[] = [
         '/',
         '/servicios',
@@ -53,13 +64,21 @@ function AppContent() {
         '/vacantes',
         '/guia-salarial',
         '/calculadora-roi',
-        '/agentes-ia',
         '/blog'
       ];
-      if (validRoutes.includes(pathname)) {
-        setCurrentPath(pathname);
+      if (validRoutes.includes(pathname as PageRoute)) {
+        setCurrentPath(pathname as PageRoute);
       } else {
         setCurrentPath('/');
+      }
+
+      // Si hay hash inicial en la URL, hacer scroll suave al elemento
+      if (window.location.hash) {
+        const hashTarget = window.location.hash.replace('#', '');
+        setTimeout(() => {
+          const el = document.getElementById(hashTarget);
+          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 200);
       }
     };
 
@@ -68,28 +87,44 @@ function AppContent() {
     return () => window.removeEventListener('popstate', syncRouteWithLocation);
   }, []);
 
-  const handleNavigate = (path: PageRoute) => {
-    // Native View Transitions API support (Fallbacks seamlessly if not supported)
+  const handleNavigate = (path: string) => {
+    const [rawPath, hash] = path.split('#');
+    const route = (rawPath || '/') as PageRoute;
+
+    const executeScroll = () => {
+      if (hash) {
+        setTimeout(() => {
+          const el = document.getElementById(hash);
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 150);
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    };
+
     if (document.startViewTransition) {
       document.startViewTransition(() => {
-        setCurrentPath(path);
-        if (window.location.pathname !== path) {
+        setCurrentPath(route);
+        if (window.location.pathname !== route || window.location.hash !== (hash ? `#${hash}` : '')) {
           window.history.pushState({}, '', path);
         }
-        window.scrollTo({ top: 0, behavior: 'instant' });
+        executeScroll();
       });
     } else {
-      setCurrentPath(path);
-      if (window.location.pathname !== path) {
+      setCurrentPath(route);
+      if (window.location.pathname !== route || window.location.hash !== (hash ? `#${hash}` : '')) {
         window.history.pushState({}, '', path);
       }
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      executeScroll();
     }
   };
 
   const handleOpenAIAgent = (type?: 'headhunter' | 'evaluator' | 'salary' | 'advisor') => {
+    // Redirigir a WhatsApp directo con consultor de talento humano
     setSelectedAgentType(type);
-    handleNavigate('/agentes-ia');
+    window.open(COMPANY_CONFIG.whatsappUrl, '_blank');
   };
 
   return (
@@ -205,12 +240,17 @@ function AppContent() {
                 />
               )}
 
-              {currentPath === '/agentes-ia' && (
-                <AgentesIAPage
-                  onNavigate={handleNavigate}
-                  onOpenAIAgent={handleOpenAIAgent}
-                />
-              )}
+              {/* 
+               * =====================================================================
+               * RUTA /agentes-ia PRESERVADA COMENTADA SEGÚN SOLICITUD DEL CLIENTE:
+               * {currentPath === '/agentes-ia' && (
+               *   <AgentesIAPage
+               *     onNavigate={handleNavigate}
+               *     onOpenAIAgent={handleOpenAIAgent}
+               *   />
+               * )}
+               * =====================================================================
+               */}
             </Suspense>
           )}
         </main>

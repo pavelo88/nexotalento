@@ -68,11 +68,13 @@ export const Navbar: React.FC<NavbarProps> = ({
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const handleLinkClick = (path: PageRoute) => {
-    onNavigate(path);
+  const handleLinkClick = (path: string) => {
+    onNavigate(path as PageRoute);
     setActiveDropdown(null);
     setMobileMenuOpen(false);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (!path.includes('#')) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   const toggleDropdown = (name: string) => {
@@ -147,7 +149,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     : 'bg-white/95 border-slate-200 text-slate-900 backdrop-blur-2xl'
                 }`}>
                   <button
-                    onClick={() => handleLinkClick('/servicios#executive' as any)}
+                    onClick={() => handleLinkClick('/servicios#executive-search')}
                     className={`w-full text-left p-2.5 rounded-xl transition-all flex items-start gap-3 group ${
                       theme === 'dark' ? 'hover:bg-slate-900' : 'hover:bg-slate-50'
                     }`}
@@ -167,7 +169,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   </button>
 
                   <button
-                    onClick={() => handleLinkClick('/servicios#tech' as any)}
+                    onClick={() => handleLinkClick('/servicios#tech-digital')}
                     className={`w-full text-left p-2.5 rounded-xl transition-all flex items-start gap-3 group ${
                       theme === 'dark' ? 'hover:bg-slate-900' : 'hover:bg-slate-50'
                     }`}
@@ -186,7 +188,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   </button>
 
                   <button
-                    onClick={() => handleLinkClick('/servicios#rpo' as any)}
+                    onClick={() => handleLinkClick('/servicios#rpo-scaleup')}
                     className={`w-full text-left p-2.5 rounded-xl transition-all flex items-start gap-3 group ${
                       theme === 'dark' ? 'hover:bg-slate-900' : 'hover:bg-slate-50'
                     }`}
