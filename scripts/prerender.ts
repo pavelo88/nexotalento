@@ -11,8 +11,9 @@ interface RouteMetadata {
   description: string;
   h1: string;
   h2: string;
-  h3s: { title: string; desc: string; linkText: string; linkHref: string }[];
   summaryText: string;
+  closingText: string;
+  h3s: { title: string; desc: string; linkText: string; linkHref: string }[];
 }
 
 const DOMAIN = 'https://nexotalentos.vercel.app';
@@ -24,35 +25,36 @@ const ROUTES: RouteMetadata[] = [
     description: 'Servicios de Executive Search, selección de mandos intermedios y talento tech en Madrid y Barcelona. Terna en 18 días hábiles garantizada.',
     h1: 'Servicios de Executive Search &amp; Headhunting en España',
     h2: 'Catálogo de Soluciones de Contratación Directiva y Tecnológica',
-    summaryText: 'En Nexo Talentos ofrecemos soluciones integrales para cubrir puestos directivos, posiciones técnicas y perfiles internacionales con la máxima rapidez y total seguridad jurídica.',
+    summaryText: 'Buscamos líderes para tu empresa en toda España. Cubrimos puestos clave con rapidez y trato cercano. Entregamos candidatos listos en dieciocho días laborables. Cuentas con garantía de tres a seis meses sin coste extra. Cuidamos cada detalle legal en todo momento.',
+    closingText: 'Te ayudamos a formar equipos sólidos que hacen crecer tu negocio. Habla hoy mismo con un consultor sénior. Analizamos tu vacante y te enviamos una propuesta clara en menos de un día.',
     h3s: [
       {
         title: 'Executive Search y Alta Dirección',
-        desc: 'Identificamos directores generales, consejeros y miembros del comité de dirección con visión estratégica y liderazgo probado.',
+        desc: 'Buscamos directores generales y consejeros con visión de futuro. Evaluamos logros reales y capacidad de mando. Te presentamos tres líderes que encajan con tu plan.',
         linkText: 'Solicitar Executive Search',
         linkHref: '/contacto'
       },
       {
         title: 'Selección de Perfiles Tecnológicos e IA',
-        desc: 'Reclutamos directores de tecnología, ingenieros de software y expertos en inteligencia artificial con evaluación técnica rigurosa.',
+        desc: 'Reclutamos directores de tecnología y jefes de desarrollo. Validamos código, datos y proyectos de inteligencia artificial. Encontramos expertos listos para entrar a tu equipo.',
         linkText: 'Ver Soluciones Tech',
         linkHref: '/contacto'
       },
       {
         title: 'Selección de Mandos Intermedios',
-        desc: 'Cubrimos puestos de responsabilidad operativa y mandos medios que impulsan la ejecución del plan estratégico de tu compañía.',
+        desc: 'Cubrimos puestos clave de gestión diaria y mandos medios. Seleccionamos jefes de equipo que ejecutan tus planes con éxito. Aceleramos la contratación con filtros claros.',
         linkText: 'Consultar Mandos Medios',
         linkHref: '/contacto'
       },
       {
-        title: 'Talento Nearshore en Latinoamérica',
-        desc: 'Accede a talento bilingüe de alto nivel en Latinoamérica con compatibilidad horaria y optimización de costes salariales.',
-        linkText: 'Ver Opciones Nearshore',
+        title: 'Talento Remoto en Latinoamérica',
+        desc: 'Accede a talento cualificado en otros países con el mismo horario. Ahorras hasta un cincuenta por ciento en costes laborales. Mantienes la máxima calidad técnica en tus proyectos.',
+        linkText: 'Ver Opciones Remotas',
         linkHref: '/guia-salarial'
       },
       {
-        title: 'Garantía de Sustitución Contractual',
-        desc: 'Cada proceso cuenta con un periodo de garantía de tres a seis meses con reposición sin ningún coste extra para tu empresa.',
+        title: 'Garantía Real de Reposición Sin Coste',
+        desc: 'Todos nuestros procesos cuentan con garantía por contrato. Si la persona no supera el periodo acordado, buscamos otra sin coste. Tu inversión está protegida desde el primer día.',
         linkText: 'Conocer Nuestras Garantías',
         linkHref: '/por-que-elegirnos'
       }
@@ -64,35 +66,36 @@ const ROUTES: RouteMetadata[] = [
     description: 'Descubre nuestras 4 garantías exclusivas: terna en 18 días, blindaje legal Art. 43 ET, sustitución gratuita y evaluación con IA avanzada.',
     h1: '¿Por Qué las Empresas Líderes Eligen Nexo Talentos?',
     h2: 'Cuatro Pilares Exclusivos de Excelencia y Seguridad Jurídica',
-    summaryText: 'Aportamos tranquilidad, velocidad y rigor a los directores de recursos humanos y comités de dirección que necesitan incorporar líderes sin asumir riesgos.',
+    summaryText: 'Somos la firma de selección directiva más ágil de España. Ayudamos a directores de personas y comités de dirección a contratar con calma. Te ofrecemos cuatro garantías reales por contrato. Trabajamos con método, cercanía y total discreción en cada proceso.',
+    closingText: 'Más de doscientas empresas han cerrado con éxito sus procesos directivos con nosotros. Te damos la tranquilidad de contratar bien a la primera. Pide una cita confidencial con un socio de la firma hoy.',
     h3s: [
       {
         title: 'Entrega de Terna en 18 Días Hábiles',
-        desc: 'Nuestro modelo de trabajo reduce los plazos tradicionales de selección a solo dieciocho días laborables con candidatos calificados.',
+        desc: 'Reducimos los tiempos habituales de selección a solo dieciocho días laborables. No te hacemos esperar meses. Presentamos tres finalistas listos para tu entrevista final.',
         linkText: 'Ver Nuestro Proceso Ágil',
         linkHref: '/proceso'
       },
       {
-        title: 'Blindaje Legal Total según Art. 43 ET',
-        desc: 'Protegemos tu empresa ante riesgos de cesión ilegal de trabajadores con contratos blindados y asesoramiento laboral integral.',
+        title: 'Blindaje Legal Total según la Ley Laboral',
+        desc: 'Protegemos tu empresa ante cualquier riesgo laboral. Cumplimos cada punto de la ley de contratos y cesión de trabajadores. Todos los acuerdos quedan blindados por escrito.',
         linkText: 'Leer Sobre Blindaje Legal',
         linkHref: '/blog'
       },
       {
         title: 'Garantía Real de Reposición Sin Coste',
-        desc: 'Si el candidato no supera el periodo acordado de tres a seis meses, activamos una nueva búsqueda inmediata sin coste.',
+        desc: 'Si el candidato decide salir o no encaja en el equipo, lo cambiamos sin coste. Cuentas con tres a seis meses de cobertura total. Reanudamos la búsqueda de inmediato.',
         linkText: 'Consultar Condiciones',
         linkHref: '/contacto'
       },
       {
-        title: 'Evaluación Técnica con Inteligencia Artificial',
-        desc: 'Analizamos habilidades duras y blandas con herramientas analíticas modernas para predecir el éxito y ajuste cultural del profesional.',
-        linkText: 'Ver Herramientas IA',
+        title: 'Evaluación Técnica con Herramientas Modernas',
+        desc: 'Medimos conocimientos prácticos y habilidades de liderazgo. Empleamos pruebas objetivas para predecir el éxito en el puesto. Reducimos al mínimo los fallos en la elección.',
+        linkText: 'Ver Métodos de Evaluación',
         linkHref: '/servicios'
       },
       {
-        title: 'Confidencialidad Absoluta en Cada Búsqueda',
-        desc: 'Gestionamos búsquedas reservadas y sustituciones sensibles con estricto acuerdo de confidencialidad y máxima discreción.',
+        title: 'Confidencialidad Absoluta en Cada Proceso',
+        desc: 'Tratamos las búsquedas sensibles con total reserva. Firmamos acuerdos de secreto profesional antes de empezar. Protegemos la imagen de tu empresa en todo momento.',
         linkText: 'Contactar de Forma Privada',
         linkHref: '/contacto'
       }
@@ -104,35 +107,36 @@ const ROUTES: RouteMetadata[] = [
     description: 'Conoce las opiniones y casos reales de CEOs y directores de recursos humanos que confían en Nexo Talentos para contratar talento clave en España.',
     h1: 'Casos de Éxito y Testimonios de Directivos',
     h2: 'Opiniones Verificadas de Líderes Empresariales en España',
-    summaryText: 'Descubre los resultados auditados de empresas que han acelerado su crecimiento contratando talento directivo y técnico con el apoyo de Nexo Talentos.',
+    summaryText: 'Más de doscientas empresas líderes confían en Nexo Talentos. Ayudamos a grupos empresariales a encontrar directores de alto nivel con rapidez. Nuestros clientes destacan la cercanía y el rigor de los consultores. Compartimos casos reales con datos claros y resultados auditados.',
+    closingText: 'Si deseas hablar con clientes de tu mismo sector, te facilitamos referencias directas. Comprueba por qué el noventa y cuatro por ciento de las empresas repite con nosotros. Escríbenos hoy y cuéntanos tu caso.',
     h3s: [
       {
-        title: 'Contratación de CTO para Scaleup Fintech',
-        desc: 'Presentamos una terna de directores de tecnología en Madrid en solo doce días hábiles, logrando un cierre exitoso y duradero.',
+        title: 'Director de Tecnología para Empresa de Pagos',
+        desc: 'Presentamos una terna de directores en Madrid en solo doce días laborables. El candidato elegido lidera hoy un equipo de cuarenta ingenieros con gran éxito.',
         linkText: 'Ver Ofertas Tecnológicas',
         linkHref: '/vacantes'
       },
       {
         title: 'Director de Operaciones en Sector Industrial',
-        desc: 'Identificamos un líder industrial con experiencia internacional en Valencia para liderar una fábrica de trescientas personas.',
+        desc: 'Buscaban un líder de planta en Valencia para gestionar trescientas personas. Cerramos el proceso en dieciséis días con plena satisfacción del consejo.',
         linkText: 'Ver Servicios Industriales',
         linkHref: '/servicios'
       },
       {
-        title: 'Equipo de Ingeniería Remoto en Latinoamérica',
-        desc: 'Una empresa de software española contrató cinco ingenieros sénior en remoto con un ahorro del cincuenta por ciento en costes.',
+        title: 'Cinco Ingenieros Sénior en Modalidad Remota',
+        desc: 'Una empresa de software incorporó cinco expertos en Latinoamérica. Lograron un ahorro de costes del cincuenta por ciento manteniendo alta calidad técnica.',
         linkText: 'Calcular Ahorro Salarial',
         linkHref: '/guia-salarial'
       },
       {
-        title: 'Directora Financiera para Grupo Sanitario',
-        desc: 'Cubrimos una vacante clave de dirección financiera en Barcelona en dieciséis días, garantizando continuidad en la gestión de tesorería.',
+        title: 'Directora Financiera para Grupo de Salud',
+        desc: 'Cubrimos una vacante clave de dirección financiera en Barcelona. La empresa resolvió su necesidad en dos semanas con un perfil de primer nivel.',
         linkText: 'Pedir Propuesta Directiva',
         linkHref: '/contacto'
       },
       {
-        title: 'Opiniones sobre la Rapidez de Respuesta',
-        desc: 'El noventa y cuatro por ciento de nuestros clientes destaca la cercanía, transparencia y velocidad de entrega del equipo consultor.',
+        title: 'Atención Ágil y Cercana en Todo Momento',
+        desc: 'Los directores de personas valoran nuestro trato directo. Resolvemos cada duda en menos de veinticuatro horas y cuidamos los detalles en cada paso.',
         linkText: 'Hablar con un Consultor',
         linkHref: '/contacto'
       }
@@ -144,35 +148,36 @@ const ROUTES: RouteMetadata[] = [
     description: 'Metodología ágil en 5 fases para identificar y contratar líderes clave en 18 días hábiles con total confidencialidad y garantía de reposición.',
     h1: 'El Proceso de Executive Search Paso a Paso',
     h2: 'Metodología Ágil y Rigurosa de Cinco Fases en Dieciocho Días',
-    summaryText: 'Nuestro método combina análisis exhaustivo del mercado laboral, contacto directo con talento pasivo y entrevistas por competencias contrastadas.',
+    summaryText: 'Nuestro método de trabajo es claro, rápido y seguro. Entregamos tres candidatos finalistas en dieciocho días laborables. Combinamos el contacto directo con profesionales en activo y entrevistas a fondo. Minimizamos el tiempo de espera sin descuidar la calidad.',
+    closingText: 'Con nosotros sabes en todo momento en qué punto está tu proceso. Te enviamos informes semanales con datos claros y avances reales. Inicia hoy tu proceso con una llamada breve.',
     h3s: [
       {
-        title: 'Fase 1: Definición del Perfil y Estrategia',
-        desc: 'En las primeras cuarenta y ocho horas definimos los requisitos técnicos, estilo de liderazgo y objetivos estratégicos de la posición.',
+        title: 'Fase 1: Definición del Perfil en Dos Días',
+        desc: 'En las primeras cuarenta y ocho horas definimos los requisitos del puesto. Acordamos funciones, sueldo, objetivos y estilo de liderazgo deseado.',
         linkText: 'Ver Guía Salarial',
         linkHref: '/guia-salarial'
       },
       {
-        title: 'Fase 2: Mapeo y Búsqueda Activa',
-        desc: 'Contactamos directamente con profesionales en activo que no buscan trabajo activamente pero están abiertos a proyectos superiores.',
+        title: 'Fase 2: Búsqueda Directa en el Mercado',
+        desc: 'Contactamos con profesionales con empleo que no buscan trabajo de forma activa. Les presentamos tu proyecto de empresa con discreción y rigor.',
         linkText: 'Ver Vacantes Activas',
         linkHref: '/vacantes'
       },
       {
-        title: 'Fase 3: Evaluación y Entrevistas por Competencias',
-        desc: 'Validamos trayectoria profesional, logros medibles, referencias cruzadas y compatibilidad con los valores de tu empresa.',
+        title: 'Fase 3: Entrevistas por Competencias',
+        desc: 'Hacemos entrevistas personales para medir logros reales y valores. Contrastamos referencias con antiguos jefes para validar cada detalle del perfil.',
         linkText: 'Ver Criterios de Evaluación',
         linkHref: '/servicios'
       },
       {
-        title: 'Fase 4: Presentación de la Terna Final',
-        desc: 'El día dieciocho entregamos un informe comparativo completo con los tres mejores candidatos finalistas listos para entrevista.',
+        title: 'Fase 4: Entrega de la Terna el Día Dieciocho',
+        desc: 'El día dieciocho laborable te entregamos un informe con los tres mejores candidatos. Organizamos las entrevistas finales con tu equipo de dirección.',
         linkText: 'Solicitar Presupuesto',
         linkHref: '/contacto'
       },
       {
-        title: 'Fase 5: Oferta, Cierre y Acompañamiento',
-        desc: 'Asesoramos en la negociación salarial, facilitamos la incorporación y realizamos seguimiento durante los primeros seis meses.',
+        title: 'Fase 5: Oferta, Cierre y Cobertura Total',
+        desc: 'Te ayudamos a negociar la oferta final para asegurar el sí del candidato. Acompañamos la incorporación y cubrimos seis meses de garantía por contrato.',
         linkText: 'Iniciar un Proceso Hoy',
         linkHref: '/contacto'
       }
@@ -184,35 +189,36 @@ const ROUTES: RouteMetadata[] = [
     description: 'Contacta con nuestro equipo de consultores sénior de selección en Madrid y Barcelona. Respuesta garantizada y confidencial en menos de 24 horas.',
     h1: 'Contacto, Sedes y Consultor Directo en España',
     h2: 'Atención Directa y Personalizada para Empresas y Candidatos',
-    summaryText: 'Estamos a tu disposición en nuestros despachos de Madrid y Barcelona o a través de nuestros canales digitales para iniciar tu proceso con rapidez.',
+    summaryText: 'Estamos listos para ayudarte a contratar el mejor talento. Te atendemos en nuestras oficinas de Madrid y Barcelona o por canales digitales. Cada solicitud recibe respuesta de un consultor sénior en menos de veinticuatro horas. Cuidamos cada consulta con máxima reserva.',
+    closingText: 'Tanto si eres una empresa con una vacante urgente como si eres un directivo buscando nuevos retos, cuentas con nuestro apoyo. Escríbenos hoy y comencemos a trabajar juntos.',
     h3s: [
       {
-        title: 'Sede Central en Madrid',
-        desc: 'Ubicados en Paseo de la Castellana noventa y cinco, en el distrito financiero de la capital. Teléfono directo de atención disponible.',
+        title: 'Oficina Central en Madrid',
+        desc: 'Nos encuentras en pleno Paseo de la Castellana noventa y cinco. Atendemos reuniones presenciales en el centro financiero de la capital.',
         linkText: 'Pedir Cita en Madrid',
         linkHref: '/contacto'
       },
       {
-        title: 'Oficina Comercial en Barcelona',
-        desc: 'Nuestras instalaciones en Avinguda Diagonal atienden a empresas tecnológicas, industriales y del sector servicios de Cataluña.',
+        title: 'Sede en Barcelona',
+        desc: 'Nuestra oficina en Avinguda Diagonal da servicio a empresas de Cataluña. Gestionamos procesos locales con consultores de la zona.',
         linkText: 'Pedir Cita en Barcelona',
         linkHref: '/contacto'
       },
       {
-        title: 'Atención Rápida por WhatsApp Corporativo',
-        desc: 'Comunícate de forma ágil con un consultor sénior por mensaje directo para resolver dudas inmediatas en menos de dos horas.',
+        title: 'Atención Rápida por WhatsApp',
+        desc: 'Escríbenos un mensaje directo para resolver dudas urgentes. Te responde un socio consultor en menos de dos horas laborables.',
         linkText: 'Abrir Chat WhatsApp',
         linkHref: '/contacto'
       },
       {
-        title: 'Compromiso de Respuesta en Veinticuatro Horas',
-        desc: 'Revisamos cada solicitud recibida y te asignamos un consultor especializado en tu sector el mismo día laborable.',
+        title: 'Propuestas a Medida para Empresas',
+        desc: 'Cuéntanos qué perfil necesitas y el plazo que manejas. Te enviamos una propuesta detallada sin ningún compromiso por tu parte.',
         linkText: 'Enviar Formulario',
         linkHref: '/contacto'
       },
       {
-        title: 'Envío de Currículum para Candidatos',
-        desc: 'Si eres directivo o especialista en tecnología y buscas nuevos retos, añade tu candidatura a nuestra red privada de talento.',
+        title: 'Bolsa Privada para Directivos',
+        desc: 'Si eres directivo y buscas un cambio profesional, envíanos tu perfil. Protegemos tus datos y nunca los compartimos sin tu permiso previo.',
         linkText: 'Enviar Perfil Profesional',
         linkHref: '/vacantes'
       }
@@ -224,35 +230,36 @@ const ROUTES: RouteMetadata[] = [
     description: 'Ofertas de empleo y oportunidades ejecutivas en tecnología, finanzas y dirección en España. Salarios transparentes y respuesta ágil.',
     h1: 'Posiciones Directivas &amp; Tech en Selección Activa',
     h2: 'Oportunidades Profesionales con Bandas Salariales Transparentes',
-    summaryText: 'Consulta nuestras ofertas de empleo vigentes para puestos directivos y mandos técnicos en Madrid, Barcelona y opciones de trabajo cien por cien remoto.',
+    summaryText: 'Publicamos ofertas de empleo para directores y especialistas técnicos en España. Todas las posiciones cuentan con bandas salariales claras y públicas. Cumplimos las normas europeas de igualdad retributiva. Cuidamos tu tiempo y te damos respuesta en cada fase del proceso.',
+    closingText: 'Revisamos todas las candidaturas recibidas con respeto y rigor profesional. Inscríbete en pocos pasos y da un nuevo impulso a tu carrera ejecutiva con Nexo Talentos.',
     h3s: [
       {
-        title: 'Dirección de Tecnología y Arquitectura Cloud',
-        desc: 'Buscamos directores de tecnología, líderes de ingeniería y expertos en plataformas en la nube para empresas consolidadas.',
+        title: 'Puestos de Dirección en Tecnología',
+        desc: 'Buscamos directores de tecnología, jefes de sistemas y expertos en nube. Oportunidades en empresas consolidadas y negocios en rápida expansión.',
         linkText: 'Postular a Puestos Tech',
         linkHref: '/contacto'
       },
       {
-        title: 'Dirección General y Consejeros Delegados',
-        desc: 'Oportunidades para líderes ejecutivos con experiencia en planes de expansión, transformación digital y comités de dirección.',
+        title: 'Dirección General y Finanzas',
+        desc: 'Posiciones para consejeros delegados y directores financieros. Proyectos de liderazgo empresarial con paquetes de retribución atractivos.',
         linkText: 'Consultar Puestos Directivos',
         linkHref: '/contacto'
       },
       {
-        title: 'Transparencia Retributiva Garantizada',
-        desc: 'Todas nuestras vacantes detallan el rango salarial fijo y variable conforme a la directiva europea de igualdad retributiva.',
+        title: 'Sueldos Claros desde el Inicio',
+        desc: 'Publicamos el rango fijo y los bonus variables de cada oferta. Sabes lo que puedes ganar antes de hacer la primera entrevista.',
         linkText: 'Ver Estudio Salarial',
         linkHref: '/guia-salarial'
       },
       {
-        title: 'Privacidad y Confidencialidad del Candidato',
-        desc: 'Protegemos tu identidad profesional y no compartimos tus datos con ninguna empresa sin tu autorización previa y expresa.',
+        title: 'Privacidad Total de tus Datos',
+        desc: 'Protegemos tu identidad en todo momento. No enviamos tu currículum a ninguna empresa sin hablar antes contigo y tener tu visto bueno.',
         linkText: 'Conocer Nuestra Política',
         linkHref: '/contacto'
       },
       {
-        title: 'Procesos Ágiles con Respuesta Continua',
-        desc: 'Mantenemos informados a todos los candidatos en cada fase de la selección con comentarios constructivos sobre su candidatura.',
+        title: 'Respuesta en Menos de Dos Días',
+        desc: 'Te informamos del estado de tu candidatura con rapidez. Damos consejos útiles a todos los profesionales que pasan por nuestros procesos.',
         linkText: 'Inscribirse a Vacantes',
         linkHref: '/contacto'
       }
@@ -264,35 +271,36 @@ const ROUTES: RouteMetadata[] = [
     description: 'Estudio integral de bandas salariales, variables y equity para directores generales, mandos medios y perfiles tech en España en 2026.',
     h1: 'Guía de Compensación Directiva &amp; Tech España 2026',
     h2: 'Bandas Retributivas, Beneficios y Comparativa Internacional',
-    summaryText: 'Analizamos las tendencias de retribución en el mercado español con datos contrastados de salarios brutos anuales, bonus variables y opciones sobre acciones.',
+    summaryText: 'Analizamos los sueldos de directores y perfiles técnicos en España para 2026. Este estudio ayuda a empresas y profesionales a fijar sueldos justos y competitivos. Ofrecemos datos reales de sueldos fijos, bonus y planes de acciones en los sectores con mayor demanda.',
+    closingText: 'Usa nuestros datos para negociar con seguridad y retener a los mejores profesionales en tu equipo. Descarga el informe o pide una asesoría salarial personalizada.',
     h3s: [
       {
-        title: 'Salarios en Madrid y Barcelona',
-        desc: 'Compara las tablas salariales de directores generales, directores financieros y líderes de tecnología en las dos principales capitales.',
+        title: 'Tablas de Sueldos en Madrid y Barcelona',
+        desc: 'Compara lo que cobra un director general o un jefe de tecnología en las principales ciudades de España con datos actualizados este año.',
         linkText: 'Ver Rangos de Salario',
         linkHref: '/contacto'
       },
       {
-        title: 'Impacto de la Directiva Europea de Transparencia',
-        desc: 'Conoce las obligaciones normativas para empresas sobre publicación de bandas salariales y justificación de diferencias retributivas.',
+        title: 'Norma Europea de Igualdad de Sueldos',
+        desc: 'Te explicamos las nuevas leyes que obligan a publicar los rangos salariales. Evita sanciones y adapta tu empresa a tiempo con nuestra ayuda.',
         linkText: 'Leer Análisis Normativo',
         linkHref: '/blog'
       },
       {
-        title: 'Ahorro Estratégico con Talento en Latinoamérica',
-        desc: 'Analiza la diferencia de coste laboral entre contratar perfiles sénior en España versus equipos cualificados en modalidad remota.',
+        title: 'Ahorro con Profesionales en Remoto',
+        desc: 'Compara el coste de contratar en España frente a incorporar talento en otros países. Puedes reducir costes a la mitad manteniendo la calidad.',
         linkText: 'Calcular Ahorro de Costes',
         linkHref: '/calculadora-roi'
       },
       {
-        title: 'Paquetes de Compensación Flexible',
-        desc: 'Descubre los beneficios más valorados por los altos directivos: seguros de salud familiares, formación ejecutiva y teletrabajo.',
+        title: 'Beneficios Más Pedidos por Directivos',
+        desc: 'Conoce los extras más valorados: seguros médicos de familia, planes de formación continua y opciones de trabajo desde casa.',
         linkText: 'Pedir Estudio Personalizado',
         linkHref: '/contacto'
       },
       {
-        title: 'Variables y Opciones de Acciones (Stock Options)',
-        desc: 'Estructuras habituales de incentivos a medio y largo plazo para fidelizar el talento directivo en empresas de alto crecimiento.',
+        title: 'Bonus por Objetivos y Acciones',
+        desc: 'Cómo diseñar planes de incentivos que motiven a los directivos a cumplir las metas de la empresa a medio y largo plazo.',
         linkText: 'Consultar Asesoría Salarial',
         linkHref: '/contacto'
       }
@@ -304,35 +312,36 @@ const ROUTES: RouteMetadata[] = [
     description: 'Calcula cuánto dinero y productividad pierde tu empresa por cada mes que una posición estratégica permanece vacante y descubre tu ROI.',
     h1: 'Calculadora de Coste de Vacante Desierta &amp; ROI',
     h2: 'Cuantifica el Impacto Económico de una Posición Sin Cubrir',
-    summaryText: 'Tener una posición clave o directiva desierta no supone un ahorro: reduce los ingresos, sobrecarga al equipo actual y frena tus proyectos estratégicos.',
+    summaryText: 'Tener un puesto directivo vacío cuesta mucho dinero a tu empresa. No se trata solo del sueldo que dejas de pagar. Una vacante sin cubrir frena ventas, satura al resto del equipo y retrasa proyectos clave. Nuestra calculadora te muestra la cifra exacta en dos minutos.',
+    closingText: 'Cerrar tu contratación a tiempo protege los ingresos de tu negocio y la salud de tu equipo. Haz números ahora y comprueba las ventajas de trabajar con Nexo Talentos.',
     h3s: [
       {
         title: 'Coste Diario por Puesto Vacante',
-        desc: 'Calculamos el impacto directo sobre la facturación de tu compañía multiplicando el salario diario por el factor de contribución.',
+        desc: 'Calculamos el dinero que pierde tu empresa cada día sin ese líder. Multiplicamos el sueldo diario por el valor que aporta el puesto.',
         linkText: 'Acelerar Contratación',
         linkHref: '/proceso'
       },
       {
-        title: 'Reducción de Tiempo de Selección a 18 Días',
-        desc: 'Frente a los tres o cuatro meses habituales del sector, nuestro servicio de selección reduce los días de espera en más de un sesenta por ciento.',
+        title: 'Cierre de la Posición en 18 Días',
+        desc: 'Las firmas clásicas tardan tres o cuatro meses. Nosotros te entregamos candidatos en dieciocho días laborables para que ahorres tiempo.',
         linkText: 'Ver Metodología de 18 Días',
         linkHref: '/proceso'
       },
       {
-        title: 'Ahorro Económico Estimado para Tu Empresa',
-        desc: 'Descubre cuántos miles de euros ahorras al cerrar la contratación en menos de tres semanas con una terna de candidatos validados.',
+        title: 'Ahorro Real de Miles de Euros',
+        desc: 'Al contratar en pocas semanas evitas pérdidas de clientes y sobrecostes. La inversión en nuestro servicio se recupera desde el primer mes.',
         linkText: 'Solicitar Presupuesto',
         linkHref: '/contacto'
       },
       {
-        title: 'Prevención de Pérdidas de Facturación',
-        desc: 'Evita perder clientes, oportunidades de mercado o entregas de producto debido a la falta de liderazgo operativo en tu equipo.',
+        title: 'Menos Estrés para tu Equipo Actual',
+        desc: 'Evita que otros directivos se quemen asumiendo tareas dobles. Incorporar al líder adecuado devuelve el ritmo normal a tu compañía.',
         linkText: 'Ver Servicios Directivos',
         linkHref: '/servicios'
       },
       {
-        title: 'Garantía Contractual que Protege Tu Inversión',
-        desc: 'Tu inversión está totalmente asegurada con nuestras cláusulas de reposición gratuita de tres a seis meses de duración.',
+        title: 'Inversión Asegurada por Contrato',
+        desc: 'Cuentas con garantía de tres a seis meses sin coste extra. Si algo falla, buscamos otro profesional sin cobrar nada más.',
         linkText: 'Conocer Nuestras Garantías',
         linkHref: '/por-que-elegirnos'
       }
@@ -344,35 +353,36 @@ const ROUTES: RouteMetadata[] = [
     description: 'Artículos y análisis técnicos sobre selección ejecutiva, jurisprudencia del Art. 43 ET, equidad salarial y adopción de IA en recursos humanos.',
     h1: 'Revista Doctrinal &amp; Tratado Legal 2026',
     h2: 'Análisis Jurídico, Tendencias de Selección y Gestión de Talento',
-    summaryText: 'Publicamos artículos técnicos y análisis de jurisprudencia laboral para directores generales, consejeros y responsables de recursos humanos en España.',
+    summaryText: 'En nuestra revista compartimos análisis útiles para líderes y empresas. Publicamos guías claras sobre derecho laboral, sueldos y gestión de personas. Explicamos las sentencias más recientes de los tribunales con un lenguaje directo y fácil de entender.',
+    closingText: 'Aprende a tomar decisiones seguras en la contratación de directivos y protege a tu empresa ante cualquier cambio normativo. Lee todos nuestros artículos gratis.',
     h3s: [
       {
-        title: 'Blindaje Legal y Cesión Ilegal según el Artículo 43 del Estatuto de los Trabajadores',
-        desc: 'Análisis detallado de las sentencias judiciales recientes del Tribunal Supremo sobre contratación de servicios externos y responsabilidades.',
+        title: 'Blindaje Legal y Cesión de Trabajadores',
+        desc: 'Analizamos el artículo cuarenta y tres de la ley laboral española. Te enseñamos a contratar servicios externos sin riesgos de multas.',
         linkText: 'Leer Artículo Completo',
         linkHref: '/blog'
       },
       {
-        title: 'Guía Práctica sobre la Directiva Europea de Transparencia Retributiva',
-        desc: 'Cómo adaptar los procesos de selección y las tablas de sueldos antes de la fecha límite fijada por la normativa comunitaria.',
+        title: 'Guía de la Norma Europea de Sueldos',
+        desc: 'Cómo adaptar los procesos de selección a las nuevas reglas de transparencia. Fechas clave y pasos a seguir en tu departamento de personas.',
         linkText: 'Consultar Guía Salarial',
         linkHref: '/guia-salarial'
       },
       {
-        title: 'Reglamento Europeo de Inteligencia Artificial en Selección de Personal',
-        desc: 'Claves para utilizar herramientas de selección automatizada cumpliendo los requisitos de sistemas de alto riesgo de la Unión Europea.',
+        title: 'Uso de Inteligencia Artificial en Selección',
+        desc: 'Claves para usar herramientas modernas de evaluación cumpliendo la ley europea. Evita sesgos y elige con datos objetivos.',
         linkText: 'Ver Soluciones de Selección',
         linkHref: '/servicios'
       },
       {
-        title: 'Estrategias de Retención de Talento Directivo en Mercados Competitivos',
-        desc: 'Buenas prácticas para diseñar planes de carrera, esquemas de equidad y culturas empresariales que minimizan la rotación no deseada.',
+        title: 'Cómo Retener a tus Mejores Líderes',
+        desc: 'Consejos prácticos para cuidar el talento clave de tu empresa. Buenas prácticas de motivación, planes de carrera y clima laboral positivo.',
         linkText: 'Conocer Más Consejos',
         linkHref: '/testimonios'
       },
       {
-        title: 'Novedades y Actualizaciones del Mercado Laboral Ejecutivo',
-        desc: 'Mantente al día con nuestros resúmenes mensuales sobre salarios, sectores con mayor demanda y evolución del empleo de alta cualificación.',
+        title: 'Noticias del Mercado Laboral Directivo',
+        desc: 'Resúmenes periódicos sobre los puestos más pedidos y las tendencias de sueldos en Madrid, Barcelona y el resto de España.',
         linkText: 'Contactar Editorial',
         linkHref: '/contacto'
       }
@@ -492,6 +502,7 @@ function prerender() {
           <h2>${route.h2}</h2>
           <p>${route.summaryText}</p>
 ${h3sHtml}
+          <p>${route.closingText}</p>
         </section>
       </main>
       <footer class="sr-only">
