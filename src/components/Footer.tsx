@@ -2,7 +2,7 @@ import React from 'react';
 import { Logo } from './Logo';
 import { PageRoute } from '../types';
 import { useTheme } from '../context/ThemeContext';
-import { 
+import {
   Building2,
   Clock,
   MessageSquare,
@@ -23,11 +23,11 @@ interface FooterProps {
   onOpenConcierge?: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ 
+export const Footer: React.FC<FooterProps> = ({
   onNavigate,
-  onOpenAIAgent, 
+  onOpenAIAgent,
   onOpenCVAnalyzer,
-  onOpenConcierge 
+  onOpenConcierge
 }) => {
   const { theme } = useTheme();
   const whatsappNumber = '34614143763';
@@ -43,12 +43,11 @@ export const Footer: React.FC<FooterProps> = ({
   };
 
   return (
-    <footer className={`border-t text-xs relative overflow-hidden transition-colors duration-300 ${
-      theme === 'dark'
+    <footer className={`border-t text-xs relative overflow-hidden transition-colors duration-300 ${theme === 'dark'
         ? 'bg-slate-950 border-slate-800 text-slate-400'
         : 'bg-slate-900 border-slate-800 text-slate-300'
-    }`}>
-      
+      }`}>
+
       {/* Top Banner: Direct Consultant & 18-Day Guarantee */}
       <div className="border-b border-slate-800/80 bg-slate-950/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
@@ -69,7 +68,7 @@ export const Footer: React.FC<FooterProps> = ({
               <MessageSquare className="w-4 h-4" />
               <span>WhatsApp Consultor: +34 614 143 763</span>
             </a>
-            
+
             {onOpenConcierge && (
               <button
                 onClick={onOpenConcierge}
@@ -86,16 +85,16 @@ export const Footer: React.FC<FooterProps> = ({
       {/* Main Footer Links */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
-          
+
           {/* Brand Col (2 cols on lg) */}
           <div className="lg:col-span-2 space-y-4">
             <button onClick={() => handleNav('/')} className="focus:outline-none text-left">
               <Logo size="md" forceDark={true} />
             </button>
-            
-            <p className="text-xs text-slate-400 max-w-sm leading-relaxed">
+
+            {/* <p className="text-xs text-slate-400 max-w-sm leading-relaxed">
               Firma boutique de <strong>Executive Search, Headhunting y Selección de Talento Directivo y Tecnológico</strong> en España. Entregamos tu terna validada en 18 días hábiles con <strong>garantía contractual de 3 a 6 meses</strong> de sustitución.
-            </p>
+            </p>  */}
 
             <div className="space-y-2 pt-2 text-slate-300">
               <div className="flex items-center gap-2">
