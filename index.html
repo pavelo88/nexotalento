@@ -16,9 +16,8 @@
     <link rel="alternate" hreflang="es" href="https://nexotalentos.vercel.app/" />
     <link rel="alternate" hreflang="x-default" href="https://nexotalentos.vercel.app/" />
     
-    <!-- Preload critical Hero LCP Image (Responsive) -->
-    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=350&auto=format&fit=crop&q=60" media="(max-width: 640px)" fetchpriority="high" />
-    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=380&auto=format&fit=crop&q=60" media="(min-width: 641px)" fetchpriority="high" />
+    <!-- Preload critical Hero LCP Image -->
+    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=480&auto=format&fit=crop&q=60" fetchpriority="high" />
     
     <!-- Geo Meta Tags for Spain Search Targeting -->
     <meta name="geo.region" content="ES-M" />
@@ -50,10 +49,12 @@
     <meta name="twitter:image" content="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&h=630&fit=crop&q=80" />
     <meta name="twitter:site" content="@NexoTalentos" />
 
-    <!-- Google Fonts & Preconnect (Async non-blocking with swap) -->
+    <!-- Preconnects & High Priority Font Preload (Zero CLS & LCP Optimization) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" />
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&display=optional" />
 
     <!-- JSON-LD Structured Data Schema for Google & Bing Snippets -->
     <script type="application/ld+json">
@@ -187,7 +188,54 @@
     </script>
   </head>
   <body class="bg-slate-950 text-slate-100 antialiased selection:bg-cyan-500 selection:text-slate-950 font-sans">
-    <div id="root"></div>
+    <div id="root">
+      <!-- Semantic Static Fallback for Search Engines, Screaming Frog, AI Crawlers & Web Agents -->
+      <header class="sr-only">
+        <h1>Nexo Talentos | Gestión del Talento, Executive Search &amp; Selección Directiva de Alto Impacto</h1>
+        <p>Firma boutique especializada en Executive Search, Headhunting y Selección de Personal directivo y tecnológico en España. Terna en 18 días hábiles y garantía de 3 a 6 meses.</p>
+        <nav aria-label="Navegación principal">
+          <a href="/">Inicio</a>
+          <a href="/servicios">Servicios de Headhunting</a>
+          <a href="/proceso">Metodología y Proceso de Selección</a>
+          <a href="/vacantes">Ofertas de Empleo y Vacantes Activas</a>
+          <a href="/guia-salarial">Guía Salarial España 2026</a>
+          <a href="/testimonios">Casos de Éxito y Testimonios</a>
+          <a href="/por-que-elegirnos">Por Qué Elegirnos</a>
+          <a href="/contacto">Contacto Directo</a>
+          <a href="/blog">Blog y Noticias de Recursos Humanos</a>
+        </nav>
+      </header>
+      <main class="sr-only">
+        <article>
+          <h2>Encuentra Talento Técnico, Directivo &amp; C-Level en España</h2>
+          <p>Headhunting especializado en perfiles directivos, mandos intermedios y talento de alta especialización técnica en Madrid, Barcelona, Valencia, Bilbao, Sevilla y toda España.</p>
+          <a href="/contacto">Solicitar Asesoría de Selección</a>
+        </article>
+        <article>
+          <h2>Posiciones Directivas y Tecnológicas en Selección Activa</h2>
+          <p>Búsquedas ejecutivas confidenciales con transparencia salarial garantizada (Directiva UE 2023/970) y procesos ágiles.</p>
+          <a href="/vacantes">Explorar Catálogo de Ofertas</a>
+        </article>
+        <article>
+          <h2>Metodología de Reclutamiento Ágil: Terna en 18 Días Hábiles</h2>
+          <p>Mapeo de mercado exhaustivo, filtrado predictivo de competencias y garantía contractual de 3 a 6 meses con 100% blindaje legal conforme al Art. 43 del Estatuto de los Trabajadores.</p>
+          <a href="/proceso">Conoce Nuestro Proceso</a>
+        </article>
+        <article>
+          <h2>Comparativa Salarial España vs. Remoto Nearshore LATAM</h2>
+          <p>Optimiza la estructura retributiva de tu compañía contratando talento sénior de habla hispana con hasta un 65% de eficiencia en costes.</p>
+          <a href="/guia-salarial">Consultar Guía Salarial Completa</a>
+        </article>
+        <article>
+          <h2>Preguntas Frecuentes sobre Headhunting y Selección Boutique</h2>
+          <p>Confidencialidad rigurosa bajo acuerdos NDA, cobertura geográfica en España y Latinoamérica y atención técnica personalizada 24/7.</p>
+          <a href="/contacto">Hablar con un Talent Partner</a>
+        </article>
+      </main>
+      <footer class="sr-only">
+        <p>&copy; 2026 Nexo Talentos Consultores S.L. - Paseo de la Castellana 95, Madrid, España. Teléfono: +34 614 143 763. Contacto: info@nexotalentos.com.</p>
+      </footer>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

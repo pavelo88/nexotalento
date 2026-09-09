@@ -150,8 +150,8 @@ export const Hero: React.FC<HeroProps> = ({
               <div className="relative rounded-2xl overflow-hidden mb-6 border border-cyan-500/20 shadow-md group h-48 sm:h-52 w-full">
                 <img 
                   srcSet="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=350&auto=format&fit=crop&q=60 350w, https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=480&auto=format&fit=crop&q=60 480w"
-                  sizes="(min-width: 1024px) 380px, (min-width: 640px) 480px, 350px"
-                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=380&auto=format&fit=crop&q=60" 
+                  sizes="(min-width: 1024px) 380px, 480px"
+                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=480&auto=format&fit=crop&q=60" 
                   alt="Equipo Directivo y Headhunting en Madrid"
                   width="480"
                   height="270"
@@ -272,8 +272,8 @@ export const Hero: React.FC<HeroProps> = ({
               <div className="relative rounded-2xl overflow-hidden mb-6 border border-emerald-500/20 shadow-md group h-48 sm:h-52 w-full">
                 <img 
                   srcSet="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=350&auto=format&fit=crop&crop=top&q=60 350w, https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=480&auto=format&fit=crop&crop=top&q=60 480w"
-                  sizes="(min-width: 1024px) 380px, (min-width: 640px) 480px, 350px"
-                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=380&auto=format&fit=crop&crop=top&q=60" 
+                  sizes="(min-width: 1024px) 380px, 480px"
+                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=480&auto=format&fit=crop&crop=top&q=60" 
                   alt="Candidato Profesional de Éxito"
                   width="480"
                   height="270"

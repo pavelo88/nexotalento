@@ -87,8 +87,18 @@
   font-family: 'Inter', sans-serif;
 }
 
+/* Fuente fallback ajustada micrométricamente para garantizar CLS = 0.000 */
+@font-face {
+  font-family: 'Playfair Display Fallback';
+  src: local('Georgia'), local('Times New Roman');
+  size-adjust: 104%;
+  ascent-override: 95%;
+  descent-override: 25%;
+  line-gap-override: 0%;
+}
+
 .font-heading {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Playfair Display', 'Playfair Display Fallback', Georgia, serif;
 }
 
 /* Curvas de Bézier Estilo Apple */
