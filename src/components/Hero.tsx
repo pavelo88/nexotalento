@@ -74,7 +74,7 @@ export const Hero: React.FC<HeroProps> = ({
           </div>
 
           <h1 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight font-heading max-w-4xl mx-auto leading-tight">
-            Gestión del Talento, Executive Search &amp;{' '}
+            Executive Search &amp;{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 dark:from-cyan-400 dark:via-blue-400 dark:to-indigo-400">
               Selección Directiva de Alto Impacto
             </span>

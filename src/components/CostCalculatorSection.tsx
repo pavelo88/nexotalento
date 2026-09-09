@@ -12,7 +12,11 @@ import {
 } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 
-export const CostCalculatorSection: React.FC = () => {
+interface CostCalculatorSectionProps {
+  isFullPage?: boolean;
+}
+
+export const CostCalculatorSection: React.FC<CostCalculatorSectionProps> = ({ isFullPage }) => {
   const { theme } = useTheme();
   const [annualSalary, setAnnualSalary] = useState(85000);
   const [vacancyMonths, setVacancyMonths] = useState(3);
@@ -33,8 +37,8 @@ export const CostCalculatorSection: React.FC = () => {
     <section 
       id="calculadora-roi" 
       data-webmcp-tool="cost-calculator-roi"
-      className={`py-16 sm:py-24 relative transition-colors duration-300 ${
-      theme === 'dark' ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-900'
+      className={`${isFullPage ? '' : 'py-16 sm:py-24'} relative transition-colors duration-300 ${
+      isFullPage ? '' : theme === 'dark' ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-900'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
@@ -44,9 +48,15 @@ export const CostCalculatorSection: React.FC = () => {
             <Calculator className="w-3.5 h-3.5" />
             <span>Herramienta Financiera de Impacto Organizacional</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight font-heading">
-            Calculadora de <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-orange-500 to-red-500">Coste de Vacante Desierta</span> &amp; ROI
-          </h2>
+          {isFullPage ? (
+            <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight font-heading">
+              Calculadora de <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-orange-500 to-red-500">Coste de Vacante Desierta</span> &amp; ROI
+            </h1>
+          ) : (
+            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight font-heading">
+              Calculadora de <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-orange-500 to-red-500">Coste de Vacante Desierta</span> &amp; ROI
+            </h2>
+          )}
           <p className={`mt-4 text-sm sm:text-base leading-relaxed ${
             theme === 'dark' ? 'text-slate-300' : 'text-slate-600'
           }`}>

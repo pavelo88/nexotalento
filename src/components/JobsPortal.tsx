@@ -280,9 +280,15 @@ export const JobsPortal: React.FC<JobsPortalProps> = ({ onOpenCVAnalyzer, isFull
             <Sparkles className="w-3.5 h-3.5" />
             <span>Bolsa de Empleo &amp; Procesos de Executive Search</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight font-heading">
-            Posiciones Directivas &amp; <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-teal-500">Tech en Selección Activa</span>
-          </h2>
+          {isFullPage ? (
+            <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight font-heading">
+              Posiciones Directivas &amp; <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-teal-500">Tech en Selección Activa</span>
+            </h1>
+          ) : (
+            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight font-heading">
+              Posiciones Directivas &amp; <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-teal-500">Tech en Selección Activa</span>
+            </h2>
+          )}
           <p className={`mt-3 text-sm sm:text-base leading-relaxed ${
             theme === 'dark' ? 'text-slate-300' : 'text-slate-600'
           }`}>
