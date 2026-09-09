@@ -511,7 +511,7 @@ ${h3sHtml}
         </section>
       </main>
       <footer class="sr-only">
-        <p>&copy; 2026 Nexo Talentos Consultores S.L. Paseo de la Castellana 95, Madrid, España. Teléfono: +34 614 143 763. Correo: info@nexotalentos.com. Todos los derechos reservados.</p>
+        <p>&copy; 2026 Nexo Talentos Consultores S.L. Paseo de la Castellana 95, Madrid, España. Teléfono: +34 614 143 763. Correo: info@nexotalento.com. Todos los derechos reservados.</p>
       </footer>
     `;
 

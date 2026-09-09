@@ -6,39 +6,6 @@
       "source": "/agentes-ia",
       "destination": "/servicios",
       "permanent": true
-    },
-    {
-      "source": "/(.*)",
-      "has": [
-        {
-          "type": "host",
-          "value": "nexotalentos.com"
-        }
-      ],
-      "destination": "https://nexotalento.com/$1",
-      "permanent": true
-    },
-    {
-      "source": "/(.*)",
-      "has": [
-        {
-          "type": "host",
-          "value": "www.nexotalento.com"
-        }
-      ],
-      "destination": "https://nexotalento.com/$1",
-      "permanent": true
-    },
-    {
-      "source": "/(.*)",
-      "has": [
-        {
-          "type": "host",
-          "value": "www.nexotalentos.com"
-        }
-      ],
-      "destination": "https://nexotalento.com/$1",
-      "permanent": true
     }
   ],
   "rewrites": [
