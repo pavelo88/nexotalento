@@ -15,10 +15,10 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('nexo_theme') as Theme | null;
       if (saved === 'light' || saved === 'dark') return saved;
-      // Default to dark luxury theme as preferred for modern tech headhunting
-      return 'dark';
+      // Default to light theme as requested
+      return 'light';
     }
-    return 'dark';
+    return 'light';
   });
 
   useEffect(() => {
