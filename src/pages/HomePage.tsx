@@ -12,7 +12,7 @@ const MethodologySection = lazy(() => import('../components/MethodologySection')
 // PRESERVADO COMENTADO SEGÚN REQUERIMIENTO:
 // const AIAgentsTeaser = lazy(() => import('../components/AIAgentsTeaser').then(m => ({ default: m.AIAgentsTeaser })));
 // const CostCalculatorTeaser = lazy(() => import('../components/CostCalculatorTeaser').then(m => ({ default: m.CostCalculatorTeaser })));
-const SalaryComparisonSection = lazy(() => import('../components/SalaryComparisonSection').then(m => ({ default: m.SalaryComparisonSection })));
+//const SalaryComparisonSection = lazy(() => import('../components/SalaryComparisonSection').then(m => ({ default: m.SalaryComparisonSection })));
 const SuccessStories = lazy(() => import('../components/SuccessStories').then(m => ({ default: m.SuccessStories })));
 const FAQSection = lazy(() => import('../components/FAQSection').then(m => ({ default: m.FAQSection })));
 const ContactSection = lazy(() => import('../components/ContactSection').then(m => ({ default: m.ContactSection })));
@@ -87,7 +87,7 @@ export const HomePage: React.FC<HomePageProps> = ({
 
       {/* Lazy-loaded sections with zero initial bundle footprint */}
       <Suspense fallback={<div className="h-32 flex items-center justify-center"><div className="w-6 h-6 border-2 border-cyan-500 border-t-transparent rounded-full animate-spin"></div></div>}>
-        
+
         {/* 3. Executive Interactive Requirement Wizard (Buscar Personal) */}
         <div id="solicitar-talento" className="py-6 scroll-mt-24 content-auto">
           <B2BRequirementWizard onOpenContact={() => onNavigate('/contacto')} />

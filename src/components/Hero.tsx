@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useTheme } from '../context/ThemeContext';
-import { 
-  ShieldCheck, 
-  ArrowRight, 
-  MessageSquare, 
-  Building2, 
-  Rocket, 
-  FileSearch 
+import {
+  ShieldCheck,
+  ArrowRight,
+  MessageSquare,
+  Building2,
+  Rocket,
+  FileSearch
 } from 'lucide-react';
 import { PageRoute } from '../types';
 import { COMPANY_CONFIG } from '../config/company';
@@ -17,9 +17,9 @@ interface HeroProps {
   onNavigate?: (path: PageRoute) => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ 
+export const Hero: React.FC<HeroProps> = ({
   onOpenCVAnalyzer,
-  onNavigate 
+  onNavigate
 }) => {
   const { theme } = useTheme();
   const [mobileTab, setMobileTab] = useState<'empresas' | 'candidatos'>('empresas');
@@ -36,13 +36,12 @@ export const Hero: React.FC<HeroProps> = ({
   )}`;
 
   return (
-    <section 
-      id="inicio" 
-      className={`relative pt-24 pb-16 sm:pt-32 sm:pb-24 lg:pt-36 lg:pb-24 overflow-hidden transition-colors duration-300 ${
-        theme === 'dark'
-          ? 'bg-slate-950 text-slate-100'
-          : 'bg-slate-50 text-slate-900'
-      }`}
+    <section
+      id="inicio"
+      className={`relative pt-24 pb-16 sm:pt-32 sm:pb-24 lg:pt-36 lg:pb-24 overflow-hidden transition-colors duration-300 ${theme === 'dark'
+        ? 'bg-slate-950 text-slate-100'
+        : 'bg-slate-50 text-slate-900'
+        }`}
     >
       {/* Background Decorative Gradient Orbs */}
       <div className="absolute top-10 left-1/4 w-[600px] h-[400px] bg-cyan-600/10 blur-[130px] pointer-events-none rounded-full" />
@@ -50,14 +49,13 @@ export const Hero: React.FC<HeroProps> = ({
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-indigo-600/10 blur-[140px] pointer-events-none rounded-full" />
 
       {/* Grid Pattern */}
-      <div className={`absolute inset-0 pointer-events-none ${
-        theme === 'dark'
-          ? 'bg-[linear-gradient(to_right,#1e293b12_1px,transparent_1px),linear-gradient(to_bottom,#1e293b12_1px,transparent_1px)] bg-[size:3.5rem_3.5rem]'
-          : 'bg-[linear-gradient(to_right,#cbd5e130_1px,transparent_1px),linear-gradient(to_bottom,#cbd5e130_1px,transparent_1px)] bg-[size:3.5rem_3.5rem]'
-      }`} />
+      <div className={`absolute inset-0 pointer-events-none ${theme === 'dark'
+        ? 'bg-[linear-gradient(to_right,#1e293b12_1px,transparent_1px),linear-gradient(to_bottom,#1e293b12_1px,transparent_1px)] bg-[size:3.5rem_3.5rem]'
+        : 'bg-[linear-gradient(to_right,#cbd5e130_1px,transparent_1px),linear-gradient(to_bottom,#cbd5e130_1px,transparent_1px)] bg-[size:3.5rem_3.5rem]'
+        }`} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
+
         {/* Top Trust Badge */}
         <div className="text-center mb-6 sm:mb-8">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border shadow-sm transition-transform hover:scale-105 bg-slate-900/80 border-cyan-500/40 dark:bg-slate-900/80 dark:border-cyan-500/40">
@@ -79,10 +77,9 @@ export const Hero: React.FC<HeroProps> = ({
               Selección Directiva de Alto Impacto
             </span>
           </h1>
-          <p className={`mt-2.5 text-xs sm:text-sm max-w-2xl mx-auto ${
-            theme === 'dark' ? 'text-slate-300' : 'text-slate-600'
-          }`}>
-            Garantizamos la máxima precisión en Madrid, Barcelona y toda España. Terna en <strong>18 días hábiles</strong> con <strong>garantía contractual de 3 a 6 meses</strong> y <strong>100% blindaje legal (Art. 43 ET)</strong>.
+          <p className={`mt-2.5 text-xs sm:text-sm max-w-2xl mx-auto ${theme === 'dark' ? 'text-slate-300' : 'text-slate-600'
+            }`}>
+            Garantizamos la máxima precisión en España y LATAM. Terna en <strong>18 días hábiles</strong> con <strong>garantía contractual de 3 a 6 meses</strong> y <strong>100% blindaje legal</strong>.
           </p>
         </div>
 
@@ -90,22 +87,20 @@ export const Hero: React.FC<HeroProps> = ({
         <div className="lg:hidden flex items-center justify-center p-1 rounded-2xl border mb-6 max-w-sm mx-auto shadow-sm bg-slate-900/90 border-slate-700/70">
           <button
             onClick={() => setMobileTab('empresas')}
-            className={`flex-1 py-2.5 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
-              mobileTab === 'empresas'
-                ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 shadow-md font-extrabold'
-                : 'text-slate-400 hover:text-slate-200'
-            }`}
+            className={`flex-1 py-2.5 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${mobileTab === 'empresas'
+              ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 shadow-md font-extrabold'
+              : 'text-slate-400 hover:text-slate-200'
+              }`}
           >
             <Building2 className="w-3.5 h-3.5" />
             <span>Soy Empresa</span>
           </button>
           <button
             onClick={() => setMobileTab('candidatos')}
-            className={`flex-1 py-2.5 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
-              mobileTab === 'candidatos'
-                ? 'bg-gradient-to-r from-emerald-500 to-teal-600 text-slate-950 shadow-md font-extrabold'
-                : 'text-slate-400 hover:text-slate-200'
-            }`}
+            className={`flex-1 py-2.5 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${mobileTab === 'candidatos'
+              ? 'bg-gradient-to-r from-emerald-500 to-teal-600 text-slate-950 shadow-md font-extrabold'
+              : 'text-slate-400 hover:text-slate-200'
+              }`}
           >
             <Rocket className="w-3.5 h-3.5" />
             <span>Soy Candidato</span>
@@ -114,16 +109,14 @@ export const Hero: React.FC<HeroProps> = ({
 
         {/* DESKTOP SPLIT SCREEN HERO (Bifurcación Inmediata con Fotos Originales) */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-stretch">
-          
+
           {/* ================= LEFT SIDE: PARA EMPRESAS ================= */}
-          <div className={`rounded-3xl border p-6 sm:p-8 lg:p-10 flex flex-col justify-between relative overflow-hidden card-spring-hover ${
-            mobileTab === 'empresas' ? 'block' : 'hidden lg:flex'
-          } ${
-            theme === 'dark'
+          <div className={`rounded-3xl border p-6 sm:p-8 lg:p-10 flex flex-col justify-between relative overflow-hidden card-spring-hover ${mobileTab === 'empresas' ? 'block' : 'hidden lg:flex'
+            } ${theme === 'dark'
               ? 'bg-gradient-to-br from-slate-900/95 via-slate-900/80 to-slate-950 border-slate-800 hover:border-cyan-500/50'
               : 'bg-gradient-to-br from-white via-cyan-50/30 to-white border-slate-200 hover:border-cyan-500/60 shadow-lg shadow-cyan-950/5'
-          }`}>
-            
+            }`}>
+
             {/* Background Accent Pill */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
 
@@ -140,18 +133,17 @@ export const Hero: React.FC<HeroProps> = ({
               </h2>
 
               {/* Persuasive copy */}
-              <p className={`text-xs sm:text-sm leading-relaxed mb-6 ${
-                theme === 'dark' ? 'text-slate-300' : 'text-slate-600'
-              }`}>
+              <p className={`text-xs sm:text-sm leading-relaxed mb-6 ${theme === 'dark' ? 'text-slate-300' : 'text-slate-600'
+                }`}>
                 Externalización y Headhunting ético sin riesgos de cesión ilegal. Identificamos al talento directivo y técnico de alto impacto con rigor humano, evaluación predictiva y cobertura integral.
               </p>
 
               {/* Image Showcase: Modern Boardroom & Tech Leaders in Madrid/Barcelona */}
               <div className="relative rounded-2xl overflow-hidden mb-6 border border-cyan-500/20 shadow-md group h-48 sm:h-52 w-full">
-                <img 
+                <img
                   srcSet="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=350&auto=format&fit=crop&q=60 350w, https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=480&auto=format&fit=crop&q=60 480w"
                   sizes="(min-width: 1024px) 380px, 480px"
-                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=480&auto=format&fit=crop&q=60" 
+                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=480&auto=format&fit=crop&q=60"
                   alt="Equipo Directivo y Headhunting en Madrid"
                   width="480"
                   height="270"
@@ -211,11 +203,10 @@ export const Hero: React.FC<HeroProps> = ({
                   href={whatsappCompaniesUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`flex-1 py-2.5 px-3 text-xs font-bold rounded-xl border btn-spring-press flex items-center justify-center gap-1.5 transition-colors ${
-                    theme === 'dark'
-                      ? 'bg-emerald-950/50 hover:bg-emerald-900/60 text-emerald-300 border-emerald-500/40'
-                      : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border-emerald-300 shadow-sm'
-                  }`}
+                  className={`flex-1 py-2.5 px-3 text-xs font-bold rounded-xl border btn-spring-press flex items-center justify-center gap-1.5 transition-colors ${theme === 'dark'
+                    ? 'bg-emerald-950/50 hover:bg-emerald-900/60 text-emerald-300 border-emerald-500/40'
+                    : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border-emerald-300 shadow-sm'
+                    }`}
                 >
                   <MessageSquare className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
                   <span>Consultar por WhatsApp</span>
@@ -223,11 +214,10 @@ export const Hero: React.FC<HeroProps> = ({
                 {onNavigate && (
                   <button
                     onClick={() => onNavigate('/servicios')}
-                    className={`py-2.5 px-3 text-xs font-bold rounded-xl border btn-spring-press ${
-                      theme === 'dark'
-                        ? 'bg-slate-900/80 hover:bg-slate-800 text-slate-300 border-slate-700'
-                        : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200'
-                    }`}
+                    className={`py-2.5 px-3 text-xs font-bold rounded-xl border btn-spring-press ${theme === 'dark'
+                      ? 'bg-slate-900/80 hover:bg-slate-800 text-slate-300 border-slate-700'
+                      : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200'
+                      }`}
                   >
                     Ver Servicios
                   </button>
@@ -238,14 +228,12 @@ export const Hero: React.FC<HeroProps> = ({
           </div>
 
           {/* ================= RIGHT SIDE: PARA CANDIDATOS ================= */}
-          <div className={`rounded-3xl border p-6 sm:p-8 lg:p-10 flex flex-col justify-between relative overflow-hidden card-spring-hover ${
-            mobileTab === 'candidatos' ? 'block' : 'hidden lg:flex'
-          } ${
-            theme === 'dark'
+          <div className={`rounded-3xl border p-6 sm:p-8 lg:p-10 flex flex-col justify-between relative overflow-hidden card-spring-hover ${mobileTab === 'candidatos' ? 'block' : 'hidden lg:flex'
+            } ${theme === 'dark'
               ? 'bg-gradient-to-br from-slate-900/95 via-slate-900/80 to-slate-950 border-slate-800 hover:border-emerald-500/50'
               : 'bg-gradient-to-br from-white via-emerald-50/30 to-white border-slate-200 hover:border-emerald-500/60 shadow-lg shadow-emerald-950/5'
-          }`}>
-            
+            }`}>
+
             {/* Background Accent Pill */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
 
@@ -262,18 +250,17 @@ export const Hero: React.FC<HeroProps> = ({
               </h2>
 
               {/* Persuasive copy */}
-              <p className={`text-xs sm:text-sm leading-relaxed mb-6 ${
-                theme === 'dark' ? 'text-slate-300' : 'text-slate-600'
-              }`}>
+              <p className={`text-xs sm:text-sm leading-relaxed mb-6 ${theme === 'dark' ? 'text-slate-300' : 'text-slate-600'
+                }`}>
                 Acceso exclusivo a <strong>ofertas confidenciales no publicadas</strong> en España y Europa. Transparencia salarial garantizada (Directiva UE 2023/970) y feedback directo.
               </p>
 
               {/* Image Showcase: Modern Tech Talent & Executive Strategy */}
               <div className="relative rounded-2xl overflow-hidden mb-6 border border-emerald-500/20 shadow-md group h-48 sm:h-52 w-full">
-                <img 
+                <img
                   srcSet="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=350&auto=format&fit=crop&crop=top&q=60 350w, https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=480&auto=format&fit=crop&crop=top&q=60 480w"
                   sizes="(min-width: 1024px) 380px, 480px"
-                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=480&auto=format&fit=crop&crop=top&q=60" 
+                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=480&auto=format&fit=crop&crop=top&q=60"
                   alt="Candidato Profesional de Éxito"
                   width="480"
                   height="270"
@@ -305,7 +292,7 @@ export const Hero: React.FC<HeroProps> = ({
                   <p className={`text-[10px] ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600 font-medium'}`}>Feedback Primer Filtro</p>
                 </div>
                 <div className={`p-2.5 rounded-xl border ${theme === 'dark' ? 'bg-slate-950/60 border-slate-800' : 'bg-white border-slate-200'}`}>
-                  <p className="text-base font-extrabold text-cyan-700 dark:text-cyan-400">+1.850</p>
+                  <p className="text-base font-extrabold text-cyan-700 dark:text-cyan-400">+1.000</p>
                   <p className={`text-[10px] ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600 font-medium'}`}>Líderes Colocados</p>
                 </div>
               </div>
@@ -331,11 +318,10 @@ export const Hero: React.FC<HeroProps> = ({
                 {onOpenCVAnalyzer && (
                   <button
                     onClick={onOpenCVAnalyzer}
-                    className={`flex-1 py-2.5 px-3 text-xs font-bold rounded-xl border btn-spring-press flex items-center justify-center gap-1.5 ${
-                      theme === 'dark'
-                        ? 'bg-slate-900/80 hover:bg-slate-800 text-slate-200 border-slate-700'
-                        : 'bg-white hover:bg-slate-50 text-slate-800 border-slate-200 shadow-sm'
-                    }`}
+                    className={`flex-1 py-2.5 px-3 text-xs font-bold rounded-xl border btn-spring-press flex items-center justify-center gap-1.5 ${theme === 'dark'
+                      ? 'bg-slate-900/80 hover:bg-slate-800 text-slate-200 border-slate-700'
+                      : 'bg-white hover:bg-slate-50 text-slate-800 border-slate-200 shadow-sm'
+                      }`}
                   >
                     <FileSearch className="w-3.5 h-3.5 text-emerald-500" />
                     <span>Auditar mi CV</span>
@@ -344,11 +330,10 @@ export const Hero: React.FC<HeroProps> = ({
                 {onNavigate && (
                   <button
                     onClick={() => onNavigate('/guia-salarial')}
-                    className={`py-2.5 px-3 text-xs font-bold rounded-xl border btn-spring-press ${
-                      theme === 'dark'
-                        ? 'bg-slate-900/80 hover:bg-slate-800 text-slate-300 border-slate-700'
-                        : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200'
-                    }`}
+                    className={`py-2.5 px-3 text-xs font-bold rounded-xl border btn-spring-press ${theme === 'dark'
+                      ? 'bg-slate-900/80 hover:bg-slate-800 text-slate-300 border-slate-700'
+                      : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200'
+                      }`}
                   >
                     Guía Salarial
                   </button>
