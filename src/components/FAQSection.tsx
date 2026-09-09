@@ -102,7 +102,7 @@ export const FAQSection: React.FC = () => {
             href="https://wa.me/34614143763?text=Hola%20Nexo%20Talentos,%20tengo%20una%20consulta%20sobre%20sus%20servicios%20de%20selecci%C3%B3n"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-5 py-2.5 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-white font-bold text-xs flex items-center gap-2 shadow-lg transition-all hover:scale-105 shrink-0"
+            className="px-5 py-2.5 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-slate-950 font-bold text-xs flex items-center gap-2 shadow-lg transition-all hover:scale-105 shrink-0"
           >
             <span>Consultar por WhatsApp</span>
           </a>

@@ -158,10 +158,10 @@ export const NexoFloatingMenu: React.FC<NexoFloatingMenuProps> = ({
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden sm:flex items-center gap-2 px-3.5 py-2.5 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-white text-xs font-extrabold shadow-lg hover:shadow-[#25D366]/40 transition-all hover:scale-105"
+            className="hidden sm:flex items-center gap-2 px-3.5 py-2.5 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-slate-950 text-xs font-extrabold shadow-lg hover:shadow-[#25D366]/40 transition-all hover:scale-105"
             title="Abrir WhatsApp directo"
           >
-            <MessageSquare className="w-4 h-4 fill-white" />
+            <MessageSquare className="w-4 h-4 fill-slate-950" />
             <span>Consultar por WhatsApp</span>
           </a>
 
