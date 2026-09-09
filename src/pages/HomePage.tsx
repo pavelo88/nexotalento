@@ -31,6 +31,8 @@ export const HomePage: React.FC<HomePageProps> = ({
   onOpenCVAnalyzer,
   onOpenJobSpecGenerator
 }) => {
+  // Se eliminó la animación de scroll reveal compleja a petición del usuario para garantizar visibilidad
+
   return (
     <div className="lg:px-[8%] xl:px-[12%] overflow-hidden space-y-16 sm:space-y-24 bg-slate-50 dark:bg-slate-950 transition-colors duration-500">
       {/* 1. Hero Section (Eagerly loaded for instant LCP/FCP) */}
@@ -52,14 +54,18 @@ export const HomePage: React.FC<HomePageProps> = ({
         </div>
 
         {/* 4. Services Section (Headhunting directivo y tecnológico) */}
-        <ServicesSection
-          onOpenAIAgent={onOpenAIAgent}
-          onOpenJobSpecGenerator={onOpenJobSpecGenerator}
-          onViewAllServices={() => onNavigate('/servicios')}
-        />
+        <div>
+          <ServicesSection
+            onOpenAIAgent={onOpenAIAgent}
+            onOpenJobSpecGenerator={onOpenJobSpecGenerator}
+            onViewAllServices={() => onNavigate('/servicios')}
+          />
+        </div>
 
         {/* 5. Methodology Executive Summary (Terna en 18 días y garantía 3 a 6 meses) */}
-        <MethodologySection onNavigateToProcess={() => onNavigate('/proceso')} />
+        <div>
+          <MethodologySection onNavigateToProcess={() => onNavigate('/proceso')} />
+        </div>
 
         {/* 
          * =====================================================================
@@ -77,22 +83,32 @@ export const HomePage: React.FC<HomePageProps> = ({
          */}
 
         {/* 6. Comparativa Salarial España vs Remoto LATAM (Sección compacta y visual) */}
-        <SalaryComparisonSection onOpenContact={() => onNavigate('/contacto')} />
+        <div>
+          <SalaryComparisonSection onOpenContact={() => onNavigate('/contacto')} />
+        </div>
 
-        {/* 7. Candidate Jobs Summary (Preservado para postulantes) */}
-        <FeaturedVacanciesSummary
-          onNavigate={onNavigate}
-          onOpenCVAnalyzer={onOpenCVAnalyzer}
-        />
+        {/* 7. Carrusel Infinito de Vacantes Directivas & Tech en Selección Activa */}
+        <div>
+          <FeaturedVacanciesSummary
+            onNavigate={onNavigate}
+            onOpenCVAnalyzer={onOpenCVAnalyzer}
+          />
+        </div>
 
         {/* 8. Success Stories & Audited Testimonials */}
-        <SuccessStories onNavigateToTestimonials={() => onNavigate('/testimonios')} />
+        <div>
+          <SuccessStories onNavigateToTestimonials={() => onNavigate('/testimonios')} />
+        </div>
 
         {/* 9. FAQ Section */}
-        <FAQSection />
+        <div>
+          <FAQSection />
+        </div>
 
         {/* 10. Contact Section (Con invitación directa a WhatsApp y llamada) */}
-        <ContactSection />
+        <div>
+          <ContactSection />
+        </div>
       </Suspense>
     </div>
   );

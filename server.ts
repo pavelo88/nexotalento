@@ -666,7 +666,8 @@ app.post("/api/contact", async (req, res) => {
     const phone = sanitizeInput(req.body?.phone);
     const company = sanitizeInput(req.body?.company);
     const message = sanitizeInput(req.body?.message);
-    const service = sanitizeInput(req.body?.service);
+    const service = sanitizeInput(req.body?.serviceType) || sanitizeInput(req.body?.service);
+    const role = sanitizeInput(req.body?.role);
 
     if (!name || !email || !message) {
       res.status(400).json({ error: "Nombre, email y mensaje son campos obligatorios." });
@@ -681,6 +682,34 @@ app.post("/api/contact", async (req, res) => {
     }
 
     console.log(`[Nexo Contact Request] From: ${name} (${email}, ${phone}, ${company}) - Service: ${service}`);
+    
+    // Guardar el lead en data/leads.json
+    const dataDir = path.join(process.cwd(), 'data');
+    if (!fs.existsSync(dataDir)) {
+      fs.mkdirSync(dataDir, { recursive: true });
+    }
+    const leadsFile = path.join(dataDir, 'leads.json');
+    let leads = [];
+    if (fs.existsSync(leadsFile)) {
+      try {
+        leads = JSON.parse(fs.readFileSync(leadsFile, 'utf-8'));
+      } catch (e) {
+        console.error("Error parsing leads.json", e);
+      }
+    }
+    leads.push({
+      id: Date.now().toString(),
+      date: new Date().toISOString(),
+      name,
+      email,
+      phone,
+      company,
+      role,
+      service,
+      message
+    });
+    fs.writeFileSync(leadsFile, JSON.stringify(leads, null, 2), 'utf-8');
+
     res.json({ success: true, message: "Solicitud registrada con éxito. Un Senior Partner contactará en menos de 2 horas." });
   } catch (error) {
     console.error("Error en /api/contact:", error);

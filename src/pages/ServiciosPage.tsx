@@ -249,29 +249,53 @@ export const ServiciosPage: React.FC<ServiciosPageProps> = ({
           </p>
         </div>
 
-        {/* Filter Pills */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mb-12">
-          {[
-            { id: 'all', label: 'Todos los Servicios' },
-            { id: 'directivo', label: 'C-Level & Executive Search' },
-            { id: 'tecnologia', label: 'Talento Tech & Digital' },
-            { id: 'empresarial', label: 'Nearshore LATAM & Scaleups' },
-            { id: 'consultoria', label: 'Assessment & Salarios' }
-          ].map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setSelectedCategory(tab.id)}
-              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
-                selectedCategory === tab.id
-                  ? 'bg-[#00A9A3] text-slate-950 shadow-lg shadow-[#00A9A3]/20 scale-105'
-                  : theme === 'dark'
-                    ? 'bg-slate-900 text-slate-300 hover:text-white border border-slate-800 hover:border-slate-700'
-                    : 'bg-white text-slate-700 hover:text-slate-900 border border-slate-200 shadow-sm'
-              }`}
+        {/* Filter Selection */}
+        <div className="mb-12">
+          {/* Mobile Dropdown */}
+          <div className="sm:hidden px-4">
+            <select
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+              className="w-full px-4 py-3 bg-slate-900 text-white rounded-xl border border-[#00A9A3]/30 focus:outline-none focus:border-[#00A9A3] appearance-none font-semibold text-sm shadow-lg"
             >
-              {tab.label}
-            </button>
-          ))}
+              {[
+                { id: 'all', label: 'Todos los Servicios' },
+                { id: 'directivo', label: 'C-Level & Executive Search' },
+                { id: 'tecnologia', label: 'Talento Tech & Digital' },
+                { id: 'empresarial', label: 'Nearshore LATAM & Scaleups' },
+                { id: 'consultoria', label: 'Assessment & Salarios' }
+              ].map((tab) => (
+                <option key={tab.id} value={tab.id}>
+                  {tab.label}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Desktop Pills */}
+          <div className="hidden sm:flex flex-wrap items-center justify-center gap-2">
+            {[
+              { id: 'all', label: 'Todos los Servicios' },
+              { id: 'directivo', label: 'C-Level & Executive Search' },
+              { id: 'tecnologia', label: 'Talento Tech & Digital' },
+              { id: 'empresarial', label: 'Nearshore LATAM & Scaleups' },
+              { id: 'consultoria', label: 'Assessment & Salarios' }
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setSelectedCategory(tab.id)}
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+                  selectedCategory === tab.id
+                    ? 'bg-[#00A9A3] text-slate-950 shadow-lg shadow-[#00A9A3]/20 scale-105'
+                    : theme === 'dark'
+                      ? 'bg-slate-900 text-slate-300 hover:text-white border border-slate-800 hover:border-slate-700'
+                      : 'bg-white text-slate-700 hover:text-slate-900 border border-slate-200 shadow-sm'
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Services List */}

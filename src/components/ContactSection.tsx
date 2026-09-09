@@ -252,30 +252,30 @@ Enviado desde el formulario web de Nexo Talentos.`;
             <div className="bg-slate-950/90 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl">
               
               {/* Type Switcher */}
-              <div className="flex bg-slate-900 p-1.5 rounded-2xl border border-slate-800 mb-6">
+              <div className="flex flex-col sm:flex-row bg-slate-900 p-1.5 rounded-2xl border border-slate-800 mb-6 gap-1 sm:gap-0">
                 <button
                   type="button"
                   onClick={() => setTab('empresa')}
-                  className={`flex-1 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 ${
+                  className={`flex-1 py-3 sm:py-2.5 px-2 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-2 ${
                     tab === 'empresa'
                       ? 'bg-cyan-500 text-slate-950 shadow-md'
                       : 'text-slate-400 hover:text-white'
                   }`}
                 >
-                  <Building2 className="w-4 h-4" />
+                  <Building2 className="w-5 h-5 sm:w-4 sm:h-4 shrink-0" />
                   <span>Soy Empresa / Busco Talento</span>
                 </button>
 
                 <button
                   type="button"
                   onClick={() => setTab('candidato')}
-                  className={`flex-1 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 ${
+                  className={`flex-1 py-3 sm:py-2.5 px-2 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-2 ${
                     tab === 'candidato'
                       ? 'bg-cyan-500 text-slate-950 shadow-md'
                       : 'text-slate-400 hover:text-white'
                   }`}
                 >
-                  <UserCheck className="w-4 h-4" />
+                  <UserCheck className="w-5 h-5 sm:w-4 sm:h-4 shrink-0" />
                   <span>Soy Candidato / Enviar CV</span>
                 </button>
               </div>
@@ -348,6 +348,7 @@ Enviado desde el formulario web de Nexo Talentos.`;
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         aria-label="Nombre y Apellidos"
+                        autoComplete="name"
                         data-webmcp-field="contact-name"
                         placeholder="Ej. Carlos Martínez"
                         className="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-sm text-white focus:outline-none focus:border-cyan-400 placeholder:text-slate-400 transition-colors"
@@ -368,6 +369,7 @@ Enviado desde el formulario web de Nexo Talentos.`;
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         aria-label="Correo Electrónico Corporativo"
+                        autoComplete="email"
                         data-webmcp-field="contact-email"
                         placeholder="ejemplo@empresa.com"
                         className="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-sm text-white focus:outline-none focus:border-cyan-400 placeholder:text-slate-400 transition-colors"
@@ -389,6 +391,7 @@ Enviado desde el formulario web de Nexo Talentos.`;
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
                         aria-label="Teléfono de Contacto"
+                        autoComplete="tel"
                         data-webmcp-field="contact-phone"
                         placeholder="+34 600 000 000"
                         className="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-sm text-white focus:outline-none focus:border-cyan-400 placeholder:text-slate-400 transition-colors"
@@ -409,6 +412,7 @@ Enviado desde el formulario web de Nexo Talentos.`;
                           value={company}
                           onChange={(e) => setCompany(e.target.value)}
                           aria-label="Nombre de la Empresa"
+                          autoComplete="organization"
                           data-webmcp-field="contact-company"
                           placeholder="Nombre de la empresa"
                           className="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-sm text-white focus:outline-none focus:border-cyan-400 placeholder:text-slate-400 transition-colors"
@@ -428,6 +432,7 @@ Enviado desde el formulario web de Nexo Talentos.`;
                           value={company}
                           onChange={(e) => setCompany(e.target.value)}
                           aria-label="Enlace a LinkedIn o Perfil Profesional"
+                          autoComplete="url"
                           data-webmcp-field="contact-linkedin"
                           placeholder="https://linkedin.com/in/tu-perfil"
                           className="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-sm text-white focus:outline-none focus:border-cyan-400 placeholder:text-slate-400 transition-colors"
