@@ -11,8 +11,8 @@ const ServicesSection = lazy(() => import('../components/ServicesSection').then(
 const MethodologySection = lazy(() => import('../components/MethodologySection').then(m => ({ default: m.MethodologySection })));
 // PRESERVADO COMENTADO SEGÚN REQUERIMIENTO:
 // const AIAgentsTeaser = lazy(() => import('../components/AIAgentsTeaser').then(m => ({ default: m.AIAgentsTeaser })));
-// const BlogTeaserSection = lazy(() => import('../components/BlogTeaserSection').then(m => ({ default: m.BlogTeaserSection })));
-const CostCalculatorTeaser = lazy(() => import('../components/CostCalculatorTeaser').then(m => ({ default: m.CostCalculatorTeaser })));
+// const CostCalculatorTeaser = lazy(() => import('../components/CostCalculatorTeaser').then(m => ({ default: m.CostCalculatorTeaser })));
+const SalaryComparisonSection = lazy(() => import('../components/SalaryComparisonSection').then(m => ({ default: m.SalaryComparisonSection })));
 const SuccessStories = lazy(() => import('../components/SuccessStories').then(m => ({ default: m.SuccessStories })));
 const FAQSection = lazy(() => import('../components/FAQSection').then(m => ({ default: m.FAQSection })));
 const ContactSection = lazy(() => import('../components/ContactSection').then(m => ({ default: m.ContactSection })));
@@ -76,8 +76,8 @@ export const HomePage: React.FC<HomePageProps> = ({
          * =====================================================================
          */}
 
-        {/* 6. Vacancy Cost & ROI Calculator Teaser */}
-        <CostCalculatorTeaser onNavigate={onNavigate} />
+        {/* 6. Comparativa Salarial España vs Remoto LATAM (Sección compacta y visual) */}
+        <SalaryComparisonSection onOpenContact={() => onNavigate('/contacto')} />
 
         {/* 7. Candidate Jobs Summary (Preservado para postulantes) */}
         <FeaturedVacanciesSummary

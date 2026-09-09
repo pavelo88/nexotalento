@@ -32,6 +32,7 @@ export const ContactSection: React.FC = () => {
   const [errorMsg, setErrorMsg] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [lastWhatsAppUrl, setLastWhatsAppUrl] = useState('');
 
   const whatsappUrl = COMPANY_CONFIG.whatsappUrl;
 
@@ -43,10 +44,15 @@ export const ContactSection: React.FC = () => {
     const cleanEmail = email.trim();
     const cleanPhone = sanitizeInput(phone, 30);
     const cleanCompany = sanitizeInput(company, 150);
-    const cleanMessage = sanitizeInput(message, 2000);
+    const cleanMessage = sanitizeInput(message, 3000);
 
     if (!cleanName || cleanName.length < 2) {
-      setErrorMsg('Por favor ingresa un nombre válido.');
+      setErrorMsg('Por favor ingresa tu nombre completo.');
+      return;
+    }
+
+    if (!cleanEmail) {
+      setErrorMsg('El correo electrónico es obligatorio.');
       return;
     }
 
@@ -59,6 +65,23 @@ export const ContactSection: React.FC = () => {
       setErrorMsg('Por favor ingresa un número de teléfono válido.');
       return;
     }
+
+    // Construir mensaje estructurado para WhatsApp
+    const waText = 
+`*NUEVA SOLICITUD - NEXO TALENTOS*
+----------------------------------
+📋 *Modalidad:* ${tab === 'empresa' ? 'Empresa / Búsqueda de Talento' : 'Candidato / Envío de Perfil'}
+👤 *Nombre:* ${cleanName}
+📧 *Email:* ${cleanEmail}
+📞 *Teléfono:* ${cleanPhone || 'No indicado'}
+🏢 *${tab === 'empresa' ? 'Empresa' : 'LinkedIn / Perfil'}:* ${cleanCompany || 'Confidencial'}
+🎯 *Servicio / Posición:* ${tab === 'empresa' ? serviceType : role || 'General'}
+${cleanMessage ? `💬 *Mensaje:* ${cleanMessage}` : ''}
+----------------------------------
+Enviado desde el formulario web de Nexo Talentos.`;
+
+    const dynamicWaUrl = `https://wa.me/${COMPANY_CONFIG.whatsapp}?text=${encodeURIComponent(waText)}`;
+    setLastWhatsAppUrl(dynamicWaUrl);
 
     setIsSubmitting(true);
     try {
@@ -75,6 +98,14 @@ export const ContactSection: React.FC = () => {
           message: cleanMessage
         })
       });
+
+      // Abrir WhatsApp en nueva pestaña para atención en tiempo real
+      try {
+        window.open(dynamicWaUrl, '_blank');
+      } catch {
+        // Si el navegador bloquea la apertura automática, el botón visible en pantalla lo permite
+      }
+
       setSubmitted(true);
       confetti({
         particleCount: 90,
@@ -82,6 +113,9 @@ export const ContactSection: React.FC = () => {
         origin: { y: 0.6 }
       });
     } catch (err) {
+      try {
+        window.open(dynamicWaUrl, '_blank');
+      } catch {}
       setSubmitted(true);
     } finally {
       setIsSubmitting(false);
@@ -254,16 +288,36 @@ export const ContactSection: React.FC = () => {
               )}
 
               {submitted ? (
-                <div className="text-center py-12 space-y-4 animate-fadeIn">
+                <div className="text-center py-10 space-y-5 animate-fadeIn">
                   <div className="w-16 h-16 rounded-3xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto border border-emerald-500/40 shadow-xl">
                     <CheckCircle2 className="w-9 h-9" />
                   </div>
-                  <h3 className="text-2xl font-extrabold text-white font-heading">
-                    ¡Solicitud Recibida con Éxito!
-                  </h3>
-                  <p className="text-sm text-slate-300 max-w-md mx-auto leading-relaxed">
-                    Gracias por confiar en Nexo Talentos. Un Socio Consultor revisará tu requerimiento y te contactará de manera confidencial en menos de 24 horas.
-                  </p>
+                  <div>
+                    <h3 className="text-2xl font-extrabold text-white font-heading">
+                      ¡Solicitud Registrada con Éxito!
+                    </h3>
+                    <p className="text-sm text-slate-300 max-w-md mx-auto leading-relaxed mt-2">
+                      Tus datos han quedado registrados bajo estricta confidencialidad RGPD. Un Socio Consultor ha recibido tu notificación.
+                    </p>
+                  </div>
+
+                  {/* Tarjeta destacada de WhatsApp para seguimiento en caliente */}
+                  <div className="p-5 rounded-2xl bg-emerald-950/40 border border-emerald-500/40 max-w-md mx-auto space-y-3">
+                    <p className="text-xs text-emerald-300 font-semibold flex items-center justify-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+                      Atención Directa &amp; Revisión Inmediata de Requerimientos
+                    </p>
+                    <a
+                      href={lastWhatsAppUrl || `https://wa.me/${COMPANY_CONFIG.whatsapp}?text=${encodeURIComponent('Hola Nexo Talentos, acabo de enviar mi requerimiento desde la web.')}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full py-3.5 px-4 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-xs sm:text-sm rounded-xl transition-all shadow-lg flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-95"
+                    >
+                      <MessageSquare className="w-4 h-4 fill-slate-950 shrink-0" />
+                      <span>Continuar por WhatsApp (+34 614 143 763)</span>
+                    </a>
+                  </div>
+
                   <button
                     onClick={() => {
                       setSubmitted(false);
@@ -272,7 +326,7 @@ export const ContactSection: React.FC = () => {
                       setPhone('');
                       setMessage('');
                     }}
-                    className="mt-4 px-6 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-xl transition-all"
+                    className="px-6 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-xl transition-all"
                   >
                     Enviar otra consulta
                   </button>

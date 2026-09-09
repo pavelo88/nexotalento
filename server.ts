@@ -1,5 +1,6 @@
 import express from "express";
 import path from "path";
+import fs from "fs";
 import dotenv from "dotenv";
 import { GoogleGenAI } from "@google/genai";
 import { AI_KNOWLEDGE_BASE } from "./ai-knowledge";
@@ -820,6 +821,65 @@ Liderar la estrategia tecnológica y operativa de la compañía, alineando la in
   } catch (error) {
     console.error("Error generando Job Spec:", error);
     res.status(500).json({ error: "Error generando la especificación del puesto." });
+  }
+});
+
+// Contact Form Submission Endpoint (Guarda leads y asegura que ningún contrato o contacto se pierda)
+app.post("/api/contact", async (req, res) => {
+  try {
+    const name = sanitizeInput(req.body?.name) || "Sin nombre";
+    const email = sanitizeInput(req.body?.email) || "Sin email";
+    const phone = sanitizeInput(req.body?.phone) || "Sin teléfono";
+    const company = sanitizeInput(req.body?.company) || "Sin empresa";
+    const role = sanitizeInput(req.body?.role) || "Sin cargo especificado";
+    const serviceType = sanitizeInput(req.body?.serviceType) || "Consulta General";
+    const message = sanitizeInput(req.body?.message) || "Sin mensaje";
+
+    const newLead = {
+      id: "lead_" + Date.now(),
+      createdAt: new Date().toISOString(),
+      name,
+      email,
+      phone,
+      company,
+      role,
+      serviceType,
+      message,
+      clientIP: (req.headers["x-forwarded-for"] as string || req.ip || "unknown").split(",")[0].trim()
+    };
+
+    console.log("📨 [NUEVO LEAD / CONTRATO RECIBIDO EN NEXO TALENTOS]:", JSON.stringify(newLead, null, 2));
+
+    // Persistir en archivo JSON local
+    try {
+      const dataDir = path.join(process.cwd(), "data");
+      if (!fs.existsSync(dataDir)) {
+        fs.mkdirSync(dataDir, { recursive: true });
+      }
+      const leadsFile = path.join(dataDir, "leads.json");
+      let existingLeads: unknown[] = [];
+      if (fs.existsSync(leadsFile)) {
+        try {
+          existingLeads = JSON.parse(fs.readFileSync(leadsFile, "utf-8"));
+          if (!Array.isArray(existingLeads)) existingLeads = [];
+        } catch {
+          existingLeads = [];
+        }
+      }
+      existingLeads.unshift(newLead);
+      fs.writeFileSync(leadsFile, JSON.stringify(existingLeads, null, 2), "utf-8");
+    } catch (fsErr) {
+      console.warn("No se pudo escribir en data/leads.json:", fsErr);
+    }
+
+    res.json({ 
+      success: true, 
+      message: "Lead registrado y guardado con éxito.",
+      leadId: newLead.id
+    });
+  } catch (error) {
+    console.error("Error procesando contacto:", error);
+    res.status(500).json({ error: "Error registrando el contacto." });
   }
 });
 
