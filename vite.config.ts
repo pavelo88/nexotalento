@@ -12,7 +12,7 @@ export default defineConfig(() => {
       ViteImageOptimizer({
         png: { quality: 80 },
         jpeg: { quality: 75 },
-        webp: { lossy: true, quality: 75 },
+        webp: { quality: 75, lossless: false },
       }),
     ],
     resolve: {
@@ -27,8 +27,6 @@ export default defineConfig(() => {
         output: {
           manualChunks: {
             'vendor-react': ['react', 'react-dom'],
-            'vendor-motion': ['motion'],
-            'vendor-icons': ['lucide-react'],
           },
         },
       },

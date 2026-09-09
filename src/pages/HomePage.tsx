@@ -49,12 +49,12 @@ export const HomePage: React.FC<HomePageProps> = ({
       <Suspense fallback={<div className="h-32 flex items-center justify-center"><div className="w-6 h-6 border-2 border-cyan-500 border-t-transparent rounded-full animate-spin"></div></div>}>
         
         {/* 3. Executive Interactive Requirement Wizard (Buscar Personal) */}
-        <div id="solicitar-talento" className="py-6 scroll-mt-24">
+        <div id="solicitar-talento" className="py-6 scroll-mt-24 content-auto">
           <B2BRequirementWizard onOpenContact={() => onNavigate('/contacto')} />
         </div>
 
         {/* 4. Services Section (Headhunting directivo y tecnológico) */}
-        <div>
+        <div className="content-auto">
           <ServicesSection
             onOpenAIAgent={onOpenAIAgent}
             onOpenJobSpecGenerator={onOpenJobSpecGenerator}
@@ -63,7 +63,7 @@ export const HomePage: React.FC<HomePageProps> = ({
         </div>
 
         {/* 5. Methodology Executive Summary (Terna en 18 días y garantía 3 a 6 meses) */}
-        <div>
+        <div className="content-auto">
           <MethodologySection onNavigateToProcess={() => onNavigate('/proceso')} />
         </div>
 
@@ -83,12 +83,12 @@ export const HomePage: React.FC<HomePageProps> = ({
          */}
 
         {/* 6. Comparativa Salarial España vs Remoto LATAM (Sección compacta y visual) */}
-        <div>
+        <div className="content-auto">
           <SalaryComparisonSection onOpenContact={() => onNavigate('/contacto')} />
         </div>
 
         {/* 7. Carrusel Infinito de Vacantes Directivas & Tech en Selección Activa */}
-        <div>
+        <div className="content-auto">
           <FeaturedVacanciesSummary
             onNavigate={onNavigate}
             onOpenCVAnalyzer={onOpenCVAnalyzer}
@@ -96,17 +96,17 @@ export const HomePage: React.FC<HomePageProps> = ({
         </div>
 
         {/* 8. Success Stories & Audited Testimonials */}
-        <div>
+        <div className="content-auto">
           <SuccessStories onNavigateToTestimonials={() => onNavigate('/testimonios')} />
         </div>
 
         {/* 9. FAQ Section */}
-        <div>
+        <div className="content-auto">
           <FAQSection />
         </div>
 
         {/* 10. Contact Section (Con invitación directa a WhatsApp y llamada) */}
-        <div>
+        <div className="content-auto">
           <ContactSection />
         </div>
       </Suspense>

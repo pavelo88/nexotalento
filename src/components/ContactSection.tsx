@@ -13,7 +13,8 @@ import {
   UserCheck,
   FileCheck,
   Calendar,
-  Globe
+  Globe,
+  AlertCircle
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 

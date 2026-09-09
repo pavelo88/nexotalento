@@ -212,6 +212,20 @@
   animation-play-state: paused;
 }
 
+.carousel-duration-60s {
+  animation-duration: 60s;
+}
+
+.carousel-duration-45s {
+  animation-duration: 45s;
+}
+
+/* Optimización agresiva de renderizado para secciones debajo del pliegue (0 JS cost) */
+.content-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 650px;
+}
+
 /* ==========================================================================
    SISTEMA DE SCROLL REVEAL NATIVO (GPU OPTIMIZED / 60FPS / 0 RUNTIME OVERHEAD)
    ========================================================================== */

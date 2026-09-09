@@ -3,6 +3,7 @@ export const COMPANY_CONFIG = {
   legalName: 'Nexo Talentos Consultores S.L.',
   phone: '+34 614 143 763',
   phoneDisplay: '+34 614 143 763',
+  whatsapp: '+34 614 143 763',
   whatsappNumber: '34614143763',
   whatsappDefaultMessage: 'Hola Nexo Talentos, deseo consultar sobre servicios de selección directiva y solicitar una terna en 18 días.',
   get whatsappUrl() {

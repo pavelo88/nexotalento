@@ -108,8 +108,8 @@ export const FeaturedVacanciesSummary: React.FC<FeaturedVacanciesSummaryProps> =
     }
   ];
 
-  // Triplicar lista para garantizar un ciclo infinito continuo y fluido
-  const marqueeItems = [...vacancies, ...vacancies, ...vacancies];
+  // Duplicar lista para garantizar un ciclo infinito continuo y fluido al 50%
+  const marqueeItems = [...vacancies, ...vacancies];
 
   return (
     <section id="vacantes-resumen" className="py-16 sm:py-20 relative overflow-hidden">
@@ -183,8 +183,7 @@ export const FeaturedVacanciesSummary: React.FC<FeaturedVacanciesSummaryProps> =
 
         {/* Tira animada que se desplaza continuamente y se pausa al hover */}
         <div 
-          className="animate-infinite-carousel flex items-stretch gap-5 px-4"
-          style={{ animationDuration: '45s' }}
+          className="animate-infinite-carousel flex items-stretch gap-5 px-4 carousel-duration-45s"
         >
           {marqueeItems.map((job, idx) => (
             <div
