@@ -10,7 +10,7 @@ export const COMPANY_CONFIG = {
     return `https://wa.me/${this.whatsappNumber}?text=${encodeURIComponent(this.whatsappDefaultMessage)}`;
   },
   emailUser: 'info',
-  emailDomain: 'nexotalentos.com',
+  emailDomain: 'nexotalento.com',
   // Direcciones institucionales: listas para actualizar en cuanto Caro entregue la dirección definitiva
   addresses: {
     madrid: {

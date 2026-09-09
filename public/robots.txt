@@ -5,10 +5,35 @@ Disallow: /admin/
 Disallow: /*?*
 Disallow: /private/
 
-# Permitir a los agentes de IA leer la web para AIO (AI Overviews)
+# Permitir a los agentes de IA leer la web para AIO y GEO
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
 User-agent: GPTBot
 Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
 User-agent: Claude-Web
 Allow: /
 
-Sitemap: https://nexotalentos.com/sitemap.xml
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+Sitemap: https://nexotalento.com/sitemap.xml

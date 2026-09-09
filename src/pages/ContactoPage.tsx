@@ -224,19 +224,19 @@ export const ContactoPage: React.FC<ContactoPageProps> = ({
                 theme === 'dark' ? 'border-slate-800' : 'border-slate-100'
               }`}>
                 <span className={theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}>Dirección General &amp; Búsqueda C-Level:</span>
-                <span className="text-[#00A9A3] font-semibold">empresas@nexotalentos.com</span>
+                <span className="text-[#00A9A3] font-semibold"><span>empresas</span><span className="text-[#00A9A3]">&#64;</span><span>nexotalento.com</span></span>
               </div>
               <div className={`flex items-center justify-between pb-2 border-b ${
                 theme === 'dark' ? 'border-slate-800' : 'border-slate-100'
               }`}>
                 <span className={theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}>Candidaturas y Base de Talento:</span>
-                <span className="text-blue-500 font-semibold">talento@nexotalentos.com</span>
+                <span className="text-blue-500 font-semibold"><span>talento</span><span className="text-blue-500">&#64;</span><span>nexotalento.com</span></span>
               </div>
               <div className={`flex items-center justify-between pb-2 border-b ${
                 theme === 'dark' ? 'border-slate-800' : 'border-slate-100'
               }`}>
                 <span className={theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}>Consultas Generales:</span>
-                <span className="font-semibold">contacto@nexotalentos.com</span>
+                <span className="font-semibold"><span>contacto</span><span>&#64;</span><span>nexotalento.com</span></span>
               </div>
               <div className={`flex items-center gap-2 pt-2 text-[11px] ${
                 theme === 'dark' ? 'text-slate-400' : 'text-slate-500'

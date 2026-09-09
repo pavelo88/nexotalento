@@ -25,10 +25,10 @@ interface HomePageProps {
   selectedAgentType?: AgentType;
 }
 
-// Helper para montaje progresivo sin bloquear el hilo principal (TBT < 50ms)
+// Helper para montaje progresivo sin bloquear el hilo principal (TBT < 50ms y DOM optimizado)
 const DeferredMount: React.FC<{ children: React.ReactNode; placeholderClass?: string }> = ({
   children,
-  placeholderClass = 'min-h-[300px]'
+  placeholderClass = 'min-h-[250px]'
 }) => {
   const [shouldRender, setShouldRender] = React.useState(false);
   const ref = React.useRef<HTMLDivElement>(null);
@@ -46,21 +46,15 @@ const DeferredMount: React.FC<{ children: React.ReactNode; placeholderClass?: st
           observer.disconnect();
         }
       },
-      { rootMargin: '600px 0px' }
+      { rootMargin: '200px 0px' }
     );
 
     if (ref.current) {
       observer.observe(ref.current);
     }
 
-    const timer = setTimeout(() => {
-      setShouldRender(true);
-      observer.disconnect();
-    }, 1500);
-
     return () => {
       observer.disconnect();
-      clearTimeout(timer);
     };
   }, []);
 
@@ -100,18 +94,18 @@ export const HomePage: React.FC<HomePageProps> = ({
         </div>
 
         {/* 4. Services Section (Headhunting directivo y tecnológico) */}
-        <div className="content-auto">
+        <DeferredMount placeholderClass="min-h-[350px]">
           <ServicesSection
             onOpenAIAgent={onOpenAIAgent}
             onOpenJobSpecGenerator={onOpenJobSpecGenerator}
             onViewAllServices={() => onNavigate('/servicios')}
           />
-        </div>
+        </DeferredMount>
 
         {/* 5. Methodology Executive Summary (Terna en 18 días y garantía 3 a 6 meses) */}
-        <div className="content-auto">
+        <DeferredMount placeholderClass="min-h-[300px]">
           <MethodologySection onNavigateToProcess={() => onNavigate('/proceso')} />
-        </div>
+        </DeferredMount>
 
         {/* 
          * =====================================================================

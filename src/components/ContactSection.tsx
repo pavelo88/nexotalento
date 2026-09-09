@@ -233,7 +233,7 @@ Enviado desde el formulario web de Nexo Talentos.`;
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <Mail className="w-4 h-4 text-blue-400" />
-                    <span>empresas@nexotalentos.com</span>
+                    <span><span>empresas</span><span className="text-blue-400">&#64;</span><span>nexotalento.com</span></span>
                   </div>
                   <span className="text-[10px] text-blue-400">Headhunting</span>
                 </div>

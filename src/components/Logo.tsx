@@ -38,6 +38,9 @@ export const Logo: React.FC<LogoProps> = ({
           <img 
             src="/icon-dark.png" 
             alt="Nexo Talentos Logo" 
+            width="40"
+            height="40"
+            decoding="async"
             className="w-full h-full object-contain" 
           />
         ) : (
@@ -45,12 +48,18 @@ export const Logo: React.FC<LogoProps> = ({
             <img 
               src="/icon-light.png" 
               alt="Nexo Talentos Logo" 
-              className="w-full h-full object-contain dark:hidden"
+              width="40"
+              height="40"
+              decoding="async"
+              className="w-full h-full object-contain dark:hidden" 
             />
             <img 
               src="/icon-dark.png" 
               alt="Nexo Talentos Logo" 
-              className="w-full h-full object-contain hidden dark:block"
+              width="40"
+              height="40"
+              decoding="async"
+              className="w-full h-full object-contain hidden dark:block" 
             />
           </>
         )}

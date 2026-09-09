@@ -16,7 +16,7 @@ interface RouteMetadata {
   h3s: { title: string; desc: string; linkText: string; linkHref: string }[];
 }
 
-const DOMAIN = 'https://nexotalentos.vercel.app';
+const DOMAIN = 'https://nexotalento.com';
 
 const ROUTES: RouteMetadata[] = [
   {
@@ -404,14 +404,19 @@ function prerender() {
 
   // 1. Asegurar que la portada raíz dist/index.html tenga su canónico y hreflang exactos
   let rootHtml = baseHtml;
-  if (!rootHtml.includes('<link rel="canonical"')) {
+  if (rootHtml.includes('<link rel="canonical"')) {
+    rootHtml = rootHtml.replace(
+      /<link rel="canonical" href=".*?" \/>/s,
+      `<link rel="canonical" href="${DOMAIN}/" />`
+    );
+  } else {
     rootHtml = rootHtml.replace(
       '<link rel="alternate" hreflang="es-ES"',
       `<link rel="canonical" href="${DOMAIN}/" />\n    <link rel="alternate" hreflang="es-ES"`
     );
-    fs.writeFileSync(baseHtmlPath, rootHtml, 'utf-8');
-    console.log('✓ Portada raíz actualizada con canónico exacto: /');
   }
+  fs.writeFileSync(baseHtmlPath, rootHtml, 'utf-8');
+  console.log('✓ Portada raíz actualizada con canónico exacto: /');
 
   // 2. Generar cada sub-ruta estática
   for (const route of ROUTES) {

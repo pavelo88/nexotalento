@@ -108,8 +108,8 @@ export const FeaturedVacanciesSummary: React.FC<FeaturedVacanciesSummaryProps> =
     }
   ];
 
-  // Duplicar lista para garantizar un ciclo infinito continuo y fluido al 50%
-  const marqueeItems = [...vacancies, ...vacancies];
+  // Selección curada de vacantes insignia duplicada al 50% para ciclo infinito fluido con DOM reducido
+  const marqueeItems = [...vacancies.slice(0, 5), ...vacancies.slice(0, 5)];
 
   return (
     <section id="vacantes-resumen" className="py-16 sm:py-20 relative overflow-hidden">
