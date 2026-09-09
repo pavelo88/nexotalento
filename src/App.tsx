@@ -87,6 +87,22 @@ function AppContent() {
     return () => window.removeEventListener('popstate', syncRouteWithLocation);
   }, []);
 
+  // Sincronizar etiqueta canonical con la ruta activa para SEO A+ y evitar advertencias de canonicalización
+  useEffect(() => {
+    try {
+      let canonical = document.querySelector<HTMLLinkElement>("link[rel='canonical']");
+      if (!canonical) {
+        canonical = document.createElement('link');
+        canonical.rel = 'canonical';
+        document.head.appendChild(canonical);
+      }
+      const cleanPath = currentPath === '/' ? '' : currentPath;
+      canonical.setAttribute('href', `https://nexotalentos.vercel.app${cleanPath}`);
+    } catch {
+      // Ignorar en entornos sin DOM
+    }
+  }, [currentPath]);
+
   const handleNavigate = (path: string) => {
     const [rawPath, hash] = path.split('#');
     const route = (rawPath || '/') as PageRoute;

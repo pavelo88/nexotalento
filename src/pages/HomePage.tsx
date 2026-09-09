@@ -25,6 +25,52 @@ interface HomePageProps {
   selectedAgentType?: AgentType;
 }
 
+// Helper para montaje progresivo sin bloquear el hilo principal (TBT < 50ms)
+const DeferredMount: React.FC<{ children: React.ReactNode; placeholderClass?: string }> = ({
+  children,
+  placeholderClass = 'min-h-[300px]'
+}) => {
+  const [shouldRender, setShouldRender] = React.useState(false);
+  const ref = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    if (typeof IntersectionObserver === 'undefined') {
+      setShouldRender(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldRender(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '600px 0px' }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    const timer = setTimeout(() => {
+      setShouldRender(true);
+      observer.disconnect();
+    }, 1500);
+
+    return () => {
+      observer.disconnect();
+      clearTimeout(timer);
+    };
+  }, []);
+
+  return (
+    <div ref={ref} className={`content-auto ${shouldRender ? '' : placeholderClass}`}>
+      {shouldRender ? children : null}
+    </div>
+  );
+};
+
 export const HomePage: React.FC<HomePageProps> = ({
   onNavigate,
   onOpenAIAgent,
@@ -83,32 +129,32 @@ export const HomePage: React.FC<HomePageProps> = ({
          */}
 
         {/* 6. Comparativa Salarial España vs Remoto LATAM (Sección compacta y visual) */}
-        <div className="content-auto">
+        <DeferredMount placeholderClass="min-h-[280px]">
           <SalaryComparisonSection onOpenContact={() => onNavigate('/contacto')} />
-        </div>
+        </DeferredMount>
 
         {/* 7. Carrusel Infinito de Vacantes Directivas & Tech en Selección Activa */}
-        <div className="content-auto">
+        <DeferredMount placeholderClass="min-h-[350px]">
           <FeaturedVacanciesSummary
             onNavigate={onNavigate}
             onOpenCVAnalyzer={onOpenCVAnalyzer}
           />
-        </div>
+        </DeferredMount>
 
         {/* 8. Success Stories & Audited Testimonials */}
-        <div className="content-auto">
+        <DeferredMount placeholderClass="min-h-[300px]">
           <SuccessStories onNavigateToTestimonials={() => onNavigate('/testimonios')} />
-        </div>
+        </DeferredMount>
 
         {/* 9. FAQ Section */}
-        <div className="content-auto">
+        <DeferredMount placeholderClass="min-h-[320px]">
           <FAQSection />
-        </div>
+        </DeferredMount>
 
         {/* 10. Contact Section (Con invitación directa a WhatsApp y llamada) */}
-        <div className="content-auto">
+        <DeferredMount placeholderClass="min-h-[400px]">
           <ContactSection />
-        </div>
+        </DeferredMount>
       </Suspense>
     </div>
   );
