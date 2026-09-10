@@ -118,7 +118,7 @@ export const LatamEliteTalentSection: React.FC<LatamEliteTalentSectionProps> = (
   ];
 
   return (
-    <section id="talento-latam-hub" className={`py-16 sm:py-24 relative overflow-hidden transition-colors duration-300 border-y ${
+    <section id="talento-latam-hub" className={`py-16 sm:py-12 sm:py-16 relative overflow-hidden transition-colors duration-300 border-y ${
       theme === 'dark' 
         ? 'bg-gradient-to-b from-[#0b0f19] via-[#0d1322] to-[#0b0f19] border-slate-800/90 text-slate-100' 
         : 'bg-gradient-to-b from-slate-50 via-cyan-50/20 to-slate-50 border-slate-200/90 text-slate-900'

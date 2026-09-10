@@ -126,7 +126,7 @@ Enviado desde el formulario web de Nexo Talentos.`;
   };
 
   return (
-    <section id="contacto" className={`py-24 relative overflow-hidden transition-colors duration-300 ${
+    <section id="contacto" className={`py-12 sm:py-16 relative overflow-hidden transition-colors duration-300 ${
       theme === 'dark' ? 'bg-slate-950' : 'bg-slate-50'
     }`}>
       {/* Ambient background glows */}

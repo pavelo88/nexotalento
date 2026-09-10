@@ -78,7 +78,7 @@ export const TalentAssessmentWizard: React.FC = () => {
   };
 
   return (
-    <section id="diagnostico-talento" className="py-24 bg-slate-900/40 relative">
+    <section id="diagnostico-talento" className="py-12 sm:py-16 bg-slate-900/40 relative">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Header */}

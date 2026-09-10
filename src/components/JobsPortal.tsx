@@ -269,7 +269,7 @@ export const JobsPortal: React.FC<JobsPortalProps> = ({ onOpenCVAnalyzer, isFull
   };
 
   return (
-    <section id="vacantes" className={`${isFullPage ? '' : 'py-16 sm:py-24'} relative transition-colors duration-300 ${
+    <section id="vacantes" className={`${isFullPage ? '' : 'py-16 sm:py-12 sm:py-16'} relative transition-colors duration-300 ${
       isFullPage ? '' : theme === 'dark' ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-900'
     }`}>
       <div className={`${isFullPage ? '' : 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'} relative z-10`}>

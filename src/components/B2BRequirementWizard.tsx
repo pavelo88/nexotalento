@@ -103,7 +103,7 @@ export const B2BRequirementWizard: React.FC<B2BRequirementWizardProps> = ({ onOp
   };
 
   return (
-    <section id="calculadora-requerimientos" className={`py-16 sm:py-24 relative transition-colors duration-300 ${
+    <section id="calculadora-requerimientos" className={`py-16 sm:py-12 sm:py-16 relative transition-colors duration-300 ${
       theme === 'dark' ? 'bg-slate-900/60 text-slate-100' : 'bg-slate-50 text-slate-900'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">

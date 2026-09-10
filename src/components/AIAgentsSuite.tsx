@@ -602,7 +602,7 @@ export const AIAgentsSuite: React.FC<AIAgentsSuiteProps> = ({
   }
 
   return (
-    <section id="agentes-ia" className={`py-16 sm:py-24 border-y transition-colors duration-300 ${
+    <section id="agentes-ia" className={`py-16 sm:py-12 sm:py-16 border-y transition-colors duration-300 ${
       theme === 'dark' ? 'bg-slate-950 border-slate-800/80 text-slate-100' : 'bg-slate-50/80 border-slate-200 text-slate-900'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

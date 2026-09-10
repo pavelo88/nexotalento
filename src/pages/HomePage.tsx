@@ -74,7 +74,7 @@ export const HomePage: React.FC<HomePageProps> = ({
   // Se eliminó la animación de scroll reveal compleja a petición del usuario para garantizar visibilidad
 
   return (
-    <div className="lg:px-[8%] xl:px-[12%] overflow-hidden space-y-16 sm:space-y-24 bg-slate-50 dark:bg-slate-950 transition-colors duration-500">
+    <div className="lg:px-[8%] xl:px-[12%] overflow-hidden space-y-16 sm:space-y-10 sm:space-y-14 bg-slate-50 dark:bg-slate-950 transition-colors duration-500">
       {/* 1. Hero Section (Eagerly loaded for instant LCP/FCP) */}
       <Hero
         onOpenAIAgent={onOpenAIAgent}
