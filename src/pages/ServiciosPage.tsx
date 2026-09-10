@@ -397,7 +397,7 @@ export const ServiciosPage: React.FC<ServiciosPageProps> = ({
                     <div className="flex flex-col gap-2 pt-2">
                       <a
                         href={`https://wa.me/34614143763?text=${encodeURIComponent(
-                          `Hola Nexo Talentos, deseo consultar con un Consultor Sénior sobre el servicio: ${serv.title}`
+                          `Hola Nexo Talento, deseo consultar con un Consultor Sénior sobre el servicio: ${serv.title}`
                         )}`}
                         target="_blank"
                         rel="noopener noreferrer"

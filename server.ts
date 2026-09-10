@@ -877,7 +877,7 @@ app.post("/api/contact", async (req, res) => {
       clientIP: (req.headers["x-forwarded-for"] as string || req.ip || "unknown").split(",")[0].trim()
     };
 
-    console.log("📨 [NUEVO LEAD / CONTRATO RECIBIDO EN Nexo Talento]:", JSON.stringify(newLead, null, 2));
+    console.log("📨 [NUEVO LEAD / CONTRATO RECIBIDO EN NEXO TALENTO]:", JSON.stringify(newLead, null, 2));
 
     // Persistir en archivo JSON local
     try {

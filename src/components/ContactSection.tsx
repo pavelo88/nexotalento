@@ -71,7 +71,7 @@ export const ContactSection: React.FC = () => {
 
     // Construir mensaje estructurado para WhatsApp
     const waText = 
-`*NUEVA SOLICITUD - Nexo Talento*
+`*NUEVA SOLICITUD - NEXO TALENTO*
 ----------------------------------
 📋 *Modalidad:* ${tab === 'empresa' ? 'Empresa / Búsqueda de Talento' : 'Candidato / Envío de Perfil'}
 👤 *Nombre:* ${cleanName}

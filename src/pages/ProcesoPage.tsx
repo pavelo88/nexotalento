@@ -128,8 +128,7 @@ export const ProcesoPage: React.FC<ProcesoPageProps> = ({
             <span>SLA Comprometido: Terna en 18 Días</span>
           </div>
           <h1 className="text-3xl sm:text-5xl font-black tracking-tight font-heading">
-            El Proceso de <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00A9A3] to-blue-500">Executive Search</span> Paso a Paso
-          </h1>
+El Proceso de <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00A9A3] to-blue-500">Executive Search</span> <br /> Paso a Paso          </h1>
           <p className={`mt-4 text-base leading-relaxed ${
             theme === 'dark' ? 'text-slate-300' : 'text-slate-600'
           }`}>

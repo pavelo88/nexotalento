@@ -1,5 +1,5 @@
 /**
- * Security & Input Sanitization Utilities for Nexo Talentos
+ * Security & Input Sanitization Utilities for Nexo Talento
  * Provides protection against XSS, HTML Injection, Prompt Injection & Data Malformation.
  */
 
