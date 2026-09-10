@@ -181,7 +181,7 @@ export const FeaturedVacanciesSummary: React.FC<FeaturedVacanciesSummaryProps> =
             : 'bg-gradient-to-l from-slate-50 via-slate-50/80 to-transparent'
         }`} />
 
-        {/* Tira animada que se desplaza continuamente y se pausa al hover */}
+        {/* Tira animada que se desplaza continuamente y se pausa al hover o al mantener presionado en móvil */}
         <div 
           className="animate-infinite-carousel flex items-stretch gap-5 px-4 carousel-duration-45s"
         >
@@ -208,19 +208,27 @@ export const FeaturedVacanciesSummary: React.FC<FeaturedVacanciesSummaryProps> =
                         Urgente
                       </span>
                     )}
-                    <span className="text-[10px] text-slate-400 font-medium bg-slate-800/80 px-2 py-0.5 rounded">
+                    <span className={`text-[10px] font-medium px-2 py-0.5 rounded ${
+                      theme === 'dark' ? 'text-slate-400 bg-slate-800/80' : 'text-slate-600 bg-slate-100'
+                    }`}>
                       {job.modality}
                     </span>
                   </div>
                 </div>
 
                 {/* Título del puesto */}
-                <h3 className="text-base font-bold text-white font-heading leading-snug group-hover:text-cyan-400 transition-colors line-clamp-2">
+                <h3 className={`text-base font-bold font-heading leading-snug transition-colors line-clamp-2 ${
+                  theme === 'dark' 
+                    ? 'text-white group-hover:text-cyan-400' 
+                    : 'text-slate-900 group-hover:text-cyan-600'
+                }`}>
                   {job.title}
                 </h3>
 
                 {/* Ubicación */}
-                <p className="text-xs text-slate-400 flex items-center gap-1 mt-2">
+                <p className={`text-xs flex items-center gap-1 mt-2 ${
+                  theme === 'dark' ? 'text-slate-400' : 'text-slate-600'
+                }`}>
                   <MapPin className="w-3.5 h-3.5 text-cyan-500 shrink-0" />
                   <span>{job.location}</span>
                 </p>
@@ -230,7 +238,11 @@ export const FeaturedVacanciesSummary: React.FC<FeaturedVacanciesSummaryProps> =
                   {job.tags.map((tag, tIdx) => (
                     <span 
                       key={tIdx}
-                      className="text-[9px] font-semibold text-slate-400 bg-slate-800/60 px-2 py-0.5 rounded-md border border-slate-700/50"
+                      className={`text-[9px] font-semibold px-2 py-0.5 rounded-md border ${
+                        theme === 'dark' 
+                          ? 'text-slate-400 bg-slate-800/60 border-slate-700/50' 
+                          : 'text-slate-600 bg-slate-100 border-slate-200'
+                      }`}
                     >
                       #{tag}
                     </span>
@@ -239,12 +251,16 @@ export const FeaturedVacanciesSummary: React.FC<FeaturedVacanciesSummaryProps> =
               </div>
 
               {/* Banda salarial y botón de explorar */}
-              <div className="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between">
+              <div className={`mt-4 pt-3 border-t flex items-center justify-between ${
+                theme === 'dark' ? 'border-slate-800' : 'border-slate-100'
+              }`}>
                 <div>
                   <span className="text-[9px] uppercase tracking-wider text-slate-500 font-bold block">
                     Banda Salarial Directiva UE
                   </span>
-                  <span className="text-xs font-black text-emerald-400 font-heading">
+                  <span className={`text-xs font-black font-heading ${
+                    theme === 'dark' ? 'text-emerald-400' : 'text-emerald-600'
+                  }`}>
                     {job.salary}
                   </span>
                 </div>

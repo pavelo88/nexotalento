@@ -4,7 +4,7 @@ import { BragBar } from '../components/BragBar';
 import { PageRoute, AgentType } from '../types';
 
 // Lazy loaded components for aggressive initial load code-splitting
-const B2BRequirementWizard = lazy(() => import('../components/B2BRequirementWizard').then(m => ({ default: m.B2BRequirementWizard })));
+// const B2BRequirementWizard = lazy(() => import('../components/B2BRequirementWizard').then(m => ({ default: m.B2BRequirementWizard })));
 const FeaturedVacanciesSummary = lazy(() => import('../components/FeaturedVacanciesSummary').then(m => ({ default: m.FeaturedVacanciesSummary })));
 // const LatamEliteTalentSection = lazy(() => import('../components/LatamEliteTalentSection').then(m => ({ default: m.LatamEliteTalentSection })));
 const ServicesSection = lazy(() => import('../components/ServicesSection').then(m => ({ default: m.ServicesSection })));
@@ -87,11 +87,16 @@ export const HomePage: React.FC<HomePageProps> = ({
 
       {/* Lazy-loaded sections with zero initial bundle footprint */}
       <Suspense fallback={<div className="h-32 flex items-center justify-center"><div className="w-6 h-6 border-2 border-cyan-500 border-t-transparent rounded-full animate-spin"></div></div>}>
-
-        {/* 3. Executive Interactive Requirement Wizard (Buscar Personal) */}
+       
+        {/* 5. Methodology Executive Summary (Terna en 18 días y garantía 3 a 6 meses) */}
+        <DeferredMount placeholderClass="min-h-[300px]">
+          <MethodologySection onNavigateToProcess={() => onNavigate('/proceso')} />
+        </DeferredMount>
+       
+        {/* 3. Executive Interactive Requirement Wizard (Buscar Personal) 
         <div id="solicitar-talento" className="py-6 scroll-mt-24 content-auto">
           <B2BRequirementWizard onOpenContact={() => onNavigate('/contacto')} />
-        </div>
+        </div>*/}
 
         {/* 4. Services Section (Headhunting directivo y tecnológico) */}
         <DeferredMount placeholderClass="min-h-[350px]">
@@ -102,10 +107,7 @@ export const HomePage: React.FC<HomePageProps> = ({
           />
         </DeferredMount>
 
-        {/* 5. Methodology Executive Summary (Terna en 18 días y garantía 3 a 6 meses) */}
-        <DeferredMount placeholderClass="min-h-[300px]">
-          <MethodologySection onNavigateToProcess={() => onNavigate('/proceso')} />
-        </DeferredMount>
+
 
         {/* 
          * =====================================================================
