@@ -16,8 +16,8 @@ interface RouteMetadata {
   h3s: { title: string; desc: string; linkText: string; linkHref: string }[];
 }
 
-const DOMAIN = 'https://nexotalento.com';
-
+// Línea 19 - Cámbiala para que tenga www:
+const DOMAIN = 'https://www.nexotalento.com';
 const ROUTES: RouteMetadata[] = [
   {
     path: '/servicios',

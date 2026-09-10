@@ -97,8 +97,7 @@ function AppContent() {
         document.head.appendChild(canonical);
       }
       const cleanPath = currentPath === '/' ? '' : currentPath;
-      canonical.setAttribute('href', `https://nexotalento.com${cleanPath}`);
-    } catch {
+        canonical.setAttribute('href', `https://www.nexotalento.com${cleanPath}`);    } catch {
       // Ignorar en entornos sin DOM
     }
   }, [currentPath]);

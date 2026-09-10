@@ -36,4 +36,4 @@ Allow: /
 User-agent: Applebot
 Allow: /
 
-Sitemap: https://nexotalento.com/sitemap.xml
+Sitemap: https://www.nexotalento.com/sitemap.xml
