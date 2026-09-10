@@ -16,12 +16,12 @@ interface RouteMetadata {
   h3s: { title: string; desc: string; linkText: string; linkHref: string }[];
 }
 
-// Línea 19 - Cámbiala para que tenga www:
 const DOMAIN = 'https://www.nexotalento.com';
+
 const ROUTES: RouteMetadata[] = [
   {
     path: '/servicios',
-    title: 'Servicios de Headhunting y Selección | Nexo Talento',
+    title: 'Servicios de Headhunting y Selección | Nexo Talentos',
     description: 'Servicios de Executive Search, selección de mandos intermedios y talento tech en Madrid y Barcelona. Terna en 18 días hábiles garantizada.',
     h1: 'Servicios de Executive Search &amp; Headhunting en España',
     h2: 'Catálogo de Soluciones de Contratación Directiva y Tecnológica',
@@ -62,9 +62,9 @@ const ROUTES: RouteMetadata[] = [
   },
   {
     path: '/por-que-elegirnos',
-    title: 'Por Qué Elegirnos: Garantías y Valor | Nexo Talento',
+    title: 'Por Qué Elegirnos: Garantías y Valor | Nexo Talentos',
     description: 'Descubre nuestras 4 garantías exclusivas: terna en 18 días, blindaje legal Art. 43 ET, sustitución gratuita y evaluación con IA avanzada.',
-    h1: '¿Por Qué las Empresas Líderes Eligen Nexo Talento?',
+    h1: '¿Por Qué las Empresas Líderes Eligen Nexo Talentos?',
     h2: 'Cuatro Pilares Exclusivos de Excelencia y Seguridad Jurídica',
     summaryText: 'Somos la firma de selección directiva más ágil de España. Ayudamos a directores de personas y comités de dirección a contratar con calma. Te ofrecemos cuatro garantías reales por contrato. Trabajamos con método, cercanía y total discreción en cada proceso.',
     closingText: 'Más de doscientas empresas han cerrado con éxito sus procesos directivos con nosotros. Te damos la tranquilidad de contratar bien a la primera. Pide una cita confidencial con un socio de la firma hoy.',
@@ -103,11 +103,11 @@ const ROUTES: RouteMetadata[] = [
   },
   {
     path: '/testimonios',
-    title: 'Testimonios y Casos de Éxito Reales | Nexo Talento',
-    description: 'Conoce las opiniones y casos reales de CEOs y directores de recursos humanos que confían en Nexo Talento para contratar talento clave en España.',
+    title: 'Testimonios y Casos de Éxito Reales | Nexo Talentos',
+    description: 'Conoce las opiniones y casos reales de CEOs y directores de recursos humanos que confían en Nexo Talentos para contratar talento clave en España.',
     h1: 'Casos de Éxito y Testimonios de Directivos',
     h2: 'Opiniones Verificadas de Líderes Empresariales en España',
-    summaryText: 'Más de doscientas empresas líderes confían en Nexo Talento. Ayudamos a grupos empresariales a encontrar directores de alto nivel con rapidez. Nuestros clientes destacan la cercanía y el rigor de los consultores. Compartimos casos reales con datos claros y resultados auditados.',
+    summaryText: 'Más de doscientas empresas líderes confían en Nexo Talentos. Ayudamos a grupos empresariales a encontrar directores de alto nivel con rapidez. Nuestros clientes destacan la cercanía y el rigor de los consultores. Compartimos casos reales con datos claros y resultados auditados.',
     closingText: 'Si deseas hablar con clientes de tu mismo sector, te facilitamos referencias directas. Comprueba por qué el noventa y cuatro por ciento de las empresas repite con nosotros. Escríbenos hoy y cuéntanos tu caso.',
     h3s: [
       {
@@ -144,7 +144,7 @@ const ROUTES: RouteMetadata[] = [
   },
   {
     path: '/proceso',
-    title: 'Proceso de Selección Ejecutiva en 18 Días | Nexo Talento',
+    title: 'Proceso de Selección Ejecutiva en 18 Días | Nexo Talentos',
     description: 'Metodología ágil en 5 fases para identificar y contratar líderes clave en 18 días hábiles con total confidencialidad y garantía de reposición.',
     h1: 'El Proceso de Executive Search Paso a Paso',
     h2: 'Metodología Ágil y Rigurosa de Cinco Fases en Dieciocho Días',
@@ -185,7 +185,7 @@ const ROUTES: RouteMetadata[] = [
   },
   {
     path: '/contacto',
-    title: 'Contacto y Sedes en Madrid y Barcelona | Nexo Talento',
+    title: 'Contacto y Sedes en Madrid y Barcelona | Nexo Talentos',
     description: 'Contacta con nuestro equipo de consultores sénior de selección en Madrid y Barcelona. Respuesta garantizada y confidencial en menos de 24 horas.',
     h1: 'Contacto, Sedes y Consultor Directo en España',
     h2: 'Atención Directa y Personalizada para Empresas y Candidatos',
@@ -226,12 +226,12 @@ const ROUTES: RouteMetadata[] = [
   },
   {
     path: '/vacantes',
-    title: 'Bolsa de Empleo y Vacantes Activas | Nexo Talento',
+    title: 'Bolsa de Empleo y Vacantes Activas | Nexo Talentos',
     description: 'Ofertas de empleo y oportunidades ejecutivas en tecnología, finanzas y dirección en España. Salarios transparentes y respuesta ágil.',
     h1: 'Posiciones Directivas &amp; Tech en Selección Activa',
     h2: 'Oportunidades Profesionales con Bandas Salariales Transparentes',
     summaryText: 'Publicamos ofertas de empleo para directores y especialistas técnicos en España. Todas las posiciones cuentan con bandas salariales claras y públicas. Cumplimos las normas europeas de igualdad retributiva. Cuidamos tu tiempo y te damos respuesta en cada fase del proceso.',
-    closingText: 'Revisamos todas las candidaturas recibidas con respeto y rigor profesional. Inscríbete en pocos pasos y da un nuevo impulso a tu carrera ejecutiva con Nexo Talento.',
+    closingText: 'Revisamos todas las candidaturas recibidas con respeto y rigor profesional. Inscríbete en pocos pasos y da un nuevo impulso a tu carrera ejecutiva con Nexo Talentos.',
     h3s: [
       {
         title: 'Puestos de Dirección en Tecnología',
@@ -267,7 +267,7 @@ const ROUTES: RouteMetadata[] = [
   },
   {
     path: '/guia-salarial',
-    title: 'Guía Salarial Directiva y Tech 2026 | Nexo Talento',
+    title: 'Guía Salarial Directiva y Tech 2026 | Nexo Talentos',
     description: 'Estudio integral de bandas salariales, variables y equity para directores generales, mandos medios y perfiles tech en España en 2026.',
     h1: 'Guía de Compensación Directiva &amp; Tech España 2026',
     h2: 'Bandas Retributivas, Beneficios y Comparativa Internacional',
@@ -308,12 +308,12 @@ const ROUTES: RouteMetadata[] = [
   },
   {
     path: '/calculadora-roi',
-    title: 'Calculadora de Coste de Vacante y ROI | Nexo Talento',
+    title: 'Calculadora de Coste de Vacante y ROI | Nexo Talentos',
     description: 'Calcula cuánto dinero y productividad pierde tu empresa por cada mes que una posición estratégica permanece vacante y descubre tu ROI.',
     h1: 'Calculadora de Coste de Vacante Desierta &amp; ROI',
     h2: 'Cuantifica el Impacto Económico de una Posición Sin Cubrir',
     summaryText: 'Tener un puesto directivo vacío cuesta mucho dinero a tu empresa. No se trata solo del sueldo que dejas de pagar. Una vacante sin cubrir frena ventas, satura al resto del equipo y retrasa proyectos clave. Nuestra calculadora te muestra la cifra exacta en dos minutos.',
-    closingText: 'Cerrar tu contratación a tiempo protege los ingresos de tu negocio y la salud de tu equipo. Haz números ahora y comprueba las ventajas de trabajar con Nexo Talento.',
+    closingText: 'Cerrar tu contratación a tiempo protege los ingresos de tu negocio y la salud de tu equipo. Haz números ahora y comprueba las ventajas de trabajar con Nexo Talentos.',
     h3s: [
       {
         title: 'Coste Diario por Puesto Vacante',
@@ -349,7 +349,7 @@ const ROUTES: RouteMetadata[] = [
   },
   {
     path: '/blog',
-    title: 'Blog de Headhunting y Selección 2026 | Nexo Talento',
+    title: 'Blog de Headhunting y Selección 2026 | Nexo Talentos',
     description: 'Artículos y análisis técnicos sobre selección ejecutiva, jurisprudencia del Art. 43 ET, equidad salarial y adopción de IA en recursos humanos.',
     h1: 'Revista Doctrinal &amp; Tratado Legal 2026',
     h2: 'Análisis Jurídico, Tendencias de Selección y Gestión de Talento',
@@ -390,6 +390,68 @@ const ROUTES: RouteMetadata[] = [
   }
 ];
 
+// Función utilitaria para reemplazar etiquetas SEO de manera robusta y resistente a espacios o saltos de línea
+function applySEOTags(html: string, url: string, title: string, description: string): string {
+  let result = html;
+
+  // Title
+  result = result.replace(/<title>[\s\S]*?<\/title>/i, `<title>${title}</title>`);
+
+  // Meta description (resistente a saltos de línea y atributos en cualquier orden)
+  result = result.replace(
+    /<meta\s+name=["']description["']\s+content=["'][\s\S]*?["']\s*\/?>/i,
+    `<meta name="description" content="${description}" />`
+  );
+
+  // Canonical tag
+  if (/<link\s+rel=["']canonical["']/i.test(result)) {
+    result = result.replace(
+      /<link\s+rel=["']canonical["']\s+href=["'][\s\S]*?["']\s*\/?>/i,
+      `<link rel="canonical" href="${url}" />`
+    );
+  }
+
+  // Hreflangs
+  result = result.replace(
+    /<link\s+rel=["']alternate["']\s+hreflang=["']es-ES["']\s+href=["'][\s\S]*?["']\s*\/?>/i,
+    `<link rel="alternate" hreflang="es-ES" href="${url}" />`
+  );
+  result = result.replace(
+    /<link\s+rel=["']alternate["']\s+hreflang=["']es["']\s+href=["'][\s\S]*?["']\s*\/?>/i,
+    `<link rel="alternate" hreflang="es" href="${url}" />`
+  );
+  result = result.replace(
+    /<link\s+rel=["']alternate["']\s+hreflang=["']x-default["']\s+href=["'][\s\S]*?["']\s*\/?>/i,
+    `<link rel="alternate" hreflang="x-default" href="${url}" />`
+  );
+
+  // Open Graph
+  result = result.replace(
+    /<meta\s+property=["']og:title["']\s+content=["'][\s\S]*?["']\s*\/?>/i,
+    `<meta property="og:title" content="${title}" />`
+  );
+  result = result.replace(
+    /<meta\s+property=["']og:description["']\s+content=["'][\s\S]*?["']\s*\/?>/i,
+    `<meta property="og:description" content="${description}" />`
+  );
+  result = result.replace(
+    /<meta\s+property=["']og:url["']\s+content=["'][\s\S]*?["']\s*\/?>/i,
+    `<meta property="og:url" content="${url}" />`
+  );
+
+  // Twitter Card
+  result = result.replace(
+    /<meta\s+name=["']twitter:title["']\s+content=["'][\s\S]*?["']\s*\/?>/i,
+    `<meta name="twitter:title" content="${title}" />`
+  );
+  result = result.replace(
+    /<meta\s+name=["']twitter:description["']\s+content=["'][\s\S]*?["']\s*\/?>/i,
+    `<meta name="twitter:description" content="${description}" />`
+  );
+
+  return result;
+}
+
 function prerender() {
   const distDir = path.resolve(__dirname, '../dist');
   const baseHtmlPath = path.join(distDir, 'index.html');
@@ -402,19 +464,14 @@ function prerender() {
   const baseHtml = fs.readFileSync(baseHtmlPath, 'utf-8');
   console.log('Iniciando pre-renderizado estático de rutas para SEO A+...');
 
-  // 1. Asegurar que la portada raíz dist/index.html tenga su canónico y hreflang exactos
-  let rootHtml = baseHtml;
-  if (rootHtml.includes('<link rel="canonical"')) {
-    rootHtml = rootHtml.replace(
-      /<link rel="canonical" href=".*?" \/>/s,
-      `<link rel="canonical" href="${DOMAIN}/" />`
-    );
-  } else {
-    rootHtml = rootHtml.replace(
-      '<link rel="alternate" hreflang="es-ES"',
-      `<link rel="canonical" href="${DOMAIN}/" />\n    <link rel="alternate" hreflang="es-ES"`
-    );
-  }
+  // 1. Portada raíz: dist/index.html
+  const rootUrl = `${DOMAIN}/`;
+  let rootHtml = applySEOTags(
+    baseHtml,
+    rootUrl,
+    'Nexo Talentos | Headhunting y Selección Directiva 24/7',
+    'Nexo Talentos: Headhunting ejecutivo y selección tech en España. Terna en 18 días hábiles y garantía contractual de 3 a 6 meses. Consulta por WhatsApp.'
+  );
   fs.writeFileSync(baseHtmlPath, rootHtml, 'utf-8');
   console.log('✓ Portada raíz actualizada con canónico exacto: /');
 
@@ -427,59 +484,10 @@ function prerender() {
 
     const routeUrl = `${DOMAIN}${route.path}`;
 
-    let html = baseHtml;
+    // A. Reemplazar todos los metas y canónicos de manera infalible
+    let html = applySEOTags(baseHtml, routeUrl, route.title, route.description);
 
-    // A. Reemplazar Title
-    html = html.replace(/<title>.*?<\/title>/s, `<title>${route.title}</title>`);
-
-    // B. Reemplazar Meta Description
-    html = html.replace(
-      /<meta name="description" content=".*?" \/>/s,
-      `<meta name="description" content="${route.description}" />`
-    );
-
-    // C. Reemplazar o Inyectar Canonical
-    if (html.includes('<link rel="canonical"')) {
-      html = html.replace(
-        /<link rel="canonical" href=".*?" \/>/s,
-        `<link rel="canonical" href="${routeUrl}" />`
-      );
-    } else {
-      html = html.replace(
-        '<link rel="alternate" hreflang="es-ES"',
-        `<link rel="canonical" href="${routeUrl}" />\n    <link rel="alternate" hreflang="es-ES"`
-      );
-    }
-
-    // D. Reemplazar Hreflangs con autoreferencia a la ruta activa
-    html = html.replace(
-      /<link rel="alternate" hreflang="es-ES" href=".*?" \/>/s,
-      `<link rel="alternate" hreflang="es-ES" href="${routeUrl}" />`
-    );
-    html = html.replace(
-      /<link rel="alternate" hreflang="es" href=".*?" \/>/s,
-      `<link rel="alternate" hreflang="es" href="${routeUrl}" />`
-    );
-    html = html.replace(
-      /<link rel="alternate" hreflang="x-default" href=".*?" \/>/s,
-      `<link rel="alternate" hreflang="x-default" href="${routeUrl}" />`
-    );
-
-    // E. Reemplazar Open Graph & Twitter URL/Title/Description
-    html = html.replace(
-      /<meta property="og:title" content=".*?" \/>/s,
-      `<meta property="og:title" content="${route.title}" />`
-    );
-    html = html.replace(
-      /<meta property="og:description" content=".*?" \/>/s,
-      `<meta property="og:description" content="${route.description}" />`
-    );
-    html = html.replace(
-      /<meta property="og:url" content=".*?" \/>/s,
-      `<meta property="og:url" content="${routeUrl}" />`
-    );
-
-    // F. Reemplazar el contenido fallback semántico dentro de <div id="root">
+    // B. Reemplazar el contenido fallback semántico dentro de <div id="root">
     const h3sHtml = route.h3s.map((h) => `
           <h3>${h.title}</h3>
           <p>${h.desc}</p>
@@ -511,11 +519,10 @@ ${h3sHtml}
         </section>
       </main>
       <footer class="sr-only">
-        <p>&copy; 2026 Nexo Talento Consultores S.L. Paseo de la Castellana 95, Madrid, España. Teléfono: +34 614 143 763. Correo: info@nexotalento.com. Todos los derechos reservados.</p>
+        <p>&copy; 2026 Nexo Talentos Consultores S.L. Paseo de la Castellana 95, Madrid, España. Teléfono: +34 614 143 763. Correo: info@nexotalento.com. Todos los derechos reservados.</p>
       </footer>
     `;
 
-    // Sustituir el interior de <div id="root">
     html = html.replace(
       /<div id="root">[\s\S]*?<\/div>/,
       `<div id="root">${semanticFallback}</div>`
@@ -523,9 +530,7 @@ ${h3sHtml}
 
     const outFilePath = path.join(routeDir, 'index.html');
     fs.writeFileSync(outFilePath, html, 'utf-8');
-    const flatFilePath = path.join(distDir, `${route.path.replace('/', '')}.html`);
-    fs.writeFileSync(flatFilePath, html, 'utf-8');
-    console.log(`✓ Generada ruta estática única: ${route.path} -> dist${route.path}/index.html & dist${route.path}.html`);
+    console.log(`✓ Generada ruta estática única: ${route.path} -> dist${route.path}/index.html`);
   }
 
   console.log(`🎉 ¡Pre-renderizado completado exitosamente para ${ROUTES.length} rutas!`);
