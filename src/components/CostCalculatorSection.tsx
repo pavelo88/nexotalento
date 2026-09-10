@@ -27,7 +27,7 @@ export const CostCalculatorSection: React.FC<CostCalculatorSectionProps> = ({ is
   const dailyBusinessImpact = dailySalary * revenueMultiplier;
   const totalCostOfVacancy = dailyBusinessImpact * (vacancyMonths * 21.6);
   
-  // Nexo Talentos accelerates hiring to 18 days (approx 0.8 months) vs industry average 3-4 months
+  // Nexo Talento accelerates hiring to 18 days (approx 0.8 months) vs industry average 3-4 months
   const traditionalDaysToHire = vacancyMonths * 21.6;
   const nexoDaysToHire = 18;
   const daysSaved = Math.max(0, traditionalDaysToHire - nexoDaysToHire);
@@ -219,7 +219,7 @@ export const CostCalculatorSection: React.FC<CostCalculatorSectionProps> = ({ is
                   Diagnóstico Económico de la Vacante
                 </span>
                 <span className="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-500/15 dark:bg-emerald-950 px-2.5 py-0.5 rounded-full border border-emerald-500/30 dark:border-emerald-800">
-                  Ahorro con Nexo Talentos
+                  Ahorro con Nexo Talento
                 </span>
               </div>
 
@@ -250,7 +250,7 @@ export const CostCalculatorSection: React.FC<CostCalculatorSectionProps> = ({ is
                 </div>
               </div>
 
-              {/* Highlight Box: Savings with Nexo Talentos */}
+              {/* Highlight Box: Savings with Nexo Talento */}
               <div className={`p-5 rounded-2xl border ${
                 theme === 'dark'
                   ? 'bg-gradient-to-r from-emerald-950/60 via-slate-900 to-cyan-950/60 border-emerald-500/40'
@@ -259,7 +259,7 @@ export const CostCalculatorSection: React.FC<CostCalculatorSectionProps> = ({ is
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-xs font-bold text-emerald-700 dark:text-emerald-300 uppercase tracking-wider">
-                      Ahorro Estimado al Contratar con Nexo Talentos
+                      Ahorro Estimado al Contratar con Nexo Talento
                     </p>
                     <p className="text-3xl sm:text-4xl font-extrabold text-emerald-600 dark:text-emerald-400 font-mono mt-1">
                       +{Math.round(estimatedSavings).toLocaleString('es-ES')} €

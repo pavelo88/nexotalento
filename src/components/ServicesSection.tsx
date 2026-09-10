@@ -240,7 +240,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                 </button>
               )}
               <a
-                href={`https://wa.me/34614143763?text=${encodeURIComponent(`Hola Nexo Talentos, deseo consultar sobre el servicio de ${currentService.title}`)}`}
+                href={`https://wa.me/34614143763?text=${encodeURIComponent(`Hola Nexo Talento, deseo consultar sobre el servicio de ${currentService.title}`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-xs text-emerald-400 font-bold hover:underline flex items-center gap-1"
@@ -334,7 +334,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                     <span>Generar Job Spec</span>
                   </button>
                   <a
-                    href={`https://wa.me/34614143763?text=${encodeURIComponent(`Hola Nexo Talentos, deseo consultar sobre el servicio de ${service.title}`)}`}
+                    href={`https://wa.me/34614143763?text=${encodeURIComponent(`Hola Nexo Talento, deseo consultar sobre el servicio de ${service.title}`)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-xs text-emerald-400 font-bold hover:underline flex items-center gap-1"

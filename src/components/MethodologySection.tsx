@@ -76,7 +76,7 @@ export const MethodologySection: React.FC<MethodologySectionProps> = ({ onNaviga
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border shadow-sm mb-3 bg-cyan-950/40 border-cyan-500/30 text-cyan-400 text-xs font-bold">
               <Clock className="w-3.5 h-3.5" />
-              <span>El Método Nexo Talentos (18 Días SLA)</span>
+              <span>El Método Nexo Talento (18 Días SLA)</span>
             </div>
 
             <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight font-heading">

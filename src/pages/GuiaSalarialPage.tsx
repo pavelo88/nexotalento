@@ -95,7 +95,7 @@ export const GuiaSalarialPage: React.FC<GuiaSalarialPageProps> = ({
         <div className="text-center max-w-4xl mx-auto mb-12">
           <div className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-500/15 via-cyan-500/15 to-indigo-500/15 border border-cyan-500/30 px-4 py-1.5 rounded-full text-xs font-extrabold text-cyan-400 mb-4 animate-spring-in">
             <BookOpen className="w-3.5 h-3.5" />
-            <span>Blog Editorial &amp; Observatorio de Compensación de Nexo Talentos</span>
+            <span>Blog Editorial &amp; Observatorio de Compensación de Nexo Talento</span>
           </div>
 
           <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight font-heading leading-tight">

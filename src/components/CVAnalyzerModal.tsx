@@ -119,7 +119,7 @@ Formación: Doble Grado ADE y Finanzas (CUNEF) + Certificación CFA Nivel II.`
 
   const handleCopySummary = () => {
     if (!result) return;
-    const text = `Diagnóstico de Talento Nexo Talentos:
+    const text = `Diagnóstico de Talento Nexo Talento:
 Score de Encaje: ${result.matchScore}/100
 Rango Salarial Estimado: ${result.estimatedSalaryRange}
 Veredicto: ${result.headhunterVerdict}
@@ -265,7 +265,7 @@ Resumen: ${result.summary}`;
             {isAnalyzing ? (
               <>
                 <span className="w-4 h-4 rounded-full border-2 border-slate-950 border-t-transparent animate-spin" />
-                <span>Analizando perfil con motor IA de Nexo Talentos...</span>
+                <span>Analizando perfil con motor IA de Nexo Talento...</span>
               </>
             ) : (
               <>

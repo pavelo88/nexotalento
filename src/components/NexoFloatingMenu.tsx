@@ -145,7 +145,7 @@ export const NexoFloatingMenu: React.FC<NexoFloatingMenuProps> = ({
             <div className="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400 relative z-10">
               <div className="flex items-center gap-1.5 text-emerald-400 font-medium">
                 <ShieldCheck className="w-3.5 h-3.5" />
-                <span>Nexo Talentos • Confidencial</span>
+                <span>Nexo Talento • Confidencial</span>
               </div>
               <span>Atención Directa</span>
             </div>

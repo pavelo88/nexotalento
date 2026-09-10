@@ -110,7 +110,7 @@ export const LatamEliteTalentSection: React.FC<LatamEliteTalentSectionProps> = (
     {
       tag: 'SEGURIDAD JURÍDICA',
       title: 'Cero Fricción Laboral ni Visados',
-      description: 'Facturación directa B2B en España a través de Nexo Talentos. Contratos mercantiles blindados bajo estricto cumplimiento legal.',
+      description: 'Facturación directa B2B en España a través de Nexo Talento. Contratos mercantiles blindados bajo estricto cumplimiento legal.',
       metric: '0%',
       metricLabel: 'Riesgo Laboral',
       icon: ShieldCheck
@@ -392,7 +392,7 @@ export const LatamEliteTalentSection: React.FC<LatamEliteTalentSectionProps> = (
 
                   <a
                     href={`https://wa.me/34614143763?text=${encodeURIComponent(
-                      `Hola Nexo Talentos, estuve consultando el Hub de Talento LATAM para perfiles de ${currentRole.title} (${teamSize} personas). Deseo recibir el dossier ejecutivo.`
+                      `Hola Nexo Talento, estuve consultando el Hub de Talento LATAM para perfiles de ${currentRole.title} (${teamSize} personas). Deseo recibir el dossier ejecutivo.`
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"

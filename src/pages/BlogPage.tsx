@@ -135,7 +135,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onOpenAIAgent })
             'Para garantizar la total certidumbre jurídica, los Comités de Dirección deben distinguir con precisión las diferentes figuras jurídicas aplicables en España:',
             '• Empresa de Trabajo Temporal (ETT): Autorizada por Ley 14/1994 para necesidades temporales tasadas. El poder de dirección lo asume la empresa usuaria.',
             '• Outsourcing / BPO: Relación estrictamente mercantil (Art. 42 ET). El proveedor debe ejercer con exclusividad el poder disciplinario, aportar medios propios y asumir el riesgo empresarial.',
-            '• Executive Search & Caza Directa (Nexo Talentos): Mandato B2B de intermediación y selección cualificada para contratación indefinida directa por parte del cliente. Riesgo de cesión ilegal: 0%.'
+            '• Executive Search & Caza Directa (Nexo Talento): Mandato B2B de intermediación y selección cualificada para contratación indefinida directa por parte del cliente. Riesgo de cesión ilegal: 0%.'
           ]
         }
       ]
@@ -220,7 +220,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onOpenAIAgent })
           heading: '2. El Principio Obligatorio de Human-in-the-Loop',
           paragraphs: [
             'Ningún candidato puede ser descartado o clasificado de manera 100% automatizada sin la intervención, revisión y validación cualificada de un profesional humano.',
-            'En Nexo Talentos, nuestros modelos de IA actúan como copilotos analíticos, pero toda terna final es evaluada presencialmente mediante entrevistas STAR por nuestros Senior Partners.'
+            'En Nexo Talento, nuestros modelos de IA actúan como copilotos analíticos, pero toda terna final es evaluada presencialmente mediante entrevistas STAR por nuestros Senior Partners.'
           ]
         }
       ]

@@ -36,7 +36,7 @@ export const NexIAChatModal: React.FC<NexIAChatModalProps> = ({
     {
       id: 'init-1',
       role: 'assistant',
-      content: '¡Hola! Soy **NexIA**, tu asesora virtual de talento en **Nexo Talentos**.\n\nEstoy lista para ayudarte a definir y cubrir posiciones directivas y técnicas bajo nuestro compromiso garantizado de **terna validada en 18 días hábiles**.\n\n¿Qué perfil necesitas incorporar en tu equipo?',
+      content: '¡Hola! Soy **NexIA**, tu asesora virtual de talento en **Nexo Talento**.\n\nEstoy lista para ayudarte a definir y cubrir posiciones directivas y técnicas bajo nuestro compromiso garantizado de **terna validada en 18 días hábiles**.\n\n¿Qué perfil necesitas incorporar en tu equipo?',
       timestamp: 'Ahora'
     }
   ]);
@@ -64,7 +64,7 @@ export const NexIAChatModal: React.FC<NexIAChatModalProps> = ({
 
   const buildWhatsAppUrl = () => {
     const lastUserMsg = [...messages].reverse().find(m => m.role === 'user')?.content || 'Consulta sobre selección directiva y terna en 18 días';
-    const text = `Hola Nexo Talentos, estuve consultando con NexIA sobre: "${lastUserMsg}". Deseo coordinar con un Senior Partner.`;
+    const text = `Hola Nexo Talento, estuve consultando con NexIA sobre: "${lastUserMsg}". Deseo coordinar con un Senior Partner.`;
     return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`;
   };
 
@@ -177,7 +177,7 @@ export const NexIAChatModal: React.FC<NexIAChatModalProps> = ({
                 </span>
               </div>
               <p className="text-[11px] text-slate-400">
-                Nexo Talentos • Headhunting &amp; Selección Directiva (18 Días)
+                Nexo Talento • Headhunting &amp; Selección Directiva (18 Días)
               </p>
             </div>
           </div>
@@ -246,7 +246,7 @@ export const NexIAChatModal: React.FC<NexIAChatModalProps> = ({
 
                   {isAssistant && (
                     <div className="mt-2 pt-1.5 border-t border-slate-700/40 flex items-center justify-between text-[10px] text-slate-400">
-                      <span>Nexo Talentos</span>
+                      <span>Nexo Talento</span>
                       <button
                         onClick={() => handleCopyText(msg.id, msg.content)}
                         className="hover:text-cyan-400 flex items-center gap-1 transition-colors"

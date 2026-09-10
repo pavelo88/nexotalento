@@ -282,7 +282,7 @@ async function generateAIResponse(
 
 // System prompts for specialized AI Agents enriched with the Complete 2026 Spain Talent & Regulatory Legal Treatise
 const AGENT_SYSTEM_PROMPTS: Record<string, string> = {
-  headhunter: `Eres "Nexo Senior Headhunter & Executive Search AI", el consultor de Inteligencia Artificial de Nexo Talentos, la firma líder en España y Europa en Executive Search, Headhunting y Selección Estratégica de Personal Directivo y Técnico.
+  headhunter: `Eres "Nexo Senior Headhunter & Executive Search AI", el consultor de Inteligencia Artificial de Nexo Talento, la firma líder en España y Europa en Executive Search, Headhunting y Selección Estratégica de Personal Directivo y Técnico.
 Sedes: Paseo de la Castellana 95 (Madrid) y Av. Diagonal 640 (Barcelona). Teléfono: +34 910 88 44 20. WhatsApp Consultor: +34 614 143 763.
 
 Tu conocimiento experto se fundamenta en el marco legal y de mercado de España 2026:
@@ -295,7 +295,7 @@ ${AI_KNOWLEDGE_BASE}
    - Riesgo de Employer of Record (EOR): Bajo sentencia TJUE C-441/23 y Art. 43 ET, el EOR sin licencia ETT en España implica alto riesgo de cesión ilegal y riesgo de Establecimiento Permanente ante la Agencia Tributaria.
    - Reglamento Europeo de IA (EU AI Act 2024/1689): La IA en RRHH y selección es clasificada como "Alto Riesgo" (Anexo III), exigiendo evaluación de impacto en derechos fundamentales (FRIA) y supervisión humana obligatoria.
 
-2. METODOLOGÍA NEXO TALENTOS:
+2. METODOLOGÍA NEXO TALENTO:
    - Compromiso de Terna Validada en 18 Días Hábiles.
    - Garantía de reposición sin coste de 12 meses.
    - Mapeo confidencial del 100% de la competencia (Headhunting pasivo sin quemar la marca).
@@ -306,7 +306,7 @@ ${AI_KNOWLEDGE_BASE}
    - Tono ejecutivo, seguro, cálido y consultivo.
    - Usa Markdown estructurado con viñetas, tablas comparativas y recomendaciones claras.`,
 
-  evaluator: `Eres "Nexo Career & CV Advisor AI", el asesor sénior de talento y evaluación directiva de Nexo Talentos.
+  evaluator: `Eres "Nexo Career & CV Advisor AI", el asesor sénior de talento y evaluación directiva de Nexo Talento.
 Especializado en preparar a directivos, mandos intermedios y especialistas tecnológicos sénior para los procesos de selección más exigentes de España y el exterior.
 
 Conocimientos clave:
@@ -318,7 +318,7 @@ Conocimientos clave:
 
 Ofrece respuestas analíticas, estructuradas, constructivas y altamente orientadas al éxito profesional.`,
 
-  salary: `Eres "Nexo Salary Benchmark AI 2026", el consultor de inteligencia retributiva, compensación y beneficios de Nexo Talentos para el mercado español y europeo.
+  salary: `Eres "Nexo Salary Benchmark AI 2026", el consultor de inteligencia retributiva, compensación y beneficios de Nexo Talento para el mercado español y europeo.
 
 Conocimientos retributivos y legales fundamentales:
 1. BANDAS SALARIALES DIRECTIVAS Y TECH ESPAÑA 2026 (Bruto Anual):
@@ -347,7 +347,7 @@ Conocimientos retributivos y legales fundamentales:
 
 Responde siempre con tablas salariales precisas, desglose fijo/variable y optimización fiscal.`,
 
-  advisor: `Eres "Nexo Talent Strategist B2B", el consultor estratégico de talento y organización empresarial de Nexo Talentos.
+  advisor: `Eres "Nexo Talent Strategist B2B", el consultor estratégico de talento y organización empresarial de Nexo Talento.
 
 Conocimientos estratégicos y normativos para CEOs, CFOs y directores de RRHH:
 1. CÁLCULO DE COSTES Y ROI DE CONTRATACIÓN:
@@ -366,13 +366,13 @@ Conocimientos estratégicos y normativos para CEOs, CFOs y directores de RRHH:
 
 Proporciona análisis económicos detallados, fórmulas cuantitativas de ROI y planes estratégicos a medida.`,
 
-  nexia: `Eres NexIA, la agente virtual inteligente y consultora de talento de Nexo Talentos (firma líder en España de Headhunting y Selección Directiva, con sedes en Paseo de la Castellana 95, Madrid y Av. Diagonal 640, Barcelona).
+  nexia: `Eres NexIA, la agente virtual inteligente y consultora de talento de Nexo Talento (firma líder en España de Headhunting y Selección Directiva, con sedes en Paseo de la Castellana 95, Madrid y Av. Diagonal 640, Barcelona).
 
 REGLAS DE ORO DE TU CONVERSACIÓN:
 1. TONO: Cercano, ágil, profesional, persuasivo y conversacional (como un asesor humano en chat en vivo).
 2. LONGITUD: NUNCA envíes textos largos ni discursos aburridos. Máximo 2 a 4 oraciones cortas por mensaje.
 3. FLUJO NATURAL PASO A PASO:
-   - Paso 1: Si el usuario te indica qué perfil busca (ej. informático, desarrollador, directivo, comercial, etc.), dale una breve confirmación de entusiasmo ("¡Excelente! En Nexo Talentos contamos con una red activa de más de 45.000 profesionales especializados en esa área...") y hazle 1 o 2 preguntas clave sencillas (ej.: qué tecnologías o seniority busca, y si es para Madrid, Barcelona o remoto).
+   - Paso 1: Si el usuario te indica qué perfil busca (ej. informático, desarrollador, directivo, comercial, etc.), dale una breve confirmación de entusiasmo ("¡Excelente! En Nexo Talento contamos con una red activa de más de 45.000 profesionales especializados en esa área...") y hazle 1 o 2 preguntas clave sencillas (ej.: qué tecnologías o seniority busca, y si es para Madrid, Barcelona o remoto).
    - Paso 2: Conforme el usuario te responda, recaba el nivel de urgencia o empresa.
    - Paso 3: Destaca brevemente nuestro valor (Terna validada en 18 días hábiles + 12 meses de garantía de reposición).
    - Paso 4 (Cierre): Cuando ya tengas la idea del requerimiento o si el cliente quiere avanzar, dile que registras la solicitud para asignarle un Consultor Senior y pregúntale:
@@ -380,7 +380,7 @@ REGLAS DE ORO DE TU CONVERSACIÓN:
 
 NUNCA uses listas numeradas eternas ni discursos teóricos extensos. Mantén siempre el diálogo vivo, fresco y enfocado en ayudarle.`,
 
-  sales_closer: `Eres NexIA, la agente virtual inteligente de Nexo Talentos.
+  sales_closer: `Eres NexIA, la agente virtual inteligente de Nexo Talento.
 Tu objetivo es asesorar a empresas y directivos con respuestas muy breves (2-3 oraciones), cercanas y eficaces. Explica nuestro compromiso de Terna en 18 Días y Garantía de 12 Meses de forma natural y conduce la conversación a ofrecer opciones de contacto (WhatsApp, llamada o teleconferencia).`
 };
 
@@ -409,9 +409,9 @@ function generateSmartFallbackResponse(agentType: string, query: string, history
 
   if (isCandidateQuery) {
     if (agentType === 'evaluator' || q.includes('cv') || q.includes('auditar') || q.includes('perfil')) {
-      return `### 💼 Asesoría de Carrera & Evaluación de Candidatos — Nexo Talentos
+      return `### 💼 Asesoría de Carrera & Evaluación de Candidatos — Nexo Talento
 
-¡Excelente! En **Nexo Talentos** representamos a profesionales directivos, mandos intermedios y especialistas tecnológicos sénior para procesos de selección confidenciales en España y Europa.
+¡Excelente! En **Nexo Talento** representamos a profesionales directivos, mandos intermedios y especialistas tecnológicos sénior para procesos de selección confidenciales en España y Europa.
 
 #### 🚀 Pasos recomendados para tu candidatura:
 1. **Auditoría Gratuita de CV con IA:** Puedes usar nuestra herramienta interactiva en la barra superior (**Auditar CV**) para obtener una puntuación de encaje y optimización según la metodología STAR.
@@ -437,7 +437,7 @@ function generateSmartFallbackResponse(agentType: string, query: string, history
     if (q.includes('director general') || q.includes('tiempo') || q.includes('cuánto tarda') || q.includes('cuanto tarda') || q.includes('plazo') || q.includes('18 días')) {
       return `### ⏱️ Cronograma de Executive Search: Director General en Madrid (18 Días Hábiles)
 
-En **Nexo Talentos**, nuestro compromiso para posiciones C-Level y Directores Generales en Madrid se estructura en un proceso riguroso y ágil:
+En **Nexo Talento**, nuestro compromiso para posiciones C-Level y Directores Generales en Madrid se estructura en un proceso riguroso y ágil:
 
 | Fase del Proceso | Plazo | Entregables & Metodología |
 | :--- | :--- | :--- |
@@ -478,7 +478,7 @@ Para liderar la estrategia técnica en el ecosistema de Barcelona (22@, Scaleups
 
     // Competency Evaluation Methodology
     if (q.includes('metodología') || q.includes('metodologia') || q.includes('evaluación') || q.includes('evaluacion') || q.includes('competencias')) {
-      return `### 🎯 Metodología de Evaluación por Competencias de Nexo Talentos
+      return `### 🎯 Metodología de Evaluación por Competencias de Nexo Talento
 
 Nuestro proceso combina rigor científico, evaluación situacional y verificación de impacto para garantizar una tasa de éxito del 98.4%:
 
@@ -504,7 +504,7 @@ Nuestro proceso combina rigor científico, evaluación situacional y verificaci�
     if (q.includes('confidencial') || q.includes('competencia') || q.includes('caza') || q.includes('discreción')) {
       return `### 🛡️ Protocolo de Confidencialidad y Direct Search en la Competencia
 
-En **Nexo Talentos**, la confidencialidad es un pilar contractual fundamental en cada proceso de Executive Search:
+En **Nexo Talento**, la confidencialidad es un pilar contractual fundamental en cada proceso de Executive Search:
 
 * **Mapeo Ciego (Blind Market Mapping):** Identificamos y contactamos al talento en activo de competidores directos sin revelar la identidad de tu empresa hasta que el candidato firma un Acuerdo de Confidencialidad (NDA).
 * **Protección de Marca Empleadora:** No publicamos ofertas abiertas que alerten al mercado o a la propia organización sobre sustituciones o cambios directivos sensibles.
@@ -518,7 +518,7 @@ En **Nexo Talentos**, la confidencialidad es un pilar contractual fundamental en
   // 3. Questions for NexIA (Virtual Talent Assistant)
   if (agentType === 'nexia' || agentType === 'sales_closer') {
     if (q.includes('informátic') || q.includes('programad') || q.includes('developer') || q.includes('tech') || q.includes('software') || q.includes('devops')) {
-      return `¡Genial! En Nexo Talentos somos especialistas en selección de perfiles tecnológicos e informáticos, desde desarrolladores Senior hasta CTOs y Data Leads.\n\nPara presentarte perfiles contrastados: ¿qué tecnologías o stack específico necesitáis que domine y sería para trabajar en Madrid, Barcelona o en remoto?`;
+      return `¡Genial! En Nexo Talento somos especialistas en selección de perfiles tecnológicos e informáticos, desde desarrolladores Senior hasta CTOs y Data Leads.\n\nPara presentarte perfiles contrastados: ¿qué tecnologías o stack específico necesitáis que domine y sería para trabajar en Madrid, Barcelona o en remoto?`;
     }
 
     if (q.includes('precio') || q.includes('tarifa') || q.includes('cuanto cuesta') || q.includes('cuánto cuesta') || q.includes('comision') || q.includes('honorarios') || q.includes('coste')) {
@@ -533,14 +533,14 @@ En **Nexo Talentos**, la confidencialidad es un pilar contractual fundamental en
       return `¡Excelente! Nuestro Socio Consultor se pondrá en contacto contigo de inmediato para coordinar la sesión y revisar los detalles del perfil.\n\nPuedes también escribirnos directamente a nuestro WhatsApp oficial pulsando el botón verde o al **+34 614 143 763**. ¿Hay algún horario que prefieras?`;
     }
 
-    return `¡Entendido! En **Nexo Talentos** nos encargamos de todo el proceso de atracción y evaluación directa de talento para garantizarte una **terna final en 18 días hábiles con 12 meses de garantía**.\n\nCuéntame un poco más: ¿qué responsabilidades principales tendrá la posición y para cuándo tenéis previsto incorporarla?`;
+    return `¡Entendido! En **Nexo Talento** nos encargamos de todo el proceso de atracción y evaluación directa de talento para garantizarte una **terna final en 18 días hábiles con 12 meses de garantía**.\n\nCuéntame un poco más: ¿qué responsabilidades principales tendrá la posición y para cuándo tenéis previsto incorporarla?`;
   }
 
   // 4. Salary Benchmark AI
   if (agentType === 'salary' || q.includes('salario') || q.includes('sueldo') || q.includes('banda') || q.includes('retribuc') || q.includes('irpf')) {
     return `### 📊 Inteligencia Retributiva & Benchmark Salarial España (2026)
 
-Según el **Estudio de Compensación Directiva y Mercado Retributivo 2026 de Nexo Talentos** para Madrid, Barcelona y principales polos empresariales en España:
+Según el **Estudio de Compensación Directiva y Mercado Retributivo 2026 de Nexo Talento** para Madrid, Barcelona y principales polos empresariales en España:
 
 | Posición Directiva / Tech | Salario Fijo Bruto (€/año) | Variable / Bonus (%) | Beneficios & Equity Clave |
 | :--- | :--- | :--- | :--- |
@@ -568,7 +568,7 @@ Según el **Estudio de Compensación Directiva y Mercado Retributivo 2026 de Nex
   if (agentType === 'evaluator' || q.includes('cv') || q.includes('curriculum') || q.includes('entrevista') || q.includes('perfil') || q.includes('pacto')) {
     return `### 🎯 Diagnóstico de Perfil Ejecutivo & Preparación de Entrevistas (Metodología 2026)
 
-Para posicionarte en las ternas de **Executive Search de Nexo Talentos** y superar las evaluaciones más rigurosas de comités de dirección:
+Para posicionarte en las ternas de **Executive Search de Nexo Talento** y superar las evaluaciones más rigurosas de comités de dirección:
 
 1. **Estructuración del CV Orientado a Métricas de Negocio:**
    * Sustituye descripciones genéricas por impacto cuantitativo: *"% de incremento de EBITDA", "Ahorro de costes mediante automatización de procesos", "Volumen de equipo liderado y presupuesto gestionado"*.
@@ -605,7 +605,7 @@ Para posicionarte en las ternas de **Executive Search de Nexo Talentos** y super
 * **Desempleados de Larga Duración:** 110 €/mes (128 € mujeres o mayores de 45 años) por 3 años.
 * **Sustitución por Maternidad/Embarazo:** Exención de 366 €/mes en cuotas a la Seguridad Social.
 
-#### 3. ROI del Headhunting de Nexo Talentos vs Vacante Desierta:
+#### 3. ROI del Headhunting de Nexo Talento vs Vacante Desierta:
 * **Coste de Vacante Desierta (Cost of Vacancy):** Entre 2,5x y 3x el salario diario de la posición en facturación perdida y sobrecarga.
 * **Nuestra Garantía:** Terna en **18 días hábiles** con **12 meses de reposición sin coste** y 98.4% de tasa de retención.
 
@@ -613,9 +613,9 @@ Para posicionarte en las ternas de **Executive Search de Nexo Talentos** y super
   }
 
   // Default Headhunter response
-  return `### 🤝 Executive Search & Headhunting Directivo — Nexo Talentos España
+  return `### 🤝 Executive Search & Headhunting Directivo — Nexo Talento España
 
-Bienvenido al servicio de consultoría estratégica de **Nexo Talentos** (Madrid & Barcelona).
+Bienvenido al servicio de consultoría estratégica de **Nexo Talento** (Madrid & Barcelona).
 
 #### ⚡ Nuestro Compromiso de Calidad:
 1. **Terna Validada en 18 Días Hábiles:** Presentación de 3 a 5 finalistas contrastados con informe competencial 360° y referencias ciegas.
@@ -731,7 +731,7 @@ app.post("/api/analyze-cv", async (req, res) => {
       return;
     }
 
-    const systemPrompt = `Actúa como Director de Selección y Headhunter Sénior de Nexo Talentos en España.
+    const systemPrompt = `Actúa como Director de Selección y Headhunter Sénior de Nexo Talento en España.
 Analiza el siguiente CV para la posición objetivo "${targetRole}".
 Aplica los criterios de selección de 2026 (Metodología STAR, adecuación a bandas salariales de España, competencias de liderazgo, brechas formativas y compliance con la Directiva UE de Transparencia).
 
@@ -805,8 +805,8 @@ app.post("/api/generate-job-spec", async (req, res) => {
     const location = sanitizeInput(req.body?.location) || "Madrid, España";
     const keyRequirements = sanitizeInput(req.body?.keyRequirements) || "Liderazgo de equipos, visión estratégica, impacto en resultados";
 
-    const systemPrompt = `Actúa como Consultor Sénior de Headhunting de Nexo Talentos. Genera una descripción de puesto de trabajo (Job Description) ejecutiva y atractiva para la posición solicitada.
-Aplica la Directiva Europea de Transparencia Salarial (UE 2023/970) e incluye banda salarial de referencia para España 2026, responsabilidades principales, requisitos imprescindibles y deseables, beneficios (Art. 42 LIRPF) y propuesta de valor de Nexo Talentos. Redacta en Markdown pulido.`;
+    const systemPrompt = `Actúa como Consultor Sénior de Headhunting de Nexo Talento. Genera una descripción de puesto de trabajo (Job Description) ejecutiva y atractiva para la posición solicitada.
+Aplica la Directiva Europea de Transparencia Salarial (UE 2023/970) e incluye banda salarial de referencia para España 2026, responsabilidades principales, requisitos imprescindibles y deseables, beneficios (Art. 42 LIRPF) y propuesta de valor de Nexo Talento. Redacta en Markdown pulido.`;
 
     const userMessage = `- Título: ${roleTitle}\n- Departamento: ${department}\n- Seniority: ${seniority}\n- Modalidad: ${modality}\n- Ubicación: ${location}\n- Requisitos: ${keyRequirements}`;
 
@@ -877,7 +877,7 @@ app.post("/api/contact", async (req, res) => {
       clientIP: (req.headers["x-forwarded-for"] as string || req.ip || "unknown").split(",")[0].trim()
     };
 
-    console.log("📨 [NUEVO LEAD / CONTRATO RECIBIDO EN NEXO TALENTOS]:", JSON.stringify(newLead, null, 2));
+    console.log("📨 [NUEVO LEAD / CONTRATO RECIBIDO EN Nexo Talento]:", JSON.stringify(newLead, null, 2));
 
     // Persistir en archivo JSON local
     try {
@@ -930,7 +930,7 @@ async function startServer() {
   }
 
   app.listen(PORT, "0.0.0.0", () => {
-    console.log(`Nexo Talentos Server running on http://0.0.0.0:${PORT}`);
+    console.log(`Nexo Talento Server running on http://0.0.0.0:${PORT}`);
   });
 }
 

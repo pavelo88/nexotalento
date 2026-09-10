@@ -26,7 +26,7 @@ export const SuccessStories: React.FC<SuccessStoriesProps> = ({ onNavigateToTest
       sector: 'Fintech & Scaleup (Madrid)',
       role: 'Chief Technology Officer (CTO)',
       time: '14 Días',
-      quote: 'Nexo Talentos entendió exactamente el nivel de exigencia técnica y liderazgo que requeríamos para nuestra ronda Serie B. El nuevo CTO fue clave.',
+      quote: 'Nexo Talento entendió exactamente el nivel de exigencia técnica y liderazgo que requeríamos para nuestra ronda Serie B. El nuevo CTO fue clave.',
       author: 'Ignacio M. de la Hoz',
       authorRole: 'CEO & Co-Fundador, Fintech Madrid'
     },
@@ -35,7 +35,7 @@ export const SuccessStories: React.FC<SuccessStoriesProps> = ({ onNavigateToTest
       sector: 'Salud & Pharma (Barcelona)',
       role: 'Director Médico Corporativo',
       time: '17 Días',
-      quote: 'La rigurosidad en la verificación de antecedentes y el trato discreto convirtieron a Nexo Talentos en nuestro partner estratégico permanente.',
+      quote: 'La rigurosidad en la verificación de antecedentes y el trato discreto convirtieron a Nexo Talento en nuestro partner estratégico permanente.',
       author: 'Dra. Montserrat Valls',
       authorRole: 'Directora de Recursos Humanos, Grupo Sanitario'
     },

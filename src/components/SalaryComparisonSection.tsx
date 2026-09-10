@@ -77,7 +77,7 @@ export const SalaryComparisonSection: React.FC<SalaryComparisonSectionProps> = (
   const role = roles[selectedRoleIndex];
 
   const whatsappInquiryUrl = `https://wa.me/${COMPANY_CONFIG.whatsapp}?text=${encodeURIComponent(
-    `Hola Nexo Talentos, deseo consultar perfiles y tarifas del Hub de Talento Remoto para la posición: ${role.title}`
+    `Hola Nexo Talento, deseo consultar perfiles y tarifas del Hub de Talento Remoto para la posición: ${role.title}`
   )}`;
 
   return (

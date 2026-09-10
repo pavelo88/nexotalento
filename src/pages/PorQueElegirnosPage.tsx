@@ -120,7 +120,7 @@ export const PorQueElegirnosPage: React.FC<PorQueElegirnosPageProps> = ({
             <span>Diferenciación &amp; Excelencia Operativa</span>
           </div>
           <h1 className="text-3xl sm:text-5xl font-black tracking-tight font-heading">
-            ¿Por Qué las Empresas Líderes Eligen <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00A9A3] to-blue-500">Nexo Talentos</span>?
+            ¿Por Qué las Empresas Líderes Eligen <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00A9A3] to-blue-500">Nexo Talento</span>?
           </h1>
           <p className={`mt-4 text-base leading-relaxed ${
             theme === 'dark' ? 'text-slate-300' : 'text-slate-600'
@@ -166,7 +166,7 @@ export const PorQueElegirnosPage: React.FC<PorQueElegirnosPageProps> = ({
         }`}>
           <div className="text-center max-w-2xl mx-auto mb-10">
             <h2 className="text-2xl sm:text-3xl font-bold font-heading">
-              Nexo Talentos vs. Agencias Tradicionales
+              Nexo Talento vs. Agencias Tradicionales
             </h2>
             <p className={`text-xs sm:text-sm mt-2 ${
               theme === 'dark' ? 'text-slate-400' : 'text-slate-600'
@@ -183,7 +183,7 @@ export const PorQueElegirnosPage: React.FC<PorQueElegirnosPageProps> = ({
                 }`}>
                   <th className="pb-4 font-bold uppercase tracking-wider text-xs">Criterio de Evaluación</th>
                   <th className="pb-4 font-bold text-[#00A9A3] uppercase tracking-wider text-xs bg-[#00A9A3]/10 px-4 rounded-t-xl">
-                    ⚡ Nexo Talentos
+                    ⚡ Nexo Talento
                   </th>
                   <th className="pb-4 font-bold uppercase tracking-wider text-xs px-4">
                     Agencias Tradicionales

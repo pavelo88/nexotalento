@@ -537,7 +537,7 @@ export const JobsPortal: React.FC<JobsPortalProps> = ({ onOpenCVAnalyzer, isFull
                     theme === 'dark' ? 'border-slate-800' : 'border-slate-100'
                   }`}>
                     <span className="text-[11px] text-slate-400 hidden sm:inline">
-                      Proceso confidencial gestionado por Nexo Talentos
+                      Proceso confidencial gestionado por Nexo Talento
                     </span>
                     <button
                       onClick={() => handleOpenApply(job)}

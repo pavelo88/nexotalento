@@ -231,10 +231,12 @@
 }
 
 /* Optimización agresiva de renderizado para secciones debajo del pliegue (0 JS cost) */
+/* ELIMINADO PARA CORREGIR EL SALTO DE SCROLL EN MÓVILES
 .content-auto {
   content-visibility: auto;
   contain-intrinsic-size: auto 650px;
 }
+*/
 
 /* ==========================================================================
    SISTEMA DE SCROLL REVEAL NATIVO (GPU OPTIMIZED / 60FPS / 0 RUNTIME OVERHEAD)
@@ -250,4 +252,3 @@
   opacity: 1;
   transform: translateY(0);
 }
-

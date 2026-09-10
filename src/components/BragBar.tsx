@@ -79,7 +79,8 @@ export const BragBar: React.FC = () => {
               >
                 <div className="flex items-center gap-2 mb-1.5">
                   <Icon className={`w-4 h-4 ${metric.color}`} />
-                  <span className={`text-[11px] uppercase tracking-wider font-bold ${theme === 'dark' ? 'text-slate-400' : 'text-slate-500'
+                  {/* CORRECCIÓN: text-slate-500 cambiado a text-slate-600 para pasar accesibilidad */}
+                  <span className={`text-[11px] uppercase tracking-wider font-bold ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'
                     }`}>
                     {metric.label}
                   </span>
@@ -102,10 +103,11 @@ export const BragBar: React.FC = () => {
             <Building2 className="w-4 h-4 text-cyan-500" />
             <span className={`text-xs sm:text-sm font-bold tracking-wide uppercase ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'
               }`}>
-              Confían en la Externalización &amp; Headhunting de Nexo Talentos
+              Confían en la Externalización &amp; Headhunting de Nexo Talento
             </span>
           </div>
-          <div className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20">
+          {/* CORRECCIÓN: text-emerald-600 cambiado a text-emerald-700 para pasar accesibilidad */}
+          <div className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-emerald-700 dark:text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20">
             <CheckCircle2 className="w-3.5 h-3.5" />
             <span>100% Blindaje Legal Art. 43 ET &amp; Compliance 2026</span>
           </div>

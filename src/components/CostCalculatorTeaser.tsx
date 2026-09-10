@@ -157,7 +157,7 @@ export const CostCalculatorTeaser: React.FC<CostCalculatorTeaserProps> = ({ onNa
             <div className="p-3.5 rounded-xl bg-gradient-to-r from-emerald-950/60 to-cyan-950/60 border border-emerald-500/30 flex items-center justify-between">
               <div>
                 <p className="text-[11px] font-bold text-emerald-400 uppercase">
-                  Ahorro con Nexo Talentos (18 Días SLA)
+                  Ahorro con Nexo Talento (18 Días SLA)
                 </p>
                 <p className="text-2xl sm:text-3xl font-black text-emerald-400 font-mono mt-0.5">
                   +{Math.round(estimatedSavings).toLocaleString('es-ES')} €

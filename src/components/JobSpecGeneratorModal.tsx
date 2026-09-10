@@ -237,7 +237,7 @@ Liderar y dinamizar el departamento de ${department}, definiendo el roadmap oper
                   className="w-full py-3 bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-bold text-xs rounded-xl flex items-center justify-center gap-1.5"
                 >
                   <Send className="w-3.5 h-3.5" />
-                  <span>Encargar esta Búsqueda a un Headhunter de Nexo Talentos</span>
+                  <span>Encargar esta Búsqueda a un Headhunter de Nexo Talento</span>
                 </a>
               </div>
             </div>

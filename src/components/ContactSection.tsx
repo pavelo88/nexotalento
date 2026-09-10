@@ -71,7 +71,7 @@ export const ContactSection: React.FC = () => {
 
     // Construir mensaje estructurado para WhatsApp
     const waText = 
-`*NUEVA SOLICITUD - NEXO TALENTOS*
+`*NUEVA SOLICITUD - Nexo Talento*
 ----------------------------------
 📋 *Modalidad:* ${tab === 'empresa' ? 'Empresa / Búsqueda de Talento' : 'Candidato / Envío de Perfil'}
 👤 *Nombre:* ${cleanName}
@@ -81,7 +81,7 @@ export const ContactSection: React.FC = () => {
 🎯 *Servicio / Posición:* ${tab === 'empresa' ? serviceType : role || 'General'}
 ${cleanMessage ? `💬 *Mensaje:* ${cleanMessage}` : ''}
 ----------------------------------
-Enviado desde el formulario web de Nexo Talentos.`;
+Enviado desde el formulario web de Nexo Talento.`;
 
     const dynamicWaUrl = `https://wa.me/${COMPANY_CONFIG.whatsapp}?text=${encodeURIComponent(waText)}`;
     setLastWhatsAppUrl(dynamicWaUrl);
@@ -153,7 +153,7 @@ Enviado desde el formulario web de Nexo Talentos.`;
           <p className={`mt-4 text-sm sm:text-base ${
             theme === 'dark' ? 'text-slate-300' : 'text-slate-600'
           }`}>
-            Respuesta garantizada en menos de 24 horas laborables por un Socio Consultor de Nexo Talentos.
+            Respuesta garantizada en menos de 24 horas laborables por un Socio Consultor de Nexo Talento.
           </p>
         </div>
 
@@ -391,7 +391,7 @@ Enviado desde el formulario web de Nexo Talentos.`;
                       Atención Directa &amp; Revisión Inmediata
                     </p>
                     <a
-                      href={lastWhatsAppUrl || `https://wa.me/${COMPANY_CONFIG.whatsapp}?text=${encodeURIComponent('Hola Nexo Talentos, acabo de enviar mi requerimiento desde la web.')}`}
+                      href={lastWhatsAppUrl || `https://wa.me/${COMPANY_CONFIG.whatsapp}?text=${encodeURIComponent('Hola Nexo Talento, acabo de enviar mi requerimiento desde la web.')}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="w-full py-3.5 px-4 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-xs sm:text-sm rounded-xl transition-all shadow-lg flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-95"

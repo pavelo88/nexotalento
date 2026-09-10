@@ -389,7 +389,7 @@ export const B2BRequirementWizard: React.FC<B2BRequirementWizardProps> = ({ onOp
                 ¡Requerimiento Recibido con Éxito!
               </h3>
               <p className="text-sm text-slate-300 leading-relaxed">
-                Gracias, <strong>{companyName}</strong>. Hemos generado la estimación para tus <strong>{vacancyCount} vacantes de {currentRole.title}</strong> en <strong>{location}</strong>. Un Senior Partner de Nexo Talentos se pondrá en contacto en el <strong>{contactPhone}</strong> o a través de <strong>{contactEmail}</strong> en menos de 2 horas.
+                Gracias, <strong>{companyName}</strong>. Hemos generado la estimación para tus <strong>{vacancyCount} vacantes de {currentRole.title}</strong> en <strong>{location}</strong>. Un Senior Partner de Nexo Talento se pondrá en contacto en el <strong>{contactPhone}</strong> o a través de <strong>{contactEmail}</strong> en menos de 2 horas.
               </p>
               <div className="pt-4 flex justify-center gap-3">
                 <button

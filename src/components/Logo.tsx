@@ -37,7 +37,7 @@ export const Logo: React.FC<LogoProps> = ({
         {forceDark ? (
           <img 
             src="/icon-dark.png" 
-            alt="Nexo Talentos Logo" 
+            alt="Nexo Talento Logo" 
             width="40"
             height="40"
             decoding="async"
@@ -47,7 +47,7 @@ export const Logo: React.FC<LogoProps> = ({
           <>
             <img 
               src="/icon-light.png" 
-              alt="Nexo Talentos Logo" 
+              alt="Nexo Talento Logo" 
               width="40"
               height="40"
               decoding="async"
@@ -55,7 +55,7 @@ export const Logo: React.FC<LogoProps> = ({
             />
             <img 
               src="/icon-dark.png" 
-              alt="Nexo Talentos Logo" 
+              alt="Nexo Talento Logo" 
               width="40"
               height="40"
               decoding="async"

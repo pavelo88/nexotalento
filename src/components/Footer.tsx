@@ -32,7 +32,7 @@ export const Footer: React.FC<FooterProps> = ({
   const { theme } = useTheme();
   const whatsappNumber = '34614143763';
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-    'Hola Nexo Talentos, deseo consultar con un Senior Talent Partner sobre procesos de Headhunting y Selección de Personal directivo en España.'
+    'Hola Nexo Talento, deseo consultar con un Senior Talent Partner sobre procesos de Headhunting y Selección de Personal directivo en España.'
   )}`;
 
   const handleNav = (path: PageRoute) => {
@@ -234,7 +234,7 @@ export const Footer: React.FC<FooterProps> = ({
 
         {/* Bottom copyright & SEO footer */}
         <div className="mt-12 pt-8 border-t border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4 text-[11px] text-slate-400">
-          <p>© {new Date().getFullYear()} Nexo Talentos S.L. Todos los derechos reservados. CIF / NIF B-88492011. Madrid &amp; Barcelona.</p>
+          <p>© {new Date().getFullYear()} Nexo Talento S.L. Todos los derechos reservados. CIF / NIF B-88492011. Madrid &amp; Barcelona.</p>
           <div className="flex items-center gap-4">
             <span className="hover:text-white cursor-pointer">Aviso Legal</span>
             <span>•</span>

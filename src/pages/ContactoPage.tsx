@@ -44,7 +44,7 @@ export const ContactoPage: React.FC<ContactoPageProps> = ({
 
   const whatsappPhone = '34614143763';
   const whatsappUrl = `https://wa.me/${whatsappPhone}?text=${encodeURIComponent(
-    'Hola Nexo Talentos, deseo contactar directamente con un Senior Talent Partner sobre procesos de Headhunting en España.'
+    'Hola Nexo Talento, deseo contactar directamente con un Senior Talent Partner sobre procesos de Headhunting en España.'
   )}`;
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -253,7 +253,7 @@ export const ContactoPage: React.FC<ContactoPageProps> = ({
                 : 'bg-slate-100 border-slate-200 text-slate-600'
             }`}>
               <p className={`font-semibold ${theme === 'dark' ? 'text-slate-300' : 'text-slate-800'}`}>
-                Nexo Talentos Executive Search S.L.
+                Nexo Talento Executive Search S.L.
               </p>
               <p>NIF: B-88492019 • Inscrita en el Registro Mercantil de Madrid.</p>
               <p className="text-[#00A9A3]">🔒 Confidencialidad y protección de datos bajo RGPD y LOPDGDD.</p>
@@ -317,7 +317,7 @@ export const ContactoPage: React.FC<ContactoPageProps> = ({
                   <p className={`text-sm max-w-md mx-auto leading-relaxed ${
                     theme === 'dark' ? 'text-slate-300' : 'text-slate-600'
                   }`}>
-                    Un Socio Consultor de Nexo Talentos revisará tu información y se pondrá en contacto contigo de forma estrictamente confidencial en menos de 24 horas.
+                    Un Socio Consultor de Nexo Talento revisará tu información y se pondrá en contacto contigo de forma estrictamente confidencial en menos de 24 horas.
                   </p>
                   <button
                     onClick={() => {

@@ -42,7 +42,7 @@ export const TestimoniosPage: React.FC<TestimoniosPageProps> = ({
         'El nuevo CTO escaló el equipo técnico de 25 a 70 ingenieros en 8 meses.',
         'Permanencia superior a 2 años con valoración sobresaliente del Consejo.'
       ],
-      quote: 'El nivel de comprensión técnica y cultural que demostró Nexo Talentos superó con creces cualquier experiencia previa con headhunters tradicionales. Entregaron perfiles de calibre C-Level real en dos semanas.',
+      quote: 'El nivel de comprensión técnica y cultural que demostró Nexo Talento superó con creces cualquier experiencia previa con headhunters tradicionales. Entregaron perfiles de calibre C-Level real en dos semanas.',
       author: 'Alejandro Morales',
       authorRole: 'CEO & Co-Founder',
       authorCompany: 'Fintech Scaleup Madrid',
@@ -80,7 +80,7 @@ export const TestimoniosPage: React.FC<TestimoniosPageProps> = ({
         'Reducción del CAC en un 28% gracias a la reorganización estratégica del equipo.',
         'Premio Nacional de Transformación Digital del sector retail.'
       ],
-      quote: 'Nexo Talentos entendió la cultura de nuestra empresa familiar desde el primer minuto, conectándonos con un directivo de primer nivel internacional que encajó a la perfección.',
+      quote: 'Nexo Talento entendió la cultura de nuestra empresa familiar desde el primer minuto, conectándonos con un directivo de primer nivel internacional que encajó a la perfección.',
       author: 'Carlos Vicent',
       authorRole: 'Presidente Ejecutivo',
       authorCompany: 'Grupo Moda Mediterráneo',

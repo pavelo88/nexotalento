@@ -95,8 +95,6 @@ export const Navbar: React.FC<NavbarProps> = ({
             : 'bg-white/75 backdrop-blur-md border-b border-slate-200/80 py-3.5'
       }`}
     >
-      {/* Top micro bar removed for cleaner Apple-style look */}
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between gap-4">
           
@@ -104,7 +102,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <button 
             onClick={() => handleLinkClick('/')}
             className="flex items-center focus:outline-none text-left group transition-transform hover:scale-[1.02]"
-            aria-label="Ir a página de inicio Nexo Talentos"
+            aria-label="Ir a página de inicio Nexo Talento"
           >
             <Logo size="md" />
           </button>
@@ -112,22 +110,6 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Desktop Grouped Navigation Menu (Clean & Uncluttered) */}
           <nav className="hidden lg:flex items-center gap-1 xl:gap-1.5" aria-label="Navegación principal">
             
-            {/* 1. Inicio */}
-            <button
-              onClick={() => handleLinkClick('/')}
-              className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-all ${
-                currentPath === '/' 
-                  ? theme === 'dark'
-                    ? 'text-cyan-300 bg-cyan-950/60 font-bold' 
-                    : 'text-cyan-900 bg-cyan-100 font-extrabold'
-                  : theme === 'dark'
-                    ? 'text-slate-300 hover:text-white hover:bg-slate-900/60'
-                    : 'text-slate-700 hover:text-slate-950 hover:bg-slate-100'
-              }`}
-            >
-              Inicio
-            </button>
-
             {/* 2. Servicios Dropdown */}
             <div className="relative">
               <button
@@ -221,29 +203,14 @@ export const Navbar: React.FC<NavbarProps> = ({
               )}
             </div>
 
-            {/* 3. Buscar Personal (Pestaña dedicada y funcional) */}
+            {/* 3. Buscar Personal (Pestaña dedicada y funcional hacia /proceso) */}
             <button
               id="nav-buscar-personal-btn"
-              onClick={() => {
-                if (currentPath !== '/') {
-                  handleLinkClick('/');
-                  setTimeout(() => {
-                    const el = document.getElementById('solicitar-talento');
-                    if (el) {
-                      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                  }, 250);
-                } else {
-                  const el = document.getElementById('solicitar-talento');
-                  if (el) {
-                    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                  }
-                }
-              }}
+              onClick={() => handleLinkClick('/proceso')}
               className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-all flex items-center gap-1.5 ${
-                theme === 'dark' 
-                  ? 'text-slate-200 hover:text-white hover:bg-slate-900/60' 
-                  : 'text-slate-700 hover:text-slate-950 hover:bg-slate-100'
+                currentPath === '/proceso'
+                  ? theme === 'dark' ? 'text-cyan-300 bg-cyan-950/60 font-bold' : 'text-cyan-900 bg-cyan-100 font-extrabold'
+                  : theme === 'dark' ? 'text-slate-200 hover:text-white hover:bg-slate-900/60' : 'text-slate-700 hover:text-slate-950 hover:bg-slate-100'
               }`}
             >
               <Users className="w-4 h-4 text-cyan-500" />
@@ -276,16 +243,6 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span>Calculadora ROI</span>
             </button>
 
-            {/* 
-             * =====================================================================
-             * DROPDOWN DE HERRAMIENTAS IA PRESERVADO COMENTADO (POR SI SE REQUIERE):
-             * <div className="relative">
-             *   <button onClick={() => toggleDropdown('ia')}>Herramientas IA</button>
-             *   ...
-             * </div>
-             * =====================================================================
-             */}
-
             {/* 6. Contacto */}
             <button
               onClick={() => handleLinkClick('/contacto')}
@@ -300,21 +257,9 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           </nav>
 
-          {/* Right Action Cluster: Theme Toggle + WhatsApp CTA + Primary CTA + Mobile Menu */}
+          {/* Right Action Cluster: Theme Toggle + Mobile Menu */}
           <div className="flex items-center gap-2 sm:gap-3">
             
-            {/* Direct WhatsApp Action Link */}
-            <a
-              href="https://wa.me/34614143763?text=Hola%20Nexo%20Talentos,%20deseo%20consultar%20sobre%20servicios%20de%20selecci%C3%B3n%20de%20personal"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden xl:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-xs font-bold transition-all"
-              title="Chatear por WhatsApp con un Senior Talent Partner"
-            >
-              <MessageSquare className="w-3.5 h-3.5 fill-emerald-400" />
-              <span>WhatsApp Directo</span>
-            </a>
-
             {/* Dark/Light Mode Switcher */}
             <button
               id="theme-toggle-btn"
@@ -332,27 +277,6 @@ export const Navbar: React.FC<NavbarProps> = ({
               ) : (
                 <Moon className="w-4 h-4 text-indigo-600" />
               )}
-            </button>
-
-            {/* Primary Action Button (Buscar Personal / Solicitar Talento con handler fiable) */}
-            <button
-              onClick={() => {
-                if (currentPath !== '/') {
-                  handleLinkClick('/');
-                  setTimeout(() => {
-                    const el = document.getElementById('solicitar-talento');
-                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                  }, 250);
-                } else {
-                  const el = document.getElementById('solicitar-talento');
-                  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-              }}
-              className="hidden sm:inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-slate-950 font-extrabold text-xs sm:text-sm rounded-xl shadow-lg shadow-cyan-950/40 hover:shadow-cyan-500/25 transition-all hover:scale-[1.03] btn-spring-press group cursor-pointer"
-            >
-              <Users className="w-4 h-4 text-slate-950" />
-              <span>Buscar Personal</span>
-              <ArrowRight className="w-3.5 h-3.5 text-slate-950 group-hover:translate-x-0.5 transition-transform" />
             </button>
 
             {/* Mobile Hamburger Button */}
@@ -387,7 +311,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               className={`p-2.5 rounded-xl text-left text-xs font-bold ${
                 currentPath === '/' ? 'bg-cyan-500 text-slate-950' : theme === 'dark' ? 'bg-slate-900 text-slate-200' : 'bg-slate-100 text-slate-800'
               }`}
-            >
+            > 
               Inicio
             </button>
             <button
@@ -398,27 +322,18 @@ export const Navbar: React.FC<NavbarProps> = ({
             >
               Servicios de Selección
             </button>
+
+            {/* Buscar Personal (Corregido para ir siempre a /proceso) */}
             <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                if (currentPath !== '/') {
-                  handleLinkClick('/');
-                  setTimeout(() => {
-                    const el = document.getElementById('solicitar-talento');
-                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                  }, 250);
-                } else {
-                  const el = document.getElementById('solicitar-talento');
-                  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-              }}
+              onClick={() => handleLinkClick('/proceso')}
               className={`p-2.5 rounded-xl text-left text-xs font-bold flex items-center justify-between ${
-                theme === 'dark' ? 'bg-cyan-950/80 text-cyan-300 border border-cyan-500/30' : 'bg-cyan-50 text-cyan-900 border border-cyan-200'
+                currentPath === '/proceso' ? 'bg-cyan-500 text-slate-950' : theme === 'dark' ? 'bg-cyan-950/80 text-cyan-300 border border-cyan-500/30' : 'bg-cyan-50 text-cyan-900 border border-cyan-200'
               }`}
             >
               <span>Buscar Personal</span>
               <Users className="w-3.5 h-3.5" />
             </button>
+            
             <button
               onClick={() => handleLinkClick('/vacantes')}
               className={`p-2.5 rounded-xl text-left text-xs font-bold ${
@@ -456,35 +371,6 @@ export const Navbar: React.FC<NavbarProps> = ({
               <MessageSquare className="w-4 h-4 text-emerald-400 fill-emerald-400" />
               <span>Chatear por WhatsApp (+34 614 143 763)</span>
             </a>
-
-            {/* Botón Buscar Personal Móvil */}
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                if (currentPath !== '/') {
-                  handleLinkClick('/');
-                  setTimeout(() => {
-                    const el = document.getElementById('solicitar-talento');
-                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                  }, 250);
-                } else {
-                  const el = document.getElementById('solicitar-talento');
-                  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-              }}
-              className="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-lg btn-spring-press cursor-pointer"
-            >
-              <Users className="w-4 h-4" />
-              <span>Solicitar Búsqueda de Personal</span>
-            </button>
-
-            {/* 
-             * =====================================================================
-             * BOTONES DE HERRAMIENTAS IA EN MÓVIL COMENTADOS SEGÚN REQUERIMIENTO:
-             * <button onClick={() => onOpenAIAgent('headhunter')}>Agente Headhunter IA</button>
-             * <button onClick={() => onOpenCVAnalyzer()}>Auditoría de CV con IA</button>
-             * =====================================================================
-             */}
           </div>
 
         </div>

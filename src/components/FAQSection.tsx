@@ -8,11 +8,11 @@ interface FAQItem {
 
 const FAQS: FAQItem[] = [
   {
-    question: '¿En qué se diferencia Nexo Talentos de una agencia de empleo tradicional?',
-    answer: 'A diferencia de los portales generalistas de empleo, en Nexo Talentos operamos como una boutique de Executive Search y Headhunting de precisión. Nuestros consultores sénior cuentan con más de 15 años de experiencia y realizan búsqueda directa confidencial de profesionales de alta cualificación actualmente en activo que no están buscando trabajo en portales.'
+    question: '¿En qué se diferencia Nexo Talento de una agencia de empleo tradicional?',
+    answer: 'A diferencia de los portales generalistas de empleo, en Nexo Talento operamos como una boutique de Executive Search y Headhunting de precisión. Nuestros consultores sénior cuentan con más de 15 años de experiencia y realizan búsqueda directa confidencial de profesionales de alta cualificación actualmente en activo que no están buscando trabajo en portales.'
   },
   {
-    question: '¿Cuánto tiempo tarda un proceso de selección ejecutiva con Nexo Talentos?',
+    question: '¿Cuánto tiempo tarda un proceso de selección ejecutiva con Nexo Talento?',
     answer: 'Nuestro compromiso estándar es la entrega de la terna final validada en 18 días hábiles a partir de la firma del briefing de posición. Nuestro mapeo continuo de mercado y metodología directa reduce los tiempos habituales de la industria (60-90 días) en más de un 65%.'
   },
   {

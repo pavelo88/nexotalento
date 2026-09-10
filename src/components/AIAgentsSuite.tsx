@@ -46,7 +46,7 @@ const AGENTS_METADATA: Record<AgentType, {
     icon: Briefcase,
     quickPrompts: [
       '¿Cuánto tarda un proceso de Executive Search para un Director General en Madrid?',
-      '¿Qué metodología de evaluación por competencias usa Nexo Talentos?',
+      '¿Qué metodología de evaluación por competencias usa Nexo Talento?',
       'Necesitamos contratar un CTO en Barcelona, ¿cuáles son los requisitos clave?',
       '¿Cómo garantizáis la confidencialidad en la caza de talento de la competencia?'
     ],
@@ -91,7 +91,7 @@ const AGENTS_METADATA: Record<AgentType, {
     icon: Building,
     quickPrompts: [
       '¿Cuánto le cuesta a una empresa tener una dirección vacante durante 3 meses?',
-      '¿Por qué el modelo de éxito de Nexo Talentos reduce la rotación a menos del 2%?',
+      '¿Por qué el modelo de éxito de Nexo Talento reduce la rotación a menos del 2%?',
       '¿Qué diferencia hay entre contratar por RPO frente a Headhunting puntual?',
       '¿Cómo diseñar un plan de onboarding que asegure el éxito en los primeros 90 días?'
     ],
@@ -288,7 +288,7 @@ export const AIAgentsSuite: React.FC<AIAgentsSuiteProps> = ({
       const assistantMsg: ChatMessage = {
         id: `ai-${Date.now()}`,
         role: 'assistant',
-        content: data.reply || 'He procesado tu consulta. En Nexo Talentos disponemos de consultores directivos en Madrid y Barcelona para ayudarte.',
+        content: data.reply || 'He procesado tu consulta. En Nexo Talento disponemos de consultores directivos en Madrid y Barcelona para ayudarte.',
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         agentType: activeAgent
       };
@@ -302,7 +302,7 @@ export const AIAgentsSuite: React.FC<AIAgentsSuiteProps> = ({
       const fallbackMsg: ChatMessage = {
         id: `ai-${Date.now()}`,
         role: 'assistant',
-        content: 'En **Nexo Talentos** disponemos de consultores sénior para atenderte de forma personalizada. Para perfiles clave o búsquedas inmediatas en España, puedes llamarnos al +34 910 88 44 20 o vía WhatsApp al +34 614 143 763.',
+        content: 'En **Nexo Talento** disponemos de consultores sénior para atenderte de forma personalizada. Para perfiles clave o búsquedas inmediatas en España, puedes llamarnos al +34 910 88 44 20 o vía WhatsApp al +34 614 143 763.',
         timestamp: 'Ahora',
         agentType: activeAgent
       };
@@ -350,7 +350,7 @@ export const AIAgentsSuite: React.FC<AIAgentsSuiteProps> = ({
           <div className="flex items-center gap-2">
             <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
             <span className={`text-xs font-extrabold uppercase tracking-wider ${theme === 'dark' ? 'text-slate-300' : 'text-slate-700'}`}>
-              Agentes Inteligentes Nexo Talentos
+              Agentes Inteligentes Nexo Talento
             </span>
             <span className="bg-cyan-500/15 text-cyan-400 text-[10px] font-bold px-2 py-0.5 rounded-full border border-cyan-500/30">
               Gemini 3.7 Flash
@@ -488,7 +488,7 @@ export const AIAgentsSuite: React.FC<AIAgentsSuiteProps> = ({
                   <div className={`mt-2.5 pt-1.5 border-t flex items-center justify-between text-[11px] ${
                     theme === 'dark' ? 'border-slate-700/40 text-slate-400' : 'border-slate-300 text-slate-600'
                   }`}>
-                    <span className="text-[10px] opacity-80 font-medium">Nexo Talentos AI System</span>
+                    <span className="text-[10px] opacity-80 font-medium">Nexo Talento AI System</span>
                     <button
                       type="button"
                       onClick={() => handleCopyText(msg.id, msg.content)}

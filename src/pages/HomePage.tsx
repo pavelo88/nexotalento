@@ -59,7 +59,8 @@ const DeferredMount: React.FC<{ children: React.ReactNode; placeholderClass?: st
   }, []);
 
   return (
-    <div ref={ref} className={`content-auto ${shouldRender ? '' : placeholderClass}`}>
+    // CORRECCIÓN: Se eliminó la clase "content-auto" que causaba saltos de scroll en móviles
+    <div ref={ref} className={shouldRender ? '' : placeholderClass}>
       {shouldRender ? children : null}
     </div>
   );
@@ -74,7 +75,9 @@ export const HomePage: React.FC<HomePageProps> = ({
   // Se eliminó la animación de scroll reveal compleja a petición del usuario para garantizar visibilidad
 
   return (
-    <div className="lg:px-[8%] xl:px-[12%] overflow-hidden space-y-16 sm:space-y-10 sm:space-y-14 bg-slate-50 dark:bg-slate-950 transition-colors duration-500">
+    // CORRECCIÓN: Se eliminaron las clases space-y-16 sm:space-y-10 sm:space-y-14 que sumaban 
+    // márgenes excesivos a los paddings propios de las secciones.
+    <div className="lg:px-[8%] xl:px-[12%] overflow-hidden bg-slate-50 dark:bg-slate-950 transition-colors duration-500">
       {/* 1. Hero Section (Eagerly loaded for instant LCP/FCP) */}
       <Hero
         onOpenAIAgent={onOpenAIAgent}
@@ -94,7 +97,7 @@ export const HomePage: React.FC<HomePageProps> = ({
         </DeferredMount>
        
         {/* 3. Executive Interactive Requirement Wizard (Buscar Personal) 
-        <div id="solicitar-talento" className="py-6 scroll-mt-24 content-auto">
+        <div id="solicitar-talento" className="py-6 scroll-mt-24">
           <B2BRequirementWizard onOpenContact={() => onNavigate('/contacto')} />
         </div>*/}
 
@@ -106,8 +109,6 @@ export const HomePage: React.FC<HomePageProps> = ({
             onViewAllServices={() => onNavigate('/servicios')}
           />
         </DeferredMount>
-
-
 
         {/* 
          * =====================================================================

@@ -32,7 +32,7 @@ export const Hero: React.FC<HeroProps> = ({
   };
 
   const whatsappCompaniesUrl = `https://wa.me/${COMPANY_CONFIG.whatsapp}?text=${encodeURIComponent(
-    'Hola Nexo Talentos, deseo consultar sobre la búsqueda de un perfil directivo / técnico para mi empresa.'
+    'Hola Nexo Talento, deseo consultar sobre la búsqueda de un perfil directivo / técnico para mi empresa.'
   )}`;
 
   return (
