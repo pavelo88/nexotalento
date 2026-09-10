@@ -144,11 +144,11 @@ function AppContent() {
   };
 
   return (
-    <div className={`min-h-screen font-sans selection:bg-cyan-500 selection:text-slate-950 relative overflow-x-hidden transition-colors duration-300 ${
-      theme === 'dark' 
-        ? 'bg-slate-950 text-slate-100' 
-        : 'bg-slate-50 text-slate-900'
-    }`}>
+      <div className={`min-h-screen font-sans selection:bg-cyan-500 selection:text-white relative overflow-x-hidden transition-colors duration-300 ${
+        theme === 'dark' 
+          ? 'bg-slate-950 text-slate-100' 
+          : 'bg-white text-slate-900'
+      }`}>
       
       {/* Background Ambient Glows */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">

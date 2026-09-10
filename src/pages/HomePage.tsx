@@ -124,7 +124,7 @@ export const HomePage: React.FC<HomePageProps> = ({
 
         {/* 6. Comparativa Salarial España vs Remoto LATAM (Sección compacta y visual) */}
         <DeferredMount placeholderClass="min-h-[280px]">
-          <SalaryComparisonSection onOpenContact={() => onNavigate('/contacto')} />
+      {/* <SalaryComparisonSection onOpenContact={() => onNavigate('/contacto')} /> */}
         </DeferredMount>
 
         {/* 7. Carrusel Infinito de Vacantes Directivas & Tech en Selección Activa */}

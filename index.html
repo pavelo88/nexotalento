@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
   <link rel="apple-touch-icon" href="/favicon.ico" />
-  <meta name="theme-color" content="#082041" />
+  <meta name="theme-color" content="#ffffff" />
   <title>Nexo Talentos | Headhunting y Selección Directiva 24/7</title>
   <meta name="description"
     content="Nexo Talentos: Headhunting ejecutivo y selección tech en España. Terna en 18 días hábiles y garantía contractual de 3 a 6 meses. Consulta por WhatsApp." />
@@ -64,13 +64,26 @@
   <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
   <link rel="preload" as="font" type="font/woff2"
     href="https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2" crossorigin />
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&display=optional"
-    media="print" onload="this.media='all'" />
+  
   <noscript>
     <link rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&display=optional" />
   </noscript>
+
+  <!-- Fix para evitar el FOUC ocultando el contenido SEO antes de cargar Tailwind -->
+  <style>
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+  </style>
 
   <!-- JSON-LD Structured Data Schema for Google & Bing Snippets -->
   <script type="application/ld+json">
@@ -201,11 +214,10 @@
         }
       ]
     }
-    </script>
+  </script>
 </head>
 
-<body
-  class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 antialiased selection:bg-cyan-500 selection:text-slate-950 font-sans">
+<body class="bg-white text-slate-900 antialiased selection:bg-cyan-500 selection:text-white font-sans">
   <div id="root">
     <!-- Semantic Static Fallback for Search Engines, Screaming Frog, AI Crawlers & Web Agents -->
     <header class="sr-only">
