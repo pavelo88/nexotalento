@@ -113,7 +113,7 @@ Enviado desde el formulario web de Nexo Talento.`;
         origin: { y: 0.6 }
       });
     } catch (err) {
-      setSubmitted(true);
+      setErrorMsg('Error de conexión o el servidor no responde. Por favor, intenta más tarde.');
     } finally {
       setIsSubmitting(false);
     }

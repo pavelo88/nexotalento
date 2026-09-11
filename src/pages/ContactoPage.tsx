@@ -75,7 +75,7 @@ export const ContactoPage: React.FC<ContactoPageProps> = ({
       confetti({ particleCount: 70, spread: 60, origin: { y: 0.6 } });
       setSubmitted(true);
     } catch {
-      setSubmitted(true);
+      alert('Error de conexión o el servidor no responde. Por favor, intenta más tarde.');
     } finally {
       setIsSubmitting(false);
     }

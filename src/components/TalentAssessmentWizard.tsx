@@ -76,7 +76,7 @@ export const TalentAssessmentWizard: React.FC = () => {
         origin: { y: 0.6 }
       });
     } catch (err) {
-      setIsCompleted(true);
+      alert('Error de conexión o el servidor no responde. Por favor, intenta más tarde.');
     } finally {
       setIsSubmitting(false);
     }
