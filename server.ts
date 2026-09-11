@@ -73,10 +73,10 @@ function guardPrompt(userInput: string, tag = "untrusted_input"): string {
 
 // Multi-Provider AI Engine (Gemini -> NVIDIA NIM API -> OpenAI-compatible -> Expert Knowledge Engine)
 const GEMINI_KEY = process.env.GEMINI_API_KEY;
-const NVIDIA_KEY = 
-  process.env.NVIDIA_API_KEY || 
-  process.env.NVIDIA_KEY || 
-  process.env.NV_API_KEY || 
+const NVIDIA_KEY =
+  process.env.NVIDIA_API_KEY ||
+  process.env.NVIDIA_KEY ||
+  process.env.NV_API_KEY ||
   process.env.NVIDIA_NIM_API_KEY ||
   process.env.NVIDIA_NIM_KEY ||
   process.env.NVIDIA_CLOUD_KEY;
@@ -100,8 +100,8 @@ function getGenAI(): GoogleGenAI | null {
 
 // Call NVIDIA NIM API (Llama 3.3 70B / Nemotron / Mistral)
 async function callNvidiaAPI(
-  systemPrompt: string, 
-  userMessage: string, 
+  systemPrompt: string,
+  userMessage: string,
   history?: Array<{ role: string; content: string }>,
   jsonMode = false
 ): Promise<string | null> {
@@ -174,8 +174,8 @@ async function callNvidiaAPI(
 
 // Call OpenAI Compatible API if configured
 async function callOpenAICompatibleAPI(
-  systemPrompt: string, 
-  userMessage: string, 
+  systemPrompt: string,
+  userMessage: string,
   history?: Array<{ role: string; content: string }>
 ): Promise<string | null> {
   if (!OPENAI_KEY) return null;
@@ -223,8 +223,8 @@ async function callOpenAICompatibleAPI(
 
 // Universal AI Caller
 async function generateAIResponse(
-  systemPrompt: string, 
-  userMessage: string, 
+  systemPrompt: string,
+  userMessage: string,
   history?: Array<{ role: string; content: string }>,
   jsonMode = false
 ): Promise<{ text: string; provider: 'gemini' | 'nvidia' | 'openai' | 'heuristic' }> {
@@ -397,16 +397,16 @@ function generateSmartFallbackResponse(agentType: string, query: string, history
   }
 
   // 1. Detect if user is a Job Seeker / Candidate ("busco trabajo", "no quiero contratar", "quiero enviar mi CV", "candidato", "soy profesional", etc.)
-  const isCandidateQuery = 
-    q.includes('busco') || 
-    q.includes('buscando') || 
-    q.includes('empleo') || 
-    q.includes('trabajo') || 
-    q.includes('no quiero contratar') || 
-    q.includes('candidat') || 
-    q.includes('postular') || 
-    q.includes('inscribir') || 
-    q.includes('mi cv') || 
+  const isCandidateQuery =
+    q.includes('busco') ||
+    q.includes('buscando') ||
+    q.includes('empleo') ||
+    q.includes('trabajo') ||
+    q.includes('no quiero contratar') ||
+    q.includes('candidat') ||
+    q.includes('postular') ||
+    q.includes('inscribir') ||
+    q.includes('mi cv') ||
     q.includes('enviar cv') ||
     q.includes('curriculum');
 
@@ -435,7 +435,7 @@ function generateSmartFallbackResponse(agentType: string, query: string, history
 
   // 2. Specific questions for Senior Headhunter AI
   if (agentType === 'headhunter' || q.includes('director general') || q.includes('cto') || q.includes('metodología') || q.includes('confidencialidad') || q.includes('executive search')) {
-    
+
     // Duration for Director General in Madrid
     if (q.includes('director general') || q.includes('tiempo') || q.includes('cuánto tarda') || q.includes('cuanto tarda') || q.includes('plazo') || q.includes('18 días')) {
       return `### ⏱️ Cronograma de Executive Search: Director General en Madrid (18 Días Hábiles)
@@ -726,11 +726,11 @@ Devuelve EXCLUSIVAMENTE un JSON válido con este formato:
         "Estructurar las experiencias bajo el formato STAR para entrevistas de Executive Search",
         "Destacar certificaciones clave y proyectos de transformación digital"
       ],
-      recommendedRoles: isDirector 
+      recommendedRoles: isDirector
         ? ["Director de Operaciones", "Chief Technology Officer (CTO)", "Director de Unidad de Negocio"]
         : isTech
-        ? ["Tech Lead / Engineering Manager", "Senior Cloud Architect", "Lead Software Engineer"]
-        : ["Head of Department", "Senior Project Manager", "Business Development Lead"],
+          ? ["Tech Lead / Engineering Manager", "Senior Cloud Architect", "Lead Software Engineer"]
+          : ["Head of Department", "Senior Project Manager", "Business Development Lead"],
       executiveSummary: "El perfil presenta una base técnica y ejecutiva sólida, con alta idoneidad para procesos de Headhunting en compañías en fase de crecimiento en Madrid y Barcelona. Recomendamos reforzar las métricas cuantificables de impacto para maximizar la banda retributiva en negociaciones de oferta final.",
       provider: "heuristic"
     });
@@ -847,7 +847,7 @@ async function appendToGoogleSheet(rowData: string[]): Promise<void> {
 // Configurar Rate Limit para el formulario de contacto (ej: max 3 peticiones por IP cada 15 minutos)
 const contactRateLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutos
-  max: 100, // Límite de 100 solicitudes por ventana
+  max: 3, // Límite de 3 solicitudes por ventana
   message: { error: "Demasiadas solicitudes enviadas. Por favor, inténtalo de nuevo en 15 minutos." },
   standardHeaders: true, // Retorna info de límite en headers RateLimit-*
   legacyHeaders: false, // Deshabilita headers X-RateLimit-*
@@ -856,16 +856,16 @@ const contactRateLimiter = rateLimit({
 // Contact Form Submission Endpoint
 app.post("/api/contact", contactRateLimiter, async (req, res) => {
   try {
-    const name        = sanitizeInput(req.body?.name)        || "Sin nombre";
-    const email       = sanitizeInput(req.body?.email)       || "Sin email";
-    const phone       = sanitizeInput(req.body?.phone)       || "Sin teléfono";
-    const company     = sanitizeInput(req.body?.company)     || "Sin empresa";
-    const role        = sanitizeInput(req.body?.role)        || "Sin cargo especificado";
+    const name = sanitizeInput(req.body?.name) || "Sin nombre";
+    const email = sanitizeInput(req.body?.email) || "Sin email";
+    const phone = sanitizeInput(req.body?.phone) || "Sin teléfono";
+    const company = sanitizeInput(req.body?.company) || "Sin empresa";
+    const role = sanitizeInput(req.body?.role) || "Sin cargo especificado";
     const serviceType = sanitizeInput(req.body?.serviceType) || "Consulta General";
-    const message     = sanitizeInput(req.body?.message)     || "Sin mensaje";
-    const clientIP    = (req.headers["x-forwarded-for"] as string || req.ip || "unknown").split(",")[0].trim();
-    const leadId      = "lead_" + Date.now();
-    const createdAt   = new Date().toISOString();
+    const message = sanitizeInput(req.body?.message) || "Sin mensaje";
+    const clientIP = (req.headers["x-forwarded-for"] as string || req.ip || "unknown").split(",")[0].trim();
+    const leadId = "lead_" + Date.now();
+    const createdAt = new Date().toISOString();
 
     const newLead = { id: leadId, createdAt, name, email, phone, company, role, serviceType, message, clientIP };
     console.log("📨 [NUEVO LEAD — NEXO TALENTO]:", JSON.stringify(newLead, null, 2));
@@ -887,11 +887,11 @@ app.post("/api/contact", contactRateLimiter, async (req, res) => {
       console.warn("[Backup] No se pudo escribir en data/leads.json:", fsErr);
     }
 
-    const backgroundTasks: Promise<any>[] = [];
-
-    // ── 2. Email de notificación interna a info@nexotalento.com ───────
+    // ── 2. Email de notificación interna y acuse de recibo en paralelo ───────
     const toEmail = process.env.CONTACT_TO_EMAIL || "info@nexotalento.com";
     const smtpUser = process.env.SMTP_USER || "";
+
+    const asyncTasks: Promise<any>[] = [];
 
     if (smtpUser) {
       const transporter = createMailTransporter();
@@ -920,7 +920,7 @@ app.post("/api/contact", contactRateLimiter, async (req, res) => {
           </div>
         </div>`;
 
-      backgroundTasks.push(
+      asyncTasks.push(
         transporter.sendMail({
           from: `"Nexo Talento Web" <${smtpUser}>`,
           to: toEmail,
@@ -958,7 +958,7 @@ app.post("/api/contact", contactRateLimiter, async (req, res) => {
             </div>
           </div>`;
 
-        backgroundTasks.push(
+        asyncTasks.push(
           transporter.sendMail({
             from: `"Nexo Talento" <${smtpUser}>`,
             to: email,
@@ -969,18 +969,20 @@ app.post("/api/contact", contactRateLimiter, async (req, res) => {
             .catch((ackErr) => console.error("[Email] Error enviando acuse de recibo:", ackErr))
         );
       }
+    } else {
+      console.warn("[Email] SMTP_USER no configurado — emails omitidos.");
     }
 
     // ── 3. Google Sheets en paralelo ──────────────────────────────────
-    backgroundTasks.push(
+    asyncTasks.push(
       appendToGoogleSheet([
         leadId, createdAt, name, email, phone, company, role, serviceType, message, clientIP
       ]).then(() => console.log("[Sheets] ✅ Lead registrado en Google Sheets."))
-        .catch((sheetErr) => console.warn("[Sheets] Error registrando en Google Sheets:", sheetErr))
+        .catch((sheetErr) => console.warn("[Sheets] Error registrando en Google Sheets (no crítico):", sheetErr))
     );
 
-    // Esperar todas las tareas en paralelo para máxima velocidad
-    await Promise.allSettled(backgroundTasks);
+    // Esperar todas las tareas concurrentemente para ultra velocidad (<1.5s)
+    await Promise.allSettled(asyncTasks);
 
     res.json({ success: true, message: "Lead registrado, email enviado y guardado con éxito.", leadId });
   } catch (error) {

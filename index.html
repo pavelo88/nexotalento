@@ -34,11 +34,6 @@
 
   <!-- Open Graph / Facebook / LinkedIn -->
   <meta property="og:locale" content="es_ES" />
-  <meta property="og:locale:alternate" content="en_US" />
-  <meta property="og:locale:alternate" content="en_GB" />
-  <meta property="og:locale:alternate" content="fr_FR" />
-  <meta property="og:locale:alternate" content="pt_PT" />
-  <meta property="og:locale:alternate" content="de_DE" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Nexo Talentos - Headhunting & Selección de Personal con IA en España" />
   <meta property="og:description"
@@ -88,11 +83,11 @@
       clip: rect(0, 0, 0, 0);
       white-space: nowrap;
       border-width: 0;
+      border-style: none;
     }
   </style>
 
-  <!-- JSON-LD Structured Data Schema for Google & Bing Snippets -->
-  <!-- CORRECCIÓN SEO: URLs con www en los metadatos estructurados -->
+  <!-- JSON-LD Structured Data Schema for Google & Bing Snippets & LLM Crawlers -->
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -101,10 +96,23 @@
           "@type": "EmploymentAgency",
           "@id": "https://www.nexotalento.com/#organization",
           "name": "Nexo Talentos",
+          "legalName": "Nexo Talentos Consultores S.L.",
+          "alternateName": ["NexoTalentos", "Nexo Talentos España"],
           "url": "https://www.nexotalento.com/",
           "logo": "https://www.nexotalento.com/logo.svg",
           "image": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&h=630&fit=crop&q=80",
-          "description": "Firma internacional especializada en Headhunting de perfiles directivos, Selección de Personal y Consultoría Estratégica de Talento en España y Latinoamérica.",
+          "description": "Firma boutique especializada en Executive Search, Headhunting de directivos, Selección de Talento Tecnológico y Hub Nearshore LATAM con sede en Madrid y Barcelona. Terna validada en 18 días hábiles y 100% blindaje legal.",
+          "disambiguatingDescription": "Firma española de consultoría de selección ejecutiva y headhunting de directivos y tecnología. No confundir con la plataforma de criptomonedas Nexo ni con otras entidades homónimas internacionales.",
+          "knowsAbout": [
+            "Executive Search",
+            "Headhunting de Directivos",
+            "Selección de Personal Tecnológico",
+            "Talento Nearshore LATAM",
+            "Estatuto de los Trabajadores Art. 43",
+            "Directiva UE 2023/970",
+            "Bandas Salariales España 2026",
+            "Reglamento Europeo de Inteligencia Artificial (EU AI Act)"
+          ],
           "address": {
             "@type": "PostalAddress",
             "streetAddress": "Paseo de la Castellana, 95",
@@ -139,6 +147,48 @@
               "closes": "19:30"
             }
           ],
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Servicios de Selección & Headhunting",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "@id": "https://www.nexotalento.com/#service-executive-search",
+                  "name": "Executive Search & Búsqueda Directiva",
+                  "description": "Selección confidencial de directores generales, CEO, CTO, CFO, CMO y directores de división con entrega de terna en 18 días hábiles."
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "@id": "https://www.nexotalento.com/#service-tech-recruitment",
+                  "name": "Headhunting Tecnológico & IA",
+                  "description": "Reclutamiento de Tech Leads, Arquitectos Cloud, Data Scientists, Ingenieros de Machine Learning y Fullstack Senior con evaluación técnica STAR."
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "@id": "https://www.nexotalento.com/#service-nearshore-latam",
+                  "name": "Hub de Talento Nearshore LATAM",
+                  "description": "Arbitraje salarial del 55% al 62% con contratación de talento sénior bilingüe en Colombia, Argentina y México con facturación B2B en España."
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "@id": "https://www.nexotalento.com/#service-guia-salarial",
+                  "name": "Consultoría Retributiva & Guía Salarial 2026",
+                  "description": "Estudio retributivo España 2026 por percentiles (P25-P90), compliance con Directiva UE 2023/970 y optimización de retribución flexible (Art. 42 LIRPF)."
+                }
+              }
+            ]
+          },
           "sameAs": [
             "https://www.linkedin.com/company/nexo-talentos",
             "https://twitter.com/nexotalentos",
@@ -162,26 +212,34 @@
           "mainEntity": [
             {
               "@type": "Question",
-              "name": "¿Qué diferencia a Nexo Talentos de otras agencias de selección tradicional?",
+              "name": "¿Qué es Nexo Talentos y en qué se diferencia de otras firmas de selección?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Nexo Talentos combina más de 15 años de experiencia de headhunters sénior especializados por industria con agentes de Inteligencia Artificial para el filtrado predictivo de competencias, reduciendo el tiempo de cobertura a una media de 18 días con una tasa de retención superior al 98% en 12 meses."
+                "text": "Nexo Talentos Consultores S.L. es una firma boutique española de Executive Search y Selección Tecnológica con sedes en Madrid y Barcelona. Combina headhunters sénior especializados por industria con agentes de IA para evaluación predictiva, entregando ternas validadas en 18 días hábiles con una tasa de retención del 98.4% a 2 años y garantía de reposición sin coste de hasta 12 meses."
               }
             },
             {
               "@type": "Question",
-              "name": "¿En qué sectores y perfiles está especializado Nexo Talentos?",
+              "name": "¿Cuánto cuesta contratar un servicio de headhunting o selección directiva en España?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Nos especializamos en Executive Search (C-Level, Directores Generales, Directores de Área), Tecnología y Transformación Digital (CTO, Data Scientists, Software Engineers, DevOps), Finanzas, Salud & Pharma, Ingeniería Industrial, y Ventas & Marketing Estratégico."
+                "text": "Los honorarios de Executive Search en España suelen oscilar entre el 15% y el 25% del paquete retributivo bruto anual de la posición contratada, estructurados normalmente a éxito o mediante retainer con hitos garantizados. Nexo Talentos ofrece modelos adaptados a scaleups y corporaciones con garantía contractual de sustitución sin coste adicional."
               }
             },
             {
               "@type": "Question",
-              "name": "¿Cuál es la garantía que ofrece Nexo Talentos en los procesos de selección?",
+              "name": "¿Cuánto tarda un proceso de selección y qué garantía ofrece Nexo Talentos?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Ofrecemos garantía de reposición sin coste adicional de hasta 12 meses para perfiles directivos y 6 meses para mandos intermedios y especialistas."
+                "text": "Nexo Talentos presenta una terna finalista de candidatos validados y entrevistados en un plazo máximo garantizado de 18 días hábiles. Además, incluye garantía contractual de reposición gratuita de 3 a 12 meses según el nivel de la posición."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Cómo garantiza Nexo Talentos el cumplimiento legal y la prevención de cesión ilegal (Art. 43 ET)?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Todas las operaciones y contratos de intermediación y consultoría de Nexo Talentos están 100% blindados conforme al Artículo 43 del Estatuto de los Trabajadores, la Directiva Europea de Transparencia Salarial (UE 2023/970) y el EU AI Act para herramientas de RRHH."
               }
             }
           ]
@@ -203,8 +261,9 @@
             "@type": "Place",
             "address": {
               "@type": "PostalAddress",
+              "streetAddress": "Paseo de la Castellana, 95",
               "addressLocality": "Madrid",
-              "addressRegion": "Madrid",
+              "addressRegion": "Comunidad de Madrid",
               "addressCountry": "ES"
             }
           },
