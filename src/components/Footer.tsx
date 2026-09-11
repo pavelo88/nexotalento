@@ -12,7 +12,8 @@ import {
   ShieldCheck,
   Sparkles,
   Phone,
-  Mail
+  Mail,
+  Linkedin
 } from 'lucide-react';
 import { COMPANY_CONFIG } from '../config/company';
 
@@ -236,6 +237,17 @@ export const Footer: React.FC<FooterProps> = ({
         <div className="mt-12 pt-8 border-t border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4 text-[11px] text-slate-400">
           <p>© {new Date().getFullYear()} Nexo Talento S.L. Todos los derechos reservados. CIF / NIF B-88492011. Madrid &amp; Barcelona.</p>
           <div className="flex items-center gap-4">
+            <a
+              href="https://www.linkedin.com/company/nexotalentos/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Nexo Talento en LinkedIn"
+              className="hover:text-cyan-400 transition-colors flex items-center gap-1"
+            >
+              <Linkedin className="w-3.5 h-3.5" />
+              <span>LinkedIn</span>
+            </a>
+            <span>•</span>
             <span className="hover:text-white cursor-pointer">Aviso Legal</span>
             <span>•</span>
             <span className="hover:text-white cursor-pointer">Política de Privacidad (RGPD)</span>
