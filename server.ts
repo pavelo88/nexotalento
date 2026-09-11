@@ -2,7 +2,10 @@ import express from "express";
 import path from "path";
 import fs from "fs";
 import dotenv from "dotenv";
+import nodemailer from "nodemailer";
+import { google } from "googleapis";
 import { GoogleGenAI } from "@google/genai";
+import rateLimit from "express-rate-limit";
 import { AI_KNOWLEDGE_BASE } from "./ai-knowledge";
 
 dotenv.config();
@@ -658,64 +661,6 @@ app.post("/api/chat", async (req, res) => {
   }
 });
 
-// Contact endpoint with anti-XSS sanitization & email validation
-app.post("/api/contact", async (req, res) => {
-  try {
-    const name = sanitizeInput(req.body?.name);
-    const email = sanitizeInput(req.body?.email);
-    const phone = sanitizeInput(req.body?.phone);
-    const company = sanitizeInput(req.body?.company);
-    const message = sanitizeInput(req.body?.message);
-    const service = sanitizeInput(req.body?.serviceType) || sanitizeInput(req.body?.service);
-    const role = sanitizeInput(req.body?.role);
-
-    if (!name || !email || !message) {
-      res.status(400).json({ error: "Nombre, email y mensaje son campos obligatorios." });
-      return;
-    }
-
-    // Basic email format check
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      res.status(400).json({ error: "El formato de email proporcionado no es válido." });
-      return;
-    }
-
-    console.log(`[Nexo Contact Request] From: ${name} (${email}, ${phone}, ${company}) - Service: ${service}`);
-    
-    // Guardar el lead en data/leads.json
-    const dataDir = path.join(process.cwd(), 'data');
-    if (!fs.existsSync(dataDir)) {
-      fs.mkdirSync(dataDir, { recursive: true });
-    }
-    const leadsFile = path.join(dataDir, 'leads.json');
-    let leads = [];
-    if (fs.existsSync(leadsFile)) {
-      try {
-        leads = JSON.parse(fs.readFileSync(leadsFile, 'utf-8'));
-      } catch (e) {
-        console.error("Error parsing leads.json", e);
-      }
-    }
-    leads.push({
-      id: Date.now().toString(),
-      date: new Date().toISOString(),
-      name,
-      email,
-      phone,
-      company,
-      role,
-      service,
-      message
-    });
-    fs.writeFileSync(leadsFile, JSON.stringify(leads, null, 2), 'utf-8');
-
-    res.json({ success: true, message: "Solicitud registrada con éxito. Un Senior Partner contactará en menos de 2 horas." });
-  } catch (error) {
-    console.error("Error en /api/contact:", error);
-    res.status(500).json({ error: "Error procesando el formulario de contacto." });
-  }
-});
 
 // CV Analysis endpoint with structured JSON parsing
 app.post("/api/analyze-cv", async (req, res) => {
@@ -853,59 +798,192 @@ Liderar la estrategia tecnológica y operativa de la compañía, alineando la in
   }
 });
 
-// Contact Form Submission Endpoint (Guarda leads y asegura que ningún contrato o contacto se pierda)
-app.post("/api/contact", async (req, res) => {
+// ============================================================
+// CONTACT FORM — Email + Google Sheets + JSON backup
+// SMTP: Hostinger smtp.hostinger.com:465 SSL
+// ============================================================
+
+/** Crea el transporter de Nodemailer con SSL en puerto 465 */
+function createMailTransporter() {
+  return nodemailer.createTransport({
+    host: process.env.SMTP_HOST || "smtp.hostinger.com",
+    port: Number(process.env.SMTP_PORT) || 465,
+    secure: process.env.SMTP_SECURE !== "false", // true para puerto 465
+    auth: {
+      user: process.env.SMTP_USER || "",
+      pass: process.env.SMTP_PASS || "",
+    },
+    tls: { rejectUnauthorized: false }, // Compatible con Hostinger
+  });
+}
+
+/** Añade una fila al Google Sheet usando cuenta de servicio */
+async function appendToGoogleSheet(rowData: string[]): Promise<void> {
+  const sheetId = process.env.GOOGLE_SHEET_ID;
+  const serviceEmail = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
+  // La clave privada viene con \n literal en las env vars — hay que reemplazarlo
+  const privateKey = (process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY || "").replace(/\\n/g, "\n");
+
+  if (!sheetId || !serviceEmail || !privateKey) {
+    console.warn("[Sheets] Variables de Google Sheets no configuradas — se omite el registro.");
+    return;
+  }
+
+  const auth = new google.auth.JWT({
+    email: serviceEmail,
+    key: privateKey,
+    scopes: ["https://www.googleapis.com/auth/spreadsheets"],
+  });
+
+  const sheets = google.sheets({ version: "v4", auth });
+  await sheets.spreadsheets.values.append({
+    spreadsheetId: sheetId,
+    range: "Leads!A:J",
+    valueInputOption: "USER_ENTERED",
+    requestBody: { values: [rowData] },
+  });
+}
+
+// Configurar Rate Limit para el formulario de contacto (ej: max 3 peticiones por IP cada 15 minutos)
+const contactRateLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutos
+  max: 3, // Límite de 3 solicitudes por ventana
+  message: { error: "Demasiadas solicitudes enviadas. Por favor, inténtalo de nuevo en 15 minutos." },
+  standardHeaders: true, // Retorna info de límite en headers RateLimit-*
+  legacyHeaders: false, // Deshabilita headers X-RateLimit-*
+});
+
+// Contact Form Submission Endpoint
+app.post("/api/contact", contactRateLimiter, async (req, res) => {
   try {
-    const name = sanitizeInput(req.body?.name) || "Sin nombre";
-    const email = sanitizeInput(req.body?.email) || "Sin email";
-    const phone = sanitizeInput(req.body?.phone) || "Sin teléfono";
-    const company = sanitizeInput(req.body?.company) || "Sin empresa";
-    const role = sanitizeInput(req.body?.role) || "Sin cargo especificado";
+    const name        = sanitizeInput(req.body?.name)        || "Sin nombre";
+    const email       = sanitizeInput(req.body?.email)       || "Sin email";
+    const phone       = sanitizeInput(req.body?.phone)       || "Sin teléfono";
+    const company     = sanitizeInput(req.body?.company)     || "Sin empresa";
+    const role        = sanitizeInput(req.body?.role)        || "Sin cargo especificado";
     const serviceType = sanitizeInput(req.body?.serviceType) || "Consulta General";
-    const message = sanitizeInput(req.body?.message) || "Sin mensaje";
+    const message     = sanitizeInput(req.body?.message)     || "Sin mensaje";
+    const clientIP    = (req.headers["x-forwarded-for"] as string || req.ip || "unknown").split(",")[0].trim();
+    const leadId      = "lead_" + Date.now();
+    const createdAt   = new Date().toISOString();
 
-    const newLead = {
-      id: "lead_" + Date.now(),
-      createdAt: new Date().toISOString(),
-      name,
-      email,
-      phone,
-      company,
-      role,
-      serviceType,
-      message,
-      clientIP: (req.headers["x-forwarded-for"] as string || req.ip || "unknown").split(",")[0].trim()
-    };
+    const newLead = { id: leadId, createdAt, name, email, phone, company, role, serviceType, message, clientIP };
+    console.log("📨 [NUEVO LEAD — NEXO TALENTO]:", JSON.stringify(newLead, null, 2));
 
-    console.log("📨 [NUEVO LEAD / CONTRATO RECIBIDO EN NEXO TALENTO]:", JSON.stringify(newLead, null, 2));
-
-    // Persistir en archivo JSON local
+    // ── 1. Backup JSON local ──────────────────────────────────────────
     try {
       const dataDir = path.join(process.cwd(), "data");
-      if (!fs.existsSync(dataDir)) {
-        fs.mkdirSync(dataDir, { recursive: true });
-      }
+      if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true });
       const leadsFile = path.join(dataDir, "leads.json");
       let existingLeads: unknown[] = [];
       if (fs.existsSync(leadsFile)) {
-        try {
-          existingLeads = JSON.parse(fs.readFileSync(leadsFile, "utf-8"));
-          if (!Array.isArray(existingLeads)) existingLeads = [];
-        } catch {
-          existingLeads = [];
-        }
+        try { existingLeads = JSON.parse(fs.readFileSync(leadsFile, "utf-8")); }
+        catch { existingLeads = []; }
+        if (!Array.isArray(existingLeads)) existingLeads = [];
       }
       existingLeads.unshift(newLead);
       fs.writeFileSync(leadsFile, JSON.stringify(existingLeads, null, 2), "utf-8");
     } catch (fsErr) {
-      console.warn("No se pudo escribir en data/leads.json:", fsErr);
+      console.warn("[Backup] No se pudo escribir en data/leads.json:", fsErr);
     }
 
-    res.json({ 
-      success: true, 
-      message: "Lead registrado y guardado con éxito.",
-      leadId: newLead.id
-    });
+    // ── 2. Email de notificación interna a info@nexotalento.com ───────
+    const toEmail = process.env.CONTACT_TO_EMAIL || "info@nexotalento.com";
+    const smtpUser = process.env.SMTP_USER || "";
+
+    if (smtpUser) {
+      const transporter = createMailTransporter();
+
+      // 2a. Notificación al equipo
+      const notifHtml = `
+        <div style="font-family:Inter,Arial,sans-serif;max-width:600px;margin:auto;background:#0f172a;color:#e2e8f0;border-radius:12px;overflow:hidden">
+          <div style="background:linear-gradient(135deg,#082041,#00A9A3);padding:24px 28px">
+            <h1 style="margin:0;font-size:20px;color:#fff">🎯 Nuevo Lead — Nexo Talento</h1>
+            <p style="margin:4px 0 0;font-size:13px;color:rgba(255,255,255,.75)">${createdAt}</p>
+          </div>
+          <div style="padding:24px 28px">
+            <table style="width:100%;border-collapse:collapse;font-size:13px">
+              <tr><td style="padding:8px 0;border-bottom:1px solid #1e293b;color:#94a3b8;width:35%">ID Lead</td><td style="padding:8px 0;border-bottom:1px solid #1e293b;font-weight:bold">${leadId}</td></tr>
+              <tr><td style="padding:8px 0;border-bottom:1px solid #1e293b;color:#94a3b8">Nombre</td><td style="padding:8px 0;border-bottom:1px solid #1e293b">${name}</td></tr>
+              <tr><td style="padding:8px 0;border-bottom:1px solid #1e293b;color:#94a3b8">Email</td><td style="padding:8px 0;border-bottom:1px solid #1e293b">${email}</td></tr>
+              <tr><td style="padding:8px 0;border-bottom:1px solid #1e293b;color:#94a3b8">Teléfono</td><td style="padding:8px 0;border-bottom:1px solid #1e293b">${phone}</td></tr>
+              <tr><td style="padding:8px 0;border-bottom:1px solid #1e293b;color:#94a3b8">Empresa</td><td style="padding:8px 0;border-bottom:1px solid #1e293b">${company}</td></tr>
+              <tr><td style="padding:8px 0;border-bottom:1px solid #1e293b;color:#94a3b8">Servicio</td><td style="padding:8px 0;border-bottom:1px solid #1e293b">${serviceType}</td></tr>
+              <tr><td style="padding:8px 0;border-bottom:1px solid #1e293b;color:#94a3b8">Cargo</td><td style="padding:8px 0;border-bottom:1px solid #1e293b">${role}</td></tr>
+              <tr><td style="padding:8px 0;color:#94a3b8">Mensaje</td><td style="padding:8px 0">${message}</td></tr>
+            </table>
+          </div>
+          <div style="padding:16px 28px;background:#0b1526;font-size:11px;color:#475569">
+            Enviado desde <strong>www.nexotalento.com</strong> · IP: ${clientIP}
+          </div>
+        </div>`;
+
+      try {
+        await transporter.sendMail({
+          from: `"Nexo Talento Web" <${smtpUser}>`,
+          to: toEmail,
+          subject: `🎯 Nuevo Lead: ${name} — ${serviceType}`,
+          html: notifHtml,
+          replyTo: email, // Responder al lead directamente
+        });
+        console.log(`[Email] ✅ Notificación enviada a ${toEmail}`);
+      } catch (mailErr) {
+        console.error("[Email] Error enviando notificación:", mailErr);
+      }
+
+      // 2b. Acuse de recibo al usuario
+      const ackHtml = `
+        <div style="font-family:Inter,Arial,sans-serif;max-width:600px;margin:auto;background:#f8fafc;color:#0f172a;border-radius:12px;overflow:hidden;border:1px solid #e2e8f0">
+          <div style="background:linear-gradient(135deg,#082041,#00A9A3);padding:28px">
+            <h1 style="margin:0;font-size:20px;color:#fff">Hola, ${name} 👋</h1>
+            <p style="margin:6px 0 0;color:rgba(255,255,255,.85);font-size:14px">Hemos recibido tu solicitud en Nexo Talento</p>
+          </div>
+          <div style="padding:28px">
+            <p style="font-size:15px;line-height:1.7">Gracias por contactar con nosotros. Un <strong>Senior Talent Partner</strong> revisará tu información y se pondrá en contacto contigo en un plazo máximo de <strong>24 horas hábiles</strong>.</p>
+            <div style="background:#f0f9ff;border-left:4px solid #00A9A3;border-radius:6px;padding:16px;margin:20px 0">
+              <p style="margin:0;font-size:13px;font-weight:bold;color:#082041">Tu solicitud en resumen:</p>
+              <ul style="margin:8px 0 0;padding-left:18px;font-size:13px;color:#334155;line-height:1.8">
+                <li><strong>Servicio:</strong> ${serviceType}</li>
+                <li><strong>Posición / Perfil:</strong> ${role}</li>
+                ${message !== 'Sin mensaje' ? `<li><strong>Tu mensaje:</strong> ${message}</li>` : ''}
+              </ul>
+            </div>
+            <p style="font-size:13px;color:#475569">Si necesitas respuesta inmediata, puedes contactarnos directamente por WhatsApp:</p>
+            <a href="https://wa.me/34614143763" style="display:inline-block;background:#25d366;color:#fff;font-weight:bold;padding:12px 24px;border-radius:8px;text-decoration:none;font-size:14px">💬 WhatsApp Directo</a>
+          </div>
+          <div style="padding:16px 28px;background:#f1f5f9;font-size:11px;color:#64748b;text-align:center">
+            © ${new Date().getFullYear()} Nexo Talento Consultores S.L. — info@nexotalento.com<br/>
+            Este es un correo automático, responde a este email para contactarnos directamente.
+          </div>
+        </div>`;
+
+      try {
+        await transporter.sendMail({
+          from: `"Nexo Talento" <${smtpUser}>`,
+          to: email,
+          subject: `✅ Recibimos tu solicitud, ${name} — Nexo Talento`,
+          html: ackHtml,
+          replyTo: toEmail,
+        });
+        console.log(`[Email] ✅ Acuse de recibo enviado a ${email}`);
+      } catch (ackErr) {
+        console.error("[Email] Error enviando acuse de recibo:", ackErr);
+      }
+    } else {
+      console.warn("[Email] SMTP_USER no configurado — emails omitidos.");
+    }
+
+    // ── 3. Google Sheets ─────────────────────────────────────────────
+    try {
+      await appendToGoogleSheet([
+        leadId, createdAt, name, email, phone, company, role, serviceType, message, clientIP
+      ]);
+      console.log("[Sheets] ✅ Lead registrado en Google Sheets.");
+    } catch (sheetErr) {
+      console.warn("[Sheets] Error registrando en Google Sheets (no crítico):", sheetErr);
+    }
+
+    res.json({ success: true, message: "Lead registrado, email enviado y guardado con éxito.", leadId });
   } catch (error) {
     console.error("Error procesando contacto:", error);
     res.status(500).json({ error: "Error registrando el contacto." });

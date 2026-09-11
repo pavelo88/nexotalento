@@ -1,0 +1,36 @@
+[
+  {
+    "id": "lead_1789093198495",
+    "createdAt": "2026-09-11T02:19:58.495Z",
+    "name": "Pablo (Prueba del Sistema)",
+    "email": "info@nexotalento.com",
+    "phone": "+34 111 222 333",
+    "company": "Nexo Talento Test",
+    "role": "CEO",
+    "serviceType": "Prueba de Integración IA",
+    "message": "Hola, este es un mensaje de prueba automático para verificar que Google Sheets y los emails (Nodemailer) están funcionando correctamente.",
+    "clientIP": "127.0.0.1"
+  },
+  {
+    "id": "1789092772436",
+    "date": "2026-09-11T02:12:52.436Z",
+    "name": "Pablo (Prueba del Sistema)",
+    "email": "info@nexotalento.com",
+    "phone": "+34 111 222 333",
+    "company": "Nexo Talento Test",
+    "role": "CEO",
+    "service": "Prueba de Integración IA",
+    "message": "Hola, este es un mensaje de prueba automático para verificar que Google Sheets y los emails (Nodemailer) están funcionando correctamente."
+  },
+  {
+    "id": "1789093171768",
+    "date": "2026-09-11T02:19:31.768Z",
+    "name": "Pablo (Prueba del Sistema)",
+    "email": "info@nexotalento.com",
+    "phone": "+34 111 222 333",
+    "company": "Nexo Talento Test",
+    "role": "CEO",
+    "service": "Prueba de Integración IA",
+    "message": "Hola, este es un mensaje de prueba automático para verificar que Google Sheets y los emails (Nodemailer) están funcionando correctamente."
+  }
+]
