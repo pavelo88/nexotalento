@@ -125,7 +125,11 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 sm:mb-10">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 bg-cyan-500/10 border border-cyan-500/30 px-3.5 py-1 rounded-full text-xs font-bold text-cyan-400 mb-2.5">
+            <div className={`inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold mb-2.5 border ${
+              theme === 'dark' 
+                ? 'bg-cyan-500/10 border-cyan-500/30 text-cyan-300' 
+                : 'bg-cyan-50 border-cyan-300 text-cyan-900'
+            }`}>
               <Building2 className="w-3.5 h-3.5" />
               <span>Soluciones Integrales para Empresas</span>
             </div>
@@ -158,7 +162,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
         >
           {/* Header Controls */}
           <div className="flex items-center justify-between mb-3 px-1">
-            <span className="text-[11px] font-bold text-cyan-400 flex items-center gap-1">
+            <span className={`text-[11px] font-bold ${theme === 'dark' ? 'text-cyan-400' : 'text-cyan-800'} flex items-center gap-1`}>
               <Sparkles className="w-3.5 h-3.5" />
               <span>Servicio {currentSlide + 1} de {allServices.length}</span>
             </span>
@@ -206,7 +210,11 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                 <div className={`w-11 h-11 rounded-2xl bg-gradient-to-tr ${currentService.color} flex items-center justify-center text-white shadow-md`}>
                   <CurrentIcon className="w-5 h-5" />
                 </div>
-                <span className="text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-full bg-slate-800 text-cyan-300 border border-slate-700 shadow-sm">
+                <span className={`text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-full border shadow-sm ${
+                  theme === 'dark'
+                    ? 'bg-slate-800 text-cyan-300 border-slate-700'
+                    : 'bg-slate-100 text-cyan-900 border-slate-300'
+                }`}>
                   {currentService.badge}
                 </span>
               </div>
@@ -219,21 +227,25 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                 {currentService.description}
               </p>
 
-              <ul className="space-y-1.5 text-xs text-slate-400 mb-4">
+              <ul className="space-y-1.5 text-xs mb-4">
                 {currentService.points.map((pt, i) => (
                   <li key={i} className="flex items-center gap-2">
                     <CheckCircle2 className="w-3.5 h-3.5 text-cyan-500 shrink-0" />
-                    <span className="text-slate-300 dark:text-slate-300 text-slate-700">{pt}</span>
+                    <span className={theme === 'dark' ? 'text-slate-300' : 'text-slate-700'}>{pt}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
-            <div className="pt-3 border-t border-slate-800/80 flex items-center justify-between">
+            <div className={`pt-3 border-t flex items-center justify-between ${
+              theme === 'dark' ? 'border-slate-800/80' : 'border-slate-200'
+            }`}>
               {onViewAllServices && (
                 <button
                   onClick={() => onViewAllServices('/servicios')}
-                  className="text-xs text-cyan-400 font-extrabold flex items-center gap-1"
+                  className={`text-xs font-extrabold flex items-center gap-1 ${
+                    theme === 'dark' ? 'text-cyan-400' : 'text-cyan-700'
+                  }`}
                 >
                   <span>Ver Todos los Servicios</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -243,7 +255,9 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                 href={`https://wa.me/34614143763?text=${encodeURIComponent(`Hola Nexo Talento, deseo consultar sobre el servicio de ${currentService.title}`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs text-emerald-400 font-bold hover:underline flex items-center gap-1"
+                className={`text-xs font-bold hover:underline flex items-center gap-1 ${
+                  theme === 'dark' ? 'text-emerald-400' : 'text-emerald-700'
+                }`}
               >
                 <span>Consultar por WhatsApp</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -305,7 +319,11 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                     <div className={`w-10 h-10 rounded-xl bg-gradient-to-tr ${service.color} flex items-center justify-center text-white`}>
                       <Icon className="w-5 h-5" />
                     </div>
-                    <span className="text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700">
+                    <span className={`text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full border ${
+                      theme === 'dark'
+                        ? 'bg-slate-800 text-slate-300 border-slate-700'
+                        : 'bg-slate-100 text-slate-800 border-slate-300'
+                    }`}>
                       {service.badge}
                     </span>
                   </div>
@@ -315,20 +333,24 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                     {service.description}
                   </p>
 
-                  <ul className="space-y-1.5 text-xs text-slate-400 mb-4">
+                  <ul className="space-y-1.5 text-xs mb-4">
                     {service.points.map((pt, i) => (
                       <li key={i} className="flex items-center gap-2">
                         <CheckCircle2 className="w-3.5 h-3.5 text-cyan-500 shrink-0" />
-                        <span>{pt}</span>
+                        <span className={theme === 'dark' ? 'text-slate-300' : 'text-slate-700'}>{pt}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
 
-                <div className="pt-3 border-t border-slate-800/60 flex items-center justify-between">
+                <div className={`pt-3 border-t flex items-center justify-between ${
+                  theme === 'dark' ? 'border-slate-800/60' : 'border-slate-200'
+                }`}>
                   <button
                     onClick={onOpenJobSpecGenerator}
-                    className="text-xs text-cyan-400 font-bold hover:underline flex items-center gap-1"
+                    className={`text-xs font-bold hover:underline flex items-center gap-1 ${
+                      theme === 'dark' ? 'text-cyan-400' : 'text-cyan-700'
+                    }`}
                   >
                     <FileCheck className="w-3.5 h-3.5" />
                     <span>Generar Job Spec</span>
@@ -337,7 +359,9 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                     href={`https://wa.me/34614143763?text=${encodeURIComponent(`Hola Nexo Talento, deseo consultar sobre el servicio de ${service.title}`)}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs text-emerald-400 font-bold hover:underline flex items-center gap-1"
+                    className={`text-xs font-bold hover:underline flex items-center gap-1 ${
+                      theme === 'dark' ? 'text-emerald-400' : 'text-emerald-700'
+                    }`}
                   >
                     <span>Consultar WhatsApp</span>
                     <ArrowRight className="w-3 h-3" />

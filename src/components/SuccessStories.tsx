@@ -77,7 +77,11 @@ export const SuccessStories: React.FC<SuccessStoriesProps> = ({ onNavigateToTest
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 sm:mb-12">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 px-3.5 py-1.5 rounded-full text-xs font-bold text-amber-600 dark:text-amber-400 mb-2.5">
+            <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold mb-2.5 border ${
+              theme === 'dark'
+                ? 'bg-amber-500/10 border-amber-500/30 text-amber-300'
+                : 'bg-amber-50 border-amber-300 text-amber-900'
+            }`}>
               <Award className="w-3.5 h-3.5" />
               <span>Resultados Auditados &amp; Satisfacción</span>
             </div>
@@ -104,7 +108,7 @@ export const SuccessStories: React.FC<SuccessStoriesProps> = ({ onNavigateToTest
         {/* MOBILE ONLY: Interactive Testimonial Carousel */}
         <div className="block md:hidden mb-4">
           <div className="flex items-center justify-between mb-3 px-1">
-            <span className="text-[11px] font-bold text-amber-500 flex items-center gap-1">
+            <span className={`text-[11px] font-bold ${theme === 'dark' ? 'text-amber-400' : 'text-amber-900'} flex items-center gap-1`}>
               <span>Testimonio {currentSlide + 1} de {featuredStories.length}</span>
             </span>
 
@@ -141,12 +145,18 @@ export const SuccessStories: React.FC<SuccessStoriesProps> = ({ onNavigateToTest
                     <Star key={i} className="w-3.5 h-3.5 fill-amber-500 text-amber-500" />
                   ))}
                 </div>
-                <span className="text-[10px] font-bold text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded border border-cyan-500/20">
+                <span className={`text-[10px] font-bold px-2 py-0.5 rounded border ${
+                  theme === 'dark'
+                    ? 'text-cyan-300 bg-cyan-950 border-cyan-800'
+                    : 'text-cyan-900 bg-cyan-50 border-cyan-300'
+                }`}>
                   Terna: {currentMobileStory.time}
                 </span>
               </div>
 
-              <p className="text-[11px] font-extrabold uppercase text-slate-400 mb-1">{currentMobileStory.sector}</p>
+              <p className={`text-[11px] font-extrabold uppercase mb-1 ${
+                theme === 'dark' ? 'text-slate-400' : 'text-slate-600'
+              }`}>{currentMobileStory.sector}</p>
               <h3 className="text-sm font-bold font-heading mb-3">{currentMobileStory.role}</h3>
 
               <p className={`text-xs italic leading-relaxed mb-4 ${theme === 'dark' ? 'text-slate-300' : 'text-slate-600'}`}>
@@ -156,7 +166,7 @@ export const SuccessStories: React.FC<SuccessStoriesProps> = ({ onNavigateToTest
 
             <div className={`pt-3 border-t ${theme === 'dark' ? 'border-slate-800' : 'border-slate-100'}`}>
               <p className="text-xs font-bold">{currentMobileStory.author}</p>
-              <p className="text-[10px] text-slate-400">{currentMobileStory.authorRole}</p>
+              <p className={`text-[10px] ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>{currentMobileStory.authorRole}</p>
             </div>
           </div>
 
@@ -194,12 +204,18 @@ export const SuccessStories: React.FC<SuccessStoriesProps> = ({ onNavigateToTest
                       <Star key={i} className="w-3.5 h-3.5 fill-amber-500 text-amber-500" />
                     ))}
                   </div>
-                  <span className="text-[10px] font-bold text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded border border-cyan-500/20">
+                  <span className={`text-[10px] font-bold px-2 py-0.5 rounded border ${
+                    theme === 'dark'
+                      ? 'text-cyan-300 bg-cyan-950 border-cyan-800'
+                      : 'text-cyan-900 bg-cyan-50 border-cyan-300'
+                  }`}>
                     {story.time}
                   </span>
                 </div>
 
-                <p className="text-[11px] font-extrabold uppercase text-slate-400 mb-1">{story.sector}</p>
+                <p className={`text-[11px] font-extrabold uppercase mb-1 ${
+                  theme === 'dark' ? 'text-slate-400' : 'text-slate-600'
+                }`}>{story.sector}</p>
                 <h3 className="text-sm font-bold font-heading mb-3">{story.role}</h3>
 
                 <p className={`text-xs italic leading-relaxed mb-4 ${theme === 'dark' ? 'text-slate-300' : 'text-slate-600'}`}>
@@ -209,7 +225,7 @@ export const SuccessStories: React.FC<SuccessStoriesProps> = ({ onNavigateToTest
 
               <div className={`pt-3 border-t ${theme === 'dark' ? 'border-slate-800' : 'border-slate-100'}`}>
                 <p className="text-xs font-bold">{story.author}</p>
-                <p className="text-[10px] text-slate-400">{story.authorRole}</p>
+                <p className={`text-[10px] ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>{story.authorRole}</p>
               </div>
             </div>
           ))}

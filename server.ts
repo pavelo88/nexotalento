@@ -887,6 +887,8 @@ app.post("/api/contact", contactRateLimiter, async (req, res) => {
       console.warn("[Backup] No se pudo escribir en data/leads.json:", fsErr);
     }
 
+    const backgroundTasks: Promise<any>[] = [];
+
     // ── 2. Email de notificación interna a info@nexotalento.com ───────
     const toEmail = process.env.CONTACT_TO_EMAIL || "info@nexotalento.com";
     const smtpUser = process.env.SMTP_USER || "";
@@ -918,70 +920,67 @@ app.post("/api/contact", contactRateLimiter, async (req, res) => {
           </div>
         </div>`;
 
-      try {
-        await transporter.sendMail({
+      backgroundTasks.push(
+        transporter.sendMail({
           from: `"Nexo Talento Web" <${smtpUser}>`,
           to: toEmail,
           subject: `🎯 Nuevo Lead: ${name} — ${serviceType}`,
           html: notifHtml,
-          replyTo: email, // Responder al lead directamente
-        });
-        console.log(`[Email] ✅ Notificación enviada a ${toEmail}`);
-      } catch (mailErr) {
-        console.error("[Email] Error enviando notificación:", mailErr);
-      }
+          replyTo: email,
+        }).then(() => console.log(`[Email] ✅ Notificación enviada a ${toEmail}`))
+          .catch((mailErr) => console.error("[Email] Error enviando notificación:", mailErr))
+      );
 
       // 2b. Acuse de recibo al usuario
-      const ackHtml = `
-        <div style="font-family:Inter,Arial,sans-serif;max-width:600px;margin:auto;background:#f8fafc;color:#0f172a;border-radius:12px;overflow:hidden;border:1px solid #e2e8f0">
-          <div style="background:linear-gradient(135deg,#082041,#00A9A3);padding:28px">
-            <h1 style="margin:0;font-size:20px;color:#fff">Hola, ${name} 👋</h1>
-            <p style="margin:6px 0 0;color:rgba(255,255,255,.85);font-size:14px">Hemos recibido tu solicitud en Nexo Talento</p>
-          </div>
-          <div style="padding:28px">
-            <p style="font-size:15px;line-height:1.7">Gracias por contactar con nosotros. Un <strong>Senior Talent Partner</strong> revisará tu información y se pondrá en contacto contigo en un plazo máximo de <strong>24 horas hábiles</strong>.</p>
-            <div style="background:#f0f9ff;border-left:4px solid #00A9A3;border-radius:6px;padding:16px;margin:20px 0">
-              <p style="margin:0;font-size:13px;font-weight:bold;color:#082041">Tu solicitud en resumen:</p>
-              <ul style="margin:8px 0 0;padding-left:18px;font-size:13px;color:#334155;line-height:1.8">
-                <li><strong>Servicio:</strong> ${serviceType}</li>
-                <li><strong>Posición / Perfil:</strong> ${role}</li>
-                ${message !== 'Sin mensaje' ? `<li><strong>Tu mensaje:</strong> ${message}</li>` : ''}
-              </ul>
+      if (email && email.includes("@") && email !== "Sin email") {
+        const ackHtml = `
+          <div style="font-family:Inter,Arial,sans-serif;max-width:600px;margin:auto;background:#f8fafc;color:#0f172a;border-radius:12px;overflow:hidden;border:1px solid #e2e8f0">
+            <div style="background:linear-gradient(135deg,#082041,#00A9A3);padding:28px">
+              <h1 style="margin:0;font-size:20px;color:#fff">Hola, ${name} 👋</h1>
+              <p style="margin:6px 0 0;color:rgba(255,255,255,.85);font-size:14px">Hemos recibido tu solicitud en Nexo Talento</p>
             </div>
-            <p style="font-size:13px;color:#475569">Si necesitas respuesta inmediata, puedes contactarnos directamente por WhatsApp:</p>
-            <a href="https://wa.me/34614143763" style="display:inline-block;background:#25d366;color:#fff;font-weight:bold;padding:12px 24px;border-radius:8px;text-decoration:none;font-size:14px">💬 WhatsApp Directo</a>
-          </div>
-          <div style="padding:16px 28px;background:#f1f5f9;font-size:11px;color:#64748b;text-align:center">
-            © ${new Date().getFullYear()} Nexo Talento Consultores S.L. — info@nexotalento.com<br/>
-            Este es un correo automático, responde a este email para contactarnos directamente.
-          </div>
-        </div>`;
+            <div style="padding:28px">
+              <p style="font-size:15px;line-height:1.7">Gracias por contactar con nosotros. Un <strong>Senior Talent Partner</strong> revisará tu información y se pondrá en contacto contigo en un plazo máximo de <strong>24 horas hábiles</strong>.</p>
+              <div style="background:#f0f9ff;border-left:4px solid #00A9A3;border-radius:6px;padding:16px;margin:20px 0">
+                <p style="margin:0;font-size:13px;font-weight:bold;color:#082041">Tu solicitud en resumen:</p>
+                <ul style="margin:8px 0 0;padding-left:18px;font-size:13px;color:#334155;line-height:1.8">
+                  <li><strong>Servicio:</strong> ${serviceType}</li>
+                  <li><strong>Posición / Perfil:</strong> ${role}</li>
+                  ${message !== 'Sin mensaje' ? `<li><strong>Tu mensaje:</strong> ${message}</li>` : ''}
+                </ul>
+              </div>
+              <p style="font-size:13px;color:#475569">Si necesitas respuesta inmediata, puedes contactarnos directamente por WhatsApp:</p>
+              <a href="https://wa.me/34614143763" style="display:inline-block;background:#25d366;color:#fff;font-weight:bold;padding:12px 24px;border-radius:8px;text-decoration:none;font-size:14px">💬 WhatsApp Directo</a>
+            </div>
+            <div style="padding:16px 28px;background:#f1f5f9;font-size:11px;color:#64748b;text-align:center">
+              © ${new Date().getFullYear()} Nexo Talento Consultores S.L. — info@nexotalento.com<br/>
+              Este es un correo automático, responde a este email para contactarnos directamente.
+            </div>
+          </div>`;
 
-      try {
-        await transporter.sendMail({
-          from: `"Nexo Talento" <${smtpUser}>`,
-          to: email,
-          subject: `✅ Recibimos tu solicitud, ${name} — Nexo Talento`,
-          html: ackHtml,
-          replyTo: toEmail,
-        });
-        console.log(`[Email] ✅ Acuse de recibo enviado a ${email}`);
-      } catch (ackErr) {
-        console.error("[Email] Error enviando acuse de recibo:", ackErr);
+        backgroundTasks.push(
+          transporter.sendMail({
+            from: `"Nexo Talento" <${smtpUser}>`,
+            to: email,
+            subject: `✅ Recibimos tu solicitud, ${name} — Nexo Talento`,
+            html: ackHtml,
+            replyTo: toEmail,
+          }).then(() => console.log(`[Email] ✅ Acuse de recibo enviado a ${email}`))
+            .catch((ackErr) => console.error("[Email] Error enviando acuse de recibo:", ackErr))
+        );
       }
-    } else {
-      console.warn("[Email] SMTP_USER no configurado — emails omitidos.");
     }
 
-    // ── 3. Google Sheets ─────────────────────────────────────────────
-    try {
-      await appendToGoogleSheet([
+    // ── 3. Google Sheets en paralelo ──────────────────────────────────
+    backgroundTasks.push(
+      appendToGoogleSheet([
         leadId, createdAt, name, email, phone, company, role, serviceType, message, clientIP
-      ]);
-      console.log("[Sheets] ✅ Lead registrado en Google Sheets.");
-    } catch (sheetErr) {
-      console.warn("[Sheets] Error registrando en Google Sheets (no crítico):", sheetErr);
-    }
+      ]).then(() => console.log("[Sheets] ✅ Lead registrado en Google Sheets."))
+        .catch((sheetErr) => console.warn("[Sheets] Error registrando en Google Sheets:", sheetErr))
+    );
+
+    // Esperar todas las tareas en paralelo para máxima velocidad
+    await Promise.allSettled(backgroundTasks);
 
     res.json({ success: true, message: "Lead registrado, email enviado y guardado con éxito.", leadId });
   } catch (error) {

@@ -110,9 +110,9 @@ export const B2BRequirementWizard: React.FC<B2BRequirementWizardProps> = ({ onOp
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
-          <div className="inline-flex items-center gap-2 bg-cyan-500/10 border border-cyan-500/30 px-3.5 py-1.5 rounded-full text-xs font-bold text-cyan-400 mb-3.5">
-            <Sliders className="w-3.5 h-3.5" />
-            <span>Generador Guiado de Requerimientos B2B</span>
+          <div className="inline-flex items-center gap-2 bg-cyan-500/10 border border-cyan-500/30 px-3.5 py-1.5 rounded-full text-xs font-bold text-cyan-900 dark:text-cyan-300 mb-3.5">
+            <Cpu className="w-3.5 h-3.5 text-cyan-700 dark:text-cyan-400" />
+            <span>Configurador B2B de Requerimientos de Talento</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight font-heading">
             ¿Qué Perfil Profesional <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 dark:from-cyan-400 dark:via-blue-400 dark:to-indigo-400">Necesitas Incorporar?</span>

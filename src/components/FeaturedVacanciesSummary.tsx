@@ -122,7 +122,11 @@ export const FeaturedVacanciesSummary: React.FC<FeaturedVacanciesSummaryProps> =
         {/* Header con llamada directa al catálogo */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border shadow-sm mb-3 bg-cyan-950/40 border-cyan-500/30 text-cyan-400 text-xs font-bold">
+            <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full border shadow-sm mb-3 text-xs font-bold ${
+              theme === 'dark' 
+                ? 'bg-cyan-950/40 border-cyan-500/30 text-cyan-300' 
+                : 'bg-cyan-50 border-cyan-300 text-cyan-900'
+            }`}>
               <Briefcase className="w-3.5 h-3.5" />
               <span>Directiva UE 2023/970 — 100% Transparencia Salarial</span>
             </div>

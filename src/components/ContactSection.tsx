@@ -287,20 +287,20 @@ Enviado desde el formulario web de Nexo Talento.`;
               }`}>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Mail className={`w-4 h-4 ${theme === 'dark' ? 'text-cyan-400' : 'text-cyan-600'}`} />
-                    <span><span>{COMPANY_CONFIG.emailUser}</span><span className={theme === 'dark' ? 'text-cyan-400' : 'text-cyan-600'}>&#64;</span><span>{COMPANY_CONFIG.emailDomain}</span></span>
+                    <Mail className={`w-4 h-4 ${theme === 'dark' ? 'text-cyan-400' : 'text-cyan-700'}`} />
+                    <span><span>{COMPANY_CONFIG.emailUser}</span><span className={theme === 'dark' ? 'text-cyan-400' : 'text-cyan-700'}>&#64;</span><span>{COMPANY_CONFIG.emailDomain}</span></span>
                   </div>
-                  <span className={`text-[10px] ${theme === 'dark' ? 'text-cyan-400' : 'text-cyan-600'}`}>General</span>
+                  <span className={`text-[10px] font-bold ${theme === 'dark' ? 'text-cyan-300' : 'text-cyan-900'}`}>General</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Mail className={`w-4 h-4 ${theme === 'dark' ? 'text-blue-400' : 'text-blue-600'}`} />
-                    <span><span>empresas</span><span className={theme === 'dark' ? 'text-blue-400' : 'text-blue-600'}>&#64;</span><span>nexotalento.com</span></span>
+                    <Mail className={`w-4 h-4 ${theme === 'dark' ? 'text-blue-400' : 'text-blue-700'}`} />
+                    <span><span>empresas</span><span className={theme === 'dark' ? 'text-blue-400' : 'text-blue-700'}>&#64;</span><span>nexotalento.com</span></span>
                   </div>
-                  <span className={`text-[10px] ${theme === 'dark' ? 'text-blue-400' : 'text-blue-600'}`}>Headhunting</span>
+                  <span className={`text-[10px] font-bold ${theme === 'dark' ? 'text-blue-300' : 'text-blue-900'}`}>Headhunting</span>
                 </div>
                 <div className={`flex items-center gap-2 pt-2 border-t text-[11px] ${
-                  theme === 'dark' ? 'border-slate-700 text-slate-400' : 'border-slate-300 text-slate-500'
+                  theme === 'dark' ? 'border-slate-700 text-slate-400' : 'border-slate-300 text-slate-700'
                 }`}>
                   <Clock className="w-3.5 h-3.5 shrink-0" />
                   <span>Lunes a Viernes: 08:30 - 20:00 CEST (C-Level 24/7)</span>
@@ -328,7 +328,7 @@ Enviado desde el formulario web de Nexo Talento.`;
                   className={`flex-1 py-3 sm:py-2.5 px-2 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-2 ${
                     tab === 'empresa'
                       ? 'bg-cyan-500 text-slate-950 shadow-md'
-                      : theme === 'dark' ? 'text-slate-400 hover:text-white' : 'text-slate-500 hover:text-slate-900'
+                      : theme === 'dark' ? 'text-slate-400 hover:text-white' : 'text-slate-700 hover:text-slate-950'
                   }`}
                 >
                   <Building2 className="w-5 h-5 sm:w-4 sm:h-4 shrink-0" />
@@ -341,7 +341,7 @@ Enviado desde el formulario web de Nexo Talento.`;
                   className={`flex-1 py-3 sm:py-2.5 px-2 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-2 ${
                     tab === 'candidato'
                       ? 'bg-cyan-500 text-slate-950 shadow-md'
-                      : theme === 'dark' ? 'text-slate-400 hover:text-white' : 'text-slate-500 hover:text-slate-900'
+                      : theme === 'dark' ? 'text-slate-400 hover:text-white' : 'text-slate-700 hover:text-slate-950'
                   }`}
                 >
                   <UserCheck className="w-5 h-5 sm:w-4 sm:h-4 shrink-0" />

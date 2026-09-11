@@ -31,14 +31,14 @@
 - `/vacantes`: Portal de empleo directivo y tecnológico con rangos salariales transparentes y aplicación directa.
 - `/guia-salarial`: Estudio retributivo interactivo España 2026 por perfiles, experiencia y ciudades.
 - `/calculadora-roi`: Simulador financiero de pérdida económica por vacantes sin cubrir.
-- `/agentes-ia`: Suite interactiva con los 4 modelos conversacionales de talento.
+- `/servicios`: Catálogo integral de servicios con especificaciones técnicas, metodologías y SLAs.
 - `/blog`: Tratado legal, normativo y directivo sobre Art. 43 ET, EU AI Act y retribución flexible.
 - `/contacto`: Formulario seguro RGPD y canal prioritario de WhatsApp corporativo (+34 614 143 763).
 
 ## Contacto & Consultoría B2B
-- **Email Corporativo**: empresas@nexotalento.com / contacto@nexotalento.com
+- **Email Corporativo**: empresas@nexotalento.com / info@nexotalento.com
 - **Teléfono Central**: +34 910 88 44 20
 - **Consultor Directo Senior WhatsApp**: +34 614 143 763
 - **Horario**: Lunes a Viernes 08:30 - 20:00 CEST (Comité de Búsqueda C-Level 24/7).
 
-[Nexo Talento](https://nexotalento.com)
+[Nexo Talento](https://www.nexotalento.com)

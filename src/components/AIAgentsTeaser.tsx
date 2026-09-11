@@ -75,8 +75,8 @@ export const AIAgentsTeaser: React.FC<AIAgentsTeaserProps> = ({
         {/* Header with Direct Full Page Action */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 sm:mb-10">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold uppercase tracking-wider mb-2.5">
-              <Bot className="w-3.5 h-3.5" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-900 dark:text-cyan-300 text-xs font-bold uppercase tracking-wider mb-2.5">
+              <Sparkles className="w-3.5 h-3.5 text-cyan-700 dark:text-cyan-400" />
               <span>Inteligencia Artificial Especializada en RRHH</span>
             </div>
             <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight font-heading">
@@ -88,10 +88,10 @@ export const AIAgentsTeaser: React.FC<AIAgentsTeaserProps> = ({
           </div>
 
           <button
-            onClick={() => onNavigate('/agentes-ia')}
+            onClick={() => onNavigate('/servicios')}
             className="px-5 py-2.5 bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-slate-950 font-extrabold text-xs rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 shrink-0 self-start md:self-auto group cursor-pointer btn-spring-press"
           >
-            <span>Abrir Suite Completa de Agentes IA</span>
+            <span>Explorar Servicios y Consultoría Especializada</span>
             <ArrowRight className="w-4 h-4 text-slate-950 group-hover:translate-x-1 transition-transform" />
           </button>
         </div>

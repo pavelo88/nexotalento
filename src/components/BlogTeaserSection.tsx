@@ -91,9 +91,9 @@ export const BlogTeaserSection: React.FC<BlogTeaserSectionProps> = ({
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-12 gap-6">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-extrabold bg-cyan-500/15 text-cyan-400 border border-cyan-500/30 mb-3">
-              <BookOpen className="w-3.5 h-3.5" />
-              <span>Conocimiento Estratégico &amp; Marco Jurídico 2026</span>
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-extrabold bg-cyan-500/15 text-cyan-900 dark:text-cyan-300 border border-cyan-500/30 mb-3">
+              <BookOpen className="w-3.5 h-3.5 text-cyan-700 dark:text-cyan-400" />
+              <span>Observatorio Jurídico &amp; Retributivo</span>
             </div>
             
             <h2 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight font-heading">

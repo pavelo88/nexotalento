@@ -74,7 +74,11 @@ export const MethodologySection: React.FC<MethodologySectionProps> = ({ onNaviga
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border shadow-sm mb-3 bg-cyan-950/40 border-cyan-500/30 text-cyan-400 text-xs font-bold">
+            <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full border shadow-sm mb-3 text-xs font-bold ${
+              theme === 'dark' 
+                ? 'bg-cyan-950/40 border-cyan-500/30 text-cyan-300' 
+                : 'bg-cyan-50 border-cyan-300 text-cyan-900'
+            }`}>
               <Clock className="w-3.5 h-3.5" />
               <span>El Método Nexo Talento (18 Días SLA)</span>
             </div>
@@ -206,7 +210,7 @@ export const MethodologySection: React.FC<MethodologySectionProps> = ({ onNaviga
             <button
               type="button"
               onClick={() => onNavigateToProcess('/proceso')}
-              className="text-xs font-bold text-cyan-400 hover:underline flex items-center gap-1 shrink-0 cursor-pointer"
+              className={`text-xs font-bold ${theme === 'dark' ? 'text-cyan-400' : 'text-cyan-700'} hover:underline flex items-center gap-1 shrink-0 cursor-pointer`}
             >
               <span>Explorar Protocolos de Garantía</span>
               <ArrowRight className="w-3.5 h-3.5" />
