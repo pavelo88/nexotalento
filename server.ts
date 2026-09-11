@@ -847,7 +847,7 @@ async function appendToGoogleSheet(rowData: string[]): Promise<void> {
 // Configurar Rate Limit para el formulario de contacto (ej: max 3 peticiones por IP cada 15 minutos)
 const contactRateLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutos
-  max: 3, // Límite de 3 solicitudes por ventana
+  max: 100, // Límite de 100 solicitudes por ventana
   message: { error: "Demasiadas solicitudes enviadas. Por favor, inténtalo de nuevo en 15 minutos." },
   standardHeaders: true, // Retorna info de límite en headers RateLimit-*
   legacyHeaders: false, // Deshabilita headers X-RateLimit-*

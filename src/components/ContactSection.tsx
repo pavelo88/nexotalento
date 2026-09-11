@@ -88,7 +88,7 @@ Enviado desde el formulario web de Nexo Talento.`;
 
     setIsSubmitting(true);
     try {
-      await fetch('/api/contact', {
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -102,11 +102,8 @@ Enviado desde el formulario web de Nexo Talento.`;
         })
       });
 
-      // Abrir WhatsApp en nueva pestaña para atención en tiempo real
-      try {
-        window.open(dynamicWaUrl, '_blank');
-      } catch {
-        // Si el navegador bloquea la apertura automática, el botón visible en pantalla lo permite
+      if (!response.ok) {
+        throw new Error('Error al enviar la solicitud');
       }
 
       setSubmitted(true);
@@ -116,9 +113,6 @@ Enviado desde el formulario web de Nexo Talento.`;
         origin: { y: 0.6 }
       });
     } catch (err) {
-      try {
-        window.open(dynamicWaUrl, '_blank');
-      } catch {}
       setSubmitted(true);
     } finally {
       setIsSubmitting(false);

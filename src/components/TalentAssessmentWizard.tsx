@@ -51,7 +51,7 @@ export const TalentAssessmentWizard: React.FC = () => {
     setIsSubmitting(true);
 
     try {
-      await fetch('/api/contact', {
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -64,6 +64,11 @@ export const TalentAssessmentWizard: React.FC = () => {
           message: `Diagnóstico realizado: Empresa: ${formData.companyType}, Tamaño: ${formData.teamSize}, Urgencia: ${formData.urgency}, Posición: ${formData.profileCategory}, Ubicación: ${formData.location}`
         })
       });
+
+      if (!response.ok) {
+        throw new Error('Error al enviar la solicitud');
+      }
+
       setIsCompleted(true);
       confetti({
         particleCount: 100,

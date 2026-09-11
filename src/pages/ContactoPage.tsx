@@ -53,7 +53,7 @@ export const ContactoPage: React.FC<ContactoPageProps> = ({
 
     setIsSubmitting(true);
     try {
-      await fetch('/api/contact', {
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -67,6 +67,11 @@ export const ContactoPage: React.FC<ContactoPageProps> = ({
           source: 'Pagina Contacto'
         })
       });
+
+      if (!response.ok) {
+        throw new Error('Error al enviar la solicitud');
+      }
+
       confetti({ particleCount: 70, spread: 60, origin: { y: 0.6 } });
       setSubmitted(true);
     } catch {

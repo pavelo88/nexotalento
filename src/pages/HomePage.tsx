@@ -92,9 +92,7 @@ export const HomePage: React.FC<HomePageProps> = ({
       <Suspense fallback={<div className="h-32 flex items-center justify-center"><div className="w-6 h-6 border-2 border-cyan-500 border-t-transparent rounded-full animate-spin"></div></div>}>
        
         {/* 5. Methodology Executive Summary (Terna en 18 días y garantía 3 a 6 meses) */}
-        <DeferredMount placeholderClass="min-h-[300px]">
-          <MethodologySection onNavigateToProcess={() => onNavigate('/proceso')} />
-        </DeferredMount>
+        <MethodologySection onNavigateToProcess={() => onNavigate('/proceso')} />
        
         {/* 3. Executive Interactive Requirement Wizard (Buscar Personal) 
         <div id="solicitar-talento" className="py-6 scroll-mt-24">
@@ -102,13 +100,11 @@ export const HomePage: React.FC<HomePageProps> = ({
         </div>*/}
 
         {/* 4. Services Section (Headhunting directivo y tecnológico) */}
-        <DeferredMount placeholderClass="min-h-[350px]">
-          <ServicesSection
-            onOpenAIAgent={onOpenAIAgent}
-            onOpenJobSpecGenerator={onOpenJobSpecGenerator}
-            onViewAllServices={() => onNavigate('/servicios')}
-          />
-        </DeferredMount>
+        <ServicesSection
+          onOpenAIAgent={onOpenAIAgent}
+          onOpenJobSpecGenerator={onOpenJobSpecGenerator}
+          onViewAllServices={() => onNavigate('/servicios')}
+        />
 
         {/* 
          * =====================================================================
@@ -126,32 +122,22 @@ export const HomePage: React.FC<HomePageProps> = ({
          */}
 
         {/* 6. Comparativa Salarial España vs Remoto LATAM (Sección compacta y visual) */}
-        <DeferredMount placeholderClass="min-h-[280px]">
-      {/* <SalaryComparisonSection onOpenContact={() => onNavigate('/contacto')} /> */}
-        </DeferredMount>
+        {/* <SalaryComparisonSection onOpenContact={() => onNavigate('/contacto')} /> */}
 
         {/* 7. Carrusel Infinito de Vacantes Directivas & Tech en Selección Activa */}
-        <DeferredMount placeholderClass="min-h-[350px]">
-          <FeaturedVacanciesSummary
-            onNavigate={onNavigate}
-            onOpenCVAnalyzer={onOpenCVAnalyzer}
-          />
-        </DeferredMount>
+        <FeaturedVacanciesSummary
+          onNavigate={onNavigate}
+          onOpenCVAnalyzer={onOpenCVAnalyzer}
+        />
 
         {/* 8. Success Stories & Audited Testimonials */}
-        <DeferredMount placeholderClass="min-h-[300px]">
-          <SuccessStories onNavigateToTestimonials={() => onNavigate('/testimonios')} />
-        </DeferredMount>
+        <SuccessStories onNavigateToTestimonials={() => onNavigate('/testimonios')} />
 
         {/* 9. FAQ Section */}
-        <DeferredMount placeholderClass="min-h-[320px]">
-          <FAQSection />
-        </DeferredMount>
+        <FAQSection />
 
         {/* 10. Contact Section (Con invitación directa a WhatsApp y llamada) */}
-        <DeferredMount placeholderClass="min-h-[400px]">
-          <ContactSection />
-        </DeferredMount>
+        <ContactSection />
       </Suspense>
     </div>
   );
