@@ -76,7 +76,7 @@ export const Logo: React.FC<LogoProps> = ({
             NEXO
           </span>
           <span className={`font-bold tracking-wide text-[#00A9A3] font-heading ${titleSizes[size]}`}>
-            TALENTOS
+            TALENTO
           </span>
         </div>
         {showSubtitle && (

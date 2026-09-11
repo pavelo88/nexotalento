@@ -60,7 +60,17 @@ interface Article {
       text: string;
     };
     quote?: string;
+    table?: {
+      headers: string[];
+      rows: string[][];
+    };
   }[];
+  customCTA?: {
+    title: string;
+    description: string;
+    primaryButton: string;
+    secondaryButton: string;
+  };
   tags: string[];
 }
 
@@ -84,6 +94,68 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onOpenAIAgent })
 
   // Magazine Articles Database
   const articles: Article[] = [
+    {
+      id: 'fin-del-especialista-orquestadores-2027',
+      slug: 'fin-del-especialista-orquestadores-2027',
+      title: '🚀 El fin del "Especialista": Por qué en 2027 tu empresa necesita contratar "Orquestadores"',
+      subtitle: 'La IA generativa ha comoditizado la ejecución pura. La solución para mantener la competitividad radica en un nuevo estándar de contratación.',
+      category: 'strategy',
+      categoryLabel: 'Estrategia de Talento',
+      readTime: '4 min de lectura',
+      date: 'Septiembre 2026',
+      author: 'Equipo Nexotalento',
+      authorRole: 'Consultoría Estratégica',
+      authorAvatar: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=150&q=80',
+      highlightBadge: 'Tendencias 2027',
+      summary: 'El escenario ha cambiado de forma irreversible. El problema de RRHH en 2027 no es la escasez de talento, es la parálisis por fricción tecnológica.',
+      imageUrl: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80',
+      tags: ['IA', 'Futuro del Trabajo', 'Talento 2027', 'Orquestadores'],
+      customCTA: {
+        title: '¿Listo para actualizar el ADN de tu equipo?',
+        description: 'No dejes que tu empresa opere con el talento del ayer. Hablemos hoy.',
+        primaryButton: 'Agenda una Auditoría de Talento Gratuita de 15 Minutos',
+        secondaryButton: 'Descarga nuestra Matriz de Habilidades 2027 para RRHH'
+      },
+      contentSections: [
+        {
+          heading: 'El escenario ha cambiado de forma irreversible',
+          paragraphs: [
+            'Hasta hace poco, las empresas estructuraban sus nóminas buscando talento hiperespecializado: el programador que memorizaba frameworks, el copywriter con ortografía impecable o el analista financiero que dominaba macros de Excel.',
+            'Hoy, la inteligencia artificial generativa ha comoditizado la ejecución pura. Si el valor principal de tu empleado es "producir texto" o "escribir código repetitivo", tu estructura de costos está compitiendo directamente contra agentes autónomos que trabajan 24/7.'
+          ],
+          quote: '"El problema de los departamentos de RRHH en 2027 no es la escasez de talento, es la parálisis por fricción tecnológica. Están contratando humanos para competir contra la IA, en lugar de contratar humanos para dirigirla."'
+        },
+        {
+          heading: '⚖️ El Cambio de Paradigma: 2024 vs. 2027',
+          paragraphs: [
+            'La solución para mantener la competitividad radica en un nuevo estándar de contratación. Te presentamos al Profesional Híbrido u Orquestador.'
+          ],
+          table: {
+            headers: ['Habilidad Tradicional (En declive)', 'La Nueva Demanda (El Orquestador)', 'El Impacto en tu Empresa'],
+            rows: [
+              ['Especialización Única', 'Flexibilidad Cognitiva', 'Adaptación inmediata a nuevas herramientas sin resistencia.'],
+              ['Creación desde Cero', 'Curaduría y Auditoría de IA', 'Reducción de tiempos de entrega de semanas a horas.'],
+              ['Programación Memorística', 'Orquestación No-Code/Low-Code', 'Automatización de procesos internos sin depender de TI.'],
+              ['Gramática / Traducción', 'Empatía y Comunicación Transcultural', 'Cierres de ventas y liderazgo global efectivos.']
+            ]
+          }
+        },
+        {
+          heading: 'Las 3 Habilidades Críticas del Perfil Híbrido',
+          subheading: 'Para que tu empresa no se quede atrás, estos son los tres pilares que evaluamos en la nueva generación de talento:',
+          paragraphs: [
+            '1. Flexibilidad Cognitiva (La Nueva Habilidad Reina)\nLa tecnología actual muta en ciclos de semanas. Un Orquestador no se define por el software que domina hoy, sino por su velocidad para desaprender procesos obsoletos. Es la capacidad humana de pivotar la estrategia en tiempo real cuando un nuevo modelo de IA cambia las reglas de tu industria.',
+            '2. Auditoría de Criterio Estratégico\nLa IA ejecuta perfectamente, pero carece de contexto estratégico, matiz cultural y visión corporativa. El talento de alto valor hoy audita resultados. Ya sea revisando flujos de datos automatizados o ajustando el tono de una negociación B2B internacional, el valor del humano está en la validación, la ética y la estrategia final.',
+            '3. Liderazgo Asíncrono\nCon equipos distribuidos y flujos de trabajo hiper-automatizados, el micro-management está muerto. Buscamos perfiles capaces de liderar proyectos asíncronos, documentar procesos con claridad milimétrica y gestionar entregables basándose en objetivos, no en horas-silla.'
+          ],
+          callout: {
+            type: 'warning',
+            title: '🛑 Deja de buscar en el mercado equivocado',
+            text: 'El talento que transformará tu empresa en 2027 ya no busca trabajo en los portales de empleo tradicionales, y sus currículums no están llenos de las palabras clave de siempre. Si sigues aplicando filtros de contratación del pasado, estás dejando entrar perfiles que inflarán tus costos operativos y frenarán tu escalabilidad tecnológica. En Nexotalento, no llenamos vacantes. Inyectamos competitividad.'
+          }
+        }
+      ]
+    },
     {
       id: 'tratado-integral-2026',
       slug: 'tratado-integral-talento-espana-2026',
@@ -440,6 +512,30 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onOpenAIAgent })
                     </div>
                   )}
 
+                  {/* Dynamic Table */}
+                  {section.table && (
+                    <div className="overflow-x-auto my-8 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm bg-white dark:bg-slate-900/50">
+                      <table className="w-full text-left border-collapse min-w-[600px]">
+                        <thead>
+                          <tr className="bg-slate-50 dark:bg-slate-800/80">
+                            {section.table.headers.map((h, i) => (
+                              <th key={i} className="p-4 text-xs font-black uppercase tracking-wider text-slate-600 dark:text-slate-300 border-b border-slate-200 dark:border-slate-700/50">{h}</th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-slate-100 dark:divide-slate-800/50">
+                          {section.table.rows.map((row, i) => (
+                            <tr key={i} className="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+                              {row.map((cell, j) => (
+                                <td key={j} className="p-4 text-sm text-slate-700 dark:text-slate-300 font-medium leading-relaxed">{cell}</td>
+                              ))}
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
+
                   {/* Callout Boxes */}
                   {section.callout && (
                     <div className={`p-5 rounded-2xl border ${
@@ -544,30 +640,48 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onOpenAIAgent })
             </div>
 
             {/* Article Footer Consultation Box */}
-            <div className="mt-14 p-6 sm:p-8 rounded-3xl border border-cyan-500/30 bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 text-white shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-6">
-              <div className="space-y-1.5 text-center sm:text-left">
+            <div className={`mt-14 p-6 sm:p-8 rounded-3xl border shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6 ${
+              activeArticle.customCTA 
+                ? 'bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white' 
+                : 'border-cyan-500/30 bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 text-white'
+            }`}>
+              <div className="space-y-1.5 text-center md:text-left">
                 <h3 className="text-lg font-black font-heading">
-                  ¿Deseas una consulta de compliance o headhunting directivo?
+                  {activeArticle.customCTA ? activeArticle.customCTA.title : '¿Deseas una consulta de compliance o headhunting directivo?'}
                 </h3>
-                <p className="text-xs text-slate-300">
-                  Nuestros Senior Partners evalúan tu estructura organizativa y blindan tus contrataciones en Madrid y Barcelona.
+                <p className={`text-xs ${activeArticle.customCTA ? 'text-slate-600 dark:text-slate-300' : 'text-slate-300'}`}>
+                  {activeArticle.customCTA ? activeArticle.customCTA.description : 'Nuestros Senior Partners evalúan tu estructura organizativa y blindan tus contrataciones en Madrid y Barcelona.'}
                 </p>
               </div>
 
-              <div className="flex items-center gap-3 shrink-0">
+              <div className="flex items-center gap-3 shrink-0 w-full md:w-auto flex-col sm:flex-row">
                 <button
-                  onClick={() => onOpenAIAgent('advisor')}
-                  className="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-cyan-500/40 text-xs font-bold rounded-xl transition-all flex items-center gap-1.5"
+                  onClick={() => activeArticle.customCTA ? onNavigate('/contacto') : onOpenAIAgent('advisor')}
+                  className={`px-4 py-2.5 text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5 w-full sm:w-auto ${
+                    activeArticle.customCTA
+                      ? 'bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 shadow-lg'
+                      : 'bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-cyan-500/40'
+                  }`}
                 >
-                  <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
-                  <span>Preguntar a IA</span>
+                  {activeArticle.customCTA ? (
+                    <span>{activeArticle.customCTA.primaryButton}</span>
+                  ) : (
+                    <>
+                      <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+                      <span>Preguntar a IA</span>
+                    </>
+                  )}
                 </button>
 
                 <button
                   onClick={() => onNavigate('/contacto')}
-                  className="px-5 py-2.5 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-black text-xs rounded-xl shadow-lg transition-all"
+                  className={`px-5 py-2.5 text-xs rounded-xl shadow-lg transition-all text-center font-black w-full sm:w-auto ${
+                    activeArticle.customCTA
+                      ? 'bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800'
+                      : 'bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950'
+                  }`}
                 >
-                  Contactar Socio
+                  {activeArticle.customCTA ? activeArticle.customCTA.secondaryButton : 'Contactar Socio'}
                 </button>
               </div>
             </div>
