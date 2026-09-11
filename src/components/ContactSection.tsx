@@ -355,8 +355,8 @@ Enviado desde el formulario web de Nexo Talento.`;
               )}
 
               {submitted ? (
-                <div className="text-center py-10 space-y-5 animate-fadeIn">
-                  <div className="w-16 h-16 rounded-3xl bg-emerald-500/20 text-emerald-500 flex items-center justify-center mx-auto border border-emerald-500/40 shadow-xl">
+                <div className="text-center py-10 space-y-5 animate-fadeIn min-h-[500px] flex flex-col justify-center items-center">
+                  <div className="w-16 h-16 rounded-3xl bg-emerald-500/20 text-emerald-500 flex items-center justify-center border border-emerald-500/40 shadow-xl">
                     <CheckCircle2 className="w-9 h-9" />
                   </div>
                   <div>
