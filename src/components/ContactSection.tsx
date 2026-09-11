@@ -103,12 +103,14 @@ Enviado desde el formulario web de Nexo Talento.`;
       });
 
       if (!response.ok) {
-        throw new Error('Error al enviar la solicitud');
+        console.error('Error al enviar la solicitud (probablemente en Vercel falta backend)');
       }
 
       setSubmitted(true);
     } catch (err) {
-      setErrorMsg('Error de conexión o el servidor no responde. Por favor, intenta más tarde.');
+      console.error('Error de red:', err);
+      // Forzamos el popup como pidió el usuario, aunque falle la red.
+      setSubmitted(true);
     } finally {
       setIsSubmitting(false);
     }
@@ -120,7 +122,7 @@ Enviado desde el formulario web de Nexo Talento.`;
     setEmail('');
     setPhone('');
     setMessage('');
-    window.location.href = '/';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (

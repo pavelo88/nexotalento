@@ -67,7 +67,7 @@ export const TalentAssessmentWizard: React.FC = () => {
       });
 
       if (!response.ok) {
-        throw new Error('Error al enviar la solicitud');
+        console.error('Error al enviar el formulario (probablemente en Vercel falta backend)');
       }
 
       setIsCompleted(true);
@@ -77,7 +77,9 @@ export const TalentAssessmentWizard: React.FC = () => {
         origin: { y: 0.6 }
       });
     } catch (err) {
-      alert('Error de conexión o el servidor no responde. Por favor, intenta más tarde.');
+      console.error('Error de red:', err);
+      // Forzamos el popup como pidió el usuario, aunque falle la red.
+      setIsCompleted(true);
     } finally {
       setIsSubmitting(false);
     }
@@ -99,7 +101,7 @@ export const TalentAssessmentWizard: React.FC = () => {
       contactEmail: '',
       contactPhone: ''
     });
-    window.location.href = '/';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (

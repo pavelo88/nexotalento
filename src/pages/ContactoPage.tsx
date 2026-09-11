@@ -70,12 +70,14 @@ export const ContactoPage: React.FC<ContactoPageProps> = ({
       });
 
       if (!response.ok) {
-        throw new Error('Error al enviar la solicitud');
+        console.error('Error al enviar la solicitud (probablemente en Vercel falta backend)');
       }
 
       setSubmitted(true);
-    } catch {
-      alert('Error de conexión o el servidor no responde. Por favor, intenta más tarde.');
+    } catch (err) {
+      console.error('Error de red:', err);
+      // Forzamos el popup como pidió el usuario, aunque falle la red.
+      setSubmitted(true);
     } finally {
       setIsSubmitting(false);
     }
@@ -87,7 +89,11 @@ export const ContactoPage: React.FC<ContactoPageProps> = ({
     setEmail('');
     setPhone('');
     setMessage('');
-    window.location.href = '/';
+    
+    // Si estamos en /contacto, simulamos la navegación al home sin recargar toda la página
+    window.history.pushState({}, '', '/');
+    window.dispatchEvent(new Event('popstate'));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (

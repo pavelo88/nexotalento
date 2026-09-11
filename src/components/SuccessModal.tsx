@@ -3,6 +3,7 @@ import { CheckCircle2, Home, MessageSquare } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import confetti from 'canvas-confetti';
 import { COMPANY_CONFIG } from '../config/company';
+import { Logo } from './Logo';
 
 interface SuccessModalProps {
   isOpen: boolean;
@@ -40,6 +41,9 @@ export const SuccessModal: React.FC<SuccessModalProps> = ({
         theme === 'dark' ? 'bg-slate-900 border border-slate-700' : 'bg-white border border-slate-200'
       }`}>
         <div className="text-center space-y-6">
+          <div className="flex justify-center mb-2">
+            <Logo />
+          </div>
           <div className="w-20 h-20 rounded-full bg-emerald-500/20 text-emerald-500 flex items-center justify-center mx-auto border border-emerald-500/40 shadow-xl shadow-emerald-500/20">
             <CheckCircle2 className="w-10 h-10" />
           </div>
