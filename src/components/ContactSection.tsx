@@ -120,9 +120,7 @@ Enviado desde el formulario web de Nexo Talento.`;
     setEmail('');
     setPhone('');
     setMessage('');
-    window.history.pushState({}, '', '/');
-    window.dispatchEvent(new Event('popstate'));
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.location.href = '/';
   };
 
   return (

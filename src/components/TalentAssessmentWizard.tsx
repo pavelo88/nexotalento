@@ -99,9 +99,7 @@ export const TalentAssessmentWizard: React.FC = () => {
       contactEmail: '',
       contactPhone: ''
     });
-    window.history.pushState({}, '', '/');
-    window.dispatchEvent(new Event('popstate'));
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.location.href = '/';
   };
 
   return (

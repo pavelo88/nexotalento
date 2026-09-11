@@ -87,9 +87,7 @@ export const ContactoPage: React.FC<ContactoPageProps> = ({
     setEmail('');
     setPhone('');
     setMessage('');
-    window.history.pushState({}, '', '/');
-    window.dispatchEvent(new Event('popstate'));
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.location.href = '/';
   };
 
   return (
