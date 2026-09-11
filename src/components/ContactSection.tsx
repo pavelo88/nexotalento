@@ -17,10 +17,10 @@ import {
   Globe,
   AlertCircle
 } from 'lucide-react';
-import confetti from 'canvas-confetti';
 
 import { isValidEmail, isValidPhone, sanitizeInput } from '../utils/security';
 import { COMPANY_CONFIG } from '../config/company';
+import { SuccessModal } from './SuccessModal';
 
 export const ContactSection: React.FC = () => {
   const { theme } = useTheme();
@@ -107,16 +107,22 @@ Enviado desde el formulario web de Nexo Talento.`;
       }
 
       setSubmitted(true);
-      confetti({
-        particleCount: 90,
-        spread: 70,
-        origin: { y: 0.6 }
-      });
     } catch (err) {
       setErrorMsg('Error de conexión o el servidor no responde. Por favor, intenta más tarde.');
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const handleGoHome = () => {
+    setSubmitted(false);
+    setName('');
+    setEmail('');
+    setPhone('');
+    setMessage('');
+    window.history.pushState({}, '', '/');
+    window.dispatchEvent(new Event('popstate'));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -354,268 +360,24 @@ Enviado desde el formulario web de Nexo Talento.`;
                 </div>
               )}
 
-              {submitted ? (
-                <div className="text-center py-10 space-y-5 animate-fadeIn min-h-[500px] flex flex-col justify-center items-center">
-                  <div className="w-16 h-16 rounded-3xl bg-emerald-500/20 text-emerald-500 flex items-center justify-center border border-emerald-500/40 shadow-xl">
-                    <CheckCircle2 className="w-9 h-9" />
-                  </div>
-                  <div>
-                    <h3 className={`text-2xl font-extrabold font-heading ${
-                      theme === 'dark' ? 'text-white' : 'text-slate-900'
-                    }`}>
-                      ¡Solicitud Registrada con Éxito!
-                    </h3>
-                    <p className={`text-sm max-w-md mx-auto leading-relaxed mt-2 ${
-                      theme === 'dark' ? 'text-slate-300' : 'text-slate-600'
-                    }`}>
-                      Tus datos han quedado registrados bajo estricta confidencialidad RGPD. Un Socio Consultor ha recibido tu notificación.
-                    </p>
-                  </div>
-
-                  {/* Tarjeta destacada de WhatsApp para seguimiento en caliente */}
-                  <div className={`p-5 rounded-2xl border max-w-md mx-auto space-y-3 ${
-                    theme === 'dark' 
-                      ? 'bg-emerald-950/40 border-emerald-500/40' 
-                      : 'bg-emerald-50 border-emerald-200'
-                  }`}>
-                    <p className={`text-xs font-semibold flex items-center justify-center gap-1.5 ${
-                      theme === 'dark' ? 'text-emerald-300' : 'text-emerald-700'
-                    }`}>
-                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-                      Atención Directa &amp; Revisión Inmediata
-                    </p>
-                    <a
-                      href={lastWhatsAppUrl || `https://wa.me/${COMPANY_CONFIG.whatsapp}?text=${encodeURIComponent('Hola Nexo Talento, acabo de enviar mi requerimiento desde la web.')}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full py-3.5 px-4 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-xs sm:text-sm rounded-xl transition-all shadow-lg flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-95"
-                    >
-                      <MessageSquare className="w-4 h-4 fill-slate-950 shrink-0" />
-                      <span>Continuar por WhatsApp (+34 614 143 763)</span>
-                    </a>
-                  </div>
-
-                  <button
-                    onClick={() => {
-                      setSubmitted(false);
-                      setName('');
-                      setEmail('');
-                      setPhone('');
-                      setMessage('');
-                    }}
-                    className={`px-6 py-2.5 text-xs font-semibold rounded-xl transition-all ${
-                      theme === 'dark' 
-                        ? 'bg-slate-800 hover:bg-slate-700 text-slate-200' 
-                        : 'bg-slate-100 hover:bg-slate-200 text-slate-800'
-                    }`}
-                  >
-                    Enviar otra consulta
-                  </button>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-4" data-webmcp-form="contact-form">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label 
-                        htmlFor="contact-name-input"
-                        className={`block text-xs font-semibold mb-1.5 ${
-                          theme === 'dark' ? 'text-slate-300' : 'text-slate-700'
-                        }`}
-                      >
-                        Nombre y Apellidos *
-                      </label>
-                      <input
-                        id="contact-name-input"
-                        type="text"
-                        required
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        placeholder="Ej. Carlos Martínez"
-                        className={`w-full px-4 py-2.5 border rounded-xl text-sm focus:outline-none transition-colors ${
-                          theme === 'dark'
-                            ? 'bg-slate-800 border-slate-700 text-white placeholder:text-slate-500 focus:border-cyan-400'
-                            : 'bg-white border-slate-300 text-slate-900 placeholder:text-slate-400 focus:border-cyan-500'
-                        }`}
-                      />
-                    </div>
-
-                    <div>
-                      <label 
-                        htmlFor="contact-email-input"
-                        className={`block text-xs font-semibold mb-1.5 ${
-                          theme === 'dark' ? 'text-slate-300' : 'text-slate-700'
-                        }`}
-                      >
-                        Correo Electrónico *
-                      </label>
-                      <input
-                        id="contact-email-input"
-                        type="email"
-                        required
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="ejemplo@empresa.com"
-                        className={`w-full px-4 py-2.5 border rounded-xl text-sm focus:outline-none transition-colors ${
-                          theme === 'dark'
-                            ? 'bg-slate-800 border-slate-700 text-white placeholder:text-slate-500 focus:border-cyan-400'
-                            : 'bg-white border-slate-300 text-slate-900 placeholder:text-slate-400 focus:border-cyan-500'
-                        }`}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label 
-                        htmlFor="contact-phone-input"
-                        className={`block text-xs font-semibold mb-1.5 ${
-                          theme === 'dark' ? 'text-slate-300' : 'text-slate-700'
-                        }`}
-                      >
-                        Teléfono de Contacto
-                      </label>
-                      <input
-                        id="contact-phone-input"
-                        type="tel"
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
-                        placeholder="+34 600 000 000"
-                        className={`w-full px-4 py-2.5 border rounded-xl text-sm focus:outline-none transition-colors ${
-                          theme === 'dark'
-                            ? 'bg-slate-800 border-slate-700 text-white placeholder:text-slate-500 focus:border-cyan-400'
-                            : 'bg-white border-slate-300 text-slate-900 placeholder:text-slate-400 focus:border-cyan-500'
-                        }`}
-                      />
-                    </div>
-
-                    {tab === 'empresa' ? (
-                      <div>
-                        <label 
-                          htmlFor="contact-company-input"
-                          className={`block text-xs font-semibold mb-1.5 ${
-                            theme === 'dark' ? 'text-slate-300' : 'text-slate-700'
-                          }`}
-                        >
-                          Empresa o Entidad
-                        </label>
-                        <input
-                          id="contact-company-input"
-                          type="text"
-                          value={company}
-                          onChange={(e) => setCompany(e.target.value)}
-                          placeholder="Nombre de la empresa"
-                          className={`w-full px-4 py-2.5 border rounded-xl text-sm focus:outline-none transition-colors ${
-                            theme === 'dark'
-                              ? 'bg-slate-800 border-slate-700 text-white placeholder:text-slate-500 focus:border-cyan-400'
-                              : 'bg-white border-slate-300 text-slate-900 placeholder:text-slate-400 focus:border-cyan-500'
-                          }`}
-                        />
-                      </div>
-                    ) : (
-                      <div>
-                        <label 
-                          htmlFor="contact-linkedin-input"
-                          className={`block text-xs font-semibold mb-1.5 ${
-                            theme === 'dark' ? 'text-slate-300' : 'text-slate-700'
-                          }`}
-                        >
-                          Enlace a LinkedIn o Perfil
-                        </label>
-                        <input
-                          id="contact-linkedin-input"
-                          type="url"
-                          value={company}
-                          onChange={(e) => setCompany(e.target.value)}
-                          placeholder="https://linkedin.com/in/tu-perfil"
-                          className={`w-full px-4 py-2.5 border rounded-xl text-sm focus:outline-none transition-colors ${
-                            theme === 'dark'
-                              ? 'bg-slate-800 border-slate-700 text-white placeholder:text-slate-500 focus:border-cyan-400'
-                              : 'bg-white border-slate-300 text-slate-900 placeholder:text-slate-400 focus:border-cyan-500'
-                          }`}
-                        />
-                      </div>
-                    )}
-                  </div>
-
-                  {tab === 'empresa' && (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div>
-                        <label 
-                          htmlFor="contact-role-select"
-                          className={`block text-xs font-semibold mb-1.5 ${
-                            theme === 'dark' ? 'text-slate-300' : 'text-slate-700'
-                          }`}
-                        >
-                          Posición Requerida
-                        </label>
-                        <select
-                          id="contact-role-select"
-                          value={role}
-                          onChange={(e) => setRole(e.target.value)}
-                          className={`w-full px-4 py-2.5 border rounded-xl text-sm focus:outline-none transition-colors ${
-                            theme === 'dark'
-                              ? 'bg-slate-800 border-slate-700 text-white focus:border-cyan-400'
-                              : 'bg-white border-slate-300 text-slate-900 focus:border-cyan-500'
-                          }`}
-                        >
-                          <option value="Director General / CEO">Director General / CEO</option>
-                          <option value="Chief Technology Officer (CTO)">Chief Technology Officer (CTO)</option>
-                          <option value="Chief Financial Officer (CFO)">Chief Financial Officer (CFO)</option>
-                          <option value="Chief Operating Officer (COO)">Chief Operating Officer (COO)</option>
-                          <option value="Director Comercial / VP Sales">Director Comercial / VP Sales</option>
-                          <option value="Tech Lead / Senior Engineer">Tech Lead / Senior Engineer</option>
-                          <option value="Director de Recursos Humanos">Director de Recursos Humanos</option>
-                          <option value="Otro Puesto Ejecutivo">Otro Puesto Ejecutivo</option>
-                        </select>
-                      </div>
-
-                      <div>
-                        <label 
-                          htmlFor="contact-service-type-select"
-                          className={`block text-xs font-semibold mb-1.5 ${
-                            theme === 'dark' ? 'text-slate-300' : 'text-slate-700'
-                          }`}
-                        >
-                          Modalidad de Servicio
-                        </label>
-                        <select
-                          id="contact-service-type-select"
-                          value={serviceType}
-                          onChange={(e) => setServiceType(e.target.value)}
-                          className={`w-full px-4 py-2.5 border rounded-xl text-sm focus:outline-none transition-colors ${
-                            theme === 'dark'
-                              ? 'bg-slate-800 border-slate-700 text-white focus:border-cyan-400'
-                              : 'bg-white border-slate-300 text-slate-900 focus:border-cyan-500'
-                          }`}
-                        >
-                          <option value="Executive Search (18 días)">Executive Search (18 días)</option>
-                          <option value="Selección Tech & Digital">Selección Tech &amp; Digital</option>
-                          <option value="RPO / Escalado de Equipos">RPO / Escalado de Equipos</option>
-                          <option value="Assessment Center & IA">Assessment Center &amp; IA</option>
-                          <option value="Interim Management">Interim Management</option>
-                          <option value="Consultoría Salarial">Consultoría Salarial</option>
-                        </select>
-                      </div>
-                    </div>
-                  )}
-
+              <form onSubmit={handleSubmit} className="space-y-4" data-webmcp-form="contact-form">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label 
-                      htmlFor="contact-message-textarea"
+                      htmlFor="contact-name-input"
                       className={`block text-xs font-semibold mb-1.5 ${
                         theme === 'dark' ? 'text-slate-300' : 'text-slate-700'
                       }`}
                     >
-                      {tab === 'empresa' ? 'Detalles de la posición o requerimiento' : 'Resumen de tu experiencia y aspiraciones'}
+                      Nombre y Apellidos *
                     </label>
-                    <textarea
-                      id="contact-message-textarea"
-                      rows={3}
-                      value={message}
-                      onChange={(e) => setMessage(e.target.value)}
-                      placeholder={tab === 'empresa' 
-                        ? 'Indica ubicación, banda salarial estimada o características clave...' 
-                        : 'Cuéntanos sobre tus últimos puestos directivos o áreas de especialización...'}
+                    <input
+                      id="contact-name-input"
+                      type="text"
+                      required
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      placeholder="Ej. Carlos Martínez"
                       className={`w-full px-4 py-2.5 border rounded-xl text-sm focus:outline-none transition-colors ${
                         theme === 'dark'
                           ? 'bg-slate-800 border-slate-700 text-white placeholder:text-slate-500 focus:border-cyan-400'
@@ -624,43 +386,227 @@ Enviado desde el formulario web de Nexo Talento.`;
                     />
                   </div>
 
-                  <div className="pt-2">
-                    <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="w-full py-3.5 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-extrabold text-sm rounded-xl transition-all shadow-lg flex items-center justify-center gap-2 hover:scale-[1.01] active:scale-95 disabled:opacity-50"
+                  <div>
+                    <label 
+                      htmlFor="contact-email-input"
+                      className={`block text-xs font-semibold mb-1.5 ${
+                        theme === 'dark' ? 'text-slate-300' : 'text-slate-700'
+                      }`}
                     >
-                      {isSubmitting ? (
-                        <div className="w-5 h-5 border-2 border-slate-950 border-t-transparent rounded-full animate-spin" />
-                      ) : (
-                        <>
-                          <Send className="w-4 h-4" />
-                          <span>{tab === 'empresa' ? 'Solicitar Terna en 18 Días' : 'Enviar Mi Perfil Confidencial'}</span>
-                        </>
-                      )}
-                    </button>
+                      Correo Electrónico *
+                    </label>
+                    <input
+                      id="contact-email-input"
+                      type="email"
+                      required
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="ejemplo@empresa.com"
+                      className={`w-full px-4 py-2.5 border rounded-xl text-sm focus:outline-none transition-colors ${
+                        theme === 'dark'
+                          ? 'bg-slate-800 border-slate-700 text-white placeholder:text-slate-500 focus:border-cyan-400'
+                          : 'bg-white border-slate-300 text-slate-900 placeholder:text-slate-400 focus:border-cyan-500'
+                      }`}
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label 
+                      htmlFor="contact-phone-input"
+                      className={`block text-xs font-semibold mb-1.5 ${
+                        theme === 'dark' ? 'text-slate-300' : 'text-slate-700'
+                      }`}
+                    >
+                      Teléfono de Contacto
+                    </label>
+                    <input
+                      id="contact-phone-input"
+                      type="tel"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      placeholder="+34 600 000 000"
+                      className={`w-full px-4 py-2.5 border rounded-xl text-sm focus:outline-none transition-colors ${
+                        theme === 'dark'
+                          ? 'bg-slate-800 border-slate-700 text-white placeholder:text-slate-500 focus:border-cyan-400'
+                          : 'bg-white border-slate-300 text-slate-900 placeholder:text-slate-400 focus:border-cyan-500'
+                      }`}
+                    />
                   </div>
 
-                  <p className={`text-[11px] text-center pt-1 ${
-                    theme === 'dark' ? 'text-slate-400' : 'text-slate-500'
-                  }`}>
-                    🔒 Tratamos tus datos con máxima confidencialidad bajo la normativa europea RGPD.
-                  </p>
-
-                  <div className={`pt-3 mt-3 border-t flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 text-[11px] ${
-                    theme === 'dark' ? 'border-slate-800/80 text-slate-400' : 'border-slate-200 text-slate-500'
-                  }`}>
-                    <div className="flex items-center gap-1.5">
-                      <ShieldCheck className={`w-3.5 h-3.5 shrink-0 ${theme === 'dark' ? 'text-cyan-400' : 'text-cyan-600'}`} />
-                      <span>Estricta confidencialidad RGPD (NIF: B-88492019)</span>
+                  {tab === 'empresa' ? (
+                    <div>
+                      <label 
+                        htmlFor="contact-company-input"
+                        className={`block text-xs font-semibold mb-1.5 ${
+                          theme === 'dark' ? 'text-slate-300' : 'text-slate-700'
+                        }`}
+                      >
+                        Empresa o Entidad
+                      </label>
+                      <input
+                        id="contact-company-input"
+                        type="text"
+                        value={company}
+                        onChange={(e) => setCompany(e.target.value)}
+                        placeholder="Nombre de la empresa"
+                        className={`w-full px-4 py-2.5 border rounded-xl text-sm focus:outline-none transition-colors ${
+                          theme === 'dark'
+                            ? 'bg-slate-800 border-slate-700 text-white placeholder:text-slate-500 focus:border-cyan-400'
+                            : 'bg-white border-slate-300 text-slate-900 placeholder:text-slate-400 focus:border-cyan-500'
+                        }`}
+                      />
                     </div>
-                    <div className="flex items-center gap-1.5">
-                      <Clock className={`w-3.5 h-3.5 shrink-0 ${theme === 'dark' ? 'text-cyan-400' : 'text-cyan-600'}`} />
-                      <span>Compromiso de entrega en 18 días hábiles</span>
+                  ) : (
+                    <div>
+                      <label 
+                        htmlFor="contact-linkedin-input"
+                        className={`block text-xs font-semibold mb-1.5 ${
+                          theme === 'dark' ? 'text-slate-300' : 'text-slate-700'
+                        }`}
+                      >
+                        Enlace a LinkedIn o Perfil
+                      </label>
+                      <input
+                        id="contact-linkedin-input"
+                        type="url"
+                        value={company}
+                        onChange={(e) => setCompany(e.target.value)}
+                        placeholder="https://linkedin.com/in/tu-perfil"
+                        className={`w-full px-4 py-2.5 border rounded-xl text-sm focus:outline-none transition-colors ${
+                          theme === 'dark'
+                            ? 'bg-slate-800 border-slate-700 text-white placeholder:text-slate-500 focus:border-cyan-400'
+                            : 'bg-white border-slate-300 text-slate-900 placeholder:text-slate-400 focus:border-cyan-500'
+                        }`}
+                      />
+                    </div>
+                  )}
+                </div>
+
+                {tab === 'empresa' && (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label 
+                        htmlFor="contact-role-select"
+                        className={`block text-xs font-semibold mb-1.5 ${
+                          theme === 'dark' ? 'text-slate-300' : 'text-slate-700'
+                        }`}
+                      >
+                        Posición Requerida
+                      </label>
+                      <select
+                        id="contact-role-select"
+                        value={role}
+                        onChange={(e) => setRole(e.target.value)}
+                        className={`w-full px-4 py-2.5 border rounded-xl text-sm focus:outline-none transition-colors ${
+                          theme === 'dark'
+                            ? 'bg-slate-800 border-slate-700 text-white focus:border-cyan-400'
+                            : 'bg-white border-slate-300 text-slate-900 focus:border-cyan-500'
+                        }`}
+                      >
+                        <option value="Director General / CEO">Director General / CEO</option>
+                        <option value="Chief Technology Officer (CTO)">Chief Technology Officer (CTO)</option>
+                        <option value="Chief Financial Officer (CFO)">Chief Financial Officer (CFO)</option>
+                        <option value="Chief Operating Officer (COO)">Chief Operating Officer (COO)</option>
+                        <option value="Director Comercial / VP Sales">Director Comercial / VP Sales</option>
+                        <option value="Tech Lead / Senior Engineer">Tech Lead / Senior Engineer</option>
+                        <option value="Director de Recursos Humanos">Director de Recursos Humanos</option>
+                        <option value="Otro Puesto Ejecutivo">Otro Puesto Ejecutivo</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label 
+                        htmlFor="contact-service-type-select"
+                        className={`block text-xs font-semibold mb-1.5 ${
+                          theme === 'dark' ? 'text-slate-300' : 'text-slate-700'
+                        }`}
+                      >
+                        Modalidad de Servicio
+                      </label>
+                      <select
+                        id="contact-service-type-select"
+                        value={serviceType}
+                        onChange={(e) => setServiceType(e.target.value)}
+                        className={`w-full px-4 py-2.5 border rounded-xl text-sm focus:outline-none transition-colors ${
+                          theme === 'dark'
+                            ? 'bg-slate-800 border-slate-700 text-white focus:border-cyan-400'
+                            : 'bg-white border-slate-300 text-slate-900 focus:border-cyan-500'
+                        }`}
+                      >
+                        <option value="Executive Search (18 días)">Executive Search (18 días)</option>
+                        <option value="Selección Tech & Digital">Selección Tech &amp; Digital</option>
+                        <option value="RPO / Escalado de Equipos">RPO / Escalado de Equipos</option>
+                        <option value="Assessment Center & IA">Assessment Center &amp; IA</option>
+                        <option value="Interim Management">Interim Management</option>
+                        <option value="Consultoría Salarial">Consultoría Salarial</option>
+                      </select>
                     </div>
                   </div>
-                </form>
-              )}
+                )}
+
+                <div>
+                  <label 
+                    htmlFor="contact-message-textarea"
+                    className={`block text-xs font-semibold mb-1.5 ${
+                      theme === 'dark' ? 'text-slate-300' : 'text-slate-700'
+                    }`}
+                  >
+                    {tab === 'empresa' ? 'Detalles de la posición o requerimiento' : 'Resumen de tu experiencia y aspiraciones'}
+                  </label>
+                  <textarea
+                    id="contact-message-textarea"
+                    rows={3}
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    placeholder={tab === 'empresa' 
+                      ? 'Indica ubicación, banda salarial estimada o características clave...' 
+                      : 'Cuéntanos sobre tus últimos puestos directivos o áreas de especialización...'}
+                    className={`w-full px-4 py-2.5 border rounded-xl text-sm focus:outline-none transition-colors ${
+                      theme === 'dark'
+                        ? 'bg-slate-800 border-slate-700 text-white placeholder:text-slate-500 focus:border-cyan-400'
+                        : 'bg-white border-slate-300 text-slate-900 placeholder:text-slate-400 focus:border-cyan-500'
+                    }`}
+                  />
+                </div>
+
+                <div className="pt-2">
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full py-3.5 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-extrabold text-sm rounded-xl transition-all shadow-lg flex items-center justify-center gap-2 hover:scale-[1.01] active:scale-95 disabled:opacity-50"
+                  >
+                    {isSubmitting ? (
+                      <div className="w-5 h-5 border-2 border-slate-950 border-t-transparent rounded-full animate-spin" />
+                    ) : (
+                      <>
+                        <Send className="w-4 h-4" />
+                        <span>{tab === 'empresa' ? 'Solicitar Terna en 18 Días' : 'Enviar Mi Perfil Confidencial'}</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+
+                <p className={`text-[11px] text-center pt-1 ${
+                  theme === 'dark' ? 'text-slate-400' : 'text-slate-500'
+                }`}>
+                  🔒 Tratamos tus datos con máxima confidencialidad bajo la normativa europea RGPD.
+                </p>
+
+                <div className={`pt-3 mt-3 border-t flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 text-[11px] ${
+                  theme === 'dark' ? 'border-slate-800/80 text-slate-400' : 'border-slate-200 text-slate-500'
+                }`}>
+                  <div className="flex items-center gap-1.5">
+                    <ShieldCheck className={`w-3.5 h-3.5 shrink-0 ${theme === 'dark' ? 'text-cyan-400' : 'text-cyan-600'}`} />
+                    <span>Estricta confidencialidad RGPD (NIF: B-88492019)</span>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <Clock className={`w-3.5 h-3.5 shrink-0 ${theme === 'dark' ? 'text-cyan-400' : 'text-cyan-600'}`} />
+                    <span>Compromiso de entrega en 18 días hábiles</span>
+                  </div>
+                </div>
+              </form>
 
             </div>
           </div>
@@ -668,6 +614,12 @@ Enviado desde el formulario web de Nexo Talento.`;
         </div>
 
       </div>
+
+      <SuccessModal 
+        isOpen={submitted} 
+        onGoHome={handleGoHome} 
+        title="¡Solicitud Registrada con Éxito!"
+      />
     </section>
   );
 };

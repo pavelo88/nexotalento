@@ -20,6 +20,7 @@ import confetti from 'canvas-confetti';
 import { PageRoute } from '../types';
 import { useTheme } from '../context/ThemeContext';
 import { COMPANY_CONFIG } from '../config/company';
+import { SuccessModal } from '../components/SuccessModal';
 
 interface ContactoPageProps {
   onNavigate: (path: PageRoute) => void;
@@ -72,13 +73,23 @@ export const ContactoPage: React.FC<ContactoPageProps> = ({
         throw new Error('Error al enviar la solicitud');
       }
 
-      confetti({ particleCount: 70, spread: 60, origin: { y: 0.6 } });
       setSubmitted(true);
     } catch {
       alert('Error de conexión o el servidor no responde. Por favor, intenta más tarde.');
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const handleGoHome = () => {
+    setSubmitted(false);
+    setName('');
+    setEmail('');
+    setPhone('');
+    setMessage('');
+    window.history.pushState({}, '', '/');
+    window.dispatchEvent(new Event('popstate'));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -311,38 +322,7 @@ export const ContactoPage: React.FC<ContactoPageProps> = ({
                 </button>
               </div>
 
-              {submitted ? (
-                <div className="text-center py-12 space-y-4 animate-fadeIn min-h-[500px] flex flex-col justify-center items-center">
-                  <div className="w-16 h-16 rounded-3xl bg-emerald-500/20 text-emerald-500 flex items-center justify-center border border-emerald-500/40 shadow-xl">
-                    <CheckCircle2 className="w-9 h-9" />
-                  </div>
-                  <h3 className="text-2xl font-extrabold font-heading">
-                    ¡Solicitud Enviada con Éxito!
-                  </h3>
-                  <p className={`text-sm max-w-md mx-auto leading-relaxed ${
-                    theme === 'dark' ? 'text-slate-300' : 'text-slate-600'
-                  }`}>
-                    Un Socio Consultor de Nexo Talento revisará tu información y se pondrá en contacto contigo de forma estrictamente confidencial en menos de 24 horas.
-                  </p>
-                  <button
-                    onClick={() => {
-                      setSubmitted(false);
-                      setName('');
-                      setEmail('');
-                      setPhone('');
-                      setMessage('');
-                    }}
-                    className={`mt-4 px-6 py-2.5 text-xs font-semibold rounded-xl btn-spring-press ${
-                      theme === 'dark'
-                        ? 'bg-slate-800 hover:bg-slate-700 text-slate-200'
-                        : 'bg-slate-200 hover:bg-slate-300 text-slate-800'
-                    }`}
-                  >
-                    Enviar otra consulta
-                  </button>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-4" data-webmcp-form="contacto-page-form">
+              <form onSubmit={handleSubmit} className="space-y-4" data-webmcp-form="contacto-page-form">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label 
@@ -559,7 +539,6 @@ export const ContactoPage: React.FC<ContactoPageProps> = ({
                     🔒 Sus datos serán tratados conforme al Reglamento General de Protección de Datos (RGPD) con total confidencialidad.
                   </p>
                 </form>
-              )}
 
             </div>
           </div>
@@ -567,6 +546,12 @@ export const ContactoPage: React.FC<ContactoPageProps> = ({
         </div>
 
       </div>
+
+      <SuccessModal 
+        isOpen={submitted} 
+        onGoHome={handleGoHome} 
+        title="¡Solicitud Enviada con Éxito!"
+      />
     </div>
   );
 };
