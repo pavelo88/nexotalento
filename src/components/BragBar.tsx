@@ -44,18 +44,18 @@ export const BragBar: React.FC = () => {
   ];
 
   const trustedCompanies = [
-    { name: 'Banco Santander', sector: 'Banca & Fintech', initial: 'SAN' },
-    { name: 'Telefónica Tech', sector: 'Telecom & Cloud', initial: 'TEL' },
-    { name: 'Repsol Digital', sector: 'Energía & Sostenibilidad', initial: 'REP' },
-    { name: 'Indra / Minsait', sector: 'Defensa & IT', initial: 'IND' },
-    { name: 'Glovo / Delivery Hero', sector: 'Tech & Scaleup', initial: 'GLO' },
-    { name: 'Cabify Enterprise', sector: 'Movilidad & App', initial: 'CAB' },
-    { name: 'Sanitas / Bupa', sector: 'Salud & Pharma', initial: 'SAN' },
-    { name: 'BBVA Spark', sector: 'Banca Corporativa', initial: 'BBV' },
-    { name: 'Acciona Infraestructuras', sector: 'Energía & Sostenible', initial: 'ACC' },
-    { name: 'Amadeus IT Group', sector: 'Travel & Tech', initial: 'AMA' },
-    { name: 'Grifols Biotecnología', sector: 'Pharma & Biotech', initial: 'GRI' },
-    { name: 'Iberdrola Renovables', sector: 'Energía Verde', initial: 'IBE' }
+    { name: 'Baterías Ecuador', sector: 'Industria & Automotriz', initial: 'BAC' },
+    { name: 'EBF CARGO', sector: 'Logística & Carga Internacional', initial: 'EBF' },
+    { name: 'Takoo', sector: 'Tecnología & E-commerce', initial: 'TAK' },
+    { name: 'ALLTECHNOLOGYCS', sector: 'Tecnología & Soluciones IT', initial: 'ALL' },
+    { name: 'Fastline', sector: 'Logística & Cadena de Suministro', initial: 'FAS' },
+    { name: 'Global Ecuador', sector: 'Comercio Exterior & Corporativo', initial: 'GLO' },
+    { name: 'Assisprev', sector: 'Seguros & Previsión Exequial', initial: 'ASS' },
+    { name: 'Gravity', sector: 'Tecnología & Servicios Digitales', initial: 'GRV' },
+    { name: 'Intellcard', sector: 'Fintech & Medios de Pago', initial: 'INT' },
+    { name: 'Vita Alimentos', sector: 'Consumo Masivo & Alimentación', initial: 'VIT' },
+    { name: 'Limon Flowers', sector: 'Agroindustria & Exportación', initial: 'LIM' },
+    { name: 'Upconta', sector: 'SaaS, Finanzas & Contabilidad Cloud', initial: 'UPC' }
   ];
 
   return (
@@ -79,7 +79,6 @@ export const BragBar: React.FC = () => {
               >
                 <div className="flex items-center gap-2 mb-1.5">
                   <Icon className={`w-4 h-4 ${metric.color}`} />
-                  {/* CORRECCIÓN: text-slate-500 cambiado a text-slate-600 para pasar accesibilidad */}
                   <span className={`text-[11px] uppercase tracking-wider font-bold ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'
                     }`}>
                     {metric.label}
@@ -103,10 +102,9 @@ export const BragBar: React.FC = () => {
             <Building2 className="w-4 h-4 text-cyan-500" />
             <span className={`text-xs sm:text-sm font-bold tracking-wide uppercase ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'
               }`}>
-              Confían en la Externalización &amp; Headhunting de Nexo Talento
+              Empresas con las que hemos trabajado · Confían en Nexo Talento
             </span>
           </div>
-          {/* CORRECCIÓN: text-emerald-600 cambiado a text-emerald-700 para pasar accesibilidad */}
           <div className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-emerald-700 dark:text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20">
             <CheckCircle2 className="w-3.5 h-3.5" />
             <span>100% Blindaje Legal Art. 43 ET &amp; Compliance 2026</span>
@@ -127,15 +125,18 @@ export const BragBar: React.FC = () => {
           }`} />
 
         {/* Animated Marquee Strip (Luxury Slow Pace) */}
-        <div className="animate-infinite-carousel flex items-center gap-12 sm:gap-20 py-4 opacity-80 hover:opacity-100 transition-opacity duration-700 carousel-duration-60s">
+        <div className="animate-infinite-carousel flex items-center gap-12 sm:gap-16 py-4 opacity-85 hover:opacity-100 transition-opacity duration-700 carousel-duration-60s">
           {[...trustedCompanies, ...trustedCompanies].map((company, index) => (
             <div
               key={index}
-              className={`shrink-0 flex items-center gap-4 transition-all duration-500 hover:scale-105 select-none grayscale hover:grayscale-0 ${theme === 'dark' ? 'text-slate-400 hover:text-white' : 'text-slate-500 hover:text-slate-900'
+              className={`shrink-0 flex flex-col items-center sm:items-start gap-1 transition-all duration-300 hover:scale-105 select-none ${theme === 'dark' ? 'text-slate-300 hover:text-white' : 'text-slate-700 hover:text-slate-950'
                 }`}
             >
-              <div className="text-xl sm:text-2xl font-heading font-black tracking-tighter uppercase opacity-80">
+              <div className="text-lg sm:text-xl font-heading font-black tracking-tight uppercase">
                 {company.name}
+              </div>
+              <div className="text-[10px] sm:text-[11px] font-medium tracking-wide uppercase text-cyan-600 dark:text-cyan-400">
+                {company.sector}
               </div>
             </div>
           ))}

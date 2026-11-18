@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",
     "lint": "tsc --noEmit",
-    "setup-sheets": "tsx scripts/setup-sheets.ts"
+    "setup-sheets": "tsx scripts/setup-sheets.ts",
+    "indexnow": "node scripts/indexnow.mjs"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",

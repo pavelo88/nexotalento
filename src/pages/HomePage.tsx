@@ -16,6 +16,7 @@ const MethodologySection = lazy(() => import('../components/MethodologySection')
 const SuccessStories = lazy(() => import('../components/SuccessStories').then(m => ({ default: m.SuccessStories })));
 const FAQSection = lazy(() => import('../components/FAQSection').then(m => ({ default: m.FAQSection })));
 const ContactSection = lazy(() => import('../components/ContactSection').then(m => ({ default: m.ContactSection })));
+const SpecializationSectorsSection = lazy(() => import('../components/SpecializationSectorsSection').then(m => ({ default: m.SpecializationSectorsSection })));
 
 interface HomePageProps {
   onNavigate: (path: PageRoute) => void;
@@ -105,6 +106,9 @@ export const HomePage: React.FC<HomePageProps> = ({
           onOpenJobSpecGenerator={onOpenJobSpecGenerator}
           onViewAllServices={() => onNavigate('/servicios')}
         />
+
+        {/* 4.1 Áreas de Especialización - 7 Sectores Productivos Clave */}
+        <SpecializationSectorsSection onNavigate={onNavigate} />
 
         {/* 
          * =====================================================================

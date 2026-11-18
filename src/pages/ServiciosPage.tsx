@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import { PageRoute } from '../types';
 import { useTheme } from '../context/ThemeContext';
+import { SpecializationSectorsSection } from '../components/SpecializationSectorsSection';
 
 interface ServiciosPageProps {
   onNavigate: (path: PageRoute) => void;
@@ -425,6 +426,11 @@ export const ServiciosPage: React.FC<ServiciosPageProps> = ({
               </div>
             );
           })}
+        </div>
+
+        {/* Áreas de Especialización Sectorial */}
+        <div className="mt-16">
+          <SpecializationSectorsSection onNavigate={onNavigate} />
         </div>
 
         {/* Bottom CTA Banner */}

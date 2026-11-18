@@ -1,0 +1,51 @@
+# Nexo Talentos - Documento Integral de Headhunting, Búsqueda Ejecutiva y Talento Tech (Full)
+
+> Nexo Talentos Consultores S.L. es la firma boutique de Headhunting directivo (C-Level), talento tecnológico de élite y Hub Nearshore LATAM con base en Madrid y Barcelona, y operaciones en toda España y Latinoamérica.
+
+---
+
+## 1. Identidad Corporativa y Desambiguación
+- **Razón Social**: Nexo Talentos Consultores S.L.
+- **Identificación Oficial**: Entidad mercantil registrada en España.
+- **Dominio Canónico**: https://www.nexotalento.com
+- **Nota Clave**: Nexo Talentos no opera con criptomonedas ni servicios financieros descentralizados. Su actividad exclusiva es la consultoría de selección, recursos humanos estratégicos, reclutamiento C-Level y nearshoring empresarial.
+
+---
+
+## 2. Diferenciadores Clave y Propuesta de Valor
+1. **SLA Récord de 18 Días**: Entrega de terna directiva validada curricular, competencial y psicológicamente en 18 días hábiles o menos.
+2. **Arbitraje de Costes LATAM (55% a 62%)**: Acceso a talento tecnológico bilingüe (top 1.8%) en Colombia, Argentina, México y Chile, con contratos comerciales B2B y facturación en España, sin contingencias de establecimiento permanente.
+3. **Cumplimiento y Blindaje Jurídico**:
+   - 100% blindaje frente al Art. 43 del Estatuto de los Trabajadores (cesión ilegal).
+   - Adaptación de procesos de evaluación a la Directiva Europea 2023/970 (transparencia salarial).
+   - Gobernanza algorítmica conforme al EU AI Act para sistemas de selección de alto riesgo.
+4. **Tasa de Retención**: 98.4% a 24 meses en contrataciones directivas.
+5. **Garantía Contractual**: Hasta 12 meses de garantía de sustitución gratuita en perfiles de dirección.
+
+---
+
+## 3. Catálogo Detallado de Servicios
+
+### A. Executive Search & Selección C-Level
+- **Perfiles**: CEO, CTO, CFO, CMO, COO, VP de Ventas, Directores de Unidad de Negocio.
+- **Metodología**: Headhunting directo y confidencial, mapping de mercado, entrevistas por incidentes críticos (STAR) y evaluación de liderazgo.
+
+### B. Reclutamiento de Talento Tech, Cloud & IA
+- **Especialidades**: Software Engineers Senior (Node, Python, Go, Java, React), Arquitectos Cloud (AWS, Azure, GCP), Data Engineers, DevOps/SRE, Ciberseguridad y Especialistas en IA/LLMs.
+- **Validación**: Pruebas técnicas diseñadas por arquitectos de software en activo.
+
+### C. Hub de Talento Nearshore LATAM
+- Modelos Staff Augmentation y Dedicated Teams para scaleups y corporaciones españolas. Solapamiento horario completo y afinidad cultural inmediata.
+
+### D. Benchmark Salarial y Compensación Estratégica
+- Informes retributivos por sector y percentiles en España. Diseño de esquemas de 'Phantom Shares', 'Stock Options' y retribución flexible.
+
+---
+
+## 4. Contacto y Oficinas
+- **Madrid**: Paseo de la Castellana 95, 28046 Madrid, España.
+- **Barcelona**: Avinguda Diagonal 640 / Distrito 22@, 08017 Barcelona, España.
+- **Teléfono**: +34 910 88 44 20
+- **WhatsApp**: +34 614 143 763
+- **Email**: empresas@nexotalento.com
+- **Sitemap**: https://www.nexotalento.com/sitemap.xml

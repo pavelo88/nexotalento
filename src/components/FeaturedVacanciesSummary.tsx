@@ -27,6 +27,46 @@ export const FeaturedVacanciesSummary: React.FC<FeaturedVacanciesSummaryProps> =
 
   const vacancies = [
     {
+      id: 'job-jefe-marketing',
+      title: 'Jefe de Marketing',
+      department: 'Marketing & Comercial',
+      location: 'Quito, Ecuador',
+      modality: 'Presencial',
+      salary: 'USD 1.500 – 2.000',
+      tags: ['Marketing Digital', 'SEO/SEM', 'Leads'],
+      hot: true
+    },
+    {
+      id: 'job-asistente-contable',
+      title: 'Asistente Contable',
+      department: 'Finanzas & Contabilidad',
+      location: 'Quito / Valle de los Chillos',
+      modality: 'Presencial',
+      salary: 'USD 600 – 700',
+      tags: ['Contabilidad', 'Impuestos', 'Conciliaciones'],
+      hot: true
+    },
+    {
+      id: 'job-asesor-nuevos-negocios',
+      title: 'Asesor de Nuevos Negocios (Carga Internacional)',
+      department: 'Logística & Comercio Exterior',
+      location: 'Quito, Ecuador',
+      modality: 'Presencial',
+      salary: 'A convenir (según cartera)',
+      tags: ['Carga Internacional', 'Logística', 'B2B'],
+      hot: true
+    },
+    {
+      id: 'job-asesor-comercial-corporativo',
+      title: 'Asesor Comercial Corporativo',
+      department: 'Ventas & Tech',
+      location: 'Guayaquil, Ecuador',
+      modality: 'Presencial',
+      salary: 'A convenir + Comisiones',
+      tags: ['Ventas B2B', 'Tech', 'Corporativo'],
+      hot: true
+    },
+    {
       id: 'cto-scaleup',
       title: 'Chief Technology Officer (CTO)',
       department: 'Tecnología & Cloud',
@@ -85,31 +125,11 @@ export const FeaturedVacanciesSummary: React.FC<FeaturedVacanciesSummaryProps> =
       salary: '90.000 € - 120.000 €',
       tags: ['Operaciones', 'Supply Chain', 'C-Level'],
       hot: false
-    },
-    {
-      id: 'cloud-security-lead',
-      title: 'Lead Cloud Security & CISO Associate',
-      department: 'Ciberseguridad & Cloud',
-      location: 'Madrid / Remoto',
-      modality: 'Híbrido',
-      salary: '85.000 € - 115.000 €',
-      tags: ['Ciberseguridad', 'AWS/Azure', 'CISO'],
-      hot: false
-    },
-    {
-      id: 'latam-tech-lead',
-      title: 'Senior Nearshore Tech Lead (LATAM)',
-      department: 'Hub Nearshore B2B',
-      location: 'Remoto LATAM (Horario ES)',
-      modality: '100% Remoto',
-      salary: '36.000 € - 45.000 € / año B2B',
-      tags: ['Nearshore', 'Fullstack', 'Top 1.8%'],
-      hot: true
     }
   ];
 
-  // Selección curada de vacantes insignia duplicada al 50% para ciclo infinito fluido con DOM reducido
-  const marqueeItems = [...vacancies.slice(0, 5), ...vacancies.slice(0, 5)];
+  // Selección curada de vacantes insignia duplicada para ciclo infinito fluido
+  const marqueeItems = [...vacancies.slice(0, 6), ...vacancies.slice(0, 6)];
 
   return (
     <section id="vacantes-resumen" className="py-16 sm:py-20 relative overflow-hidden">
@@ -160,9 +180,9 @@ export const FeaturedVacanciesSummary: React.FC<FeaturedVacanciesSummaryProps> =
             <button
               type="button"
               onClick={() => onNavigate('/vacantes')}
-              className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-extrabold text-xs transition-all shadow-lg shadow-cyan-500/20 flex items-center gap-2 hover:scale-105 cursor-pointer"
+              className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-extrabold text-xs transition-all shadow-lg shadow-cyan-500/20 flex items-center gap-2 hover:scale-105 cursor-pointer active:scale-95"
             >
-              <span>Ver Catálogo Completo (8+ Ofertas)</span>
+              <span>Ver Catálogo Completo (10+ Ofertas)</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
