@@ -63,24 +63,12 @@ export const Hero: React.FC<HeroProps> = ({
   return (
     <section
       id="inicio"
-      className={`relative pt-28 pb-16 sm:pt-36 sm:pb-24 lg:pt-40 lg:pb-28 overflow-hidden transition-colors duration-300 ${
-        theme === 'dark' ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-900'
+      className={`relative pt-28 pb-16 sm:pt-36 sm:pb-24 lg:pt-40 lg:pb-28 overflow-hidden transition-colors duration-300 bg-transparent ${
+        theme === 'dark' ? 'text-slate-100' : 'text-slate-900'
       }`}
     >
-      {/* High-Resolution Corporate Architectural Photography (Visible & Crisp) */}
-      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
-        <img
-          src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2400&q=90"
-          alt="Edificio corporativo y centro de negocios de alta dirección"
-          className="w-full h-full object-cover object-center opacity-30 dark:opacity-40 scale-100"
-        />
-        {/* Subtle Vignette Overlay to guarantee 100% text readability without hiding the building */}
-        <div className={`absolute inset-0 ${
-          theme === 'dark'
-            ? 'bg-gradient-to-b from-slate-950/60 via-slate-950/30 to-slate-950/90'
-            : 'bg-gradient-to-b from-white/60 via-white/20 to-white/95'
-        }`} />
-      </div>
+      {/* Subtle Top Ambient Glow */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-gradient-to-tr from-cyan-500/10 via-[#00A9A3]/10 to-blue-600/10 rounded-full blur-[140px] pointer-events-none -z-10" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         

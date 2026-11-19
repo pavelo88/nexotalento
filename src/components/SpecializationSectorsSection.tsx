@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useTheme } from '../context/ThemeContext';
 import { 
   ShoppingBag, 
@@ -43,28 +43,7 @@ export const SpecializationSectorsSection: React.FC<SpecializationSectorsSection
 }) => {
   const { theme } = useTheme();
   const carouselRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
   const [isGridMode, setIsGridMode] = useState(false);
-
-  const checkScroll = () => {
-    if (carouselRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
-      setCanScrollLeft(scrollLeft > 10);
-      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
-    }
-  };
-
-  const scroll = (direction: 'left' | 'right') => {
-    if (carouselRef.current) {
-      const scrollAmount = 390;
-      carouselRef.current.scrollBy({
-        left: direction === 'left' ? -scrollAmount : scrollAmount,
-        behavior: 'smooth'
-      });
-      setTimeout(checkScroll, 350);
-    }
-  };
 
   const sectors: SectorItem[] = [
     {
@@ -174,6 +153,62 @@ export const SpecializationSectorsSection: React.FC<SpecializationSectorsSection
     }
   ];
 
+  // Buffer de 3 sets para desplazamiento infinito y fluido sin salto brusco hacia atrás
+  const carouselSectors = [...sectors, ...sectors, ...sectors];
+
+  useEffect(() => {
+    if (isGridMode) return;
+    const container = carouselRef.current;
+    if (!container) return;
+
+    const timer = setTimeout(() => {
+      const cards = container.children;
+      if (cards.length >= sectors.length * 2) {
+        const target = cards[sectors.length] as HTMLElement;
+        if (target) {
+          container.scrollLeft = target.offsetLeft;
+        }
+      }
+    }, 80);
+
+    return () => clearTimeout(timer);
+  }, [isGridMode]);
+
+  const handleScroll = () => {
+    if (isGridMode) return;
+    const container = carouselRef.current;
+    if (!container) return;
+    const cards = container.children;
+    if (cards.length < sectors.length * 3) return;
+
+    const firstMiddleCard = cards[sectors.length] as HTMLElement;
+    const firstThirdCard = cards[sectors.length * 2] as HTMLElement;
+    if (!firstMiddleCard || !firstThirdCard) return;
+
+    const singleSetWidth = firstThirdCard.offsetLeft - firstMiddleCard.offsetLeft;
+
+    if (container.scrollLeft >= firstThirdCard.offsetLeft - 10) {
+      container.scrollLeft -= singleSetWidth;
+    } else if (container.scrollLeft <= firstMiddleCard.offsetLeft - singleSetWidth + 10) {
+      container.scrollLeft += singleSetWidth;
+    }
+  };
+
+  const scroll = (direction: 'left' | 'right') => {
+    const container = carouselRef.current;
+    if (!container) return;
+
+    const card = container.children[0] as HTMLElement;
+    const cardWidth = card ? card.getBoundingClientRect().width : 360;
+    const gap = 24;
+    const step = cardWidth + gap;
+
+    container.scrollBy({
+      left: direction === 'left' ? -step : step,
+      behavior: 'smooth'
+    });
+  };
+
   const handleConsultSector = (sectorName: string) => {
     if (onNavigate) {
       onNavigate('/contacto');
@@ -236,25 +271,15 @@ export const SpecializationSectorsSection: React.FC<SpecializationSectorsSection
               <>
                 <button
                   onClick={() => scroll('left')}
-                  disabled={!canScrollLeft}
                   aria-label="Anterior sector"
-                  className={`w-10 h-10 rounded-xl border flex items-center justify-center transition-all ${
-                    canScrollLeft
-                      ? 'bg-slate-900 border-slate-700 text-white hover:border-cyan-400 active:scale-95 shadow-md cursor-pointer'
-                      : 'bg-slate-900/40 border-slate-800/40 text-slate-600 cursor-not-allowed opacity-50'
-                  }`}
+                  className="w-10 h-10 rounded-xl border flex items-center justify-center transition-all bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700 text-slate-800 dark:text-white hover:border-cyan-400 active:scale-95 shadow-md cursor-pointer"
                 >
                   <ChevronLeft className="w-5 h-5" />
                 </button>
                 <button
                   onClick={() => scroll('right')}
-                  disabled={!canScrollRight}
                   aria-label="Siguiente sector"
-                  className={`w-10 h-10 rounded-xl border flex items-center justify-center transition-all ${
-                    canScrollRight
-                      ? 'bg-gradient-to-r from-cyan-500 to-[#00A9A3] text-slate-950 font-black hover:opacity-90 active:scale-95 shadow-md cursor-pointer'
-                      : 'bg-slate-900/40 border-slate-800/40 text-slate-600 cursor-not-allowed opacity-50'
-                  }`}
+                  className="w-10 h-10 rounded-xl border flex items-center justify-center transition-all bg-gradient-to-r from-cyan-500 to-[#00A9A3] text-slate-950 font-black hover:opacity-90 active:scale-95 shadow-md cursor-pointer"
                 >
                   <ChevronRight className="w-5 h-5" />
                 </button>
@@ -263,27 +288,27 @@ export const SpecializationSectorsSection: React.FC<SpecializationSectorsSection
           </div>
         </div>
 
-        {/* Sectors Carousel / Grid Container */}
+        {/* Sectors Carousel / Grid Container (3 Tarjetas Exactas en Desktop) */}
         <div
           ref={carouselRef}
-          onScroll={checkScroll}
+          onScroll={handleScroll}
           className={
             isGridMode
               ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8'
               : 'flex items-stretch gap-6 overflow-x-auto pb-6 scrollbar-none snap-x snap-mandatory px-4 sm:px-0'
           }
         >
-          {sectors.map((sector, index) => {
+          {(isGridMode ? sectors : carouselSectors).map((sector, index) => {
             const Icon = sector.icon;
             const isFullWidthSpan = isGridMode && index === sectors.length - 1 && sectors.length % 3 !== 0;
 
             return (
               <div
-                key={sector.id}
+                key={`${sector.id}-${index}`}
                 className={`${
                   isGridMode
                     ? isFullWidthSpan ? 'md:col-span-2 lg:col-span-1' : ''
-                    : 'snap-start shrink-0 w-[300px] sm:w-[350px] lg:w-[380px]'
+                    : 'snap-start shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]'
                 } group relative rounded-3xl p-6 sm:p-7 border transition-all duration-300 hover:shadow-2xl flex flex-col justify-between ${
                   theme === 'dark'
                     ? 'bg-slate-900/60 hover:bg-slate-900/90 border-slate-800/80 hover:border-[#00A9A3]/50'

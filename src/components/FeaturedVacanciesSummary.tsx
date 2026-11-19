@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useTheme } from '../context/ThemeContext';
 import { PageRoute } from '../types';
 import { 
@@ -8,7 +8,7 @@ import {
   Flame, 
   Clock, 
   Building2, 
-  CheckCircle2,
+  CheckCircle2, 
   Sparkles,
   TrendingUp,
   ChevronLeft,
@@ -26,8 +26,6 @@ export const FeaturedVacanciesSummary: React.FC<FeaturedVacanciesSummaryProps> =
 }) => {
   const { theme } = useTheme();
   const carouselRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
 
   const vacancies = [
     {
@@ -76,32 +74,58 @@ export const FeaturedVacanciesSummary: React.FC<FeaturedVacanciesSummaryProps> =
     }
   ];
 
-  const checkScroll = () => {
-    if (carouselRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
-      setCanScrollLeft(scrollLeft > 10);
-      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
+  // Buffer de 3 sets para desplazamiento infinito y fluido sin salto brusco hacia atrás
+  const extendedVacancies = [...vacancies, ...vacancies, ...vacancies];
+
+  useEffect(() => {
+    const container = carouselRef.current;
+    if (!container) return;
+
+    const timer = setTimeout(() => {
+      const cards = container.children;
+      if (cards.length >= vacancies.length * 2) {
+        const target = cards[vacancies.length] as HTMLElement;
+        if (target) {
+          container.scrollLeft = target.offsetLeft;
+        }
+      }
+    }, 80);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleScroll = () => {
+    const container = carouselRef.current;
+    if (!container) return;
+    const cards = container.children;
+    if (cards.length < vacancies.length * 3) return;
+
+    const firstMiddleCard = cards[vacancies.length] as HTMLElement;
+    const firstThirdCard = cards[vacancies.length * 2] as HTMLElement;
+    if (!firstMiddleCard || !firstThirdCard) return;
+
+    const singleSetWidth = firstThirdCard.offsetLeft - firstMiddleCard.offsetLeft;
+
+    if (container.scrollLeft >= firstThirdCard.offsetLeft - 10) {
+      container.scrollLeft -= singleSetWidth;
+    } else if (container.scrollLeft <= firstMiddleCard.offsetLeft - singleSetWidth + 10) {
+      container.scrollLeft += singleSetWidth;
     }
   };
 
   const scroll = (direction: 'left' | 'right') => {
-    if (carouselRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
-      const scrollAmount = 370;
-      if (direction === 'right') {
-        if (scrollLeft + clientWidth >= scrollWidth - 25) {
-          carouselRef.current.scrollTo({ left: 0, behavior: 'smooth' });
-        } else {
-          carouselRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-        }
-      } else {
-        if (scrollLeft <= 25) {
-          carouselRef.current.scrollTo({ left: scrollWidth, behavior: 'smooth' });
-        } else {
-          carouselRef.current.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-        }
-      }
-    }
+    const container = carouselRef.current;
+    if (!container) return;
+
+    const card = container.children[0] as HTMLElement;
+    const cardWidth = card ? card.getBoundingClientRect().width : 360;
+    const gap = 24;
+    const step = cardWidth + gap;
+
+    container.scrollBy({
+      left: direction === 'left' ? -step : step,
+      behavior: 'smooth'
+    });
   };
 
   return (
@@ -141,18 +165,18 @@ export const FeaturedVacanciesSummary: React.FC<FeaturedVacanciesSummaryProps> =
             </p>
           </div>
 
-          {/* Carousel Navigation Buttons & Actions (Always Active, Infinite Loop) */}
+          {/* Carousel Navigation Buttons & Actions (Always Active, Continuous Loop) */}
           <div className="flex items-center gap-2.5 self-start md:self-auto shrink-0">
             <button
               onClick={() => scroll('left')}
-              aria-label="Anterior vacante (o ir al final)"
+              aria-label="Anterior vacante"
               className="w-10 h-10 rounded-xl border flex items-center justify-center transition-all bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700 text-slate-800 dark:text-white hover:border-cyan-400 active:scale-95 shadow-md cursor-pointer"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <button
               onClick={() => scroll('right')}
-              aria-label="Siguiente vacante (o volver al inicio)"
+              aria-label="Siguiente vacante"
               className="w-10 h-10 rounded-xl border flex items-center justify-center transition-all bg-gradient-to-r from-cyan-500 to-[#00A9A3] text-slate-950 font-black hover:opacity-90 active:scale-95 shadow-md cursor-pointer"
             >
               <ChevronRight className="w-5 h-5" />
@@ -162,18 +186,18 @@ export const FeaturedVacanciesSummary: React.FC<FeaturedVacanciesSummaryProps> =
 
       </div>
 
-      {/* ================= CARRUSEL INTERACTIVO DE VACANTES ================= */}
+      {/* ================= CARRUSEL INTERACTIVO DE VACANTES (3 Tarjetas Exactas en Desktop) ================= */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div
           ref={carouselRef}
-          onScroll={checkScroll}
+          onScroll={handleScroll}
           className="flex gap-6 overflow-x-auto pb-4 pt-1 snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
         >
-          {vacancies.map((job) => (
+          {extendedVacancies.map((job, idx) => (
             <div
-              key={job.id}
+              key={`${job.id}-${idx}`}
               onClick={() => onNavigate('/vacantes')}
-              className={`min-w-[290px] sm:min-w-[340px] md:min-w-[360px] max-w-[380px] shrink-0 snap-start group relative rounded-3xl p-6 border transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl flex flex-col justify-between cursor-pointer ${
+              className={`w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] shrink-0 snap-start group relative rounded-3xl p-6 border transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl flex flex-col justify-between cursor-pointer ${
                 theme === 'dark'
                   ? 'bg-slate-900/80 hover:bg-slate-900 border-slate-800 hover:border-cyan-500/60 shadow-xl shadow-black/40'
                   : 'bg-white hover:bg-cyan-50/20 border-slate-200 hover:border-cyan-500/60 shadow-md hover:shadow-xl'

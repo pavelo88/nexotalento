@@ -23,8 +23,8 @@ export const BragBar: React.FC = () => {
   return (
     <section className={`py-6 sm:py-8 border-y relative transition-colors duration-300 overflow-hidden ${
       theme === 'dark'
-        ? 'bg-slate-950/90 border-slate-800/90 text-slate-100'
-        : 'bg-white/95 border-slate-200/90 text-slate-900 shadow-sm'
+        ? 'bg-slate-950/70 border-slate-800 text-slate-100'
+        : 'bg-white/60 border-slate-200/90 text-slate-900 shadow-sm backdrop-blur-md'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Corporate Trust Title & Compliance Badge */}

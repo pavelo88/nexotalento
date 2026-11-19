@@ -445,13 +445,13 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         theme === 'dark' ? 'bg-[#0c0e12] border-stone-800' : 'bg-white border-stone-200 shadow-sm'
       }`}>
         
-        {/* Header Izquierdo con Logo Oficial (Mismo Alto h-16 que el Header Derecho) */}
+        {/* Header Izquierdo con Favicon Oficial y Tipografía Admin HQ */}
         <div className="h-16 px-4 border-b border-stone-200 dark:border-stone-800 flex items-center justify-between shrink-0">
-          <div className="flex items-center gap-2.5">
-            <Logo size="sm" showSubtitle={false} />
-            <div className="flex flex-col leading-none">
-              <span className="text-xs font-bold text-stone-900 dark:text-white font-heading">Nexo Talento</span>
-              <span className="text-[10px] text-cyan-600 dark:text-cyan-400 font-semibold mt-0.5">Admin HQ</span>
+          <div className="flex items-center gap-3">
+            <Logo size="sm" showText={false} showSubtitle={false} />
+            <div className="flex flex-col leading-tight">
+              <span className="text-sm font-extrabold text-stone-900 dark:text-white font-heading tracking-tight">Nexo Talento</span>
+              <span className="text-[10px] text-cyan-600 dark:text-cyan-400 font-bold uppercase tracking-wider">Admin HQ</span>
             </div>
           </div>
           <button 

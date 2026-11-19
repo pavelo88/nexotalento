@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useTheme } from '../context/ThemeContext';
 import { 
   Users, 
@@ -23,10 +23,8 @@ interface AreasEspecializacionProps {
 export const AreasEspecializacionSection: React.FC<AreasEspecializacionProps> = ({ onNavigate }) => {
   const { theme } = useTheme();
   const carouselRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
 
-  // Las 6 áreas exactas de la Imagen 3 del cliente con imágenes corporativas premium
+  // Las 6 áreas exactas con imágenes corporativas premium y encuadre garantizado
   const areas = [
     {
       id: 'seleccion-talento',
@@ -46,7 +44,8 @@ export const AreasEspecializacionSection: React.FC<AreasEspecializacionProps> = 
       icon: Briefcase,
       color: 'from-blue-600 to-indigo-600',
       badge: 'Máxima Confidencialidad',
-      image: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80',
+      // Retrato ejecutivo a media distancia (plano medio con oficina, rostro completo y sin zoom invasivo)
+      image: 'https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=800&q=80',
       description: 'Búsqueda directa y exclusiva de Presidentes, CEOs, CFOs y miembros del Comité de Dirección bajo estrictos acuerdos de confidencialidad.',
       deliverables: ['Mapeo ciego del mercado', 'Evaluación de liderazgo estratégico', 'Garantía contractual de 3 a 6 meses']
     },
@@ -96,23 +95,59 @@ export const AreasEspecializacionSection: React.FC<AreasEspecializacionProps> = 
     }
   ];
 
-  const checkScroll = () => {
-    if (carouselRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
-      setCanScrollLeft(scrollLeft > 10);
-      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
+  // Carrusel continuo: buffer de 3 sets para desplazamiento infinito sin retrocesos bruscos
+  const extendedAreas = [...areas, ...areas, ...areas];
+
+  useEffect(() => {
+    const container = carouselRef.current;
+    if (!container) return;
+
+    const timer = setTimeout(() => {
+      const cards = container.children;
+      if (cards.length >= areas.length * 2) {
+        const target = cards[areas.length] as HTMLElement;
+        if (target) {
+          container.scrollLeft = target.offsetLeft;
+        }
+      }
+    }, 80);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleScroll = () => {
+    const container = carouselRef.current;
+    if (!container) return;
+    const cards = container.children;
+    if (cards.length < areas.length * 3) return;
+
+    const firstMiddleCard = cards[areas.length] as HTMLElement;
+    const firstThirdCard = cards[areas.length * 2] as HTMLElement;
+    if (!firstMiddleCard || !firstThirdCard) return;
+
+    const singleSetWidth = firstThirdCard.offsetLeft - firstMiddleCard.offsetLeft;
+
+    // Reseteo silencioso en los extremos para scroll infinito perpetuo
+    if (container.scrollLeft >= firstThirdCard.offsetLeft - 10) {
+      container.scrollLeft -= singleSetWidth;
+    } else if (container.scrollLeft <= firstMiddleCard.offsetLeft - singleSetWidth + 10) {
+      container.scrollLeft += singleSetWidth;
     }
   };
 
   const scroll = (direction: 'left' | 'right') => {
-    if (carouselRef.current) {
-      const scrollAmount = 380;
-      carouselRef.current.scrollBy({
-        left: direction === 'left' ? -scrollAmount : scrollAmount,
-        behavior: 'smooth'
-      });
-      setTimeout(checkScroll, 350);
-    }
+    const container = carouselRef.current;
+    if (!container) return;
+
+    const card = container.children[0] as HTMLElement;
+    const cardWidth = card ? card.getBoundingClientRect().width : 360;
+    const gap = 24;
+    const step = cardWidth + gap;
+
+    container.scrollBy({
+      left: direction === 'left' ? -step : step,
+      behavior: 'smooth'
+    });
   };
 
   const handleConsult = (areaTitle: string) => {
@@ -153,95 +188,82 @@ export const AreasEspecializacionSection: React.FC<AreasEspecializacionProps> = 
             </p>
           </div>
 
-          {/* Nav Buttons (Left / Right) */}
+          {/* Nav Buttons (Left / Right) - Siempre activos, continuo y sin saltos */}
           <div className="flex items-center gap-2.5 self-start md:self-auto">
             <button
               onClick={() => scroll('left')}
-              disabled={!canScrollLeft}
-              aria-label="Anterior área"
-              className={`w-11 h-11 rounded-2xl border flex items-center justify-center transition-all ${
-                canScrollLeft
-                  ? 'bg-slate-900 border-slate-700 text-white hover:border-cyan-400 active:scale-95 shadow-md cursor-pointer'
-                  : 'bg-slate-900/40 border-slate-800/40 text-slate-600 cursor-not-allowed opacity-50'
-              }`}
+              aria-label="Anterior área de especialización"
+              className="w-11 h-11 rounded-2xl border flex items-center justify-center transition-all bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700 text-slate-800 dark:text-white hover:border-cyan-400 active:scale-95 shadow-md cursor-pointer"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <button
               onClick={() => scroll('right')}
-              disabled={!canScrollRight}
-              aria-label="Siguiente área"
-              className={`w-11 h-11 rounded-2xl border flex items-center justify-center transition-all ${
-                canScrollRight
-                  ? 'bg-gradient-to-r from-cyan-500 to-[#00A9A3] text-slate-950 font-black hover:opacity-90 active:scale-95 shadow-lg shadow-cyan-500/20 cursor-pointer'
-                  : 'bg-slate-900/40 border-slate-800/40 text-slate-600 cursor-not-allowed opacity-50'
-              }`}
+              aria-label="Siguiente área de especialización"
+              className="w-11 h-11 rounded-2xl border flex items-center justify-center transition-all bg-gradient-to-r from-cyan-500 to-[#00A9A3] text-slate-950 font-black hover:opacity-90 active:scale-95 shadow-lg shadow-cyan-500/20 cursor-pointer"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
           </div>
         </div>
 
-        {/* 6 Areas Interactive Carousel */}
+        {/* 6 Areas Interactive Carousel - Exactamente 3 tarjetas completas en desktop */}
         <div
           ref={carouselRef}
-          onScroll={checkScroll}
-          className="flex items-stretch gap-6 overflow-x-auto pb-6 scrollbar-none snap-x snap-mandatory px-4 sm:px-6 lg:px-8"
+          onScroll={handleScroll}
+          className="flex items-stretch gap-6 overflow-x-auto pb-6 scrollbar-none snap-x snap-mandatory"
         >
-          {areas.map((area) => {
+          {extendedAreas.map((area, index) => {
             const Icon = area.icon;
 
             return (
               <div
-                key={area.id}
+                key={`${area.id}-${index}`}
                 onClick={() => handleConsult(area.title)}
-                className={`snap-start shrink-0 w-[300px] sm:w-[350px] lg:w-[370px] group relative rounded-3xl border transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl flex flex-col justify-between cursor-pointer overflow-hidden ${
+                className={`snap-start shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] group relative rounded-3xl border transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl flex flex-col justify-between cursor-pointer overflow-hidden ${
                   theme === 'dark'
                     ? 'bg-slate-900/90 border-slate-800 hover:border-cyan-500/50 shadow-xl shadow-black/40'
                     : 'bg-white border-slate-200 hover:border-[#00A9A3]/60 shadow-lg hover:shadow-2xl'
                 }`}
               >
-                {/* Header Image with Gradient Overlay & Headroom Focus */}
-                <div className="relative h-56 w-full overflow-hidden bg-slate-900">
+                {/* Header Image with Floating Icon & Badge (Foto nítida sin degradado oscuro que tape los rostros) */}
+                <div className="relative h-48 sm:h-52 w-full overflow-hidden bg-slate-100 dark:bg-slate-900">
                   <img
                     src={area.image}
                     alt={area.title}
-                    className="w-full h-full object-cover object-[center_18%] group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent" />
                   
                   {/* Floating Icon & Badge */}
                   <div className="absolute top-3 inset-x-3 flex items-center justify-between">
                     <div className={`w-10 h-10 rounded-xl flex items-center justify-center bg-gradient-to-br ${area.color} text-white shadow-lg`}>
                       <Icon className="w-5 h-5" />
                     </div>
-                    <span className="text-[10px] font-black uppercase px-2.5 py-1 rounded-full bg-slate-950/80 text-cyan-300 border border-cyan-500/30 backdrop-blur-md">
+                    <span className="text-[10px] font-black uppercase px-2.5 py-1 rounded-full bg-slate-950/85 text-cyan-300 border border-cyan-500/30 backdrop-blur-md shadow-md">
                       {area.badge}
                     </span>
                   </div>
-
-                  {/* Title overlaying base of image */}
-                  <div className="absolute bottom-3 left-4 right-4">
-                    <h3 className="text-xl font-black font-heading text-white drop-shadow-md">
-                      {area.title}
-                    </h3>
-                    <p className="text-xs font-bold text-cyan-400">
-                      {area.subtitle}
-                    </p>
-                  </div>
                 </div>
 
-                {/* Card Body */}
+                {/* Card Body con Título y Subtítulo legibles (Fuera de la foto para no tapar los rostros) */}
                 <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
-                  <p className={`text-xs leading-relaxed font-medium ${
-                    theme === 'dark' ? 'text-slate-300' : 'text-slate-700'
-                  }`}>
-                    {area.description}
-                  </p>
+                  <div>
+                    <h3 className="text-xl font-black font-heading text-slate-900 dark:text-white mb-1 transition-colors group-hover:text-cyan-500">
+                      {area.title}
+                    </h3>
+                    <p className="text-xs font-bold text-cyan-600 dark:text-cyan-400 mb-3">
+                      {area.subtitle}
+                    </p>
+                    <p className={`text-xs leading-relaxed font-medium ${
+                      theme === 'dark' ? 'text-slate-300' : 'text-slate-700'
+                    }`}>
+                      {area.description}
+                    </p>
+                  </div>
 
                   {/* Deliverables Box */}
-                  <div className={`p-3 rounded-2xl border ${
+                  <div className={`p-3.5 rounded-2xl border ${
                     theme === 'dark' ? 'bg-slate-950/80 border-slate-800' : 'bg-slate-50 border-slate-200'
                   }`}>
                     <ul className="space-y-1.5">
