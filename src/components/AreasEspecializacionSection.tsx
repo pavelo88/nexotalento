@@ -34,6 +34,7 @@ export const AreasEspecializacionSection: React.FC<AreasEspecializacionProps> = 
       color: 'from-cyan-500 to-blue-600',
       badge: 'Procesos Ágiles',
       image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80',
+      imagePosition: 'object-[center_20%]',
       description: 'Atracción y filtrado por competencias para posiciones intermedias, técnicas y operativas con validación de idoneidad y referencias verificadas.',
       deliverables: ['Terna en 18 días hábiles', 'Entrevista por competencias STAR', 'Pruebas psicotécnicas aplicadas']
     },
@@ -44,8 +45,8 @@ export const AreasEspecializacionSection: React.FC<AreasEspecializacionProps> = 
       icon: Briefcase,
       color: 'from-blue-600 to-indigo-600',
       badge: 'Máxima Confidencialidad',
-      // Retrato ejecutivo a media distancia (plano medio con oficina, rostro completo y sin zoom invasivo)
-      image: 'https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=800&q=80',
+      image: '/areas/executive-search.webp',
+      imagePosition: 'object-center',
       description: 'Búsqueda directa y exclusiva de Presidentes, CEOs, CFOs y miembros del Comité de Dirección bajo estrictos acuerdos de confidencialidad.',
       deliverables: ['Mapeo ciego del mercado', 'Evaluación de liderazgo estratégico', 'Garantía contractual de 3 a 6 meses']
     },
@@ -56,7 +57,8 @@ export const AreasEspecializacionSection: React.FC<AreasEspecializacionProps> = 
       icon: Crosshair,
       color: 'from-[#00A9A3] to-teal-600',
       badge: 'Caza Quirúrgica',
-      image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80',
+      image: '/areas/headhunting.webp',
+      imagePosition: 'object-center',
       description: 'Identificación y captación directa de perfiles no disponibles en portales de empleo, atrayendo a líderes consolidados en la competencia.',
       deliverables: ['Acceso a talento pasivo', 'Presentación confidencial', 'Alineación de compensación total']
     },
@@ -68,6 +70,7 @@ export const AreasEspecializacionSection: React.FC<AreasEspecializacionProps> = 
       color: 'from-teal-500 to-emerald-600',
       badge: 'Diagnóstico 360°',
       image: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80',
+      imagePosition: 'object-[center_20%]',
       description: 'Auditoría psicométrica, pruebas situacionales y evaluación profunda del potencial para promociones internas o comités de sucesión.',
       deliverables: ['Informes de potencial y gaps', 'Mapeo 9-Box de desempeño', 'Feedback individual al directivo']
     },
@@ -79,6 +82,7 @@ export const AreasEspecializacionSection: React.FC<AreasEspecializacionProps> = 
       color: 'from-indigo-600 to-purple-600',
       badge: 'Escalabilidad Corporativa',
       image: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=800&q=80',
+      imagePosition: 'object-[center_25%]',
       description: 'Diseño de organigramas ágiles, planes de compensación total y diagnóstico de clima laboral para maximizar el engagement del equipo directivo.',
       deliverables: ['Planes de incentivos a largo plazo', 'Matriz de competencias clave', 'Estrategia de retención del Top 5%']
     },
@@ -89,7 +93,8 @@ export const AreasEspecializacionSection: React.FC<AreasEspecializacionProps> = 
       icon: UserCheck,
       color: 'from-amber-500 to-orange-600',
       badge: 'Acompañamiento Humano',
-      image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=800&q=80',
+      image: '/areas/outplacement.webp',
+      imagePosition: 'object-center',
       description: 'Programas de orientación profesional, optimización de marca personal y recolocación efectiva para ejecutivos desvinculados.',
       deliverables: ['Coaching de transición directiva', 'Optimización de CV y LinkedIn', 'Networking con comités y headhunters']
     }
@@ -231,7 +236,7 @@ export const AreasEspecializacionSection: React.FC<AreasEspecializacionProps> = 
                   <img
                     src={area.image}
                     alt={area.title}
-                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                    className={`w-full h-full object-cover ${area.imagePosition || 'object-[center_top]'} group-hover:scale-105 transition-transform duration-500`}
                     loading="lazy"
                   />
                   

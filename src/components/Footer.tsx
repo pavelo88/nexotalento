@@ -225,29 +225,47 @@ export const Footer: React.FC<FooterProps> = ({
 
         </div>
 
-        {/* Bottom copyright & SEO footer */}
-        <div className="mt-12 pt-8 border-t border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4 text-[11px] text-slate-400">
-          <p>© {new Date().getFullYear()} Nexo Talento S.L. Todos los derechos reservados. CIF / NIF B-88492011. Madrid &amp; Barcelona.</p>
-          <div className="flex items-center gap-4">
+        {/* Bottom legal buttons & SinergIA Tech copyright */}
+        <div className="mt-12 pt-8 border-t border-slate-800 flex flex-col items-center justify-center gap-3 text-center">
+          
+          {/* Fila 1: Los 3 botones con menos caracteres */}
+          <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-4 text-xs text-slate-300">
             <a
               href="https://www.linkedin.com/company/nexotalentos/"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Nexo Talento en LinkedIn"
-              className="hover:text-cyan-400 transition-colors flex items-center gap-1"
+              className="hover:text-cyan-400 transition-colors flex items-center gap-1.5 active:scale-95 py-1 px-3 rounded-lg bg-slate-900/80 border border-slate-800 hover:border-cyan-500/50"
             >
-              <Linkedin className="w-3.5 h-3.5" />
+              <Linkedin className="w-3.5 h-3.5 text-cyan-400" />
               <span>LinkedIn</span>
             </a>
-            <span>•</span>
-            <span className="hover:text-white cursor-pointer">Aviso Legal</span>
-            <span>•</span>
-            <span className="hover:text-white cursor-pointer">Política de Privacidad (RGPD)</span>
-            <span>•</span>
-            <span className="hover:text-white cursor-pointer">Política de Cookies</span>
-            <span>•</span>
-            <span className="hover:text-white cursor-pointer">Canal Ético &amp; Cumplimiento</span>
+            <span className="text-slate-600 hidden sm:inline">•</span>
+            <span className="hover:text-cyan-400 cursor-pointer active:scale-95 transition-colors py-1 px-3 rounded-lg bg-slate-900/80 border border-slate-800 hover:border-cyan-500/50">
+              Aviso Legal
+            </span>
+            <span className="text-slate-600 hidden sm:inline">•</span>
+            <span className="hover:text-cyan-400 cursor-pointer active:scale-95 transition-colors py-1 px-3 rounded-lg bg-slate-900/80 border border-slate-800 hover:border-cyan-500/50">
+              Canal Ético
+            </span>
           </div>
+
+          {/* Fila 2: Los 2 botones con más caracteres */}
+          <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-4 text-xs text-slate-300">
+            <span className="hover:text-cyan-400 cursor-pointer active:scale-95 transition-colors py-1 px-3.5 rounded-lg bg-slate-900/80 border border-slate-800 hover:border-cyan-500/50">
+              Política de Privacidad (RGPD)
+            </span>
+            <span className="text-slate-600 hidden sm:inline">•</span>
+            <span className="hover:text-cyan-400 cursor-pointer active:scale-95 transition-colors py-1 px-3.5 rounded-lg bg-slate-900/80 border border-slate-800 hover:border-cyan-500/50">
+              Política de Cookies
+            </span>
+          </div>
+
+          {/* Debajo de esto: Todos los derechos reservados de SinergIA Tech */}
+          <div className="pt-2 text-[11px] text-slate-500 font-medium">
+            <p>© {new Date().getFullYear()} SinergIA Tech. Todos los derechos reservados.</p>
+          </div>
+
         </div>
 
       </div>
