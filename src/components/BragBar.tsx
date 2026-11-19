@@ -6,24 +6,13 @@ export const BragBar: React.FC = () => {
   const { theme } = useTheme();
 
   const trustedCompanies = [
-    { name: 'Telefónica', sector: 'Telecomunicaciones & Tech', logoFile: '/logos/telefonica.svg' },
-    { name: 'Tigo', sector: 'Telecomunicaciones & Móvil', logoFile: '/logos/tigo.svg' },
-    { name: 'Corporación Favorita', sector: 'Retail & Supermercados', logoFile: '/logos/corporacion-favorita.svg' },
-    { name: 'Banco Pichincha', sector: 'Banca & Finanzas', logoFile: '/logos/banco-pichincha.svg' },
-    { name: 'SLB Schlumberger', sector: 'Energía & Petróleo', logoFile: '/logos/schlumberger.svg' },
-    { name: 'Pronaca', sector: 'Agroindustria & Alimentos', logoFile: '/logos/pronaca.svg' },
-    { name: 'Nestlé', sector: 'Consumo Masivo & FMCG', logoFile: '/logos/nestle.svg' },
-    { name: 'Caterpillar', sector: 'Maquinaria & Minería', logoFile: '/logos/caterpillar.svg' },
-    { name: 'Claro', sector: 'Telecomunicaciones & Tech', logoFile: '/logos/claro.svg' },
-    { name: 'Movistar', sector: 'Telecomunicaciones & Datos', logoFile: '/logos/movistar.svg' },
-    { name: 'Danone', sector: 'Alimentos & Nutrición', logoFile: '/logos/danone.svg' },
-    { name: 'La Fabril', sector: 'Industria & Oleaginosas', logoFile: '/logos/la-fabril.svg' },
-    { name: 'Grupo Difare', sector: 'Farmacéutica & Salud', logoFile: '/logos/grupo-difare.svg' },
-    { name: 'Baterías Ecuador', sector: 'Industria & Automotriz', logoFile: '/logos/baterias-ecuador.png' },
-    { name: 'EBF CARGO', sector: 'Logística & Carga Internacional', logoFile: '/logos/ebf-cargo.png' },
-    { name: 'Takoo', sector: 'Tecnología & E-commerce', logoFile: '/logos/takoo.png' },
-    { name: 'Vita Alimentos', sector: 'Consumo Masivo & Lácteos', logoFile: '/logos/vita-alimentos.png' },
-    { name: 'Limon Flowers', sector: 'Agroindustria & Exportación', logoFile: '/logos/limon-flowers.png' }
+    { name: 'Baterías Ecuador', sector: 'Industria & Automotriz', logoFile: '/logos/baterias_ecuador.webp' },
+    { name: 'Takoo', sector: 'Tecnología & E-commerce', logoFile: '/logos/takoo.webp' },
+    { name: 'AI Tecnologist', sector: 'Inteligencia Artificial & Tech', logoFile: '/logos/aitecnologist_webp.png' },
+    { name: 'Fast Line', sector: 'Logística & Transporte', logoFile: '/logos/fast_line.webp' },
+    { name: 'Assis', sector: 'Asistencia & Servicios', logoFile: '/logos/assis.webp' },
+    { name: 'UpConta', sector: 'Fintech & Contabilidad', logoFile: '/logos/upconta.webp' },
+    { name: 'Vita Alimentos', sector: 'Consumo Masivo & Lácteos', logoFile: '/logos/vita.webp' }
   ];
 
   return (
