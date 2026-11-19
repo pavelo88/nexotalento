@@ -20,6 +20,7 @@ import {
 import { PageRoute } from '../types';
 import { useTheme } from '../context/ThemeContext';
 import { SpecializationSectorsSection } from '../components/SpecializationSectorsSection';
+import { AreasEspecializacionSection } from '../components/AreasEspecializacionSection';
 
 interface ServiciosPageProps {
   onNavigate: (path: PageRoute) => void;
@@ -426,6 +427,11 @@ export const ServiciosPage: React.FC<ServiciosPageProps> = ({
               </div>
             );
           })}
+        </div>
+
+        {/* Las 6 Áreas de Especialización Directiva (Imagen 3 / 4) */}
+        <div id="areas-especializacion" className="mt-16 scroll-mt-28">
+          <AreasEspecializacionSection onNavigate={onNavigate} />
         </div>
 
         {/* Áreas de Especialización Sectorial */}

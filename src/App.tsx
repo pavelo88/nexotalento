@@ -3,6 +3,7 @@ import { ThemeProvider, useTheme } from './context/ThemeContext';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { NexoFloatingMenu } from './components/NexoFloatingMenu';
+import { MobileActionBar } from './components/navigation/MobileActionBar';
 import { HomePage } from './pages/HomePage';
 import { PageRoute } from './types';
 import { Bot, Sparkles, MessageSquare } from 'lucide-react';
@@ -291,10 +292,18 @@ function AppContent() {
         )}
       </div>
 
-      {/* Floating Center (Oculto en /admin) */}
+      {/* Floating Center (Desktop only, oculto en móvil y en /admin) */}
       {currentPath !== '/admin' && (
         <NexoFloatingMenu 
           onNavigateToContact={() => handleNavigate('/contacto')}
+        />
+      )}
+
+      {/* Apple Mobile Action Dock (Solo pantallas móviles < md, oculto en /admin) */}
+      {currentPath !== '/admin' && (
+        <MobileActionBar
+          currentPath={currentPath}
+          onNavigate={handleNavigate}
         />
       )}
 

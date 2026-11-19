@@ -251,3 +251,11 @@
   opacity: 1;
   transform: translateY(0);
 }
+
+/* ==========================================================================
+   MÁSCARA DE MUESCA APPLE DOCK DUAL-ARC (MOBILE ACTION BAR)
+   ========================================================================== */
+.ios-notch-mask {
+  -webkit-mask-image: radial-gradient(circle at 50% 0, transparent 35px, #000 36px);
+  mask-image: radial-gradient(circle at 50% 0, transparent 35px, #000 36px);
+}

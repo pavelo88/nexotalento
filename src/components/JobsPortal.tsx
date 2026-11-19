@@ -195,38 +195,48 @@ export const JobsPortal: React.FC<JobsPortalProps> = ({ onOpenCVAnalyzer, isFull
           </div>
         </div>
 
-        {/* MAIN JOBS LAYOUT (DESKTOP SIDEBAR + JOB CARDS GRID) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        {/* MAIN JOBS LAYOUT (DESKTOP PERSISTENT STICKY SIDEBAR + JOB CARDS GRID) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
-          {/* DESKTOP PERSISTENT LEFT SIDEBAR */}
-          <div className="hidden lg:block lg:col-span-3 space-y-6">
-            <div className={`p-5 rounded-2xl border sticky top-40 ${
-              theme === 'dark' ? 'bg-slate-900/80 border-slate-800' : 'bg-white border-slate-200 shadow-sm'
+          {/* DESKTOP PERSISTENT LEFT SIDEBAR - Stays visible on scroll down to footer */}
+          <aside className="hidden lg:block lg:col-span-3 sticky top-24 self-start space-y-6">
+            <div className={`p-5 rounded-2xl border ${
+              theme === 'dark' ? 'bg-slate-900 border-slate-700 shadow-xl' : 'bg-white border-slate-200 shadow-md'
             }`}>
               
-              <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+              <div className={`flex items-center justify-between pb-3 border-b ${
+                theme === 'dark' ? 'border-slate-800' : 'border-slate-200'
+              }`}>
                 <div className="flex items-center gap-2">
-                  <Filter className="w-4 h-4 text-emerald-500" />
-                  <h3 className="text-xs font-extrabold uppercase tracking-wider">Filtros Avanzados</h3>
+                  <Filter className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                  <h3 className={`text-xs font-black uppercase tracking-wider ${
+                    theme === 'dark' ? 'text-white' : 'text-slate-900'
+                  }`}>
+                    Filtros Avanzados
+                  </h3>
                 </div>
-                <span className="text-xs font-bold text-emerald-500 bg-emerald-500/10 px-2 py-0.5 rounded-md">
+                <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-md border border-emerald-500/20">
                   {filteredJobs.length} Activas
                 </span>
               </div>
 
               {/* Modality Filter */}
               <div className="pt-4">
-                <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2.5">
+                <label className={`block text-xs font-black uppercase tracking-wider mb-2.5 ${
+                  theme === 'dark' ? 'text-slate-200' : 'text-slate-800'
+                }`}>
                   Modalidad de Trabajo
                 </label>
                 <div className="space-y-2">
                   {['Presencial', 'Híbrido', '100% Remoto'].map((mod) => (
-                    <label key={mod} className="flex items-center gap-2 text-xs text-slate-300 cursor-pointer hover:text-white">
+                    <label key={mod} className={`flex items-center gap-2 text-xs font-semibold cursor-pointer transition-colors ${
+                      theme === 'dark' ? 'text-slate-200 hover:text-white' : 'text-slate-800 hover:text-slate-950'
+                    }`}>
                       <input
                         type="checkbox"
                         checked={selectedModalities.includes(mod)}
                         onChange={() => toggleModality(mod)}
-                        className="rounded border-slate-700 text-emerald-500 focus:ring-emerald-500 accent-emerald-500"
+                        className="rounded border-slate-400 dark:border-slate-600 text-emerald-600 focus:ring-emerald-500 accent-emerald-600 w-4 h-4"
                       />
                       <span>{mod}</span>
                     </label>
@@ -235,18 +245,22 @@ export const JobsPortal: React.FC<JobsPortalProps> = ({ onOpenCVAnalyzer, isFull
               </div>
 
               {/* Department Filter */}
-              <div className="pt-4 border-t border-slate-800">
-                <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2.5">
+              <div className={`pt-4 border-t ${theme === 'dark' ? 'border-slate-800' : 'border-slate-200'}`}>
+                <label className={`block text-xs font-black uppercase tracking-wider mb-2.5 ${
+                  theme === 'dark' ? 'text-slate-200' : 'text-slate-800'
+                }`}>
                   Sector / Departamento
                 </label>
                 <div className="space-y-2">
                   {['Marketing', 'Finanzas', 'Logística', 'Ventas', 'Tecnología', 'People'].map((dept) => (
-                    <label key={dept} className="flex items-center gap-2 text-xs text-slate-300 cursor-pointer hover:text-white">
+                    <label key={dept} className={`flex items-center gap-2 text-xs font-semibold cursor-pointer transition-colors ${
+                      theme === 'dark' ? 'text-slate-200 hover:text-white' : 'text-slate-800 hover:text-slate-950'
+                    }`}>
                       <input
                         type="checkbox"
                         checked={selectedDepartments.includes(dept)}
                         onChange={() => toggleDepartment(dept)}
-                        className="rounded border-slate-700 text-emerald-500 focus:ring-emerald-500 accent-emerald-500"
+                        className="rounded border-slate-400 dark:border-slate-600 text-emerald-600 focus:ring-emerald-500 accent-emerald-600 w-4 h-4"
                       />
                       <span>{dept}</span>
                     </label>
@@ -255,16 +269,22 @@ export const JobsPortal: React.FC<JobsPortalProps> = ({ onOpenCVAnalyzer, isFull
               </div>
 
               {/* AI CV Audit Promo Box */}
-              <div className="pt-4 border-t border-slate-800">
-                <div className="p-3.5 rounded-xl bg-gradient-to-br from-emerald-500/10 to-teal-500/10 border border-emerald-500/20 text-center">
-                  <Sparkles className="w-5 h-5 text-emerald-400 mx-auto mb-1.5" />
-                  <p className="text-xs font-bold">¿No encuentras tu posición ideal?</p>
-                  <p className="text-[10px] text-slate-400 mt-1 mb-2.5">
+              <div className={`pt-4 border-t ${theme === 'dark' ? 'border-slate-800' : 'border-slate-200'}`}>
+                <div className="p-3.5 rounded-xl bg-gradient-to-br from-emerald-500/15 to-teal-500/15 border border-emerald-500/30 text-center">
+                  <Sparkles className="w-5 h-5 text-emerald-500 dark:text-emerald-400 mx-auto mb-1.5" />
+                  <p className={`text-xs font-black ${
+                    theme === 'dark' ? 'text-white' : 'text-slate-900'
+                  }`}>
+                    ¿No encuentras tu posición ideal?
+                  </p>
+                  <p className={`text-[10px] mt-1 mb-2.5 font-medium ${
+                    theme === 'dark' ? 'text-slate-300' : 'text-slate-700'
+                  }`}>
                     Sube tu CV para que nuestros Headhunters te emparejen con posiciones confidenciales en Ecuador e internacional.
                   </p>
                   <button
                     onClick={onOpenCVAnalyzer}
-                    className="w-full py-2 px-3 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs rounded-lg shadow transition-all cursor-pointer active:scale-95"
+                    className="w-full py-2.5 px-3 bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs rounded-lg shadow-md transition-all cursor-pointer active:scale-95"
                   >
                     Auditar CV con IA
                   </button>
@@ -272,15 +292,19 @@ export const JobsPortal: React.FC<JobsPortalProps> = ({ onOpenCVAnalyzer, isFull
               </div>
 
             </div>
-          </div>
+          </aside>
 
           {/* JOB LISTINGS CARDS (GRID OF JOBS) */}
           <div className="lg:col-span-9 space-y-4">
             
             {/* Live Count Header */}
-            <div className="flex items-center justify-between text-xs text-slate-400 pb-2">
-              <p>Mostrando <strong className="text-slate-100">{filteredJobs.length}</strong> posiciones activas</p>
-              <span className="text-[11px] text-emerald-500 font-semibold">Procesos Actualizados</span>
+            <div className="flex items-center justify-between text-xs pb-2 border-b border-slate-200 dark:border-slate-800">
+              <p className={theme === 'dark' ? 'text-slate-200' : 'text-slate-800'}>
+                Mostrando <strong className={theme === 'dark' ? 'text-white' : 'text-slate-950 font-black'}>{filteredJobs.length}</strong> posiciones activas
+              </p>
+              <span className="text-[11px] text-emerald-600 dark:text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded-md">
+                Procesos Actualizados
+              </span>
             </div>
 
             {filteredJobs.length > 0 ? (
@@ -290,66 +314,76 @@ export const JobsPortal: React.FC<JobsPortalProps> = ({ onOpenCVAnalyzer, isFull
                   className={`p-5 sm:p-6 rounded-2xl border transition-all duration-300 hover:scale-[1.01] hover:shadow-xl relative flex flex-col justify-between ${
                     job.isFeatured
                       ? theme === 'dark'
-                        ? 'bg-slate-900/90 border-emerald-500/40 hover:border-emerald-500'
+                        ? 'bg-slate-900 border-emerald-500/40 hover:border-emerald-500 shadow-lg'
                         : 'bg-white border-emerald-300 hover:border-emerald-500 shadow-md'
                       : theme === 'dark'
-                        ? 'bg-slate-900/50 border-slate-800 hover:border-slate-700'
+                        ? 'bg-slate-900/90 border-slate-700 hover:border-slate-600'
                         : 'bg-white border-slate-200 hover:border-slate-300 shadow-sm'
                   }`}
                 >
                   {/* Top Tags & Badges */}
                   <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
                     <div className="flex items-center gap-2">
-                      <span className="text-[10px] uppercase font-extrabold px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                      <span className="text-[10px] uppercase font-black px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30">
                         {job.department}
                       </span>
                       {job.hot && (
-                        <span className="inline-flex items-center gap-1 text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20">
+                        <span className="inline-flex items-center gap-1 text-[10px] font-black px-2 py-0.5 rounded-full bg-rose-500/15 text-rose-700 dark:text-rose-300 border border-rose-500/30">
                           <Flame className="w-3 h-3 text-rose-500" />
                           <span>Proceso Activo</span>
                         </span>
                       )}
                     </div>
-                    <span className="text-[11px] text-slate-400 flex items-center gap-1">
-                      <Clock className="w-3 h-3 text-slate-400" />
+                    <span className={`text-[11px] font-semibold flex items-center gap-1 ${
+                      theme === 'dark' ? 'text-slate-300' : 'text-slate-600'
+                    }`}>
+                      <Clock className="w-3.5 h-3.5 text-slate-400" />
                       {job.postedDate}
                     </span>
                   </div>
 
                   {/* Job Title & Main Specs */}
                   <div>
-                    <h3 className="text-lg sm:text-xl font-bold font-heading mb-2 hover:text-emerald-500 transition-colors">
+                    <h3 className={`text-lg sm:text-xl font-black font-heading mb-2 transition-colors ${
+                      theme === 'dark' ? 'text-white hover:text-emerald-400' : 'text-slate-950 hover:text-emerald-600'
+                    }`}>
                       {job.title}
                     </h3>
-                    <p className={`text-xs sm:text-sm leading-relaxed mb-4 ${
-                      theme === 'dark' ? 'text-slate-300' : 'text-slate-600'
+                    <p className={`text-xs sm:text-sm font-medium leading-relaxed mb-4 ${
+                      theme === 'dark' ? 'text-slate-200' : 'text-slate-800'
                     }`}>
                       {job.description}
                     </p>
 
                     {/* Salary & Location Strip */}
                     <div className={`grid grid-cols-1 sm:grid-cols-3 gap-2.5 p-3 rounded-xl border mb-4 text-xs ${
-                      theme === 'dark' ? 'bg-slate-950/70 border-slate-800/80' : 'bg-slate-50 border-slate-200'
+                      theme === 'dark' ? 'bg-slate-950 border-slate-700' : 'bg-slate-100 border-slate-300'
                     }`}>
                       <div className="flex items-center gap-2">
-                        <TrendingUp className="w-4 h-4 text-emerald-500 shrink-0" />
+                        <TrendingUp className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
                         <div>
-                          <p className="text-[10px] text-slate-400 uppercase font-bold">Banda Salarial</p>
-                          <p className="font-extrabold text-emerald-500">{job.salaryRange}</p>
+                          <p className={`text-[10px] uppercase font-black ${
+                            theme === 'dark' ? 'text-slate-300' : 'text-slate-700'
+                          }`}>Banda Salarial</p>
+                          <p className="font-black text-emerald-700 dark:text-emerald-400 text-sm">{job.salaryRange}</p>
                         </div>
                       </div>
                       <div className="flex items-center gap-2">
-                        <MapPin className="w-4 h-4 text-cyan-500 shrink-0" />
+                        <MapPin className="w-4 h-4 text-cyan-600 dark:text-cyan-400 shrink-0" />
                         <div>
-                          <p className="text-[10px] text-slate-400 uppercase font-bold">Ubicación</p>
-                          <p className="font-semibold">{job.location}</p>
+                          <p className={`text-[10px] uppercase font-black ${
+                            theme === 'dark' ? 'text-slate-300' : 'text-slate-700'
+                          }`}>Ubicación</p>
+                          <p className={`font-bold ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{job.location}</p>
                         </div>
                       </div>
                       <div className="flex items-center gap-2">
-                        <Briefcase className="w-4 h-4 text-blue-500 shrink-0" />
+                        <Briefcase className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0" />
                         <div>
-                          <p className="text-[10px] text-slate-400 uppercase font-bold">Experiencia / Nivel</p>
-                          <p className="font-semibold">{job.experienceLevel}</p>
+                          <p className={`text-[10px] uppercase font-black ${
+                            theme === 'dark' ? 'text-slate-300' : 'text-slate-700'
+                          }`}>Experiencia / Nivel</p>
+                          <p className={`font-bold ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{job.experienceLevel}</p>
                         </div>
                       </div>
                     </div>
@@ -357,13 +391,17 @@ export const JobsPortal: React.FC<JobsPortalProps> = ({ onOpenCVAnalyzer, isFull
                     {/* Requirements List */}
                     {job.requirements && job.requirements.length > 0 && (
                       <div className="mb-4">
-                        <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">
+                        <p className={`text-[11px] font-black uppercase tracking-wider mb-1.5 ${
+                          theme === 'dark' ? 'text-slate-200' : 'text-slate-800'
+                        }`}>
                           Requisitos Clave:
                         </p>
-                        <ul className="grid grid-cols-1 md:grid-cols-2 gap-1 text-xs">
+                        <ul className="grid grid-cols-1 md:grid-cols-2 gap-1.5 text-xs">
                           {job.requirements.map((req, rIdx) => (
-                            <li key={rIdx} className="flex items-start gap-1.5 text-slate-300">
-                              <span className="text-emerald-500 font-bold shrink-0">•</span>
+                            <li key={rIdx} className={`flex items-start gap-1.5 font-medium ${
+                              theme === 'dark' ? 'text-slate-200' : 'text-slate-800'
+                            }`}>
+                              <span className="text-emerald-600 dark:text-emerald-400 font-black shrink-0">•</span>
                               <span className="leading-snug">{req}</span>
                             </li>
                           ))}
@@ -377,10 +415,10 @@ export const JobsPortal: React.FC<JobsPortalProps> = ({ onOpenCVAnalyzer, isFull
                         {job.tags.map((tag, idx) => (
                           <span
                             key={idx}
-                            className={`text-[10px] font-semibold px-2 py-0.5 rounded-md border ${
+                            className={`text-[10px] font-bold px-2 py-0.5 rounded-md border ${
                               theme === 'dark'
-                                ? 'bg-slate-950 border-slate-800 text-slate-400'
-                                : 'bg-slate-100 border-slate-200 text-slate-600'
+                                ? 'bg-slate-950 border-slate-700 text-slate-200'
+                                : 'bg-slate-100 border-slate-300 text-slate-800'
                             }`}
                           >
                             #{tag}

@@ -67,16 +67,19 @@ export const Hero: React.FC<HeroProps> = ({
         theme === 'dark' ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-900'
       }`}
     >
-      {/* Background Decorative Mesh & Gradient Glows */}
-      <div className="absolute top-10 left-1/4 w-[600px] h-[450px] bg-gradient-to-tr from-cyan-500/15 via-[#00A9A3]/10 to-blue-600/15 blur-[140px] pointer-events-none rounded-full -z-10" />
-      <div className="absolute top-1/3 right-1/4 w-[500px] h-[400px] bg-indigo-600/10 blur-[130px] pointer-events-none rounded-full -z-10" />
+      {/* Background Decorative Mesh & Luxury Corporate Glows */}
+      <div className="absolute top-0 inset-x-0 h-full overflow-hidden pointer-events-none -z-10">
+        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-gradient-to-b from-[#00A9A3]/20 via-blue-600/10 to-transparent blur-[140px] rounded-full" />
+        <div className="absolute top-1/3 -left-32 w-96 h-96 bg-cyan-500/15 blur-[120px] rounded-full" />
+        <div className="absolute top-1/4 -right-32 w-96 h-96 bg-indigo-600/15 blur-[120px] rounded-full" />
+      </div>
 
       {/* Grid Pattern Freelancer Luxury */}
       <div
         className={`absolute inset-0 pointer-events-none -z-10 ${
           theme === 'dark'
-            ? 'bg-[linear-gradient(to_right,#1e293b18_1px,transparent_1px),linear-gradient(to_bottom,#1e293b18_1px,transparent_1px)] bg-[size:4rem_4rem]'
-            : 'bg-[linear-gradient(to_right,#cbd5e130_1px,transparent_1px),linear-gradient(to_bottom,#cbd5e130_1px,transparent_1px)] bg-[size:4rem_4rem]'
+            ? 'bg-[radial-gradient(#334155_1px,transparent_1px)] [background-size:24px_24px] opacity-40'
+            : 'bg-[radial-gradient(#94a3b8_1px,transparent_1px)] [background-size:24px_24px] opacity-50'
         }`}
       />
 
@@ -84,15 +87,15 @@ export const Hero: React.FC<HeroProps> = ({
         
         {/* Top Trust Pill Freelancer Style */}
         <div className="text-center mb-6">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border shadow-sm transition-transform hover:scale-105 bg-slate-900/80 border-[#00A9A3]/40">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border shadow-sm transition-transform hover:scale-105 bg-slate-900/90 border-[#00A9A3]/50">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-[#00A9A3]" />
             </span>
-            <span className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-200">
+            <span className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-100">
               Firma Boutique de Executive Search &amp; Headhunting
             </span>
-            <span className="bg-[#00A9A3]/20 text-cyan-300 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full border border-[#00A9A3]/30">
+            <span className="bg-[#00A9A3]/20 text-cyan-300 text-[10px] font-black px-2.5 py-0.5 rounded-full border border-[#00A9A3]/40">
               Ecuador &amp; LATAM 2026
             </span>
           </div>
@@ -100,7 +103,7 @@ export const Hero: React.FC<HeroProps> = ({
 
         {/* Hero Headings */}
         <div className="text-center max-w-4xl mx-auto mb-10">
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight font-heading leading-tight">
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight font-heading leading-tight">
             Contrata al mejor talento{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-[#00A9A3] to-blue-500">
               directivo y técnico
@@ -109,9 +112,9 @@ export const Hero: React.FC<HeroProps> = ({
           </h1>
 
           <p className={`mt-4 text-sm sm:text-base lg:text-lg max-w-2xl mx-auto leading-relaxed ${
-            theme === 'dark' ? 'text-slate-300' : 'text-slate-600'
+            theme === 'dark' ? 'text-slate-200' : 'text-slate-700'
           }`}>
-            Garantizamos la máxima precisión de selección en Quito, Guayaquil y la región. Entrega de terna validada en <strong>18 días hábiles</strong> con <strong>garantía contractual de 3 a 6 meses</strong>.
+            Garantizamos la máxima precisión de selección en Quito, Guayaquil y la región. Entrega de terna validada en <strong className={theme === 'dark' ? 'text-white' : 'text-slate-950'}>18 días hábiles</strong> con <strong className={theme === 'dark' ? 'text-white' : 'text-slate-950'}>garantía contractual de 3 a 6 meses</strong>.
           </p>
         </div>
 
@@ -121,8 +124,8 @@ export const Hero: React.FC<HeroProps> = ({
             onSubmit={handleSearchSubmit}
             className={`p-2 rounded-2xl sm:rounded-3xl border shadow-2xl flex flex-col sm:flex-row items-center gap-2 transition-all ${
               theme === 'dark'
-                ? 'bg-slate-900/90 border-slate-700/80 shadow-black/50 focus-within:border-cyan-500'
-                : 'bg-white border-slate-200 shadow-slate-200/60 focus-within:border-[#00A9A3]'
+                ? 'bg-slate-900 border-slate-700 shadow-black/60 focus-within:border-cyan-400'
+                : 'bg-white border-slate-300 shadow-xl focus-within:border-[#00A9A3]'
             }`}
           >
             <div className="relative flex-1 w-full flex items-center">
@@ -132,12 +135,14 @@ export const Hero: React.FC<HeroProps> = ({
                 placeholder="¿Qué perfil buscas? Ej: Jefe de Marketing, Asesor Comercial, Contable..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 text-xs sm:text-sm bg-transparent outline-none text-slate-100 placeholder:text-slate-400"
+                className={`w-full pl-12 pr-4 py-3 text-xs sm:text-sm bg-transparent outline-none font-semibold ${
+                  theme === 'dark' ? 'text-white placeholder:text-slate-400' : 'text-slate-900 placeholder:text-slate-500'
+                }`}
               />
             </div>
             <button
               type="submit"
-              className="w-full sm:w-auto px-7 py-3 rounded-xl sm:rounded-2xl bg-gradient-to-r from-cyan-500 via-[#00A9A3] to-blue-600 hover:opacity-95 text-slate-950 font-extrabold text-xs sm:text-sm shadow-md transition-all active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full sm:w-auto px-7 py-3 rounded-xl sm:rounded-2xl bg-gradient-to-r from-cyan-500 via-[#00A9A3] to-blue-600 hover:opacity-95 text-slate-950 font-black text-xs sm:text-sm shadow-md transition-all active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
             >
               <span>Buscar Perfiles</span>
               <ArrowRight className="w-4 h-4" />

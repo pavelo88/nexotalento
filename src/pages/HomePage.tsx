@@ -17,6 +17,7 @@ const SuccessStories = lazy(() => import('../components/SuccessStories').then(m 
 const FAQSection = lazy(() => import('../components/FAQSection').then(m => ({ default: m.FAQSection })));
 const ContactSection = lazy(() => import('../components/ContactSection').then(m => ({ default: m.ContactSection })));
 const SpecializationSectorsSection = lazy(() => import('../components/SpecializationSectorsSection').then(m => ({ default: m.SpecializationSectorsSection })));
+const AreasEspecializacionSection = lazy(() => import('../components/AreasEspecializacionSection').then(m => ({ default: m.AreasEspecializacionSection })));
 
 interface HomePageProps {
   onNavigate: (path: PageRoute) => void;
@@ -100,6 +101,9 @@ export const HomePage: React.FC<HomePageProps> = ({
        
         {/* 4. Methodology Executive Summary (Terna en 18 días y garantía 3 a 6 meses) */}
         <MethodologySection onNavigateToProcess={() => onNavigate('/proceso')} />
+
+        {/* 5. Áreas de Especialización Oficiales (Imagen 3 del cliente: Selección, Executive Search, Headhunting, etc.) */}
+        <AreasEspecializacionSection onNavigate={onNavigate} />
        
         {/* Services Section (Headhunting directivo y tecnológico) */}
         <ServicesSection

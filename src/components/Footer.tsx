@@ -83,19 +83,15 @@ export const Footer: React.FC<FooterProps> = ({
         </div>
       </div>
 
-      {/* Main Footer Links */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
+      {/* Main Footer Links - 2 Columns on Mobile, clearance pb-28 for Apple Dock */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 pb-28 md:pb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 md:gap-10">
 
           {/* Brand Col (2 cols on lg) */}
           <div className="lg:col-span-2 space-y-4">
             <button onClick={() => handleNav('/')} className="focus:outline-none text-left">
               <Logo size="md" forceDark={true} />
             </button>
-
-            {/* <p className="text-xs text-slate-400 max-w-sm leading-relaxed">
-              Firma boutique de <strong>Executive Search, Headhunting y Selección de Talento Directivo y Tecnológico</strong> en España. Entregamos tu terna validada en 18 días hábiles con <strong>garantía contractual de 3 a 6 meses</strong> de sustitución.
-            </p>  */}
 
             <div className="space-y-2 pt-2 text-slate-300">
               <div className="flex items-center gap-2">
@@ -117,116 +113,112 @@ export const Footer: React.FC<FooterProps> = ({
             </div>
           </div>
 
-          {/* Col 2: Servicios */}
-          <div>
-            <h3 className="text-white font-bold text-sm mb-4 font-heading">Servicios de Selección</h3>
-            <ul className="space-y-2 text-xs">
-              <li>
-                <button onClick={() => handleNav('/servicios')} className="hover:text-cyan-400 transition-colors flex items-center gap-1">
-                  <ChevronRight className="w-3 h-3 text-cyan-500" />
-                  Executive Search &amp; C-Level
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleNav('/servicios')} className="hover:text-cyan-400 transition-colors flex items-center gap-1">
-                  <ChevronRight className="w-3 h-3 text-cyan-500" />
-                  Headhunting Tech &amp; Digital
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleNav('/servicios')} className="hover:text-cyan-400 transition-colors flex items-center gap-1">
-                  <ChevronRight className="w-3 h-3 text-cyan-500" />
-                  RPO para Scaleups
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleNav('/servicios')} className="hover:text-cyan-400 transition-colors flex items-center gap-1">
-                  <ChevronRight className="w-3 h-3 text-cyan-500" />
-                  Assessment Directivo
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleNav('/vacantes')} className="hover:text-cyan-400 transition-colors flex items-center gap-1">
-                  <ChevronRight className="w-3 h-3 text-cyan-500" />
-                  Portal de Vacantes Activas
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleNav('/guia-salarial')} className="hover:text-cyan-400 transition-colors flex items-center gap-1">
-                  <ChevronRight className="w-3 h-3 text-cyan-500" />
-                  Estudios Salariales 2026
-                </button>
-              </li>
-            </ul>
-          </div>
+          {/* Links en 2 Columnas Estructuradas en Móvil */}
+          <div className="col-span-1 md:col-span-1 lg:col-span-3 grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            {/* Col 2: Servicios */}
+            <div>
+              <h3 className="text-white font-bold text-sm mb-3 md:mb-4 font-heading border-b border-slate-800 pb-2 md:border-b-0 md:pb-0">Servicios</h3>
+              <ul className="space-y-2 text-xs">
+                <li>
+                  <button onClick={() => handleNav('/servicios')} className="w-full text-left p-1.5 md:p-0 rounded-lg bg-slate-900/60 md:bg-transparent border border-slate-800/60 md:border-0 hover:text-cyan-400 transition-colors flex items-center gap-1 active:scale-95">
+                    <ChevronRight className="w-3 h-3 text-cyan-500 shrink-0" />
+                    <span className="truncate">Executive Search</span>
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => handleNav('/servicios')} className="w-full text-left p-1.5 md:p-0 rounded-lg bg-slate-900/60 md:bg-transparent border border-slate-800/60 md:border-0 hover:text-cyan-400 transition-colors flex items-center gap-1 active:scale-95">
+                    <ChevronRight className="w-3 h-3 text-cyan-500 shrink-0" />
+                    <span className="truncate">Headhunting Tech</span>
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => handleNav('/servicios')} className="w-full text-left p-1.5 md:p-0 rounded-lg bg-slate-900/60 md:bg-transparent border border-slate-800/60 md:border-0 hover:text-cyan-400 transition-colors flex items-center gap-1 active:scale-95">
+                    <ChevronRight className="w-3 h-3 text-cyan-500 shrink-0" />
+                    <span className="truncate">RPO Scaleups</span>
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => handleNav('/servicios')} className="w-full text-left p-1.5 md:p-0 rounded-lg bg-slate-900/60 md:bg-transparent border border-slate-800/60 md:border-0 hover:text-cyan-400 transition-colors flex items-center gap-1 active:scale-95">
+                    <ChevronRight className="w-3 h-3 text-cyan-500 shrink-0" />
+                    <span className="truncate">Assessment Directivo</span>
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => handleNav('/vacantes')} className="w-full text-left p-1.5 md:p-0 rounded-lg bg-slate-900/60 md:bg-transparent border border-slate-800/60 md:border-0 hover:text-cyan-400 transition-colors flex items-center gap-1 text-cyan-300 font-bold active:scale-95">
+                    <ChevronRight className="w-3 h-3 text-cyan-400 shrink-0" />
+                    <span className="truncate">Vacantes Activas</span>
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => handleNav('/guia-salarial')} className="w-full text-left p-1.5 md:p-0 rounded-lg bg-slate-900/60 md:bg-transparent border border-slate-800/60 md:border-0 hover:text-cyan-400 transition-colors flex items-center gap-1 active:scale-95">
+                    <ChevronRight className="w-3 h-3 text-cyan-500 shrink-0" />
+                    <span className="truncate">Guía Salarial 2026</span>
+                  </button>
+                </li>
+              </ul>
+            </div>
 
-          {/* Col 3: Atención Directa & Consultoría */}
-          <div>
-            <h3 className="text-white font-bold text-sm mb-4 font-heading">Atención &amp; Contacto</h3>
-            <ul className="space-y-2 text-xs">
-              <li>
-                <a
-                  href={COMPANY_CONFIG.whatsappUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-emerald-400 transition-colors flex items-center gap-1 text-emerald-400 font-bold"
-                >
-                  <MessageSquare className="w-3.5 h-3.5 fill-emerald-400" />
-                  WhatsApp Directo (+34 614 143 763)
-                </a>
-              </li>
-              <li>
-                <button onClick={() => handleNav('/contacto')} className="hover:text-cyan-400 transition-colors flex items-center gap-1">
-                  <ChevronRight className="w-3 h-3 text-cyan-500" />
-                  Solicitar Briefing de Posición
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleNav('/calculadora-roi')} className="hover:text-cyan-400 transition-colors flex items-center gap-1">
-                  <ChevronRight className="w-3 h-3 text-cyan-500" />
-                  Calculadora de Coste de Vacante
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleNav('/proceso')} className="hover:text-cyan-400 transition-colors flex items-center gap-1">
-                  <ChevronRight className="w-3 h-3 text-cyan-500" />
-                  Metodología de Selección en 18 Días
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleNav('/testimonios')} className="hover:text-cyan-400 transition-colors flex items-center gap-1">
-                  <ChevronRight className="w-3 h-3 text-cyan-500" />
-                  Casos de Éxito de Selección
-                </button>
-              </li>
-              {/* 
-               * =====================================================================
-               * AGENTES IA COMENTADOS SEGÚN REQUERIMIENTO (PRESERVADOS):
-               * <li><button onClick={() => onOpenAIAgent('headhunter')}>Agente Headhunter</button></li>
-               * ...
-               * =====================================================================
-               */}
-            </ul>
-          </div>
+            {/* Col 3: Atención Directa & Consultoría */}
+            <div>
+              <h3 className="text-white font-bold text-sm mb-3 md:mb-4 font-heading border-b border-slate-800 pb-2 md:border-b-0 md:pb-0">Consultoría</h3>
+              <ul className="space-y-2 text-xs">
+                <li>
+                  <a
+                    href={COMPANY_CONFIG.whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full text-left p-1.5 md:p-0 rounded-lg bg-emerald-950/40 md:bg-transparent border border-emerald-800/40 md:border-0 hover:text-emerald-400 transition-colors flex items-center gap-1 text-emerald-400 font-bold active:scale-95"
+                  >
+                    <MessageSquare className="w-3.5 h-3.5 fill-emerald-400 shrink-0" />
+                    <span className="truncate">WhatsApp 24/7</span>
+                  </a>
+                </li>
+                <li>
+                  <button onClick={() => handleNav('/contacto')} className="w-full text-left p-1.5 md:p-0 rounded-lg bg-slate-900/60 md:bg-transparent border border-slate-800/60 md:border-0 hover:text-cyan-400 transition-colors flex items-center gap-1 active:scale-95">
+                    <ChevronRight className="w-3 h-3 text-cyan-500 shrink-0" />
+                    <span className="truncate">Briefing de Posición</span>
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => handleNav('/calculadora-roi')} className="w-full text-left p-1.5 md:p-0 rounded-lg bg-slate-900/60 md:bg-transparent border border-slate-800/60 md:border-0 hover:text-cyan-400 transition-colors flex items-center gap-1 active:scale-95">
+                    <ChevronRight className="w-3 h-3 text-cyan-500 shrink-0" />
+                    <span className="truncate">Calculadora ROI</span>
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => handleNav('/proceso')} className="w-full text-left p-1.5 md:p-0 rounded-lg bg-slate-900/60 md:bg-transparent border border-slate-800/60 md:border-0 hover:text-cyan-400 transition-colors flex items-center gap-1 active:scale-95">
+                    <ChevronRight className="w-3 h-3 text-cyan-500 shrink-0" />
+                    <span className="truncate">Proceso 18 Días</span>
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => handleNav('/testimonios')} className="w-full text-left p-1.5 md:p-0 rounded-lg bg-slate-900/60 md:bg-transparent border border-slate-800/60 md:border-0 hover:text-cyan-400 transition-colors flex items-center gap-1 active:scale-95">
+                    <ChevronRight className="w-3 h-3 text-cyan-500 shrink-0" />
+                    <span className="truncate">Casos de Éxito</span>
+                  </button>
+                </li>
+              </ul>
+            </div>
 
-          {/* Col 4: Garantías & Legal */}
-          <div>
-            <h3 className="text-white font-bold text-sm mb-4 font-heading">Garantías &amp; Compromiso</h3>
-            <div className="space-y-3">
-              <div className="p-3 rounded-xl bg-slate-900 border border-slate-800 space-y-1">
-                <p className="font-bold text-white flex items-center gap-1 text-[11px]">
-                  <Clock className="w-3.5 h-3.5 text-cyan-400" />
-                  Compromiso 18 Días
-                </p>
-                <p className="text-[10px] text-slate-400">Terna de finalistas evaluada y validada en 18 días hábiles.</p>
-              </div>
+            {/* Col 4: Garantías & Legal */}
+            <div className="col-span-2 md:col-span-2 lg:col-span-1 pt-2 md:pt-0">
+              <h3 className="text-white font-bold text-sm mb-3 md:mb-4 font-heading">Garantías</h3>
+              <div className="grid grid-cols-2 lg:grid-cols-1 gap-2.5">
+                <div className="p-2.5 rounded-xl bg-slate-900 border border-slate-800 space-y-0.5">
+                  <p className="font-bold text-white flex items-center gap-1 text-[11px]">
+                    <Clock className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+                    <span>18 Días</span>
+                  </p>
+                  <p className="text-[10px] text-slate-400 leading-tight">Terna finalista validada.</p>
+                </div>
 
-              <div className="p-3 rounded-xl bg-slate-900 border border-slate-800 space-y-1">
-                <p className="font-bold text-white flex items-center gap-1 text-[11px]">
-                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                  Garantía 3 a 6 Meses
-                </p>
-                <p className="text-[10px] text-slate-400">Reposición contractual sin coste adicional según nivel de la posición.</p>
+                <div className="p-2.5 rounded-xl bg-slate-900 border border-slate-800 space-y-0.5">
+                  <p className="font-bold text-white flex items-center gap-1 text-[11px]">
+                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                    <span>3 a 6 Meses</span>
+                  </p>
+                  <p className="text-[10px] text-slate-400 leading-tight">Garantía de reposición.</p>
+                </div>
               </div>
             </div>
           </div>
