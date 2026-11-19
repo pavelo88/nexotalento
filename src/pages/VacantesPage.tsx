@@ -15,7 +15,7 @@ export const VacantesPage: React.FC<VacantesPageProps> = ({
   const { theme } = useTheme();
 
   return (
-    <div className={`pt-36 sm:pt-40 pb-24 relative overflow-hidden min-h-screen transition-colors duration-300 ${
+    <div className={`pt-36 sm:pt-40 pb-24 relative overflow-x-clip min-h-screen transition-colors duration-300 ${
       theme === 'dark' ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-900'
     }`}>
       {/* Background Glows */}

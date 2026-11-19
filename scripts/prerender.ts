@@ -387,6 +387,16 @@ const ROUTES: RouteMetadata[] = [
         linkHref: '/contacto'
       }
     ]
+  },
+  {
+    path: '/admin',
+    title: 'Panel de Control | Nexo Talentos',
+    description: 'Panel de administración interno para gestión de contenidos, vacantes y prospectos.',
+    h1: 'Panel de Administración Nexo Talentos',
+    h2: 'Gestión Centralizada',
+    summaryText: 'Panel interno de administración y gestión de procesos de selección.',
+    closingText: '',
+    h3s: []
   }
 ];
 

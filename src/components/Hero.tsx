@@ -67,6 +67,20 @@ export const Hero: React.FC<HeroProps> = ({
         theme === 'dark' ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-900'
       }`}
     >
+      {/* High-Resolution Corporate Office Photography Background */}
+      <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">
+        <img
+          src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=2000&q=80"
+          alt="Oficinas corporativas de alta dirección"
+          className="w-full h-full object-cover object-center opacity-20 dark:opacity-25 filter contrast-125"
+        />
+        <div className={`absolute inset-0 ${
+          theme === 'dark'
+            ? 'bg-gradient-to-b from-slate-950/85 via-slate-950/92 to-slate-950'
+            : 'bg-gradient-to-b from-slate-50/85 via-slate-50/92 to-slate-50'
+        }`} />
+      </div>
+
       {/* Background Decorative Mesh & Luxury Corporate Glows */}
       <div className="absolute top-0 inset-x-0 h-full overflow-hidden pointer-events-none -z-10">
         <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-gradient-to-b from-[#00A9A3]/20 via-blue-600/10 to-transparent blur-[140px] rounded-full" />

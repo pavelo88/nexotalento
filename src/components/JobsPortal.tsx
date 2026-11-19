@@ -138,12 +138,11 @@ export const JobsPortal: React.FC<JobsPortalProps> = ({ onOpenCVAnalyzer, isFull
         </div>
 
         {/* MOBILE STICKY SEARCH & TACTILE PILLS */}
-        <div className="sticky top-16 z-30 mb-8 p-3 rounded-2xl border backdrop-blur-xl shadow-lg transition-all"
-          style={{
-            backgroundColor: theme === 'dark' ? 'rgba(15, 23, 42, 0.92)' : 'rgba(255, 255, 255, 0.95)',
-            borderColor: theme === 'dark' ? 'rgba(51, 65, 85, 0.7)' : 'rgba(226, 232, 240, 0.9)'
-          }}
-        >
+        <div className={`sticky top-16 z-30 mb-8 p-3 rounded-2xl border backdrop-blur-xl shadow-lg transition-all ${
+          theme === 'dark'
+            ? 'bg-slate-900/95 border-slate-700/80 shadow-black/40'
+            : 'bg-white/95 border-slate-300 shadow-slate-200/60'
+        }`}>
           {/* Search Input */}
           <div className="relative mb-3">
             <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
@@ -222,21 +221,17 @@ export const JobsPortal: React.FC<JobsPortalProps> = ({ onOpenCVAnalyzer, isFull
 
               {/* Modality Filter */}
               <div className="pt-4">
-                <label className={`block text-xs font-black uppercase tracking-wider mb-2.5 ${
-                  theme === 'dark' ? 'text-slate-200' : 'text-slate-800'
-                }`}>
+                <label className="block text-xs font-black uppercase tracking-wider mb-2.5 text-slate-900 dark:text-slate-100">
                   Modalidad de Trabajo
                 </label>
-                <div className="space-y-2">
+                <div className="space-y-2.5">
                   {['Presencial', 'Híbrido', '100% Remoto'].map((mod) => (
-                    <label key={mod} className={`flex items-center gap-2 text-xs font-semibold cursor-pointer transition-colors ${
-                      theme === 'dark' ? 'text-slate-200 hover:text-white' : 'text-slate-800 hover:text-slate-950'
-                    }`}>
+                    <label key={mod} className="flex items-center gap-2.5 text-xs font-bold cursor-pointer transition-colors text-slate-900 dark:text-slate-100 hover:text-emerald-600 dark:hover:text-emerald-400">
                       <input
                         type="checkbox"
                         checked={selectedModalities.includes(mod)}
                         onChange={() => toggleModality(mod)}
-                        className="rounded border-slate-400 dark:border-slate-600 text-emerald-600 focus:ring-emerald-500 accent-emerald-600 w-4 h-4"
+                        className="rounded border-slate-400 dark:border-slate-600 text-emerald-600 focus:ring-emerald-500 accent-emerald-600 w-4 h-4 cursor-pointer"
                       />
                       <span>{mod}</span>
                     </label>
@@ -245,22 +240,18 @@ export const JobsPortal: React.FC<JobsPortalProps> = ({ onOpenCVAnalyzer, isFull
               </div>
 
               {/* Department Filter */}
-              <div className={`pt-4 border-t ${theme === 'dark' ? 'border-slate-800' : 'border-slate-200'}`}>
-                <label className={`block text-xs font-black uppercase tracking-wider mb-2.5 ${
-                  theme === 'dark' ? 'text-slate-200' : 'text-slate-800'
-                }`}>
+              <div className="pt-4 border-t border-slate-200 dark:border-slate-800">
+                <label className="block text-xs font-black uppercase tracking-wider mb-2.5 text-slate-900 dark:text-slate-100">
                   Sector / Departamento
                 </label>
-                <div className="space-y-2">
+                <div className="space-y-2.5">
                   {['Marketing', 'Finanzas', 'Logística', 'Ventas', 'Tecnología', 'People'].map((dept) => (
-                    <label key={dept} className={`flex items-center gap-2 text-xs font-semibold cursor-pointer transition-colors ${
-                      theme === 'dark' ? 'text-slate-200 hover:text-white' : 'text-slate-800 hover:text-slate-950'
-                    }`}>
+                    <label key={dept} className="flex items-center gap-2.5 text-xs font-bold cursor-pointer transition-colors text-slate-900 dark:text-slate-100 hover:text-emerald-600 dark:hover:text-emerald-400">
                       <input
                         type="checkbox"
                         checked={selectedDepartments.includes(dept)}
                         onChange={() => toggleDepartment(dept)}
-                        className="rounded border-slate-400 dark:border-slate-600 text-emerald-600 focus:ring-emerald-500 accent-emerald-600 w-4 h-4"
+                        className="rounded border-slate-400 dark:border-slate-600 text-emerald-600 focus:ring-emerald-500 accent-emerald-600 w-4 h-4 cursor-pointer"
                       />
                       <span>{dept}</span>
                     </label>
@@ -298,11 +289,11 @@ export const JobsPortal: React.FC<JobsPortalProps> = ({ onOpenCVAnalyzer, isFull
           <div className="lg:col-span-9 space-y-4">
             
             {/* Live Count Header */}
-            <div className="flex items-center justify-between text-xs pb-2 border-b border-slate-200 dark:border-slate-800">
-              <p className={theme === 'dark' ? 'text-slate-200' : 'text-slate-800'}>
-                Mostrando <strong className={theme === 'dark' ? 'text-white' : 'text-slate-950 font-black'}>{filteredJobs.length}</strong> posiciones activas
+            <div className="flex items-center justify-between text-xs pb-2 border-b border-slate-300 dark:border-slate-800">
+              <p className="text-slate-900 dark:text-slate-100 font-semibold">
+                Mostrando <strong className="text-slate-950 dark:text-white font-black">{filteredJobs.length}</strong> posiciones activas
               </p>
-              <span className="text-[11px] text-emerald-600 dark:text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded-md">
+              <span className="text-[11px] text-emerald-700 dark:text-emerald-400 font-black bg-emerald-500/15 px-2.5 py-0.5 rounded-md border border-emerald-500/20">
                 Procesos Actualizados
               </span>
             </div>

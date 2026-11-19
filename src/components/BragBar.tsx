@@ -44,7 +44,7 @@ export const BragBar: React.FC = () => {
   ];
 
   const trustedCompanies = [
-    { name: 'Corporación Favorita', sector: 'Retail & Supermercados', logoFile: '/logos/corporacion-favorita.png' },
+    { name: 'Corporación Favorita', sector: 'Retail & Supermercados', logoFile: '/logos/corporacion-favorita.svg' },
     { name: 'Banco Pichincha', sector: 'Banca & Finanzas', logoFile: '/logos/banco-pichincha.svg' },
     { name: 'SLB Schlumberger', sector: 'Energía & Petróleo', logoFile: '/logos/schlumberger.svg' },
     { name: 'Pronaca', sector: 'Agroindustria & Alimentos', logoFile: '/logos/pronaca.svg' },

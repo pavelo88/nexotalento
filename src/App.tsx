@@ -146,7 +146,7 @@ function AppContent() {
   };
 
   return (
-      <div className={`min-h-screen font-sans selection:bg-cyan-500 selection:text-white relative overflow-x-hidden transition-colors duration-300 ${
+      <div className={`min-h-screen font-sans selection:bg-cyan-500 selection:text-white relative overflow-x-clip transition-colors duration-300 ${
         theme === 'dark' 
           ? 'bg-slate-950 text-slate-100' 
           : 'bg-white text-slate-900'
