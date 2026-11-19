@@ -9,6 +9,7 @@ export type PageRoute =
   | '/guia-salarial'
   | '/calculadora-roi'
   | '/agentes-ia'
+  | '/admin'
   | '/blog';
 
 export type AgentType = 'headhunter' | 'evaluator' | 'salary' | 'advisor';

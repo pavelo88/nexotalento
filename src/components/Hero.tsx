@@ -3,13 +3,17 @@ import { useTheme } from '../context/ThemeContext';
 import {
   ShieldCheck,
   ArrowRight,
-  MessageSquare,
+  Search,
   Building2,
   Rocket,
-  FileSearch
+  CheckCircle2,
+  Users2,
+  Clock,
+  Sparkles,
+  Award
 } from 'lucide-react';
 import { PageRoute } from '../types';
-import { COMPANY_CONFIG } from '../config/company';
+import { trackEvent } from '../lib/tracking';
 
 interface HeroProps {
   onOpenAIAgent?: (type?: 'headhunter' | 'evaluator' | 'salary' | 'advisor') => void;
@@ -22,363 +26,249 @@ export const Hero: React.FC<HeroProps> = ({
   onNavigate
 }) => {
   const { theme } = useTheme();
-  const [mobileTab, setMobileTab] = useState<'empresas' | 'candidatos'>('empresas');
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const scrollToSection = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    trackEvent({
+      eventName: 'hero_search',
+      category: 'Engagement',
+      label: searchQuery
+    });
+    if (onNavigate) {
+      onNavigate('/vacantes');
     }
   };
 
-  const whatsappCompaniesUrl = `https://wa.me/${COMPANY_CONFIG.whatsapp}?text=${encodeURIComponent(
-    'Hola Nexo Talento, deseo consultar sobre la búsqueda de un perfil directivo / técnico para mi empresa.'
-  )}`;
+  const handleSeekTalent = () => {
+    trackEvent({
+      eventName: 'hero_seek_talent_click',
+      category: 'Funnel'
+    });
+    if (onNavigate) {
+      onNavigate('/contacto');
+    }
+  };
+
+  const handleSeekJob = () => {
+    trackEvent({
+      eventName: 'hero_seek_job_click',
+      category: 'Funnel'
+    });
+    if (onNavigate) {
+      onNavigate('/vacantes');
+    }
+  };
 
   return (
     <section
       id="inicio"
-      className={`relative pt-24 pb-16 sm:pt-32 sm:pb-24 lg:pt-36 lg:pb-24 overflow-hidden transition-colors duration-300 ${theme === 'dark'
-        ? 'bg-slate-950 text-slate-100'
-        : 'bg-slate-50 text-slate-900'
-        }`}
+      className={`relative pt-28 pb-16 sm:pt-36 sm:pb-24 lg:pt-40 lg:pb-28 overflow-hidden transition-colors duration-300 ${
+        theme === 'dark' ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-900'
+      }`}
     >
-      {/* Background Decorative Gradient Orbs */}
-      <div className="absolute top-10 left-1/4 w-[600px] h-[400px] bg-cyan-600/10 blur-[130px] pointer-events-none rounded-full" />
-      <div className="absolute top-1/3 right-1/4 w-[600px] h-[400px] bg-blue-600/10 blur-[130px] pointer-events-none rounded-full" />
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-indigo-600/10 blur-[140px] pointer-events-none rounded-full" />
+      {/* Background Decorative Mesh & Gradient Glows */}
+      <div className="absolute top-10 left-1/4 w-[600px] h-[450px] bg-gradient-to-tr from-cyan-500/15 via-[#00A9A3]/10 to-blue-600/15 blur-[140px] pointer-events-none rounded-full -z-10" />
+      <div className="absolute top-1/3 right-1/4 w-[500px] h-[400px] bg-indigo-600/10 blur-[130px] pointer-events-none rounded-full -z-10" />
 
-      {/* Grid Pattern */}
-      <div className={`absolute inset-0 pointer-events-none ${theme === 'dark'
-        ? 'bg-[linear-gradient(to_right,#1e293b12_1px,transparent_1px),linear-gradient(to_bottom,#1e293b12_1px,transparent_1px)] bg-[size:3.5rem_3.5rem]'
-        : 'bg-[linear-gradient(to_right,#cbd5e130_1px,transparent_1px),linear-gradient(to_bottom,#cbd5e130_1px,transparent_1px)] bg-[size:3.5rem_3.5rem]'
-        }`} />
+      {/* Grid Pattern Freelancer Luxury */}
+      <div
+        className={`absolute inset-0 pointer-events-none -z-10 ${
+          theme === 'dark'
+            ? 'bg-[linear-gradient(to_right,#1e293b18_1px,transparent_1px),linear-gradient(to_bottom,#1e293b18_1px,transparent_1px)] bg-[size:4rem_4rem]'
+            : 'bg-[linear-gradient(to_right,#cbd5e130_1px,transparent_1px),linear-gradient(to_bottom,#cbd5e130_1px,transparent_1px)] bg-[size:4rem_4rem]'
+        }`}
+      />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-
-        {/* Top Trust Badge */}
-        <div className="text-center mb-6 sm:mb-8">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border shadow-sm transition-transform hover:scale-105 bg-slate-900/80 border-cyan-500/40 dark:bg-slate-900/80 dark:border-cyan-500/40">
+        
+        {/* Top Trust Pill Freelancer Style */}
+        <div className="text-center mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border shadow-sm transition-transform hover:scale-105 bg-slate-900/80 border-[#00A9A3]/40">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#00A9A3]" />
             </span>
-            <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-200">
-              Firma de Headhunting &amp; Selección Ejecutiva en España
+            <span className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-200">
+              Firma Boutique de Executive Search &amp; Headhunting
             </span>
-            <span className="bg-cyan-500/20 text-cyan-400 dark:text-cyan-300 text-[9px] sm:text-[10px] font-extrabold px-2 py-0.5 rounded-full border border-cyan-500/30">
-              Edición 2026
+            <span className="bg-[#00A9A3]/20 text-cyan-300 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full border border-[#00A9A3]/30">
+              Ecuador &amp; LATAM 2026
             </span>
           </div>
+        </div>
 
-          <h1 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight font-heading max-w-4xl mx-auto leading-tight">
-            Executive Search &amp;{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 dark:from-cyan-400 dark:via-blue-400 dark:to-indigo-400">
-              Selección Directiva de Alto Impacto
-            </span>
+        {/* Hero Headings */}
+        <div className="text-center max-w-4xl mx-auto mb-10">
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight font-heading leading-tight">
+            Contrata al mejor talento{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-[#00A9A3] to-blue-500">
+              directivo y técnico
+            </span>{' '}
+            para tu empresa
           </h1>
-          <p className={`mt-2.5 text-xs sm:text-sm max-w-2xl mx-auto ${theme === 'dark' ? 'text-slate-300' : 'text-slate-600'
-            }`}>
-            Garantizamos la máxima precisión en España y LATAM. Terna en <strong>18 días hábiles</strong> con <strong>garantía contractual de 3 a 6 meses</strong> y <strong>100% blindaje legal</strong>.
+
+          <p className={`mt-4 text-sm sm:text-base lg:text-lg max-w-2xl mx-auto leading-relaxed ${
+            theme === 'dark' ? 'text-slate-300' : 'text-slate-600'
+          }`}>
+            Garantizamos la máxima precisión de selección en Quito, Guayaquil y la región. Entrega de terna validada en <strong>18 días hábiles</strong> con <strong>garantía contractual de 3 a 6 meses</strong>.
           </p>
         </div>
 
-        {/* Mobile Audience Switcher (Visible on Mobile Only) */}
-        <div className="lg:hidden flex items-center justify-center p-1 rounded-2xl border mb-6 max-w-sm mx-auto shadow-sm bg-slate-900/90 border-slate-700/70">
-          <button
-            onClick={() => setMobileTab('empresas')}
-            className={`flex-1 py-2.5 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${mobileTab === 'empresas'
-              ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 shadow-md font-extrabold'
-              : 'text-slate-400 hover:text-slate-200'
-              }`}
+        {/* FREELANCER STYLE SEARCH BAR */}
+        <div className="max-w-3xl mx-auto mb-10">
+          <form
+            onSubmit={handleSearchSubmit}
+            className={`p-2 rounded-2xl sm:rounded-3xl border shadow-2xl flex flex-col sm:flex-row items-center gap-2 transition-all ${
+              theme === 'dark'
+                ? 'bg-slate-900/90 border-slate-700/80 shadow-black/50 focus-within:border-cyan-500'
+                : 'bg-white border-slate-200 shadow-slate-200/60 focus-within:border-[#00A9A3]'
+            }`}
           >
-            <Building2 className="w-3.5 h-3.5" />
-            <span>Soy Empresa</span>
-          </button>
-          <button
-            onClick={() => setMobileTab('candidatos')}
-            className={`flex-1 py-2.5 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${mobileTab === 'candidatos'
-              ? 'bg-gradient-to-r from-emerald-500 to-teal-600 text-slate-950 shadow-md font-extrabold'
-              : 'text-slate-400 hover:text-slate-200'
-              }`}
-          >
-            <Rocket className="w-3.5 h-3.5" />
-            <span>Soy Candidato</span>
-          </button>
+            <div className="relative flex-1 w-full flex items-center">
+              <Search className="w-5 h-5 text-slate-400 absolute left-4 pointer-events-none" />
+              <input
+                type="text"
+                placeholder="¿Qué perfil buscas? Ej: Jefe de Marketing, Asesor Comercial, Contable..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-12 pr-4 py-3 text-xs sm:text-sm bg-transparent outline-none text-slate-100 placeholder:text-slate-400"
+              />
+            </div>
+            <button
+              type="submit"
+              className="w-full sm:w-auto px-7 py-3 rounded-xl sm:rounded-2xl bg-gradient-to-r from-cyan-500 via-[#00A9A3] to-blue-600 hover:opacity-95 text-slate-950 font-extrabold text-xs sm:text-sm shadow-md transition-all active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
+            >
+              <span>Buscar Perfiles</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </form>
+
+          {/* Quick tags below search */}
+          <div className="flex flex-wrap items-center justify-center gap-2 mt-3.5 text-xs">
+            <span className="text-slate-400 font-semibold text-[11px]">Búsquedas frecuentes:</span>
+            {['Jefe de Marketing', 'Asistente Contable', 'Carga Internacional', 'Ventas B2B Tech'].map((tag) => (
+              <button
+                key={tag}
+                type="button"
+                onClick={() => {
+                  setSearchQuery(tag);
+                  if (onNavigate) onNavigate('/vacantes');
+                }}
+                className={`text-[10px] px-2.5 py-1 rounded-full border transition-all ${
+                  theme === 'dark'
+                    ? 'bg-slate-900/60 text-slate-300 border-slate-800 hover:border-cyan-500'
+                    : 'bg-white text-slate-700 border-slate-200 hover:border-[#00A9A3]'
+                }`}
+              >
+                {tag}
+              </button>
+            ))}
+          </div>
         </div>
 
-        {/* DESKTOP SPLIT SCREEN HERO (Bifurcación Inmediata con Fotos Originales) */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-stretch">
-
-          {/* ================= LEFT SIDE: PARA EMPRESAS ================= */}
-          <div className={`rounded-3xl border p-6 sm:p-8 lg:p-10 flex flex-col justify-between relative overflow-hidden card-spring-hover ${mobileTab === 'empresas' ? 'block' : 'hidden lg:flex'
-            } ${theme === 'dark'
-              ? 'bg-gradient-to-br from-slate-900/95 via-slate-900/80 to-slate-950 border-slate-800 hover:border-cyan-500/50'
-              : 'bg-gradient-to-br from-white via-cyan-50/30 to-white border-slate-200 hover:border-cyan-500/60 shadow-lg shadow-cyan-950/5'
-            }`}>
-
-            {/* Background Accent Pill */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
-
+        {/* DUAL ACTION CARDS (EMPRESAS VS CANDIDATOS) FREELANCER LUXURY */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-12">
+          
+          {/* Card 1: Para Empresas */}
+          <div
+            onClick={handleSeekTalent}
+            className={`p-6 sm:p-8 rounded-3xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl cursor-pointer relative group flex flex-col justify-between ${
+              theme === 'dark'
+                ? 'bg-gradient-to-br from-slate-900/90 to-slate-950 border-slate-800 hover:border-cyan-500/60 shadow-xl'
+                : 'bg-white border-slate-200 hover:border-cyan-500/60 shadow-md'
+            }`}
+          >
             <div>
-              {/* Audience Pill */}
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-extrabold uppercase tracking-wider bg-cyan-500/10 text-cyan-800 dark:text-cyan-300 border border-cyan-500/30 mb-4">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 mb-4">
                 <Building2 className="w-3.5 h-3.5" />
-                <span>Para Empresas, Founders &amp; Comités de Dirección</span>
+                <span>Empresas &amp; Comités de Dirección</span>
               </div>
 
-              {/* Title */}
-              <h2 className="text-2xl sm:text-3xl font-extrabold font-heading tracking-tight mb-3">
-                Encuentra Talento Técnico, Directivo &amp; <br /> C-Level
+              <h2 className="text-xl sm:text-2xl font-bold font-heading mb-2 group-hover:text-cyan-400 transition-colors">
+                Necesito contratar talento
               </h2>
 
-              {/* Persuasive copy */}
-              <p className={`text-xs sm:text-sm leading-relaxed mb-6 ${theme === 'dark' ? 'text-slate-300' : 'text-slate-600'
-                }`}>
-                Externalización y Headhunting ético sin riesgos de cesión ilegal. Identificamos al talento directivo y técnico de alto impacto con rigor humano, evaluación predictiva y cobertura integral.
+              <p className={`text-xs sm:text-sm leading-relaxed mb-6 ${
+                theme === 'dark' ? 'text-slate-400' : 'text-slate-600'
+              }`}>
+                Publica un requerimiento o solicita headhunting directo. Te presentamos una terna finalista evaluada en 18 días hábiles.
               </p>
-
-              {/* Image Showcase: Modern Boardroom & Tech Leaders in Madrid/Barcelona */}
-              <div className="relative rounded-2xl overflow-hidden mb-6 border border-cyan-500/20 shadow-md group h-48 sm:h-52 w-full">
-                <img
-                  srcSet="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=350&auto=format&fit=crop&q=60 350w, https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=480&auto=format&fit=crop&q=60 480w"
-                  sizes="(min-width: 1024px) 380px, 480px"
-                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=480&auto=format&fit=crop&q=60"
-                  alt="Equipo Directivo y Headhunting en Madrid"
-                  width="480"
-                  height="270"
-                  className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
-                  loading="eager"
-                  fetchPriority="high"
-                  decoding="async"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-transparent flex items-end p-4">
-                  <div className="flex items-center justify-between w-full text-white text-xs">
-                    <span className="font-bold flex items-center gap-1.5">
-                      <ShieldCheck className="w-4 h-4 text-cyan-400" />
-                      Garantía Contractual 3 a 6 Meses
-                    </span>
-                    <span className="bg-cyan-500/90 text-slate-950 font-extrabold px-2.5 py-0.5 rounded-md text-[10px]">
-                      Terna en 18 Días
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Value Metrics Grid */}
-              <div className="grid grid-cols-3 gap-2 text-center mb-6">
-                <div className={`p-2.5 rounded-xl border ${theme === 'dark' ? 'bg-slate-950/60 border-slate-800' : 'bg-white border-slate-200'}`}>
-                  <p className="text-base font-extrabold text-cyan-700 dark:text-cyan-400">18 Días</p>
-                  <p className={`text-[10px] ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600 font-medium'}`}>Terna Validada</p>
-                </div>
-                <div className={`p-2.5 rounded-xl border ${theme === 'dark' ? 'bg-slate-950/60 border-slate-800' : 'bg-white border-slate-200'}`}>
-                  <p className="text-base font-extrabold text-blue-700 dark:text-blue-400">3-6 Meses</p>
-                  <p className={`text-[10px] ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600 font-medium'}`}>Garantía Reposición</p>
-                </div>
-                <div className={`p-2.5 rounded-xl border ${theme === 'dark' ? 'bg-slate-950/60 border-slate-800' : 'bg-white border-slate-200'}`}>
-                  <p className="text-base font-extrabold text-emerald-700 dark:text-emerald-400">98.4%</p>
-                  <p className={`text-[10px] ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600 font-medium'}`}>Tasa de Éxito</p>
-                </div>
-              </div>
             </div>
 
-            {/* CTAs for Companies */}
-            <div className={`space-y-2.5 pt-2 border-t ${theme === 'dark' ? 'border-slate-800/60' : 'border-slate-200'}`}>
-              <button
-                onClick={() => {
-                  if (onNavigate) {
-                    onNavigate('/solicitar-talento');
-                  } else {
-                    scrollToSection('solicitar-talento');
-                  }
-                }}
-                className="w-full py-3.5 px-6 bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-slate-950 font-extrabold rounded-2xl shadow-lg btn-spring-press flex items-center justify-center gap-2 text-sm group cursor-pointer"
-              >
-                <span>Solicitar Requerimiento de Personal</span>
-                <ArrowRight className="w-4 h-4 text-slate-950 group-hover:translate-x-1 transition-transform" />
-              </button>
-
-              <div className="flex gap-2">
-                <a
-                  href={whatsappCompaniesUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`flex-1 py-2.5 px-3 text-xs font-bold rounded-xl border btn-spring-press flex items-center justify-center gap-1.5 transition-colors ${theme === 'dark'
-                    ? 'bg-emerald-950/50 hover:bg-emerald-900/60 text-emerald-300 border-emerald-500/40'
-                    : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border-emerald-300 shadow-sm'
-                    }`}
-                >
-                  <MessageSquare className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                  <span>Consultar por WhatsApp</span>
-                </a>
-                {onNavigate && (
-                  <button
-                    onClick={() => onNavigate('/servicios')}
-                    className={`py-2.5 px-3 text-xs font-bold rounded-xl border btn-spring-press ${theme === 'dark'
-                      ? 'bg-slate-900/80 hover:bg-slate-800 text-slate-300 border-slate-700'
-                      : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200'
-                      }`}
-                  >
-                    Ver Servicios
-                  </button>
-                )}
-              </div>
+            <div className="flex items-center justify-between pt-4 border-t border-slate-800">
+              <span className="text-xs font-bold text-cyan-400 flex items-center gap-1.5">
+                <Clock className="w-3.5 h-3.5" />
+                Terna en 18 días
+              </span>
+              <span className="px-4 py-2 rounded-xl bg-cyan-500 text-slate-950 font-extrabold text-xs group-hover:bg-cyan-400 transition-colors flex items-center gap-1.5">
+                <span>Solicitar Talento</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </span>
             </div>
-
           </div>
 
-          {/* ================= RIGHT SIDE: PARA CANDIDATOS ================= */}
-          <div className={`rounded-3xl border p-6 sm:p-8 lg:p-10 flex flex-col justify-between relative overflow-hidden card-spring-hover ${mobileTab === 'candidatos' ? 'block' : 'hidden lg:flex'
-            } ${theme === 'dark'
-              ? 'bg-gradient-to-br from-slate-900/95 via-slate-900/80 to-slate-950 border-slate-800 hover:border-emerald-500/50'
-              : 'bg-gradient-to-br from-white via-emerald-50/30 to-white border-slate-200 hover:border-emerald-500/60 shadow-lg shadow-emerald-950/5'
-            }`}>
-
-            {/* Background Accent Pill */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
-
+          {/* Card 2: Para Candidatos */}
+          <div
+            onClick={handleSeekJob}
+            className={`p-6 sm:p-8 rounded-3xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl cursor-pointer relative group flex flex-col justify-between ${
+              theme === 'dark'
+                ? 'bg-gradient-to-br from-slate-900/90 to-slate-950 border-slate-800 hover:border-[#00A9A3]/60 shadow-xl'
+                : 'bg-white border-slate-200 hover:border-[#00A9A3]/60 shadow-md'
+            }`}
+          >
             <div>
-              {/* Audience Pill */}
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-extrabold uppercase tracking-wider bg-emerald-500/10 text-emerald-800 dark:text-emerald-300 border border-emerald-500/30 mb-4">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#00A9A3]/10 text-[#00A9A3] border border-[#00A9A3]/20 mb-4">
                 <Rocket className="w-3.5 h-3.5" />
-                <span>Para Candidatos &amp; Directivos en Crecimiento</span>
+                <span>Candidatos &amp; Profesionales</span>
               </div>
 
-              {/* Title */}
-              <h2 className="text-2xl sm:text-3xl font-extrabold font-heading tracking-tight mb-3">
-                Impulsa tu Carrera Directiva hacia <br /> Puestos de Alto Impacto
+              <h2 className="text-xl sm:text-2xl font-bold font-heading mb-2 group-hover:text-[#00A9A3] transition-colors">
+                Quiero postular a vacantes
               </h2>
 
-              {/* Persuasive copy */}
-              <p className={`text-xs sm:text-sm leading-relaxed mb-6 ${theme === 'dark' ? 'text-slate-300' : 'text-slate-600'
-                }`}>
-                Acceso exclusivo a <strong>ofertas confidenciales no publicadas</strong> en España y Europa. Transparencia salarial garantizada (Directiva UE 2023/970) y feedback directo.
+              <p className={`text-xs sm:text-sm leading-relaxed mb-6 ${
+                theme === 'dark' ? 'text-slate-400' : 'text-slate-600'
+              }`}>
+                Explora los 4 procesos oficiales de selección abiertos en Quito y Guayaquil con bandas salariales transparentes.
               </p>
-
-              {/* Image Showcase: Modern Tech Talent & Executive Strategy */}
-              <div className="relative rounded-2xl overflow-hidden mb-6 border border-emerald-500/20 shadow-md group h-48 sm:h-52 w-full">
-                <img
-                  srcSet="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=350&auto=format&fit=crop&crop=top&q=60 350w, https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=480&auto=format&fit=crop&crop=top&q=60 480w"
-                  sizes="(min-width: 1024px) 380px, 480px"
-                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=480&auto=format&fit=crop&crop=top&q=60"
-                  alt="Candidato Profesional de Éxito"
-                  width="480"
-                  height="270"
-                  className="w-full h-full object-cover object-[center_15%] transition-transform duration-700 group-hover:scale-105"
-                  loading="lazy"
-                  decoding="async"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-transparent flex items-end p-4">
-                  <div className="flex items-center justify-between w-full text-white text-xs">
-                    <span className="font-bold flex items-center gap-1.5">
-                      <ShieldCheck className="w-4 h-4 text-emerald-400" />
-                      Confidencialidad Máxima RGPD
-                    </span>
-                    <span className="bg-emerald-500/90 text-slate-950 font-extrabold px-2.5 py-0.5 rounded-md text-[10px]">
-                      +24 Vacantes Activas
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Value Metrics Grid */}
-              <div className="grid grid-cols-3 gap-2 text-center mb-6">
-                <div className={`p-2.5 rounded-xl border ${theme === 'dark' ? 'bg-slate-950/60 border-slate-800' : 'bg-white border-slate-200'}`}>
-                  <p className="text-base font-extrabold text-emerald-700 dark:text-emerald-400">100%</p>
-                  <p className={`text-[10px] ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600 font-medium'}`}>Salarios Públicos</p>
-                </div>
-                <div className={`p-2.5 rounded-xl border ${theme === 'dark' ? 'bg-slate-950/60 border-slate-800' : 'bg-white border-slate-200'}`}>
-                  <p className="text-base font-extrabold text-teal-700 dark:text-teal-400">&lt;48h</p>
-                  <p className={`text-[10px] ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600 font-medium'}`}>Feedback Primer Filtro</p>
-                </div>
-                <div className={`p-2.5 rounded-xl border ${theme === 'dark' ? 'bg-slate-950/60 border-slate-800' : 'bg-white border-slate-200'}`}>
-                  <p className="text-base font-extrabold text-cyan-700 dark:text-cyan-400">+1.000</p>
-                  <p className={`text-[10px] ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600 font-medium'}`}>Líderes Colocados</p>
-                </div>
-              </div>
             </div>
 
-            {/* CTAs for Candidates */}
-            <div className={`space-y-2.5 pt-2 border-t ${theme === 'dark' ? 'border-slate-800/60' : 'border-slate-200'}`}>
-              <button
-                onClick={() => {
-                  if (onNavigate) {
-                    onNavigate('/vacantes');
-                  } else {
-                    scrollToSection('vacantes');
-                  }
-                }}
-                className="w-full py-3.5 px-6 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 font-extrabold rounded-2xl shadow-lg btn-spring-press flex items-center justify-center gap-2 text-sm group cursor-pointer"
-              >
-                <span>Explorar Ofertas de Empleo Activas</span>
-                <ArrowRight className="w-4 h-4 text-slate-950 group-hover:translate-x-1 transition-transform" />
-              </button>
-
-              <div className="flex gap-2">
-                {onOpenCVAnalyzer && (
-                  <button
-                    onClick={onOpenCVAnalyzer}
-                    className={`flex-1 py-2.5 px-3 text-xs font-bold rounded-xl border btn-spring-press flex items-center justify-center gap-1.5 ${theme === 'dark'
-                      ? 'bg-slate-900/80 hover:bg-slate-800 text-slate-200 border-slate-700'
-                      : 'bg-white hover:bg-slate-50 text-slate-800 border-slate-200 shadow-sm'
-                      }`}
-                  >
-                    <FileSearch className="w-3.5 h-3.5 text-emerald-500" />
-                    <span>Auditar mi CV</span>
-                  </button>
-                )}
-                {onNavigate && (
-                  <button
-                    onClick={() => onNavigate('/guia-salarial')}
-                    className={`py-2.5 px-3 text-xs font-bold rounded-xl border btn-spring-press ${theme === 'dark'
-                      ? 'bg-slate-900/80 hover:bg-slate-800 text-slate-300 border-slate-700'
-                      : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200'
-                      }`}
-                  >
-                    Guía Salarial
-                  </button>
-                )}
-              </div>
+            <div className="flex items-center justify-between pt-4 border-t border-slate-800">
+              <span className="text-xs font-bold text-emerald-400 flex items-center gap-1.5">
+                <CheckCircle2 className="w-3.5 h-3.5" />
+                Bolsa Activa 2026
+              </span>
+              <span className="px-4 py-2 rounded-xl bg-[#00A9A3] text-white font-extrabold text-xs group-hover:bg-[#00918C] transition-colors flex items-center gap-1.5">
+                <span>Ver 4 Vacantes</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </span>
             </div>
-
           </div>
 
         </div>
 
-      </div>
-
-      {/* ================= STICKY MOBILE BOTTOM CTAs (Visible only on Mobile) ================= */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 p-3 bg-slate-950/95 backdrop-blur-xl border-t border-slate-800 shadow-2xl">
-        <div className="grid grid-cols-2 gap-2.5 max-w-md mx-auto">
-          <button
-            onClick={() => {
-              if (onNavigate) {
-                onNavigate('/solicitar-talento');
-              } else {
-                scrollToSection('solicitar-talento');
-              }
-            }}
-            className="py-3 px-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-extrabold text-xs shadow-md flex items-center justify-center gap-1.5 text-center btn-spring-press"
-          >
-            <Building2 className="w-4 h-4 shrink-0" />
-            <span>Busco Personal</span>
-          </button>
-          <button
-            onClick={() => {
-              if (onNavigate) {
-                onNavigate('/vacantes');
-              } else {
-                scrollToSection('vacantes');
-              }
-            }}
-            className="py-3 px-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-slate-950 font-extrabold text-xs shadow-md flex items-center justify-center gap-1.5 text-center btn-spring-press"
-          >
-            <Rocket className="w-4 h-4 shrink-0" />
-            <span>Ver Vacantes</span>
-          </button>
+        {/* Trust Badges Strip (Freelancer metrics footer) */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto text-center">
+          <div className={`p-4 rounded-2xl border ${theme === 'dark' ? 'bg-slate-900/50 border-slate-800/80' : 'bg-white border-slate-200'}`}>
+            <p className="text-xl sm:text-2xl font-black text-cyan-400 font-heading">18 Días</p>
+            <p className="text-[11px] text-slate-400 font-medium">Terna Validada</p>
+          </div>
+          <div className={`p-4 rounded-2xl border ${theme === 'dark' ? 'bg-slate-900/50 border-slate-800/80' : 'bg-white border-slate-200'}`}>
+            <p className="text-xl sm:text-2xl font-black text-[#00A9A3] font-heading">3-6 Meses</p>
+            <p className="text-[11px] text-slate-400 font-medium">Garantía Reposición</p>
+          </div>
+          <div className={`p-4 rounded-2xl border ${theme === 'dark' ? 'bg-slate-900/50 border-slate-800/80' : 'bg-white border-slate-200'}`}>
+            <p className="text-xl sm:text-2xl font-black text-blue-400 font-heading">98.4%</p>
+            <p className="text-[11px] text-slate-400 font-medium">Tasa de Retención</p>
+          </div>
+          <div className={`p-4 rounded-2xl border ${theme === 'dark' ? 'bg-slate-900/50 border-slate-800/80' : 'bg-white border-slate-200'}`}>
+            <p className="text-xl sm:text-2xl font-black text-emerald-400 font-heading">100%</p>
+            <p className="text-[11px] text-slate-400 font-medium">Blindaje Contractual</p>
+          </div>
         </div>
-      </div>
 
+      </div>
     </section>
   );
 };

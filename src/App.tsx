@@ -18,6 +18,7 @@ const VacantesPage = lazy(() => import('./pages/VacantesPage').then(m => ({ defa
 const GuiaSalarialPage = lazy(() => import('./pages/GuiaSalarialPage').then(m => ({ default: m.GuiaSalarialPage })));
 const CalculadoraRoiPage = lazy(() => import('./pages/CalculadoraRoiPage').then(m => ({ default: m.CalculadoraRoiPage })));
 const BlogPage = lazy(() => import('./pages/BlogPage').then(m => ({ default: m.BlogPage })));
+const AdminPage = lazy(() => import('./pages/AdminPage').then(m => ({ default: m.AdminPage })));
 // PRESERVADO COMENTADO SEGÚN SOLICITUD DE CLIENTE:
 // const AgentesIAPage = lazy(() => import('./pages/AgentesIAPage').then(m => ({ default: m.AgentesIAPage })));
 
@@ -64,6 +65,7 @@ function AppContent() {
         '/vacantes',
         '/guia-salarial',
         '/calculadora-roi',
+        '/admin',
         '/blog'
       ];
       if (validRoutes.includes(pathname as PageRoute)) {
@@ -163,15 +165,17 @@ function AppContent() {
       </div>
 
       <div className="relative z-10">
-        {/* Modern Grouped Navigation Bar */}
-        <Navbar 
-          currentPath={currentPath}
-          onNavigate={handleNavigate}
-          onOpenAIAgent={handleOpenAIAgent}
-          onOpenCVAnalyzer={() => setIsCVModalOpen(true)}
-          onOpenJobSpecGenerator={() => setIsJobSpecModalOpen(true)}
-          onOpenConcierge={() => setIsConciergeOpen(true)}
-        />
+        {/* Modern Grouped Navigation Bar (Oculto en /admin) */}
+        {currentPath !== '/admin' && (
+          <Navbar 
+            currentPath={currentPath}
+            onNavigate={handleNavigate}
+            onOpenAIAgent={handleOpenAIAgent}
+            onOpenCVAnalyzer={() => setIsCVModalOpen(true)}
+            onOpenJobSpecGenerator={() => setIsJobSpecModalOpen(true)}
+            onOpenConcierge={() => setIsConciergeOpen(true)}
+          />
+        )}
 
         {/* Dynamic Page Router */}
         <main className="min-h-[70vh]">
@@ -248,6 +252,12 @@ function AppContent() {
                 />
               )}
 
+              {currentPath === '/admin' && (
+                <AdminPage
+                  onNavigate={handleNavigate}
+                />
+              )}
+
               {currentPath === '/blog' && (
                 <BlogPage
                   onNavigate={handleNavigate}
@@ -270,19 +280,23 @@ function AppContent() {
           )}
         </main>
 
-        {/* Unified Footer */}
-        <Footer
-          onNavigate={handleNavigate}
-          onOpenAIAgent={handleOpenAIAgent}
-          onOpenCVAnalyzer={() => setIsCVModalOpen(true)}
-          onOpenConcierge={() => setIsConciergeOpen(true)}
-        />
+        {/* Unified Footer (Oculto en /admin para espacio limpio de trabajo) */}
+        {currentPath !== '/admin' && (
+          <Footer
+            onNavigate={handleNavigate}
+            onOpenAIAgent={handleOpenAIAgent}
+            onOpenCVAnalyzer={() => setIsCVModalOpen(true)}
+            onOpenConcierge={() => setIsConciergeOpen(true)}
+          />
+        )}
       </div>
 
-      {/* Floating Center (Menu with NexIA 24/7 & Direct WhatsApp Advisor matching Image 3 Reference) */}
-      <NexoFloatingMenu 
-        onNavigateToContact={() => handleNavigate('/contacto')}
-      />
+      {/* Floating Center (Oculto en /admin) */}
+      {currentPath !== '/admin' && (
+        <NexoFloatingMenu 
+          onNavigateToContact={() => handleNavigate('/contacto')}
+        />
+      )}
 
       {/* Direct NexIA Chat Modal (Triggerable from Footer or Navigation) */}
       {isConciergeOpen && (

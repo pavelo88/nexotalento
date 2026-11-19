@@ -1,0 +1,14 @@
+{
+  "users": [
+    {
+      "email": "pablofgarciaf@gmail.com",
+      "cedula": "1721790721",
+      "passwordHash": "$2b$10$temporaryHash1721790721",
+      "nombre": "Pablo García",
+      "primerIngreso": true,
+      "role": "superadmin",
+      "createdAt": "2026-11-19T04:55:00.000Z",
+      "lastLogin": null
+    }
+  ]
+}

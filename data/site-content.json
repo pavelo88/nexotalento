@@ -1,0 +1,25 @@
+{
+  "hero": {
+    "badge": "Firma de Headhunting & Selección Ejecutiva",
+    "editionBadge": "Edición 2026",
+    "titlePrefix": "Executive Search &",
+    "titleGradient": "Selección Directiva de Alto Impacto",
+    "subtitle": "Conectamos empresas líderes con directivos y especialistas de alto nivel en Ecuador y Latinoamérica. Terna validada en 18 días hábiles con garantía contractual de 3 a 6 meses.",
+    "searchPlaceholder": "¿Qué perfil buscas? Ej: Jefe de Marketing, Asesor Comercial, Contable...",
+    "stat1Value": "18 Días",
+    "stat1Label": "Terna Validada",
+    "stat2Value": "3-6 Meses",
+    "stat2Label": "Garantía Reposición",
+    "stat3Value": "98.4%",
+    "stat3Label": "Tasa de Retención"
+  },
+  "contact": {
+    "whatsapp": "+34 614 143 763",
+    "whatsappNumber": "34614143763",
+    "email": "info@nexotalento.com",
+    "addressQuito": "Av. República de El Salvador y Naciones Unidas, Quito, Ecuador",
+    "addressGuayaquil": "Av. Francisco de Orellana, World Trade Center, Guayaquil, Ecuador"
+  },
+  "vacanciesCount": 4,
+  "lastUpdated": "2026-11-19T04:55:00.000Z"
+}
