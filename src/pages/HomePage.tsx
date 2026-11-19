@@ -89,52 +89,29 @@ export const HomePage: React.FC<HomePageProps> = ({
       {/* 2. Brag Bar (Eagerly loaded for immediate credibility) */}
       <BragBar />
 
+      {/* 3. Vacantes en Selección Inmediata (4 Procesos Activos en Cuadrícula Directa) */}
+      <FeaturedVacanciesSummary
+        onNavigate={onNavigate}
+        onOpenCVAnalyzer={onOpenCVAnalyzer}
+      />
+
       {/* Lazy-loaded sections with zero initial bundle footprint */}
       <Suspense fallback={<div className="h-32 flex items-center justify-center"><div className="w-6 h-6 border-2 border-cyan-500 border-t-transparent rounded-full animate-spin"></div></div>}>
        
-        {/* 5. Methodology Executive Summary (Terna en 18 días y garantía 3 a 6 meses) */}
+        {/* 4. Methodology Executive Summary (Terna en 18 días y garantía 3 a 6 meses) */}
         <MethodologySection onNavigateToProcess={() => onNavigate('/proceso')} />
        
-        {/* 3. Executive Interactive Requirement Wizard (Buscar Personal) 
-        <div id="solicitar-talento" className="py-6 scroll-mt-24">
-          <B2BRequirementWizard onOpenContact={() => onNavigate('/contacto')} />
-        </div>*/}
-
-        {/* 4. Services Section (Headhunting directivo y tecnológico) */}
+        {/* Services Section (Headhunting directivo y tecnológico) */}
         <ServicesSection
           onOpenAIAgent={onOpenAIAgent}
           onOpenJobSpecGenerator={onOpenJobSpecGenerator}
           onViewAllServices={() => onNavigate('/servicios')}
         />
 
-        {/* 4.1 Áreas de Especialización - 7 Sectores Productivos Clave */}
+        {/* Áreas de Especialización - 7 Sectores Productivos Clave */}
         <SpecializationSectorsSection onNavigate={onNavigate} />
 
-        {/* 
-         * =====================================================================
-         * SECCIONES RETIRADAS DE LA HOME PARA EVITAR EXTENSIÓN Y FATIGA (PRESERVADAS COMENTADAS):
-         * 
-         * 1. Suite de Agentes IA (Retirada según solicitud del cliente):
-         * <AIAgentsTeaser onNavigate={onNavigate} onOpenAIAgent={onOpenAIAgent} />
-         * 
-         * 2. Blog Teaser (Accesible directamente en su página dedicada /blog):
-         * <BlogTeaserSection onNavigate={onNavigate} onOpenAIAgent={onOpenAIAgent} />
-         * 
-         * 3. Reporte Editorial LatAm:
-         * <LatamEliteTalentSection onNavigate={onNavigate} onOpenContact={() => onNavigate('/contacto')} />
-         * =====================================================================
-         */}
-
-        {/* 6. Comparativa Salarial España vs Remoto LATAM (Sección compacta y visual) */}
-        {/* <SalaryComparisonSection onOpenContact={() => onNavigate('/contacto')} /> */}
-
-        {/* 7. Carrusel Infinito de Vacantes Directivas & Tech en Selección Activa */}
-        <FeaturedVacanciesSummary
-          onNavigate={onNavigate}
-          onOpenCVAnalyzer={onOpenCVAnalyzer}
-        />
-
-        {/* 8. Success Stories & Audited Testimonials */}
+        {/* Success Stories & Audited Testimonials */}
         <SuccessStories onNavigateToTestimonials={() => onNavigate('/testimonios')} />
 
         {/* 9. FAQ Section */}
