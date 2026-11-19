@@ -170,6 +170,111 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
     }
   ]);
 
+  // Áreas de Especialización Administrables
+  const [areasList, setAreasList] = useState<any[]>([
+    {
+      id: 'seleccion-talento',
+      title: 'Selección de Talento',
+      subtitle: 'Reclutamiento Operativo y Mandos Medios',
+      badge: 'Procesos Ágiles',
+      image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80',
+      description: 'Atracción y filtrado por competencias para posiciones intermedias, técnicas y operativas con validación de idoneidad y referencias verificadas.'
+    },
+    {
+      id: 'executive-search',
+      title: 'Executive Search',
+      subtitle: 'C-Level & Directores Generales',
+      badge: 'Máxima Confidencialidad',
+      image: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80',
+      description: 'Búsqueda directa y exclusiva de Presidentes, CEOs, CFOs y miembros del Comité de Dirección bajo estrictos acuerdos de confidencialidad.'
+    },
+    {
+      id: 'headhunting',
+      title: 'Headhunting',
+      subtitle: 'Caza Directa de Talento en Activo',
+      badge: 'Caza Quirúrgica',
+      image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80',
+      description: 'Identificación y captación directa de perfiles no disponibles en portales de empleo, atrayendo a líderes consolidados en la competencia.'
+    },
+    {
+      id: 'evaluacion-talento',
+      title: 'Evaluación de Talento',
+      subtitle: 'Assessment Centers & Fit Cultural',
+      badge: 'Diagnóstico 360°',
+      image: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80',
+      description: 'Auditoría psicométrica, pruebas situacionales y evaluación profunda del potencial para promociones internas o comités de sucesión.'
+    },
+    {
+      id: 'desarrollo-organizacional',
+      title: 'Desarrollo Organizacional',
+      subtitle: 'Estructura, Cultura y Retención',
+      badge: 'Escalabilidad Corporativa',
+      image: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=800&q=80',
+      description: 'Diseño de organigramas ágiles, planes de compensación total y diagnóstico de clima laboral para maximizar el engagement del equipo directivo.'
+    },
+    {
+      id: 'outplacement',
+      title: 'Outplacement',
+      subtitle: 'Transición de Carrera & Recolocación',
+      badge: 'Acompañamiento Humano',
+      image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=800&q=80',
+      description: 'Programas de orientación profesional, optimización de marca personal y recolocación efectiva para ejecutivos desvinculados.'
+    }
+  ]);
+
+  // Sectores de Industria Administrables
+  const [sectorsList, setSectorsList] = useState<any[]>([
+    {
+      id: 'retail-consumo',
+      name: 'Retail y Consumo Masivo',
+      subtitle: 'FMCG, Gran Distribución y E-commerce Omnicanal',
+      badge: 'Alta Rotación & Expansión',
+      description: 'Atracción de directores comerciales, gerentes de operaciones retail y especialistas en cadena de suministro de gran consumo con probada capacidad de rentabilidad y tracción en punto de venta.'
+    },
+    {
+      id: 'banca-finanzas',
+      name: 'Banca, Finanzas y Seguros',
+      subtitle: 'Banca Corporativa, Fintech, Insurtech y Fondos de Inversión',
+      badge: 'Cumplimiento & C-Level',
+      description: 'Headhunting confidencial para posiciones clave en gestión de patrimonio, banca de inversión, modelación de riesgos, cumplimiento normativo y directores financieros (CFO) con visión estratégica.'
+    },
+    {
+      id: 'industria-manufactura',
+      name: 'Industria y Manufactura',
+      subtitle: 'Automoción, Metalmecánica, Química y Plantas Industriales',
+      badge: 'Ingeniería & Producción',
+      description: 'Selección de líderes de planta, directores de ingeniería, especialistas en Lean Manufacturing, excelencia operacional y mantenimiento predictivo en entornos industriales de alta exigencia.'
+    },
+    {
+      id: 'agroindustria-forestal',
+      name: 'Agroindustria y Sector Forestal',
+      subtitle: 'Agrotech, Producción Agrícola, Procesamiento y Forestal',
+      badge: 'Sostenibilidad & Campo',
+      description: 'Reclutamiento de especialistas agronómicos, gerentes de operaciones agrícolas, directores de packing y líderes en tecnificación de riego y biotecnología aplicada a la productividad.'
+    },
+    {
+      id: 'transporte-logistica',
+      name: 'Transporte, Logística e Importaciones',
+      subtitle: 'Supply Chain, Operadores 3PL/4PL, Aduanas y Freight Forwarding',
+      badge: 'Supply Chain Crítica',
+      description: 'Captación de directores de cadena de suministro internacional, jefes de centros de distribución (CD), agentes de aduana y expertos en comercio exterior para blindar las operaciones de entrada y salida.'
+    },
+    {
+      id: 'tecnologia-telecomunicaciones',
+      name: 'Tecnología y Telecomunicaciones',
+      subtitle: 'Software, Infraestructura Cloud, Ciberseguridad, Telco e IA',
+      badge: 'Tech & Digital Leaders',
+      description: 'Headhunting ultra-especializado en talento tecnológico: arquitectos de nube, directores de ingeniería, líderes de producto y especialistas en telecomunicaciones de alta disponibilidad.'
+    },
+    {
+      id: 'hoteleria-servicios',
+      name: 'Hotelería y Servicios',
+      subtitle: 'Hospitality, Cadenas Hoteleras, Restauración y Facility Services',
+      badge: 'Hospitality & Customer Care',
+      description: 'Identificación de directores de hotel, gerentes generales de resorts, directores de alimentos y bebidas (F&B) y ejecutivos de servicios corporativos enfocados en la experiencia del cliente.'
+    }
+  ]);
+
   // Modal para nueva vacante
   const [isCreatingVacancy, setIsCreatingVacancy] = useState(false);
   const [newVacTitle, setNewVacTitle] = useState('');
@@ -195,6 +300,12 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         if (data && Array.isArray(data.vacancies) && data.vacancies.length > 0) {
           setVacancies(data.vacancies);
         }
+        if (data && Array.isArray(data.areas) && data.areas.length > 0) {
+          setAreasList(data.areas);
+        }
+        if (data && Array.isArray(data.sectors) && data.sectors.length > 0) {
+          setSectorsList(data.sectors);
+        }
       })
       .catch(err => console.warn('No se pudo cargar CMS:', err));
 
@@ -214,7 +325,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
       const res = await fetch('/api/admin/content', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...siteContent, vacancies })
+        body: JSON.stringify({ ...siteContent, vacancies, areas: areasList, sectors: sectorsList })
       });
       if (res.ok) {
         setSaveSuccess(true);
@@ -395,8 +506,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
           })}
         </nav>
 
-        {/* Footer del Sidebar con Cerrar Sesión */}
-        <div className="p-3 border-t border-stone-200 dark:border-stone-800 shrink-0">
+        {/* Footer del Sidebar con Cerrar Sesión (h-16 exacto igual que la barra inferior derecha) */}
+        <div className="h-16 px-3 border-t border-stone-200 dark:border-stone-800 flex items-center shrink-0">
           <button
             onClick={onLogout}
             className="w-full py-2 px-3 rounded-xl text-xs font-semibold text-rose-600 dark:text-rose-400 hover:bg-rose-500/10 transition-colors flex items-center justify-center gap-2"
@@ -739,6 +850,188 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                             className="w-full px-2 py-1 text-xs rounded-lg bg-stone-50 dark:bg-stone-950 border border-stone-200 dark:border-stone-800 text-stone-800 dark:text-stone-200"
                           />
                         </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* TAB: ÁREAS DE ESPECIALIZACIÓN (EDITABLE) */}
+            {activeTab === 'areas' && (
+              <div className="space-y-4">
+                <div className="p-4 rounded-2xl bg-white dark:bg-stone-900/80 border border-stone-200 dark:border-stone-800 flex items-center justify-between">
+                  <div>
+                    <h3 className="text-xs font-bold text-stone-900 dark:text-white uppercase tracking-wider">
+                      Áreas de Especialización ({areasList.length})
+                    </h3>
+                    <p className="text-[11px] text-stone-500">
+                      Edita los textos, insignias e imágenes del carrusel de especialidades.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                  {areasList.map((area, idx) => (
+                    <div
+                      key={area.id || idx}
+                      className="p-5 rounded-2xl bg-white dark:bg-stone-900/80 border border-stone-200 dark:border-stone-800 space-y-3.5 shadow-xs"
+                    >
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="px-2 py-0.5 rounded-md text-[10px] font-black uppercase bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20">
+                          Área #{idx + 1}
+                        </span>
+                        <input
+                          type="text"
+                          value={area.badge || ''}
+                          onChange={(e) => {
+                            const copy = [...areasList];
+                            copy[idx].badge = e.target.value;
+                            setAreasList(copy);
+                          }}
+                          placeholder="Insignia / Badge"
+                          className="px-2 py-1 text-[11px] font-bold rounded-lg bg-stone-50 dark:bg-stone-950 border border-stone-200 dark:border-stone-800 text-stone-700 dark:text-stone-300 text-right"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-[11px] font-bold text-stone-600 dark:text-stone-400 mb-1">Título Principal</label>
+                        <input
+                          type="text"
+                          value={area.title || ''}
+                          onChange={(e) => {
+                            const copy = [...areasList];
+                            copy[idx].title = e.target.value;
+                            setAreasList(copy);
+                          }}
+                          className="w-full px-3 py-1.5 text-xs font-bold rounded-xl bg-stone-50 dark:bg-stone-950 border border-stone-200 dark:border-stone-800 text-stone-900 dark:text-white"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-[11px] font-bold text-stone-600 dark:text-stone-400 mb-1">Subtítulo Descriptivo</label>
+                        <input
+                          type="text"
+                          value={area.subtitle || ''}
+                          onChange={(e) => {
+                            const copy = [...areasList];
+                            copy[idx].subtitle = e.target.value;
+                            setAreasList(copy);
+                          }}
+                          className="w-full px-3 py-1.5 text-xs rounded-xl bg-stone-50 dark:bg-stone-950 border border-stone-200 dark:border-stone-800 text-stone-800 dark:text-stone-200"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-[11px] font-bold text-stone-600 dark:text-stone-400 mb-1">URL de Imagen</label>
+                        <input
+                          type="text"
+                          value={area.image || ''}
+                          onChange={(e) => {
+                            const copy = [...areasList];
+                            copy[idx].image = e.target.value;
+                            setAreasList(copy);
+                          }}
+                          className="w-full px-3 py-1.5 text-[11px] font-mono rounded-xl bg-stone-50 dark:bg-stone-950 border border-stone-200 dark:border-stone-800 text-stone-600 dark:text-stone-400"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-[11px] font-bold text-stone-600 dark:text-stone-400 mb-1">Descripción</label>
+                        <textarea
+                          rows={2}
+                          value={area.description || ''}
+                          onChange={(e) => {
+                            const copy = [...areasList];
+                            copy[idx].description = e.target.value;
+                            setAreasList(copy);
+                          }}
+                          className="w-full px-3 py-1.5 text-xs rounded-xl bg-stone-50 dark:bg-stone-950 border border-stone-200 dark:border-stone-800 text-stone-800 dark:text-stone-200"
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* TAB: SECTORES DE INDUSTRIA (EDITABLE) */}
+            {activeTab === 'sectors' && (
+              <div className="space-y-4">
+                <div className="p-4 rounded-2xl bg-white dark:bg-stone-900/80 border border-stone-200 dark:border-stone-800 flex items-center justify-between">
+                  <div>
+                    <h3 className="text-xs font-bold text-stone-900 dark:text-white uppercase tracking-wider">
+                      Sectores de Industria ({sectorsList.length})
+                    </h3>
+                    <p className="text-[11px] text-stone-500">
+                      Gestiona los 7 ecosistemas productivos y perfiles demandados.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                  {sectorsList.map((sector, idx) => (
+                    <div
+                      key={sector.id || idx}
+                      className="p-5 rounded-2xl bg-white dark:bg-stone-900/80 border border-stone-200 dark:border-stone-800 space-y-3.5 shadow-xs"
+                    >
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="px-2 py-0.5 rounded-md text-[10px] font-black uppercase bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                          Sector #{idx + 1}
+                        </span>
+                        <input
+                          type="text"
+                          value={sector.badge || ''}
+                          onChange={(e) => {
+                            const copy = [...sectorsList];
+                            copy[idx].badge = e.target.value;
+                            setSectorsList(copy);
+                          }}
+                          placeholder="Insignia / Badge"
+                          className="px-2 py-1 text-[11px] font-bold rounded-lg bg-stone-50 dark:bg-stone-950 border border-stone-200 dark:border-stone-800 text-stone-700 dark:text-stone-300 text-right"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-[11px] font-bold text-stone-600 dark:text-stone-400 mb-1">Nombre del Sector</label>
+                        <input
+                          type="text"
+                          value={sector.name || ''}
+                          onChange={(e) => {
+                            const copy = [...sectorsList];
+                            copy[idx].name = e.target.value;
+                            setSectorsList(copy);
+                          }}
+                          className="w-full px-3 py-1.5 text-xs font-bold rounded-xl bg-stone-50 dark:bg-stone-950 border border-stone-200 dark:border-stone-800 text-stone-900 dark:text-white"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-[11px] font-bold text-stone-600 dark:text-stone-400 mb-1">Subtítulo / Especialidades</label>
+                        <input
+                          type="text"
+                          value={sector.subtitle || ''}
+                          onChange={(e) => {
+                            const copy = [...sectorsList];
+                            copy[idx].subtitle = e.target.value;
+                            setSectorsList(copy);
+                          }}
+                          className="w-full px-3 py-1.5 text-xs rounded-xl bg-stone-50 dark:bg-stone-950 border border-stone-200 dark:border-stone-800 text-stone-800 dark:text-stone-200"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-[11px] font-bold text-stone-600 dark:text-stone-400 mb-1">Descripción</label>
+                        <textarea
+                          rows={2}
+                          value={sector.description || ''}
+                          onChange={(e) => {
+                            const copy = [...sectorsList];
+                            copy[idx].description = e.target.value;
+                            setSectorsList(copy);
+                          }}
+                          className="w-full px-3 py-1.5 text-xs rounded-xl bg-stone-50 dark:bg-stone-950 border border-stone-200 dark:border-stone-800 text-stone-800 dark:text-stone-200"
+                        />
                       </div>
                     </div>
                   ))}

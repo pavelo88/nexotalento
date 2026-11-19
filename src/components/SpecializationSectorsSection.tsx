@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { useTheme } from '../context/ThemeContext';
 import { 
   ShoppingBag, 
@@ -12,7 +12,11 @@ import {
   CheckCircle2,
   Users2,
   Sparkles,
-  MessageSquare
+  MessageSquare,
+  ChevronLeft,
+  ChevronRight,
+  LayoutGrid,
+  Layers
 } from 'lucide-react';
 import { PageRoute } from '../types';
 
@@ -38,6 +42,29 @@ export const SpecializationSectorsSection: React.FC<SpecializationSectorsSection
   className = ''
 }) => {
   const { theme } = useTheme();
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+  const [isGridMode, setIsGridMode] = useState(false);
+
+  const checkScroll = () => {
+    if (carouselRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
+      setCanScrollLeft(scrollLeft > 10);
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
+    }
+  };
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (carouselRef.current) {
+      const scrollAmount = 390;
+      carouselRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      });
+      setTimeout(checkScroll, 350);
+    }
+  };
 
   const sectors: SectorItem[] = [
     {
@@ -172,41 +199,92 @@ export const SpecializationSectorsSection: React.FC<SpecializationSectorsSection
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-18 space-y-4">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wide uppercase border backdrop-blur-md bg-[#00A9A3]/10 border-[#00A9A3]/30 text-[#00A9A3]">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Sectores de Alta Demanda</span>
+        {/* Section Header with Carousel Controls */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 sm:mb-14">
+          <div className="max-w-2xl space-y-3 pt-2">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wide uppercase border backdrop-blur-md bg-[#00A9A3]/10 border-[#00A9A3]/30 text-[#00A9A3]">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>7 Ecosistemas Productivos Clave</span>
+            </div>
+
+            <h2 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight font-heading">
+              Especialización{' '}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00A9A3] via-blue-500 to-indigo-600">
+                Sectorial &amp; Mercado
+              </span>
+            </h2>
+
+            <p className={`text-xs sm:text-base leading-relaxed ${
+              theme === 'dark' ? 'text-slate-300' : 'text-slate-600'
+            }`}>
+              No creemos en soluciones genéricas. Nuestros consultores provienen de las mismas industrias 
+              que asesoran, garantizando un entendimiento profundo del léxico técnico y perfiles demandados en 7 ecosistemas productivos.
+            </p>
           </div>
 
-          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight font-heading">
-            Áreas de Especialización{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00A9A3] via-blue-500 to-indigo-600">
-              Sectorial
-            </span>
-          </h2>
+          {/* Action buttons & Carousel Controls */}
+          <div className="flex items-center gap-2.5 self-start md:self-auto shrink-0">
+            <button
+              onClick={() => setIsGridMode(!isGridMode)}
+              className="h-10 px-3.5 rounded-xl border text-xs font-bold transition-all flex items-center gap-1.5 bg-slate-900 border-slate-700 text-slate-200 hover:text-white active:scale-95 shadow-sm"
+            >
+              {isGridMode ? <Layers className="w-3.5 h-3.5 text-cyan-400" /> : <LayoutGrid className="w-3.5 h-3.5 text-cyan-400" />}
+              <span>{isGridMode ? 'Ver como Carrusel' : 'Ver Todos (7)'}</span>
+            </button>
 
-          <p className={`text-sm sm:text-base leading-relaxed ${
-            theme === 'dark' ? 'text-slate-300' : 'text-slate-600'
-          }`}>
-            No creemos en soluciones genéricas. Nuestros consultores provienen de las mismas industrias 
-            que asesoran, garantizando un entendimiento profundo del léxico técnico, desafíos operativos 
-            y perfiles más demandados en 7 ecosistemas productivos clave.
-          </p>
+            {!isGridMode && (
+              <>
+                <button
+                  onClick={() => scroll('left')}
+                  disabled={!canScrollLeft}
+                  aria-label="Anterior sector"
+                  className={`w-10 h-10 rounded-xl border flex items-center justify-center transition-all ${
+                    canScrollLeft
+                      ? 'bg-slate-900 border-slate-700 text-white hover:border-cyan-400 active:scale-95 shadow-md cursor-pointer'
+                      : 'bg-slate-900/40 border-slate-800/40 text-slate-600 cursor-not-allowed opacity-50'
+                  }`}
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+                <button
+                  onClick={() => scroll('right')}
+                  disabled={!canScrollRight}
+                  aria-label="Siguiente sector"
+                  className={`w-10 h-10 rounded-xl border flex items-center justify-center transition-all ${
+                    canScrollRight
+                      ? 'bg-gradient-to-r from-cyan-500 to-[#00A9A3] text-slate-950 font-black hover:opacity-90 active:scale-95 shadow-md cursor-pointer'
+                      : 'bg-slate-900/40 border-slate-800/40 text-slate-600 cursor-not-allowed opacity-50'
+                  }`}
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+              </>
+            )}
+          </div>
         </div>
 
-        {/* Sectors Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        {/* Sectors Carousel / Grid Container */}
+        <div
+          ref={carouselRef}
+          onScroll={checkScroll}
+          className={
+            isGridMode
+              ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8'
+              : 'flex items-stretch gap-6 overflow-x-auto pb-6 scrollbar-none snap-x snap-mandatory px-4 sm:px-0'
+          }
+        >
           {sectors.map((sector, index) => {
             const Icon = sector.icon;
-            const isFullWidthSpan = index === sectors.length - 1 && sectors.length % 3 !== 0;
+            const isFullWidthSpan = isGridMode && index === sectors.length - 1 && sectors.length % 3 !== 0;
 
             return (
               <div
                 key={sector.id}
-                className={`group relative rounded-3xl p-6 sm:p-7 border transition-all duration-300 hover:shadow-2xl flex flex-col justify-between ${
-                  isFullWidthSpan ? 'md:col-span-2 lg:col-span-1' : ''
-                } ${
+                className={`${
+                  isGridMode
+                    ? isFullWidthSpan ? 'md:col-span-2 lg:col-span-1' : ''
+                    : 'snap-start shrink-0 w-[300px] sm:w-[350px] lg:w-[380px]'
+                } group relative rounded-3xl p-6 sm:p-7 border transition-all duration-300 hover:shadow-2xl flex flex-col justify-between ${
                   theme === 'dark'
                     ? 'bg-slate-900/60 hover:bg-slate-900/90 border-slate-800/80 hover:border-[#00A9A3]/50'
                     : 'bg-white hover:bg-slate-50/80 border-slate-200/90 hover:border-[#00A9A3]/40 shadow-sm'

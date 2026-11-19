@@ -1,18 +1,12 @@
 import React, { lazy, Suspense } from 'react';
 import { Hero } from '../components/Hero';
 import { BragBar } from '../components/BragBar';
+import { MetricStatsSection } from '../components/MetricStatsSection';
 import { PageRoute, AgentType } from '../types';
 
 // Lazy loaded components for aggressive initial load code-splitting
-// const B2BRequirementWizard = lazy(() => import('../components/B2BRequirementWizard').then(m => ({ default: m.B2BRequirementWizard })));
 const FeaturedVacanciesSummary = lazy(() => import('../components/FeaturedVacanciesSummary').then(m => ({ default: m.FeaturedVacanciesSummary })));
-// const LatamEliteTalentSection = lazy(() => import('../components/LatamEliteTalentSection').then(m => ({ default: m.LatamEliteTalentSection })));
-const ServicesSection = lazy(() => import('../components/ServicesSection').then(m => ({ default: m.ServicesSection })));
 const MethodologySection = lazy(() => import('../components/MethodologySection').then(m => ({ default: m.MethodologySection })));
-// PRESERVADO COMENTADO SEGÚN REQUERIMIENTO:
-// const AIAgentsTeaser = lazy(() => import('../components/AIAgentsTeaser').then(m => ({ default: m.AIAgentsTeaser })));
-// const CostCalculatorTeaser = lazy(() => import('../components/CostCalculatorTeaser').then(m => ({ default: m.CostCalculatorTeaser })));
-//const SalaryComparisonSection = lazy(() => import('../components/SalaryComparisonSection').then(m => ({ default: m.SalaryComparisonSection })));
 const SuccessStories = lazy(() => import('../components/SuccessStories').then(m => ({ default: m.SuccessStories })));
 const FAQSection = lazy(() => import('../components/FAQSection').then(m => ({ default: m.FAQSection })));
 const ContactSection = lazy(() => import('../components/ContactSection').then(m => ({ default: m.ContactSection })));
@@ -90,29 +84,25 @@ export const HomePage: React.FC<HomePageProps> = ({
       {/* 2. Brag Bar (Eagerly loaded for immediate credibility) */}
       <BragBar />
 
-      {/* 3. Vacantes en Selección Inmediata (4 Procesos Activos en Cuadrícula Directa) */}
+      {/* 3. Vacantes en Selección Inmediata (Carrusel Interactivo Oficial) */}
       <FeaturedVacanciesSummary
         onNavigate={onNavigate}
         onOpenCVAnalyzer={onOpenCVAnalyzer}
       />
 
+      {/* 4. Métricas Clave de Desempeño (Garantía, Retención, Terna y Vacantes) */}
+      <MetricStatsSection />
+
       {/* Lazy-loaded sections with zero initial bundle footprint */}
       <Suspense fallback={<div className="h-32 flex items-center justify-center"><div className="w-6 h-6 border-2 border-cyan-500 border-t-transparent rounded-full animate-spin"></div></div>}>
        
-        {/* 4. Methodology Executive Summary (Terna en 18 días y garantía 3 a 6 meses) */}
+        {/* 5. Methodology Executive Summary (Terna en 18 días y garantía 3 a 6 meses) */}
         <MethodologySection onNavigateToProcess={() => onNavigate('/proceso')} />
 
-        {/* 5. Áreas de Especialización Oficiales (Imagen 3 del cliente: Selección, Executive Search, Headhunting, etc.) */}
+        {/* 6. Áreas de Especialización Oficiales (Selección, Executive Search, Headhunting, etc.) */}
         <AreasEspecializacionSection onNavigate={onNavigate} />
-       
-        {/* Services Section (Headhunting directivo y tecnológico) */}
-        <ServicesSection
-          onOpenAIAgent={onOpenAIAgent}
-          onOpenJobSpecGenerator={onOpenJobSpecGenerator}
-          onViewAllServices={() => onNavigate('/servicios')}
-        />
 
-        {/* Áreas de Especialización - 7 Sectores Productivos Clave */}
+        {/* 7. Áreas de Especialización - 7 Sectores Productivos Clave */}
         <SpecializationSectorsSection onNavigate={onNavigate} />
 
         {/* Success Stories & Audited Testimonials */}

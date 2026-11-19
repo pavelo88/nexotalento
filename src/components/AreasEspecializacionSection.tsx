@@ -186,7 +186,7 @@ export const AreasEspecializacionSection: React.FC<AreasEspecializacionProps> = 
         <div
           ref={carouselRef}
           onScroll={checkScroll}
-          className="flex items-stretch gap-6 overflow-x-auto pb-6 scrollbar-none snap-x snap-mandatory -mx-4 px-4 sm:mx-0 sm:px-0"
+          className="flex items-stretch gap-6 overflow-x-auto pb-6 scrollbar-none snap-x snap-mandatory px-4 sm:px-6 lg:px-8"
         >
           {areas.map((area) => {
             const Icon = area.icon;
@@ -201,15 +201,15 @@ export const AreasEspecializacionSection: React.FC<AreasEspecializacionProps> = 
                     : 'bg-white border-slate-200 hover:border-[#00A9A3]/60 shadow-lg hover:shadow-2xl'
                 }`}
               >
-                {/* Header Image with Gradient Overlay */}
-                <div className="relative h-44 w-full overflow-hidden">
+                {/* Header Image with Gradient Overlay & Headroom Focus */}
+                <div className="relative h-56 w-full overflow-hidden bg-slate-900">
                   <img
                     src={area.image}
                     alt={area.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover object-[center_18%] group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent" />
                   
                   {/* Floating Icon & Badge */}
                   <div className="absolute top-3 inset-x-3 flex items-center justify-between">

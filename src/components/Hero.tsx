@@ -67,35 +67,20 @@ export const Hero: React.FC<HeroProps> = ({
         theme === 'dark' ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-900'
       }`}
     >
-      {/* High-Resolution Corporate Office Photography Background */}
+      {/* High-Resolution Corporate Architectural Photography (Visible & Crisp) */}
       <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">
         <img
-          src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=2000&q=80"
-          alt="Oficinas corporativas de alta dirección"
-          className="w-full h-full object-cover object-center opacity-20 dark:opacity-25 filter contrast-125"
+          src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2400&q=85"
+          alt="Edificio corporativo y centro de negocios de alta dirección"
+          className="w-full h-full object-cover object-center opacity-45 dark:opacity-50 scale-100"
         />
+        {/* Clean Vignette Overlay to ensure razor-sharp typography without blue haze */}
         <div className={`absolute inset-0 ${
           theme === 'dark'
-            ? 'bg-gradient-to-b from-slate-950/85 via-slate-950/92 to-slate-950'
-            : 'bg-gradient-to-b from-slate-50/85 via-slate-50/92 to-slate-50'
+            ? 'bg-gradient-to-b from-slate-950/70 via-slate-950/50 to-slate-950'
+            : 'bg-gradient-to-b from-slate-50/75 via-slate-50/55 to-slate-50'
         }`} />
       </div>
-
-      {/* Background Decorative Mesh & Luxury Corporate Glows */}
-      <div className="absolute top-0 inset-x-0 h-full overflow-hidden pointer-events-none -z-10">
-        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-gradient-to-b from-[#00A9A3]/20 via-blue-600/10 to-transparent blur-[140px] rounded-full" />
-        <div className="absolute top-1/3 -left-32 w-96 h-96 bg-cyan-500/15 blur-[120px] rounded-full" />
-        <div className="absolute top-1/4 -right-32 w-96 h-96 bg-indigo-600/15 blur-[120px] rounded-full" />
-      </div>
-
-      {/* Grid Pattern Freelancer Luxury */}
-      <div
-        className={`absolute inset-0 pointer-events-none -z-10 ${
-          theme === 'dark'
-            ? 'bg-[radial-gradient(#334155_1px,transparent_1px)] [background-size:24px_24px] opacity-40'
-            : 'bg-[radial-gradient(#94a3b8_1px,transparent_1px)] [background-size:24px_24px] opacity-50'
-        }`}
-      />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         

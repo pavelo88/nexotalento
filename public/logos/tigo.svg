@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 60" width="160" height="60" fill="none">
+  <path d="M18 20 C18 14 36 14 36 20 C36 26 24 24 24 32 C24 38 34 38 36 34" stroke="#00377B" stroke-width="5" stroke-linecap="round" fill="none"/>
+  <circle cx="28" cy="44" r="3" fill="#00377B"/>
+  <text x="48" y="38" font-family="system-ui, -apple-system, sans-serif" font-weight="900" font-size="26" fill="#00377B" letter-spacing="1">tigo</text>
+</svg>
