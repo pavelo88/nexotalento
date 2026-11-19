@@ -8,13 +8,13 @@ export const BragBar: React.FC = () => {
   const trustedCompanies = [
     { name: 'Baterías Ecuador', sector: 'Industria & Automotriz', logoFile: '/logos/baterias_ecuador.webp' },
     { name: 'Takoo', sector: 'Tecnología & E-commerce', logoFile: '/logos/takoo.webp' },
-    { name: 'AI Tecnologist', sector: 'Inteligencia Artificial & Tech', logoFile: '/logos/aitecnologist.webp' },
+    { name: 'All Technology CS', sector: 'Inteligencia Artificial & Tech', logoFile: '/logos/alltechnologycs.webp' },
     { name: 'Fast Line', sector: 'Logística & Transporte', logoFile: '/logos/fast_line.webp' },
     { name: 'Assis', sector: 'Asistencia & Servicios', logoFile: '/logos/assis.webp' },
     { name: 'UpConta', sector: 'Fintech & Contabilidad', logoFile: '/logos/upconta.webp' },
     { name: 'Vita Alimentos', sector: 'Consumo Masivo & Lácteos', logoFile: '/logos/vita.webp' },
     { name: 'EBF Cargo', sector: 'Logística & Carga Internacional', logoFile: '/logos/ebf_cargo.webp' },
-    { name: 'Global Ecuador', sector: 'Comercio Exterior & Logística', logoFile: '/logos/global_ecudor.webp' },
+    { name: 'Global Ecuador', sector: 'Comercio Exterior & Logística', logoFile: '/logos/global_ecuador.webp' },
     { name: 'Gravity', sector: 'Innovación & Software', logoFile: '/logos/gravity.webp' },
     { name: 'Intellcard', sector: 'Tecnología & Pagos Digitales', logoFile: '/logos/intellcard.webp' },
     { name: 'Limon Flowers', sector: 'Agroindustria & Exportación', logoFile: '/logos/limon.webp' }
