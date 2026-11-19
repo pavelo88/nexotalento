@@ -7,27 +7,35 @@ interface LogoProps {
   showText?: boolean;
   showSubtitle?: boolean;
   forceDark?: boolean;
+  monochromeWhite?: boolean;
 }
 
 export const Logo: React.FC<LogoProps> = ({ 
   className = '', 
   size = 'md', 
-  showText = false,
-  showSubtitle = false,
-  forceDark = false 
+  showText = true,
+  showSubtitle = true,
+  forceDark = false,
+  monochromeWhite = false
 }) => {
   const { theme } = useTheme();
 
   const iconSizes = {
     sm: 'w-8 h-8',
-    md: 'w-11 h-11',
+    md: 'w-10 h-10 sm:w-11 sm:h-11',
     lg: 'w-14 h-14',
   };
 
   const titleSizes = {
-    sm: 'text-base',
-    md: 'text-xl',
+    sm: 'text-sm sm:text-base',
+    md: 'text-lg sm:text-xl',
     lg: 'text-2xl',
+  };
+
+  const subtitleSizes = {
+    sm: 'text-[7px] sm:text-[8px]',
+    md: 'text-[7.5px] sm:text-[9px]',
+    lg: 'text-[10px]',
   };
 
   const isDark = forceDark || theme === 'dark';
@@ -36,7 +44,16 @@ export const Logo: React.FC<LogoProps> = ({
     <div className={`flex items-center gap-2.5 select-none ${className}`} id="nexo-brand-logo">
       {/* Official NT Monogram / Isotipo Mark */}
       <div className={`relative ${iconSizes[size]} flex items-center justify-center shrink-0`}>
-        {forceDark ? (
+        {monochromeWhite ? (
+          <img 
+            src="/icon-dark.png" 
+            alt="Nexo Talento Logo" 
+            width="44"
+            height="44"
+            decoding="async"
+            className="w-full h-full object-contain brightness-0 invert opacity-95 group-hover:opacity-100 transition-opacity" 
+          />
+        ) : forceDark ? (
           <img 
             src="/icon-dark.png" 
             alt="Nexo Talento Logo" 
@@ -67,25 +84,42 @@ export const Logo: React.FC<LogoProps> = ({
         )}
       </div>
 
-      {/* Brand Typography (Only rendered if showText is explicitly true) */}
+      {/* Brand Typography (NEXO TALENTO + Slogan) */}
       {showText && (
-        <div className="flex flex-col">
+        <div className="flex flex-col justify-center">
           <div className="flex items-center gap-1.5 leading-none">
             <span 
               className={`font-black tracking-tight font-heading transition-colors ${titleSizes[size]} ${
-                forceDark ? 'text-white' : 'text-[#082041] dark:text-white'
+                monochromeWhite
+                  ? 'text-white'
+                  : forceDark
+                    ? 'text-white'
+                    : 'text-[#0a192f] dark:text-white'
               }`}
             >
               NEXO
             </span>
-            <span className={`font-bold tracking-wide text-[#00A9A3] font-heading ${titleSizes[size]}`}>
+            <span 
+              className={`font-bold tracking-wide font-heading ${titleSizes[size]} ${
+                monochromeWhite
+                  ? 'text-white'
+                  : 'text-[#00A9A3]'
+              }`}
+            >
               TALENTO
             </span>
           </div>
+
           {showSubtitle && (
-            <span className={`text-[8px] sm:text-[9.5px] uppercase font-semibold tracking-wider mt-0.5 flex items-center gap-1 ${
-              isDark ? 'text-slate-400' : 'text-slate-600'
-            }`}>
+            <span 
+              className={`uppercase font-bold tracking-[0.08em] mt-1 flex items-center gap-1 leading-none ${subtitleSizes[size]} ${
+                monochromeWhite 
+                  ? 'text-slate-400' 
+                  : isDark 
+                    ? 'text-slate-400' 
+                    : 'text-slate-500'
+              }`}
+            >
               Contactamos Talento con Oportunidades
             </span>
           )}
@@ -94,4 +128,3 @@ export const Logo: React.FC<LogoProps> = ({
     </div>
   );
 };
-

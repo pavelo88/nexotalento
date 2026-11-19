@@ -89,8 +89,8 @@ export const Footer: React.FC<FooterProps> = ({
 
           {/* Brand Col (2 cols on lg) */}
           <div className="lg:col-span-2 space-y-4">
-            <button onClick={() => handleNav('/')} className="focus:outline-none text-left">
-              <Logo size="md" forceDark={true} />
+            <button onClick={() => handleNav('/')} className="focus:outline-none text-left group">
+              <Logo size="sm" showText={true} showSubtitle={true} monochromeWhite={true} forceDark={true} />
             </button>
 
             <div className="space-y-2 pt-2 text-slate-300">

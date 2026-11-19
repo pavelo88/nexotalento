@@ -104,7 +104,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             className="flex items-center focus:outline-none text-left group transition-transform hover:scale-[1.02]"
             aria-label="Ir a página de inicio Nexo Talento"
           >
-            <Logo size="md" />
+            <Logo size="md" showText={true} showSubtitle={true} />
           </button>
 
           {/* Desktop Grouped Navigation Menu (Clean & Uncluttered) */}
