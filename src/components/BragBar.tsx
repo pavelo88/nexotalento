@@ -44,18 +44,18 @@ export const BragBar: React.FC = () => {
   ];
 
   const trustedCompanies = [
-    { name: 'Baterías Ecuador', sector: 'Industria & Automotriz', initial: 'BAC' },
-    { name: 'EBF CARGO', sector: 'Logística & Carga Internacional', initial: 'EBF' },
-    { name: 'Takoo', sector: 'Tecnología & E-commerce', initial: 'TAK' },
-    { name: 'ALLTECHNOLOGYCS', sector: 'Tecnología & Soluciones IT', initial: 'ALL' },
-    { name: 'Fastline', sector: 'Logística & Cadena de Suministro', initial: 'FAS' },
-    { name: 'Global Ecuador', sector: 'Comercio Exterior & Corporativo', initial: 'GLO' },
-    { name: 'Assisprev', sector: 'Seguros & Previsión Exequial', initial: 'ASS' },
-    { name: 'Gravity', sector: 'Tecnología & Servicios Digitales', initial: 'GRV' },
-    { name: 'Intellcard', sector: 'Fintech & Medios de Pago', initial: 'INT' },
-    { name: 'Vita Alimentos', sector: 'Consumo Masivo & Alimentación', initial: 'VIT' },
-    { name: 'Limon Flowers', sector: 'Agroindustria & Exportación', initial: 'LIM' },
-    { name: 'Upconta', sector: 'SaaS, Finanzas & Contabilidad Cloud', initial: 'UPC' }
+    { name: 'Baterías Ecuador', sector: 'Industria & Automotriz', logoFile: '/logos/baterias-ecuador.png' },
+    { name: 'EBF CARGO', sector: 'Logística & Carga Internacional', logoFile: '/logos/ebf-cargo.png' },
+    { name: 'Takoo', sector: 'Tecnología & E-commerce', logoFile: '/logos/takoo.png' },
+    { name: 'ALLTECHNOLOGYCS', sector: 'Tecnología & Soluciones IT', logoFile: '/logos/alltechnologycs.png' },
+    { name: 'Fastline', sector: 'Logística & Cadena de Suministro', logoFile: '/logos/fastline.png' },
+    { name: 'Global Ecuador', sector: 'Comercio Exterior & Corporativo', logoFile: '/logos/global-ecuador.png' },
+    { name: 'Assisprev', sector: 'Seguros & Previsión Exequial', logoFile: '/logos/assisprev.png' },
+    { name: 'Gravity', sector: 'Tecnología & Servicios Digitales', logoFile: '/logos/gravity.png' },
+    { name: 'Intellcard', sector: 'Fintech & Medios de Pago', logoFile: '/logos/intellcard.png' },
+    { name: 'Vita Alimentos', sector: 'Consumo Masivo & Alimentación', logoFile: '/logos/vita-alimentos.png' },
+    { name: 'Limon Flowers', sector: 'Agroindustria & Exportación', logoFile: '/logos/limon-flowers.png' },
+    { name: 'Upconta', sector: 'SaaS, Finanzas & Contabilidad Cloud', logoFile: '/logos/upconta.png' }
   ];
 
   return (
@@ -125,18 +125,36 @@ export const BragBar: React.FC = () => {
           }`} />
 
         {/* Animated Marquee Strip (Luxury Slow Pace) */}
-        <div className="animate-infinite-carousel flex items-center gap-12 sm:gap-16 py-4 opacity-85 hover:opacity-100 transition-opacity duration-700 carousel-duration-60s">
+        <div className="animate-infinite-carousel flex items-center gap-10 sm:gap-14 py-4 opacity-90 hover:opacity-100 transition-opacity duration-700 carousel-duration-60s">
           {[...trustedCompanies, ...trustedCompanies].map((company, index) => (
             <div
               key={index}
-              className={`shrink-0 flex flex-col items-center sm:items-start gap-1 transition-all duration-300 hover:scale-105 select-none ${theme === 'dark' ? 'text-slate-300 hover:text-white' : 'text-slate-700 hover:text-slate-950'
-                }`}
+              className={`shrink-0 flex items-center gap-3.5 px-4 py-2.5 rounded-2xl border transition-all duration-300 hover:scale-105 select-none ${
+                theme === 'dark' 
+                  ? 'bg-slate-900/60 border-slate-800 text-slate-300 hover:text-white hover:border-cyan-500/40' 
+                  : 'bg-slate-50 border-slate-200 text-slate-800 hover:text-slate-950 hover:border-cyan-500/50 shadow-sm'
+              }`}
             >
-              <div className="text-lg sm:text-xl font-heading font-black tracking-tight uppercase">
-                {company.name}
-              </div>
-              <div className="text-[10px] sm:text-[11px] font-medium tracking-wide uppercase text-cyan-600 dark:text-cyan-400">
-                {company.sector}
+              <img
+                src={company.logoFile}
+                alt={company.name}
+                className="h-8 max-w-[120px] object-contain hidden"
+                onLoad={(e) => {
+                  (e.currentTarget as HTMLImageElement).classList.remove('hidden');
+                  const sibling = (e.currentTarget as HTMLImageElement).nextElementSibling;
+                  if (sibling) sibling.classList.add('hidden');
+                }}
+                onError={(e) => {
+                  (e.currentTarget as HTMLImageElement).classList.add('hidden');
+                }}
+              />
+              <div className="flex flex-col">
+                <div className="text-base sm:text-lg font-heading font-black tracking-tight uppercase">
+                  {company.name}
+                </div>
+                <div className="text-[10px] sm:text-[11px] font-medium tracking-wide uppercase text-cyan-600 dark:text-cyan-400">
+                  {company.sector}
+                </div>
               </div>
             </div>
           ))}

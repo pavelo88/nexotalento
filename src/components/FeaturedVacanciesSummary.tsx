@@ -30,106 +30,46 @@ export const FeaturedVacanciesSummary: React.FC<FeaturedVacanciesSummaryProps> =
       id: 'job-jefe-marketing',
       title: 'Jefe de Marketing',
       department: 'Marketing & Comercial',
-      location: 'Quito, Ecuador',
+      location: 'Quito / Modalidad presencial',
       modality: 'Presencial',
       salary: 'USD 1.500 – 2.000',
-      tags: ['Marketing Digital', 'SEO/SEM', 'Leads'],
+      tags: ['Marketing Digital', 'Estrategia', 'SEO/SEM', 'Quito'],
       hot: true
     },
     {
       id: 'job-asistente-contable',
       title: 'Asistente Contable',
       department: 'Finanzas & Contabilidad',
-      location: 'Quito / Valle de los Chillos',
+      location: 'Quito / Valle de los Chillos – Presencial',
       modality: 'Presencial',
       salary: 'USD 600 – 700',
-      tags: ['Contabilidad', 'Impuestos', 'Conciliaciones'],
+      tags: ['Contabilidad', 'Retenciones', 'Impuestos', 'Valle de los Chillos'],
       hot: true
     },
     {
       id: 'job-asesor-nuevos-negocios',
-      title: 'Asesor de Nuevos Negocios (Carga Internacional)',
-      department: 'Logística & Comercio Exterior',
-      location: 'Quito, Ecuador',
+      title: 'Asesor de Nuevos Negocios (Sector carga internacional)',
+      department: 'Logística & Carga Internacional',
+      location: 'Quito / Ecuador',
       modality: 'Presencial',
-      salary: 'A convenir (según cartera)',
-      tags: ['Carga Internacional', 'Logística', 'B2B'],
+      salary: 'A convenir (experiencia y cartera)',
+      tags: ['Carga Internacional', 'Freight Forwarding', 'Cartera Activa', 'Quito'],
       hot: true
     },
     {
       id: 'job-asesor-comercial-corporativo',
       title: 'Asesor Comercial Corporativo',
-      department: 'Ventas & Tech',
-      location: 'Guayaquil, Ecuador',
+      department: 'Ventas & Sector Tecnológico',
+      location: 'Guayaquil, Ecuador / Presencial',
       modality: 'Presencial',
       salary: 'A convenir + Comisiones',
-      tags: ['Ventas B2B', 'Tech', 'Corporativo'],
+      tags: ['Ventas B2B', 'Sector Tecnológico', 'Cartera Corporativa', 'Guayaquil'],
       hot: true
-    },
-    {
-      id: 'cto-scaleup',
-      title: 'Chief Technology Officer (CTO)',
-      department: 'Tecnología & Cloud',
-      location: 'Madrid (Híbrido 2d)',
-      modality: 'Híbrido',
-      salary: '110.000 € - 145.000 € + Stock Options',
-      tags: ['C-Level', 'Fintech', 'AWS'],
-      hot: true
-    },
-    {
-      id: 'head-ai',
-      title: 'Head of Artificial Intelligence & Data',
-      department: 'Data & IA',
-      location: 'Barcelona / Remoto España',
-      modality: '100% Remoto',
-      salary: '95.000 € - 125.000 €',
-      tags: ['IA Generativa', 'Pharma', 'Remoto'],
-      hot: false
-    },
-    {
-      id: 'cfo-private-equity',
-      title: 'Director Financiero (CFO) — Private Equity',
-      department: 'Finanzas & M&A',
-      location: 'Madrid (Castellana)',
-      modality: 'Presencial',
-      salary: '100.000 € - 130.000 € + 30% Bonus',
-      tags: ['M&A', 'Private Equity', 'C-Level'],
-      hot: true
-    },
-    {
-      id: 'medical-director',
-      title: 'Director Médico / Medical Affairs Director',
-      department: 'Salud & Biotecnología',
-      location: 'Barcelona / Madrid',
-      modality: 'Híbrido',
-      salary: '105.000 € - 140.000 € + Coche',
-      tags: ['Pharma', 'Medical Affairs', 'Biotech'],
-      hot: false
-    },
-    {
-      id: 'vp-engineering',
-      title: 'VP of Engineering / Software Director',
-      department: 'Ingeniería SaaS',
-      location: '100% Remoto (España / UE)',
-      modality: '100% Remoto',
-      salary: '120.000 € - 150.000 € + Equity',
-      tags: ['Engineering', 'Scaleup', 'Remoto'],
-      hot: true
-    },
-    {
-      id: 'coo-operations',
-      title: 'Chief Operating Officer (COO)',
-      department: 'Operaciones & Logística',
-      location: 'Madrid / Barcelona',
-      modality: 'Híbrido',
-      salary: '90.000 € - 120.000 €',
-      tags: ['Operaciones', 'Supply Chain', 'C-Level'],
-      hot: false
     }
   ];
 
-  // Selección curada de vacantes insignia duplicada para ciclo infinito fluido
-  const marqueeItems = [...vacancies.slice(0, 6), ...vacancies.slice(0, 6)];
+  // Las 4 vacantes activas duplicadas para animación infinita continua
+  const marqueeItems = [...vacancies, ...vacancies];
 
   return (
     <section id="vacantes-resumen" className="py-16 sm:py-20 relative overflow-hidden">
@@ -147,18 +87,18 @@ export const FeaturedVacanciesSummary: React.FC<FeaturedVacanciesSummaryProps> =
                 ? 'bg-cyan-950/40 border-cyan-500/30 text-cyan-300' 
                 : 'bg-cyan-50 border-cyan-300 text-cyan-900'
             }`}>
-              <Briefcase className="w-3.5 h-3.5" />
-              <span>Directiva UE 2023/970 — 100% Transparencia Salarial</span>
+              <Briefcase className="w-3.5 h-3.5 text-cyan-400" />
+              <span>Oportunidades de Empleo en Ecuador</span>
             </div>
 
             <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight font-heading">
-              Posiciones Directivas &amp; Tech en <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Selección Activa</span>
+              Procesos Activos de <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Selección</span>
             </h2>
 
             <p className={`mt-2 text-xs sm:text-sm ${
               theme === 'dark' ? 'text-slate-300' : 'text-slate-600'
             }`}>
-              Búsquedas ejecutivas con banda retributiva pública, contratos indefinidos y confidencialidad blindada.
+              Posiciones abiertas en Quito y Guayaquil con contratación inmediata, bandas salariales transparentes y gestión confidencial.
             </p>
           </div>
 
@@ -182,7 +122,7 @@ export const FeaturedVacanciesSummary: React.FC<FeaturedVacanciesSummaryProps> =
               onClick={() => onNavigate('/vacantes')}
               className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-extrabold text-xs transition-all shadow-lg shadow-cyan-500/20 flex items-center gap-2 hover:scale-105 cursor-pointer active:scale-95"
             >
-              <span>Ver Catálogo Completo (10+ Ofertas)</span>
+              <span>Ver Catálogo Completo (4 Procesos Activos)</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
@@ -280,7 +220,7 @@ export const FeaturedVacanciesSummary: React.FC<FeaturedVacanciesSummaryProps> =
               }`}>
                 <div>
                   <span className="text-[9px] uppercase tracking-wider text-slate-500 font-bold block">
-                    Banda Salarial Directiva UE
+                    Banda Salarial Oficial
                   </span>
                   <span className={`text-xs font-black font-heading ${
                     theme === 'dark' ? 'text-emerald-400' : 'text-emerald-600'

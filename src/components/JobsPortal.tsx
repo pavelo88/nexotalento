@@ -40,15 +40,11 @@ export const JobsPortal: React.FC<JobsPortalProps> = ({ onOpenCVAnalyzer, isFull
     'Todos',
     'Quito',
     'Guayaquil',
-    'Presencial',
-    'Híbrido',
-    '100% Remoto',
+    'Valle de los Chillos',
     'Marketing',
     'Contabilidad',
-    'Logística & Carga',
-    'Ventas B2B',
-    'Tecnología & IA',
-    'C-Level'
+    'Carga Internacional',
+    'Ventas B2B'
   ];
 
   const handlePillClick = (pill: string) => {
