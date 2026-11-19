@@ -11,15 +11,25 @@ import {
   TrendingUp, 
   Briefcase, 
   Globe, 
-  MessageSquare,
-  Search,
-  ExternalLink,
-  Plus,
-  Trash2,
-  Edit,
-  Eye,
-  RefreshCw,
-  Sparkles
+  MessageSquare, 
+  Search, 
+  ExternalLink, 
+  Plus, 
+  Trash2, 
+  Edit, 
+  Eye, 
+  RefreshCw, 
+  Sparkles,
+  Layers,
+  Palette,
+  ShieldCheck,
+  Building2,
+  Clock,
+  Phone,
+  Mail,
+  ChevronRight,
+  Menu,
+  X
 } from 'lucide-react';
 
 interface AdminDashboardProps {
@@ -28,22 +38,33 @@ interface AdminDashboardProps {
   onNavigateHome: () => void;
 }
 
+type AdminTab = 
+  | 'analytics' 
+  | 'hero' 
+  | 'vacancies' 
+  | 'services' 
+  | 'sectors' 
+  | 'leads' 
+  | 'settings';
+
 export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   user,
   onLogout,
   onNavigateHome
 }) => {
-  const { theme } = useTheme();
-  const [activeTab, setActiveTab] = useState<'metrics' | 'cms' | 'leads'>('metrics');
+  const { theme, toggleTheme } = useTheme();
+  const [activeTab, setActiveTab] = useState<AdminTab>('analytics');
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   
   // CMS Content State
   const [siteContent, setSiteContent] = useState<any>({
     hero: {
-      badge: 'Firma de Headhunting & Selección Ejecutiva',
-      editionBadge: 'Edición 2026',
-      titlePrefix: 'Executive Search &',
-      titleGradient: 'Selección Directiva de Alto Impacto',
-      subtitle: 'Conectamos empresas líderes con directivos y especialistas de alto nivel en Ecuador y Latinoamérica. Terna validada en 18 días hábiles con garantía contractual de 3 a 6 meses.',
+      badge: 'Firma Boutique de Executive Search & Headhunting',
+      editionBadge: 'Ecuador & LATAM 2026',
+      titlePrefix: 'Contrata al mejor talento',
+      titleGradient: 'directivo y técnico',
+      titleSuffix: 'para tu empresa',
+      subtitle: 'Garantizamos la máxima precisión de selección en Quito, Guayaquil y la región. Entrega de terna validada en 18 días hábiles con garantía contractual de 3 a 6 meses.',
       stat1Value: '18 Días',
       stat1Label: 'Terna Validada',
       stat2Value: '3-6 Meses',
@@ -54,9 +75,94 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
     contact: {
       whatsapp: '+34 614 143 763',
       whatsappNumber: '34614143763',
-      email: 'info@nexotalento.com'
+      email: 'info@nexotalento.com',
+      madridAddress: 'Paseo de la Castellana 95, 28046 Madrid',
+      barcelonaAddress: 'Avinguda Diagonal 640, 08017 Barcelona',
+      phoneDisplay: '+34 614 143 763'
     }
   });
+
+  // Vacantes Administrables (Las 4 del Word con formulario completo)
+  const [vacancies, setVacancies] = useState<any[]>([
+    {
+      id: 'jefe-marketing',
+      title: 'Jefe de Marketing',
+      department: 'Marketing & Comercial',
+      location: 'Quito, Ecuador',
+      modality: 'Presencial',
+      salaryRange: 'USD 1.500 – 2.000',
+      experienceLevel: 'Experiencia en Marketing Digital y liderazgo estratégico',
+      description: 'Empresa de servicios en Ecuador busca un Jefe de Marketing para liderar la estrategia de posicionamiento de marca, impulsar el crecimiento comercial y desarrollar iniciativas innovadoras de marketing digital, orientadas a resultados y generación de oportunidades de negocio.',
+      requirements: [
+        'Experiencia liderando estrategias de marketing y posicionamiento de marca.',
+        'Conocimientos de pauta digital, SEO/SEM y generación de leads.',
+        'Análisis de indicadores de gestión (KPIs), métricas y resultados.',
+        'Dominio de marketing digital, redes sociales y campañas publicitarias.',
+        'Planificación y administración de presupuestos de marketing.',
+        'Capacidad para liderar equipos y coordinar agencias o proveedores.'
+      ],
+      hot: true,
+      postedDate: 'Proceso Activo'
+    },
+    {
+      id: 'asistente-contable',
+      title: 'Asistente Contable',
+      department: 'Finanzas & Contabilidad',
+      location: 'Valle de los Chillos, Quito',
+      modality: 'Presencial',
+      salaryRange: 'USD 600 – 700',
+      experienceLevel: 'Mínimo 3 años en procesos contables',
+      description: 'Empresa de servicios ubicada en el Valle de los Chillos (Quito) busca incorporar un Asistente Contable con experiencia en gestión de procesos contables, capacidad analítica y orientación al detalle. Buscamos un profesional organizado, proactivo y con disponibilidad para trabajar de forma presencial.',
+      requirements: [
+        'Registro y control de transacciones contables.',
+        'Conciliaciones bancarias y manejo de cuentas.',
+        'Elaboración y liquidación de impuestos y retenciones.',
+        'Manejo de sistemas contables y herramientas ofimáticas (Excel intermedio/avanzado).',
+        'Mínimo 3 años en cargos similares en empresas comerciales o de servicios.'
+      ],
+      hot: true,
+      postedDate: 'Proceso Activo'
+    },
+    {
+      id: 'asesor-nuevos-negocios',
+      title: 'Asesor de Nuevos Negocios (Sector Carga Internacional)',
+      department: 'Logística & Comercio Exterior',
+      location: 'Quito, Ecuador',
+      modality: 'Presencial',
+      salaryRange: 'A convenir (experiencia y cartera)',
+      experienceLevel: 'Mínimo 4 años en freight forwarding',
+      description: 'Importante empresa del sector de logística y transporte internacional de carga busca incorporar un Asesor de Nuevos Negocios con fuerte perfil comercial y experiencia en captación de clientes corporativos para servicios de importación y exportación aérea, marítima y terrestre.',
+      requirements: [
+        'Prospección activa y apertura de nuevas cuentas corporativas.',
+        'Venta de servicios de transporte internacional de carga (aéreo, marítimo y terrestre).',
+        'Negociación de tarifas y condiciones comerciales con clientes.',
+        'Fidelización y seguimiento de clientes actuales.',
+        'Mínimo 4 años en ventas en empresas de freight forwarding o logística internacional.',
+        'Cartera activa de clientes en Ecuador (altamente deseable).'
+      ],
+      hot: true,
+      postedDate: 'Proceso Activo'
+    },
+    {
+      id: 'asesor-comercial-corporativo',
+      title: 'Asesor Comercial Corporativo',
+      department: 'Ventas Corporativas & Tech',
+      location: 'Guayaquil, Ecuador',
+      modality: 'Presencial',
+      salaryRange: 'A convenir + Comisiones',
+      experienceLevel: 'Cartera corporativa en sector tecnológico',
+      description: 'Empresa en expansión en Guayaquil requiere incorporar un Asesor Comercial Corporativo enfocado en apertura y desarrollo de clientes B2B para soluciones tecnológicas y empresariales.',
+      requirements: [
+        'Venta consultiva B2B de soluciones y servicios empresariales.',
+        'Gestión de embudo comercial y cumplimiento de cuotas de ventas.',
+        'Negociación con directores de compras, operaciones y gerencia general.',
+        'Experiencia comprobada en prospección y cierre de ventas en Guayaquil.',
+        'Excelente comunicación y presencia ejecutiva.'
+      ],
+      hot: true,
+      postedDate: 'Proceso Activo'
+    }
+  ]);
 
   // Leads State
   const [leads, setLeads] = useState<any[]>([]);
@@ -89,7 +195,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
       const res = await fetch('/api/admin/content', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(siteContent)
+        body: JSON.stringify({ ...siteContent, vacancies })
       });
       if (res.ok) {
         setSaveSuccess(true);
@@ -102,6 +208,16 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
     }
   };
 
+  const menuItems = [
+    { id: 'analytics' as AdminTab, label: 'Analítica & Publicidad', icon: BarChart3, badge: 'Live' },
+    { id: 'hero' as AdminTab, label: 'Hero & Textos Principales', icon: FileText },
+    { id: 'vacancies' as AdminTab, label: 'Gestión de Vacantes (4)', icon: Briefcase, count: vacancies.length },
+    { id: 'services' as AdminTab, label: 'Áreas de Especialización', icon: Layers },
+    { id: 'sectors' as AdminTab, label: 'Sectores de Industria (7)', icon: Building2 },
+    { id: 'leads' as AdminTab, label: 'Bandeja de Leads', icon: MessageSquare, count: leads.length },
+    { id: 'settings' as AdminTab, label: 'Configuración & Enlaces', icon: Settings }
+  ];
+
   const filteredLeads = leads.filter(l => 
     !searchTerm ||
     l.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -111,228 +227,251 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   );
 
   return (
-    <div className={`min-h-screen transition-colors duration-300 ${
-      theme === 'dark' ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-900'
+    <div className={`min-h-screen flex flex-col md:flex-row transition-colors duration-300 ${
+      theme === 'dark' ? 'bg-[#0b131e] text-slate-100' : 'bg-slate-50 text-slate-900'
     }`}>
       
-      {/* Top Navbar Admin */}
-      <header className={`sticky top-0 z-40 border-b backdrop-blur-xl px-4 sm:px-8 py-3.5 flex items-center justify-between ${
-        theme === 'dark' ? 'bg-slate-900/90 border-slate-800' : 'bg-white/90 border-slate-200'
+      {/* SIDEBAR PERSISTENTE AL ESTILO MODULARES GM */}
+      <aside className={`fixed inset-y-0 left-0 z-50 w-72 transition-transform duration-300 ease-in-out md:static md:translate-x-0 flex flex-col border-r ${
+        sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+      } ${
+        theme === 'dark' ? 'bg-[#0f1a26] border-slate-800' : 'bg-white border-slate-200 shadow-xl md:shadow-none'
       }`}>
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#082041] via-[#00A9A3] to-cyan-500 flex items-center justify-center text-white font-extrabold shadow-md">
-            NT
+        
+        {/* Brand Header */}
+        <div className="p-5 border-b border-slate-800 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#082041] via-[#00A9A3] to-cyan-500 flex items-center justify-center text-white font-black text-sm shadow-md">
+              NT
+            </div>
+            <div>
+              <h2 className="text-sm font-black font-heading leading-tight">Nexo Talento</h2>
+              <p className="text-[10px] text-cyan-400 font-bold uppercase tracking-wider">Panel Administrador</p>
+            </div>
           </div>
-          <div>
-            <h1 className="text-sm sm:text-base font-extrabold font-heading">
-              Nexo Talento — Centro de Control
-            </h1>
-            <p className="text-[10px] text-slate-400">
-              Conectado como <strong>{user?.nombre || user?.email}</strong> (Superadmin)
-            </p>
+          <button 
+            onClick={() => setSidebarOpen(false)}
+            className="md:hidden text-slate-400 hover:text-white"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+
+        {/* User Badge */}
+        <div className="p-4 mx-3 my-3 rounded-2xl bg-slate-900/80 border border-slate-800/80">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold text-xs">
+              {user?.nombre?.[0] || 'P'}
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-xs font-black truncate">{user?.nombre || 'Pablo García'}</p>
+              <p className="text-[10px] text-slate-400 truncate">{user?.email || 'pablofgarciaf@gmail.com'}</p>
+            </div>
           </div>
         </div>
 
-        <div className="flex items-center gap-2 sm:gap-3">
+        {/* Navigation Menu */}
+        <nav className="flex-1 px-3 space-y-1 overflow-y-auto">
+          {menuItems.map((item) => {
+            const Icon = item.icon;
+            const isActive = activeTab === item.id;
+            return (
+              <button
+                key={item.id}
+                onClick={() => {
+                  setActiveTab(item.id);
+                  setSidebarOpen(false);
+                }}
+                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all ${
+                  isActive
+                    ? 'bg-gradient-to-r from-cyan-500 to-[#00A9A3] text-slate-950 font-black shadow-md'
+                    : theme === 'dark'
+                      ? 'text-slate-300 hover:bg-slate-800/60 hover:text-white'
+                      : 'text-slate-700 hover:bg-slate-100 hover:text-slate-950'
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <Icon className={`w-4 h-4 ${isActive ? 'text-slate-950' : 'text-cyan-400'}`} />
+                  <span>{item.label}</span>
+                </div>
+                {item.count !== undefined && (
+                  <span className={`text-[10px] px-2 py-0.5 rounded-full font-black ${
+                    isActive ? 'bg-slate-950/20 text-slate-950' : 'bg-slate-800 text-cyan-300'
+                  }`}>
+                    {item.count}
+                  </span>
+                )}
+                {item.badge && (
+                  <span className="text-[9px] px-2 py-0.5 rounded-full font-black bg-emerald-500/20 text-emerald-400">
+                    {item.badge}
+                  </span>
+                )}
+              </button>
+            );
+          })}
+        </nav>
+
+        {/* Footer Actions */}
+        <div className="p-4 border-t border-slate-800 space-y-2">
           <button
             onClick={onNavigateHome}
-            className={`px-3 py-1.5 rounded-xl border text-xs font-bold transition-all flex items-center gap-1.5 ${
-              theme === 'dark' ? 'bg-slate-800 text-slate-300 border-slate-700' : 'bg-slate-100 text-slate-700 border-slate-200'
-            }`}
+            className="w-full py-2 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white text-xs font-bold transition-colors flex items-center justify-center gap-2 border border-slate-800"
           >
-            <Eye className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">Ver Sitio Web</span>
+            <Eye className="w-3.5 h-3.5 text-cyan-400" />
+            <span>Ver Sitio Web</span>
           </button>
           <button
             onClick={onLogout}
-            className="px-3 py-1.5 rounded-xl bg-rose-500/10 text-rose-500 border border-rose-500/30 hover:bg-rose-500 hover:text-white text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer"
+            className="w-full py-2 px-3 rounded-xl bg-rose-500/10 hover:bg-rose-500 text-rose-400 hover:text-white text-xs font-bold transition-all flex items-center justify-center gap-2 border border-rose-500/20"
           >
             <LogOut className="w-3.5 h-3.5" />
-            <span>Salir</span>
+            <span>Cerrar Sesión</span>
           </button>
         </div>
-      </header>
+      </aside>
 
-      {/* Main Admin Layout */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* Backdrop overlay for mobile sidebar */}
+      {sidebarOpen && (
+        <div 
+          onClick={() => setSidebarOpen(false)}
+          className="fixed inset-0 bg-black/60 z-40 md:hidden backdrop-blur-sm"
+        />
+      )}
+
+      {/* MAIN CONTENT AREA */}
+      <div className="flex-1 flex flex-col min-w-0 overflow-y-auto">
         
-        {/* Navigation Tabs */}
-        <div className="flex items-center gap-2 border-b border-slate-800 pb-4 mb-8">
-          <button
-            onClick={() => setActiveTab('metrics')}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
-              activeTab === 'metrics'
-                ? 'bg-gradient-to-r from-cyan-500 to-[#00A9A3] text-slate-950 font-extrabold shadow'
-                : 'text-slate-400 hover:text-slate-200'
-            }`}
-          >
-            <BarChart3 className="w-4 h-4" />
-            <span>Métricas &amp; Publicidad</span>
-          </button>
-          <button
-            onClick={() => setActiveTab('cms')}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
-              activeTab === 'cms'
-                ? 'bg-gradient-to-r from-cyan-500 to-[#00A9A3] text-slate-950 font-extrabold shadow'
-                : 'text-slate-400 hover:text-slate-200'
-            }`}
-          >
-            <FileText className="w-4 h-4" />
-            <span>Editor de Landing Page (CMS)</span>
-          </button>
-          <button
-            onClick={() => setActiveTab('leads')}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
-              activeTab === 'leads'
-                ? 'bg-gradient-to-r from-cyan-500 to-[#00A9A3] text-slate-950 font-extrabold shadow'
-                : 'text-slate-400 hover:text-slate-200'
-            }`}
-          >
-            <Users className="w-4 h-4" />
-            <span>Bandeja de Leads ({leads.length})</span>
-          </button>
-        </div>
-
-        {/* ================= TAB 1: MÉTRICAS & PUBLICIDAD ================= */}
-        {activeTab === 'metrics' && (
-          <div className="space-y-8">
-            {/* KPI Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-              <div className={`p-5 rounded-2xl border ${theme === 'dark' ? 'bg-slate-900/70 border-slate-800' : 'bg-white border-slate-200 shadow-sm'}`}>
-                <div className="flex items-center justify-between text-slate-400 text-xs mb-2">
-                  <span>Total Leads Captados</span>
-                  <Users className="w-4 h-4 text-cyan-400" />
-                </div>
-                <p className="text-2xl font-extrabold font-heading text-cyan-400">{leads.length}</p>
-                <p className="text-[10px] text-emerald-400 mt-1">Registrados en servidor &amp; Sheets</p>
-              </div>
-
-              <div className={`p-5 rounded-2xl border ${theme === 'dark' ? 'bg-slate-900/70 border-slate-800' : 'bg-white border-slate-200 shadow-sm'}`}>
-                <div className="flex items-center justify-between text-slate-400 text-xs mb-2">
-                  <span>Google Tag Manager</span>
-                  <Sparkles className="w-4 h-4 text-emerald-400" />
-                </div>
-                <p className="text-sm font-black font-mono text-emerald-400">GTM-PX6M5QSS</p>
-                <p className="text-[10px] text-slate-400 mt-1">Activo en todas las rutas</p>
-              </div>
-
-              <div className={`p-5 rounded-2xl border ${theme === 'dark' ? 'bg-slate-900/70 border-slate-800' : 'bg-white border-slate-200 shadow-sm'}`}>
-                <div className="flex items-center justify-between text-slate-400 text-xs mb-2">
-                  <span>Google Analytics 4</span>
-                  <TrendingUp className="w-4 h-4 text-blue-400" />
-                </div>
-                <p className="text-sm font-black font-mono text-blue-400">G-T4ZC2SJXHS</p>
-                <p className="text-[10px] text-slate-400 mt-1">Tracking tiempo real activo</p>
-              </div>
-
-              <div className={`p-5 rounded-2xl border ${theme === 'dark' ? 'bg-slate-900/70 border-slate-800' : 'bg-white border-slate-200 shadow-sm'}`}>
-                <div className="flex items-center justify-between text-slate-400 text-xs mb-2">
-                  <span>Pixel Ads (Meta &amp; TikTok)</span>
-                  <Globe className="w-4 h-4 text-purple-400" />
-                </div>
-                <p className="text-sm font-extrabold text-purple-400">Conectores Listos</p>
-                <p className="text-[10px] text-slate-400 mt-1">Eventos Lead y Click configurados</p>
-              </div>
-            </div>
-
-            {/* Campaign Guide Box */}
-            <div className={`p-6 rounded-3xl border ${
-              theme === 'dark' ? 'bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 border-slate-800' : 'bg-white border-slate-200 shadow-md'
-            }`}>
-              <h3 className="text-base font-bold font-heading mb-3 flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-[#00A9A3]" />
-                <span>Estado de Configuración Ad-Ready para Meta Ads &amp; TikTok Ads</span>
-              </h3>
-              <p className="text-xs text-slate-300 leading-relaxed mb-4">
-                La plataforma ya cuenta con los disparadores estándar requeridos para optimización por coste por adquisición (CPA):
+        {/* Top Header */}
+        <header className={`sticky top-0 z-30 border-b px-5 py-4 flex items-center justify-between backdrop-blur-xl ${
+          theme === 'dark' ? 'bg-[#0f1a26]/90 border-slate-800' : 'bg-white/90 border-slate-200 shadow-sm'
+        }`}>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setSidebarOpen(true)}
+              className="p-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white md:hidden"
+            >
+              <Menu className="w-5 h-5" />
+            </button>
+            <div>
+              <h1 className="text-base sm:text-lg font-black font-heading leading-tight">
+                {menuItems.find(m => m.id === activeTab)?.label}
+              </h1>
+              <p className="text-[11px] text-slate-400">
+                Gestión en tiempo real de Nexo Talento
               </p>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
-                <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800">
-                  <strong className="text-cyan-400 block mb-1">Evento: generate_lead</strong>
-                  <p className="text-slate-400 text-[11px]">Disparado cuando un prospecto llena el formulario de contacto o solicitud de perfil.</p>
-                </div>
-                <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800">
-                  <strong className="text-emerald-400 block mb-1">Evento: apply_job</strong>
-                  <p className="text-slate-400 text-[11px]">Disparado cuando un candidato postula a alguna de las vacantes activas.</p>
-                </div>
-                <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800">
-                  <strong className="text-blue-400 block mb-1">Evento: whatsapp_click</strong>
-                  <p className="text-slate-400 text-[11px]">Disparado con el botón flotante circular de WhatsApp.</p>
-                </div>
-              </div>
             </div>
           </div>
-        )}
 
-        {/* ================= TAB 2: EDITOR DE LANDING PAGE (CMS) ================= */}
-        {activeTab === 'cms' && (
-          <div className="space-y-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <h2 className="text-lg font-bold font-heading">Editor de Contenidos en Vivo</h2>
-                <p className="text-xs text-slate-400">Modifica los textos principales de la Landing Page sin necesidad de programar.</p>
-              </div>
-              <button
-                onClick={handleSaveCMS}
-                disabled={isSaving}
-                className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 via-[#00A9A3] to-blue-600 hover:opacity-95 text-slate-950 font-extrabold text-xs transition-all shadow flex items-center gap-2 cursor-pointer active:scale-95"
-              >
-                <Save className="w-4 h-4" />
-                <span>{isSaving ? 'Guardando...' : 'Publicar Cambios'}</span>
-              </button>
-            </div>
-
+          <div className="flex items-center gap-3">
             {saveSuccess && (
-              <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 shrink-0" />
-                <span>¡Cambios guardados exitosamente y aplicados a la página principal!</span>
-              </div>
+              <span className="text-xs font-bold text-emerald-400 flex items-center gap-1.5 animate-pulse">
+                <CheckCircle2 className="w-4 h-4" />
+                <span>Guardado exitosamente</span>
+              </span>
             )}
+            <button
+              onClick={handleSaveCMS}
+              disabled={isSaving}
+              className="px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-[#00A9A3] hover:opacity-95 text-slate-950 text-xs font-black shadow-md transition-all flex items-center gap-2 active:scale-95 disabled:opacity-50 cursor-pointer"
+            >
+              <Save className="w-3.5 h-3.5" />
+              <span>{isSaving ? 'Guardando...' : 'Guardar Cambios'}</span>
+            </button>
+          </div>
+        </header>
 
-            {/* Hero Section Fields */}
-            <div className={`p-6 rounded-3xl border space-y-4 ${
-              theme === 'dark' ? 'bg-slate-900/60 border-slate-800' : 'bg-white border-slate-200'
-            }`}>
-              <h3 className="text-sm font-extrabold uppercase tracking-wider text-[#00A9A3]">
-                1. Textos del Hero Principal
-              </h3>
+        {/* Content Body */}
+        <main className="p-5 sm:p-8 max-w-6xl space-y-6">
 
+          {/* TAB 1: ANALÍTICA & PUBLICIDAD */}
+          {activeTab === 'analytics' && (
+            <div className="space-y-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="p-5 rounded-2xl bg-slate-900/70 border border-slate-800">
+                  <div className="flex items-center justify-between text-slate-400 text-xs mb-1">
+                    <span>Leads Totales</span>
+                    <Users className="w-4 h-4 text-cyan-400" />
+                  </div>
+                  <p className="text-2xl font-black text-cyan-400">{leads.length}</p>
+                  <p className="text-[10px] text-emerald-400 font-bold mt-1">Conectado a Google Sheets</p>
+                </div>
+
+                <div className="p-5 rounded-2xl bg-slate-900/70 border border-slate-800">
+                  <div className="flex items-center justify-between text-slate-400 text-xs mb-1">
+                    <span>Google Analytics 4</span>
+                    <BarChart3 className="w-4 h-4 text-emerald-400" />
+                  </div>
+                  <p className="text-sm font-black font-mono text-emerald-400">G-T4ZC2SJXHS</p>
+                  <p className="text-[10px] text-slate-400 mt-1">Medición de eventos activa</p>
+                </div>
+
+                <div className="p-5 rounded-2xl bg-slate-900/70 border border-slate-800">
+                  <div className="flex items-center justify-between text-slate-400 text-xs mb-1">
+                    <span>Google Tag Manager</span>
+                    <Sparkles className="w-4 h-4 text-cyan-400" />
+                  </div>
+                  <p className="text-sm font-black font-mono text-cyan-400">GTM-PX6M5QSS</p>
+                  <p className="text-[10px] text-slate-400 mt-1">Contenedor global en head/body</p>
+                </div>
+
+                <div className="p-5 rounded-2xl bg-slate-900/70 border border-slate-800">
+                  <div className="flex items-center justify-between text-slate-400 text-xs mb-1">
+                    <span>Meta &amp; TikTok Ads</span>
+                    <TrendingUp className="w-4 h-4 text-purple-400" />
+                  </div>
+                  <p className="text-xs font-black text-purple-300">fbq &amp; ttq Conectados</p>
+                  <p className="text-[10px] text-slate-400 mt-1">Eventos: lead, apply_job, whatsapp</p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* TAB 2: HERO & TEXTOS */}
+          {activeTab === 'hero' && (
+            <div className="p-6 rounded-3xl bg-slate-900/70 border border-slate-800 space-y-4">
+              <h3 className="text-sm font-black uppercase tracking-wider text-cyan-400">Textos Principales del Hero</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">
-                    Título Inicial (Blanco)
-                  </label>
+                  <label className="block text-xs font-bold text-slate-300 mb-1">Badge Superior</label>
                   <input
                     type="text"
-                    value={siteContent.hero?.titlePrefix || ''}
+                    value={siteContent.hero?.badge || ''}
                     onChange={(e) => setSiteContent({
                       ...siteContent,
-                      hero: { ...siteContent.hero, titlePrefix: e.target.value }
+                      hero: { ...siteContent.hero, badge: e.target.value }
                     })}
-                    className="w-full px-3.5 py-2 text-xs rounded-xl border bg-slate-950 border-slate-700"
+                    className="w-full px-3 py-2 text-xs rounded-xl bg-slate-950 border border-slate-700 text-white"
                   />
                 </div>
-
                 <div>
-                  <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">
-                    Título con Gradiente
-                  </label>
+                  <label className="block text-xs font-bold text-slate-300 mb-1">Badge Edición</label>
                   <input
                     type="text"
-                    value={siteContent.hero?.titleGradient || ''}
+                    value={siteContent.hero?.editionBadge || ''}
                     onChange={(e) => setSiteContent({
                       ...siteContent,
-                      hero: { ...siteContent.hero, titleGradient: e.target.value }
+                      hero: { ...siteContent.hero, editionBadge: e.target.value }
                     })}
-                    className="w-full px-3.5 py-2 text-xs rounded-xl border bg-slate-950 border-slate-700"
+                    className="w-full px-3 py-2 text-xs rounded-xl bg-slate-950 border border-slate-700 text-white"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">
-                  Subtítulo / Propuesta de Valor
-                </label>
+                <label className="block text-xs font-bold text-slate-300 mb-1">Título Principal (H1)</label>
+                <input
+                  type="text"
+                  value={siteContent.hero?.titlePrefix || ''}
+                  onChange={(e) => setSiteContent({
+                    ...siteContent,
+                    hero: { ...siteContent.hero, titlePrefix: e.target.value }
+                  })}
+                  className="w-full px-3 py-2 text-xs rounded-xl bg-slate-950 border border-slate-700 text-white"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-300 mb-1">Subtítulo / Propuesta de Valor</label>
                 <textarea
                   rows={3}
                   value={siteContent.hero?.subtitle || ''}
@@ -340,64 +479,180 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                     ...siteContent,
                     hero: { ...siteContent.hero, subtitle: e.target.value }
                   })}
-                  className="w-full px-3.5 py-2 text-xs rounded-xl border bg-slate-950 border-slate-700 leading-relaxed"
+                  className="w-full px-3 py-2 text-xs rounded-xl bg-slate-950 border border-slate-700 text-white leading-relaxed"
                 />
               </div>
+            </div>
+          )}
 
-              {/* Stats Grid */}
-              <div className="grid grid-cols-3 gap-3 pt-2">
+          {/* TAB 3: GESTIÓN DE VACANTES */}
+          {activeTab === 'vacancies' && (
+            <div className="space-y-6">
+              <div className="flex items-center justify-between">
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-400 mb-1">Métrica 1 (Días)</label>
-                  <input
-                    type="text"
-                    value={siteContent.hero?.stat1Value || ''}
-                    onChange={(e) => setSiteContent({
-                      ...siteContent,
-                      hero: { ...siteContent.hero, stat1Value: e.target.value }
-                    })}
-                    className="w-full px-3 py-1.5 text-xs rounded-xl border bg-slate-950 border-slate-700"
-                  />
-                </div>
-                <div>
-                  <label className="block text-[11px] font-bold text-slate-400 mb-1">Métrica 2 (Garantía)</label>
-                  <input
-                    type="text"
-                    value={siteContent.hero?.stat2Value || ''}
-                    onChange={(e) => setSiteContent({
-                      ...siteContent,
-                      hero: { ...siteContent.hero, stat2Value: e.target.value }
-                    })}
-                    className="w-full px-3 py-1.5 text-xs rounded-xl border bg-slate-950 border-slate-700"
-                  />
-                </div>
-                <div>
-                  <label className="block text-[11px] font-bold text-slate-400 mb-1">Métrica 3 (Éxito)</label>
-                  <input
-                    type="text"
-                    value={siteContent.hero?.stat3Value || ''}
-                    onChange={(e) => setSiteContent({
-                      ...siteContent,
-                      hero: { ...siteContent.hero, stat3Value: e.target.value }
-                    })}
-                    className="w-full px-3 py-1.5 text-xs rounded-xl border bg-slate-950 border-slate-700"
-                  />
+                  <h3 className="text-sm font-black uppercase tracking-wider text-cyan-400">Vacantes Activas en el Portal</h3>
+                  <p className="text-xs text-slate-400">Edita las bandas salariales, requisitos y descripciones en tiempo real.</p>
                 </div>
               </div>
+
+              <div className="space-y-4">
+                {vacancies.map((vac, idx) => (
+                  <div key={vac.id} className="p-5 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-3">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                      <input
+                        type="text"
+                        value={vac.title}
+                        onChange={(e) => {
+                          const copy = [...vacancies];
+                          copy[idx].title = e.target.value;
+                          setVacancies(copy);
+                        }}
+                        className="text-base font-black bg-transparent border-b border-slate-700 focus:border-cyan-400 outline-none text-white py-1"
+                      />
+                      <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shrink-0 self-start sm:self-auto">
+                        {vac.department}
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                      <div>
+                        <label className="block text-[10px] font-bold text-slate-400 uppercase">Banda Salarial</label>
+                        <input
+                          type="text"
+                          value={vac.salaryRange}
+                          onChange={(e) => {
+                            const copy = [...vacancies];
+                            copy[idx].salaryRange = e.target.value;
+                            setVacancies(copy);
+                          }}
+                          className="w-full px-2.5 py-1.5 text-xs rounded-lg bg-slate-950 border border-slate-700 text-emerald-400 font-bold"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-[10px] font-bold text-slate-400 uppercase">Ubicación</label>
+                        <input
+                          type="text"
+                          value={vac.location}
+                          onChange={(e) => {
+                            const copy = [...vacancies];
+                            copy[idx].location = e.target.value;
+                            setVacancies(copy);
+                          }}
+                          className="w-full px-2.5 py-1.5 text-xs rounded-lg bg-slate-950 border border-slate-700 text-white"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-[10px] font-bold text-slate-400 uppercase">Modalidad</label>
+                        <input
+                          type="text"
+                          value={vac.modality}
+                          onChange={(e) => {
+                            const copy = [...vacancies];
+                            copy[idx].modality = e.target.value;
+                            setVacancies(copy);
+                          }}
+                          className="w-full px-2.5 py-1.5 text-xs rounded-lg bg-slate-950 border border-slate-700 text-white"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-[10px] font-bold text-slate-400 uppercase">Descripción</label>
+                      <textarea
+                        rows={2}
+                        value={vac.description}
+                        onChange={(e) => {
+                          const copy = [...vacancies];
+                          copy[idx].description = e.target.value;
+                          setVacancies(copy);
+                        }}
+                        className="w-full px-2.5 py-1.5 text-xs rounded-lg bg-slate-950 border border-slate-700 text-slate-300 leading-relaxed"
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
+          )}
 
-            {/* Contact Settings */}
-            <div className={`p-6 rounded-3xl border space-y-4 ${
-              theme === 'dark' ? 'bg-slate-900/60 border-slate-800' : 'bg-white border-slate-200'
-            }`}>
-              <h3 className="text-sm font-extrabold uppercase tracking-wider text-[#00A9A3]">
-                2. Configuración de Contacto &amp; WhatsApp
-              </h3>
+          {/* TAB 4: BANDEJA DE LEADS */}
+          {activeTab === 'leads' && (
+            <div className="space-y-4">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+                <div className="relative flex-1 max-w-md">
+                  <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                  <input
+                    type="text"
+                    placeholder="Buscar por nombre, email, empresa o cargo..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="w-full pl-10 pr-4 py-2 text-xs rounded-xl border bg-slate-900 border-slate-700 text-white"
+                  />
+                </div>
+                <span className="text-xs text-slate-400">
+                  Mostrando {filteredLeads.length} de {leads.length} prospectos
+                </span>
+              </div>
 
+              {filteredLeads.length > 0 ? (
+                <div className="overflow-x-auto rounded-2xl border border-slate-800">
+                  <table className="w-full text-left text-xs border-collapse">
+                    <thead className="bg-slate-900 text-slate-400 uppercase font-black text-[10px]">
+                      <tr>
+                        <th className="p-3.5 border-b border-slate-800">Fecha</th>
+                        <th className="p-3.5 border-b border-slate-800">Nombre</th>
+                        <th className="p-3.5 border-b border-slate-800">Email &amp; Teléfono</th>
+                        <th className="p-3.5 border-b border-slate-800">Empresa</th>
+                        <th className="p-3.5 border-b border-slate-800">Posición Requerida</th>
+                        <th className="p-3.5 border-b border-slate-800">Mensaje</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-800/60 bg-slate-950/50">
+                      {filteredLeads.map((lead, idx) => (
+                        <tr key={lead.id || idx} className="hover:bg-slate-900/40 transition-colors">
+                          <td className="p-3.5 text-slate-400 whitespace-nowrap text-[11px]">
+                            {lead.createdAt || 'Reciente'}
+                          </td>
+                          <td className="p-3.5 font-bold text-white whitespace-nowrap">
+                            {lead.name}
+                          </td>
+                          <td className="p-3.5">
+                            <p className="text-cyan-400">{lead.email}</p>
+                            <p className="text-slate-400 text-[11px]">{lead.phone}</p>
+                          </td>
+                          <td className="p-3.5 text-slate-300 font-medium whitespace-nowrap">
+                            {lead.company}
+                          </td>
+                          <td className="p-3.5">
+                            <span className="px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 text-[10px] font-bold">
+                              {lead.role || lead.serviceType}
+                            </span>
+                          </td>
+                          <td className="p-3.5 text-slate-400 text-[11px] max-w-xs truncate">
+                            {lead.message}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              ) : (
+                <div className="p-12 text-center rounded-2xl border border-slate-800 bg-slate-900/30">
+                  <Users className="w-10 h-10 text-slate-500 mx-auto mb-2" />
+                  <h4 className="text-sm font-bold">No se encontraron leads registrados</h4>
+                  <p className="text-xs text-slate-400 mt-1">Los contactos enviados desde la web aparecerán aquí en tiempo real.</p>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* TAB 5: CONFIGURACIÓN */}
+          {activeTab === 'settings' && (
+            <div className="p-6 rounded-3xl bg-slate-900/70 border border-slate-800 space-y-4">
+              <h3 className="text-sm font-black uppercase tracking-wider text-cyan-400">Canales de Atención &amp; WhatsApp</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">
-                    Número de WhatsApp Oficial
-                  </label>
+                  <label className="block text-xs font-bold text-slate-300 mb-1">WhatsApp Consultor</label>
                   <input
                     type="text"
                     value={siteContent.contact?.whatsapp || ''}
@@ -405,14 +660,11 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                       ...siteContent,
                       contact: { ...siteContent.contact, whatsapp: e.target.value }
                     })}
-                    className="w-full px-3.5 py-2 text-xs rounded-xl border bg-slate-950 border-slate-700"
+                    className="w-full px-3 py-2 text-xs rounded-xl bg-slate-950 border border-slate-700 text-white"
                   />
                 </div>
-
                 <div>
-                  <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">
-                    Email de Recepción de Notificaciones
-                  </label>
+                  <label className="block text-xs font-bold text-slate-300 mb-1">Email Notificaciones</label>
                   <input
                     type="email"
                     value={siteContent.contact?.email || ''}
@@ -420,87 +672,14 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                       ...siteContent,
                       contact: { ...siteContent.contact, email: e.target.value }
                     })}
-                    className="w-full px-3.5 py-2 text-xs rounded-xl border bg-slate-950 border-slate-700"
+                    className="w-full px-3 py-2 text-xs rounded-xl bg-slate-950 border border-slate-700 text-white"
                   />
                 </div>
               </div>
             </div>
+          )}
 
-          </div>
-        )}
-
-        {/* ================= TAB 3: BANDEJA DE LEADS ================= */}
-        {activeTab === 'leads' && (
-          <div className="space-y-4">
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
-              <div className="relative flex-1 max-w-md">
-                <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                <input
-                  type="text"
-                  placeholder="Buscar por nombre, email, empresa o cargo..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 text-xs rounded-xl border bg-slate-900 border-slate-700"
-                />
-              </div>
-
-              <span className="text-xs text-slate-400">
-                Mostrando {filteredLeads.length} de {leads.length} prospectos
-              </span>
-            </div>
-
-            {filteredLeads.length > 0 ? (
-              <div className="overflow-x-auto rounded-2xl border border-slate-800">
-                <table className="w-full text-left text-xs border-collapse">
-                  <thead className="bg-slate-900/90 text-slate-400 uppercase font-extrabold text-[10px]">
-                    <tr>
-                      <th className="p-3.5 border-b border-slate-800">Fecha</th>
-                      <th className="p-3.5 border-b border-slate-800">Nombre</th>
-                      <th className="p-3.5 border-b border-slate-800">Email &amp; Teléfono</th>
-                      <th className="p-3.5 border-b border-slate-800">Empresa</th>
-                      <th className="p-3.5 border-b border-slate-800">Posición Requerida</th>
-                      <th className="p-3.5 border-b border-slate-800">Mensaje</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-slate-800/60 bg-slate-950/50">
-                    {filteredLeads.map((lead, idx) => (
-                      <tr key={lead.id || idx} className="hover:bg-slate-900/40 transition-colors">
-                        <td className="p-3.5 text-slate-400 whitespace-nowrap text-[11px]">
-                          {lead.createdAt || 'Reciente'}
-                        </td>
-                        <td className="p-3.5 font-bold text-white whitespace-nowrap">
-                          {lead.name}
-                        </td>
-                        <td className="p-3.5">
-                          <p className="text-cyan-400">{lead.email}</p>
-                          <p className="text-slate-400 text-[11px]">{lead.phone}</p>
-                        </td>
-                        <td className="p-3.5 text-slate-300 font-medium whitespace-nowrap">
-                          {lead.company}
-                        </td>
-                        <td className="p-3.5">
-                          <span className="px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 text-[10px] font-bold">
-                            {lead.role || lead.serviceType}
-                          </span>
-                        </td>
-                        <td className="p-3.5 text-slate-400 text-[11px] max-w-xs truncate">
-                          {lead.message}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            ) : (
-              <div className="p-12 text-center rounded-2xl border border-slate-800 bg-slate-900/30">
-                <Users className="w-10 h-10 text-slate-500 mx-auto mb-2" />
-                <h4 className="text-sm font-bold">No se encontraron leads registrados</h4>
-                <p className="text-xs text-slate-400 mt-1">Los contactos enviados desde la web aparecerán aquí en tiempo real.</p>
-              </div>
-            )}
-          </div>
-        )}
-
+        </main>
       </div>
 
     </div>
