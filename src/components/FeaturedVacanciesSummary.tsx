@@ -86,12 +86,21 @@ export const FeaturedVacanciesSummary: React.FC<FeaturedVacanciesSummaryProps> =
 
   const scroll = (direction: 'left' | 'right') => {
     if (carouselRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
       const scrollAmount = 370;
-      carouselRef.current.scrollBy({
-        left: direction === 'left' ? -scrollAmount : scrollAmount,
-        behavior: 'smooth'
-      });
-      setTimeout(checkScroll, 350);
+      if (direction === 'right') {
+        if (scrollLeft + clientWidth >= scrollWidth - 25) {
+          carouselRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          carouselRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        }
+      } else {
+        if (scrollLeft <= 25) {
+          carouselRef.current.scrollTo({ left: scrollWidth, behavior: 'smooth' });
+        } else {
+          carouselRef.current.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        }
+      }
     }
   };
 
@@ -132,29 +141,19 @@ export const FeaturedVacanciesSummary: React.FC<FeaturedVacanciesSummaryProps> =
             </p>
           </div>
 
-          {/* Carousel Navigation Buttons & Actions */}
+          {/* Carousel Navigation Buttons & Actions (Always Active, Infinite Loop) */}
           <div className="flex items-center gap-2.5 self-start md:self-auto shrink-0">
             <button
               onClick={() => scroll('left')}
-              disabled={!canScrollLeft}
-              aria-label="Anterior vacante"
-              className={`w-10 h-10 rounded-xl border flex items-center justify-center transition-all ${
-                canScrollLeft
-                  ? 'bg-slate-900 border-slate-700 text-white hover:border-cyan-400 active:scale-95 shadow-md cursor-pointer'
-                  : 'bg-slate-900/40 border-slate-800/40 text-slate-600 cursor-not-allowed opacity-50'
-              }`}
+              aria-label="Anterior vacante (o ir al final)"
+              className="w-10 h-10 rounded-xl border flex items-center justify-center transition-all bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700 text-slate-800 dark:text-white hover:border-cyan-400 active:scale-95 shadow-md cursor-pointer"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <button
               onClick={() => scroll('right')}
-              disabled={!canScrollRight}
-              aria-label="Siguiente vacante"
-              className={`w-10 h-10 rounded-xl border flex items-center justify-center transition-all ${
-                canScrollRight
-                  ? 'bg-gradient-to-r from-cyan-500 to-[#00A9A3] text-slate-950 font-black hover:opacity-90 active:scale-95 shadow-md cursor-pointer'
-                  : 'bg-slate-900/40 border-slate-800/40 text-slate-600 cursor-not-allowed opacity-50'
-              }`}
+              aria-label="Siguiente vacante (o volver al inicio)"
+              className="w-10 h-10 rounded-xl border flex items-center justify-center transition-all bg-gradient-to-r from-cyan-500 to-[#00A9A3] text-slate-950 font-black hover:opacity-90 active:scale-95 shadow-md cursor-pointer"
             >
               <ChevronRight className="w-5 h-5" />
             </button>

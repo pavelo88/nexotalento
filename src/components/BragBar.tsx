@@ -61,24 +61,17 @@ export const BragBar: React.FC = () => {
           {[...trustedCompanies, ...trustedCompanies].map((company, index) => (
             <div
               key={index}
-              className="shrink-0 flex items-center gap-3 px-4 py-2.5 rounded-2xl bg-white border border-slate-200 text-slate-900 hover:border-cyan-500 shadow-xs hover:shadow-md transition-all duration-300 hover:scale-105 select-none"
+              className="shrink-0 flex items-center justify-center px-5 py-3 rounded-2xl bg-white border border-slate-200 hover:border-cyan-500 shadow-xs hover:shadow-md transition-all duration-300 hover:scale-105 select-none min-w-[120px]"
+              title={`${company.name} · ${company.sector}`}
             >
               <img
                 src={company.logoFile}
                 alt={company.name}
-                className="h-7 sm:h-8 max-w-[130px] object-contain drop-shadow-xs"
+                className="h-7 sm:h-8 w-auto max-w-[140px] object-contain"
                 onError={(e) => {
                   (e.currentTarget as HTMLImageElement).classList.add('hidden');
                 }}
               />
-              <div className="flex flex-col">
-                <span className="text-xs sm:text-sm font-heading font-black tracking-tight uppercase text-slate-900">
-                  {company.name}
-                </span>
-                <span className="text-[10px] sm:text-[11px] font-bold tracking-wide uppercase text-cyan-600">
-                  {company.sector}
-                </span>
-              </div>
             </div>
           ))}
         </div>

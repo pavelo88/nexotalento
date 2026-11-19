@@ -68,17 +68,17 @@ export const Hero: React.FC<HeroProps> = ({
       }`}
     >
       {/* High-Resolution Corporate Architectural Photography (Visible & Crisp) */}
-      <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
         <img
-          src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2400&q=85"
+          src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2400&q=90"
           alt="Edificio corporativo y centro de negocios de alta dirección"
-          className="w-full h-full object-cover object-center opacity-45 dark:opacity-50 scale-100"
+          className="w-full h-full object-cover object-center opacity-30 dark:opacity-40 scale-100"
         />
-        {/* Clean Vignette Overlay to ensure razor-sharp typography without blue haze */}
+        {/* Subtle Vignette Overlay to guarantee 100% text readability without hiding the building */}
         <div className={`absolute inset-0 ${
           theme === 'dark'
-            ? 'bg-gradient-to-b from-slate-950/70 via-slate-950/50 to-slate-950'
-            : 'bg-gradient-to-b from-slate-50/75 via-slate-50/55 to-slate-50'
+            ? 'bg-gradient-to-b from-slate-950/60 via-slate-950/30 to-slate-950/90'
+            : 'bg-gradient-to-b from-white/60 via-white/20 to-white/95'
         }`} />
       </div>
 

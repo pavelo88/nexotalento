@@ -1077,16 +1077,16 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                 </div>
 
                 {filteredLeads.length > 0 ? (
-                  <div className="overflow-x-auto rounded-2xl border border-stone-200 dark:border-stone-800 bg-white dark:bg-stone-900/80">
-                    <table className="w-full text-left text-xs border-collapse">
-                      <thead className="bg-stone-50 dark:bg-stone-950 text-stone-500 uppercase font-bold text-[10px]">
+                  <div className="overflow-x-auto overflow-y-auto max-h-[calc(100vh-270px)] rounded-2xl border border-stone-200 dark:border-stone-800 bg-white dark:bg-stone-900/80 mb-24 shadow-sm">
+                    <table className="w-full text-left text-xs border-collapse relative">
+                      <thead className="sticky top-0 z-20 bg-stone-100 dark:bg-stone-950 text-stone-600 dark:text-stone-400 uppercase font-bold text-[10px] shadow-sm">
                         <tr>
-                          <th className="p-3 border-b border-stone-200 dark:border-stone-800">Estado</th>
-                          <th className="p-3 border-b border-stone-200 dark:border-stone-800">Fecha</th>
-                          <th className="p-3 border-b border-stone-200 dark:border-stone-800">Nombre</th>
-                          <th className="p-3 border-b border-stone-200 dark:border-stone-800">Email &amp; Teléfono</th>
-                          <th className="p-3 border-b border-stone-200 dark:border-stone-800">Empresa / Rol</th>
-                          <th className="p-3 border-b border-stone-200 dark:border-stone-800 text-right">Acciones</th>
+                          <th className="p-3.5 border-b border-stone-200 dark:border-stone-800 bg-stone-100 dark:bg-stone-950">Estado</th>
+                          <th className="p-3.5 border-b border-stone-200 dark:border-stone-800 bg-stone-100 dark:bg-stone-950">Fecha</th>
+                          <th className="p-3.5 border-b border-stone-200 dark:border-stone-800 bg-stone-100 dark:bg-stone-950">Nombre</th>
+                          <th className="p-3.5 border-b border-stone-200 dark:border-stone-800 bg-stone-100 dark:bg-stone-950">Email &amp; Teléfono</th>
+                          <th className="p-3.5 border-b border-stone-200 dark:border-stone-800 bg-stone-100 dark:bg-stone-950">Empresa / Rol</th>
+                          <th className="p-3.5 border-b border-stone-200 dark:border-stone-800 bg-stone-100 dark:bg-stone-950 text-right">Acciones</th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-stone-200 dark:divide-stone-800/60">
