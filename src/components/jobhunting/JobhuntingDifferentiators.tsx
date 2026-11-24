@@ -13,13 +13,13 @@ const diffCards = [
 
 export const JobhuntingDifferentiators: React.FC<JobhuntingDifferentiatorsProps> = ({ theme }) => {
   return (
-    <section className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className={`p-8 sm:p-14 lg:p-16 rounded-3xl border ${
+    <section className="py-12 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className={`p-5 sm:p-10 lg:p-14 rounded-3xl border ${
         theme === 'dark' 
           ? 'bg-gradient-to-br from-[#0E243A] to-[#0A1826] border-stone-800 text-white' 
           : 'bg-gradient-to-br from-[#0E243A] via-[#102B45] to-[#12304D] border-stone-200 text-white shadow-2xl'
       }`}>
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-7 lg:gap-10 items-center">
           
           <div className="lg:col-span-6 space-y-5">
             <span className="text-xs font-black uppercase tracking-widest text-[#00E5C9]">
@@ -36,14 +36,18 @@ export const JobhuntingDifferentiators: React.FC<JobhuntingDifferentiatorsProps>
             </p>
           </div>
 
-          <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
             {diffCards.map((card, idx) => (
-              <div key={idx} className="p-5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md hover:bg-white/10 transition-colors">
-                <div className="w-8 h-8 rounded-lg bg-[#00A896]/20 flex items-center justify-center text-[#00E5C9] font-black text-xs mb-3">
-                  ✓
+              <div key={idx} className="p-3.5 sm:p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md hover:bg-white/10 transition-colors">
+                <div className="flex items-start gap-2.5">
+                  <div className="w-7 h-7 rounded-lg bg-[#00A896]/20 flex items-center justify-center text-[#00E5C9] font-black text-xs shrink-0">
+                    ✓
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-sm font-bold text-white leading-snug mb-1">{card.title}</p>
+                    <p className="text-xs text-slate-300 leading-relaxed">{card.desc}</p>
+                  </div>
                 </div>
-                <p className="text-sm font-bold text-white mb-1.5">{card.title}</p>
-                <p className="text-xs text-slate-300 leading-relaxed">{card.desc}</p>
               </div>
             ))}
           </div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { 
   Zap, 
   Check, 
@@ -109,6 +109,17 @@ export const JobhuntingPhases: React.FC<JobhuntingPhasesProps> = ({ theme }) => 
   const current = phases[activePhaseIndex];
   const Icon = current.icon;
 
+  useEffect(() => {
+    const mobileQuery = window.matchMedia('(max-width: 1023px)');
+    const timer = window.setInterval(() => {
+      if (mobileQuery.matches) {
+        setActivePhaseIndex((prev) => (prev + 1) % phases.length);
+      }
+    }, 5000);
+
+    return () => window.clearInterval(timer);
+  }, []);
+
   return (
     <section className={`py-24 border-y ${theme === 'dark' ? 'bg-[#090C11] border-stone-800' : 'bg-stone-100/60 border-stone-200'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -118,8 +129,8 @@ export const JobhuntingPhases: React.FC<JobhuntingPhasesProps> = ({ theme }) => 
             <Zap className="w-3.5 h-3.5" />
             <span>Metodología en 5 Fases</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black font-heading tracking-tight mt-1">
-            Programa en Detalle: Fases 0 a 4
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black font-heading tracking-tight mt-1">
+            Programa en Detalle: <span className="block sm:inline">Fases 0 a 4</span>
           </h2>
           <p className="mt-3 text-sm sm:text-base text-stone-600 dark:text-stone-400">
             Haz clic en cada fase para explorar el trabajo paso a paso: desde el reencuadre emocional hasta el cierre salarial.
@@ -127,7 +138,7 @@ export const JobhuntingPhases: React.FC<JobhuntingPhasesProps> = ({ theme }) => 
         </div>
 
         {/* Stepper / Timeline Selector Tabs */}
-        <div className="grid grid-cols-2 sm:flex sm:flex-wrap items-center justify-center gap-2 pb-4 mb-10">
+        <div className="hidden lg:flex lg:flex-wrap items-center justify-center gap-2 pb-4 mb-10">
           {phases.map((p, idx) => {
             const isActive = activePhaseIndex === idx;
             return (
@@ -215,7 +226,7 @@ export const JobhuntingPhases: React.FC<JobhuntingPhasesProps> = ({ theme }) => 
           </div>
 
           {/* Botones Prev / Next del Stepper */}
-          <div className="mt-8 pt-6 border-t border-stone-200 dark:border-stone-800 flex items-center justify-between">
+          <div className="hidden lg:flex mt-8 pt-6 border-t border-stone-200 dark:border-stone-800 items-center justify-between">
             <button
               disabled={activePhaseIndex === 0}
               onClick={() => setActivePhaseIndex(prev => Math.max(0, prev - 1))}
@@ -231,6 +242,17 @@ export const JobhuntingPhases: React.FC<JobhuntingPhasesProps> = ({ theme }) => 
             >
               Siguiente Fase →
             </button>
+          </div>
+
+          <div className="flex lg:hidden items-center justify-center gap-1.5 pt-5" aria-label="Progreso automático de fases">
+            {phases.map((phase, idx) => (
+              <span
+                key={phase.num}
+                className={`h-1.5 rounded-full transition-all duration-500 ${
+                  idx === activePhaseIndex ? 'w-7 bg-[#00A896]' : 'w-1.5 bg-stone-300 dark:bg-stone-700'
+                }`}
+              />
+            ))}
           </div>
         </div>
 

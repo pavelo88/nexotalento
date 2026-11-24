@@ -98,6 +98,13 @@
 **Archivos modificados:** C:/dev/proyectos/nexotalentos/src/components/jobhunting/JobhuntingHero.tsx; C:/dev/proyectos/nexotalentos/AVANCE.md
 
 ## [2026-11-24] - Nexo Talento - Codex
+**Qué se hizo:** Se rehízo la interacción móvil de Jobhunting: el navbar inicia con la estética oscura de marca y cambia al modo claro al hacer scroll; las fases se convierten en un carrusel automático exclusivo para celular, sin botones de navegación; y se compactó la sección de diferenciadores alineando cada check con su texto.
+**Resultado:** La revisión visual en `http://localhost:4174/jobhunting` confirma mejor jerarquía móvil, fases automáticas y una sección de beneficios menos alta. Lint, build, prerender de 12 rutas y bundle del servidor pasan.
+**Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
+**Próximos pasos:** Continuar la auditoría visual ruta por ruta antes de activar publicidad; la fotografía actual funciona como apoyo visual ejecutivo, pero debe complementarse con prueba social real.
+**Archivos modificados:** C:/dev/proyectos/nexotalentos/src/components/Navbar.tsx; C:/dev/proyectos/nexotalentos/src/components/jobhunting/JobhuntingPhases.tsx; C:/dev/proyectos/nexotalentos/src/components/jobhunting/JobhuntingDifferentiators.tsx; C:/dev/proyectos/nexotalentos/AVANCE.md
+
+## [2026-11-24] - Nexo Talento - Codex
 **Qué se hizo:** Se corrigió el exceso de altura del hero móvil de Jobhunting y se devolvió la imagen a una altura contenida, dejando los CTA inmediatamente debajo de la imagen y la garantía al pie del recurso visual.
 **Resultado:** El hero móvil deja de ocupar casi toda la pantalla; la candidata sigue visible y la revisión en localhost con Vite/HMR confirma la composición solicitada. Lint pasa sin errores.
 **Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
