@@ -165,10 +165,10 @@ export const Hero: React.FC<HeroProps> = ({
           {/* Card 1: Para Empresas */}
           <div
             onClick={handleSeekTalent}
-            className={`p-6 sm:p-8 rounded-3xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl cursor-pointer relative group flex flex-col justify-between ${
+            className={`glass-card p-6 sm:p-8 rounded-3xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl cursor-pointer relative group flex flex-col justify-between ${
               theme === 'dark'
                 ? 'bg-gradient-to-br from-slate-900/90 to-slate-950 border-slate-800 hover:border-cyan-500/60 shadow-xl'
-                : 'bg-white border-slate-200 hover:border-cyan-500/60 shadow-md'
+                : 'hover:border-cyan-500/60 shadow-md'
             }`}
           >
             <div>
@@ -203,10 +203,10 @@ export const Hero: React.FC<HeroProps> = ({
           {/* Card 2: Para Candidatos */}
           <div
             onClick={handleSeekJob}
-            className={`p-6 sm:p-8 rounded-3xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl cursor-pointer relative group flex flex-col justify-between ${
+            className={`glass-card p-6 sm:p-8 rounded-3xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl cursor-pointer relative group flex flex-col justify-between ${
               theme === 'dark'
                 ? 'bg-gradient-to-br from-slate-900/90 to-slate-950 border-slate-800 hover:border-[#00A9A3]/60 shadow-xl'
-                : 'bg-white border-slate-200 hover:border-[#00A9A3]/60 shadow-md'
+                : 'hover:border-[#00A9A3]/60 shadow-md'
             }`}
           >
             <div>
@@ -242,19 +242,19 @@ export const Hero: React.FC<HeroProps> = ({
 
         {/* Trust Badges Strip (Freelancer metrics footer) */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto text-center">
-          <div className={`p-4 rounded-2xl border ${theme === 'dark' ? 'bg-slate-900/50 border-slate-800/80' : 'bg-white border-slate-200'}`}>
+          <div className={`glass-card p-4 rounded-2xl border ${theme === 'dark' ? 'border-slate-800/80' : ''}`}>
             <p className="text-xl sm:text-2xl font-black text-cyan-400 font-heading">18 Días</p>
             <p className="text-[11px] text-slate-400 font-medium">Terna Validada</p>
           </div>
-          <div className={`p-4 rounded-2xl border ${theme === 'dark' ? 'bg-slate-900/50 border-slate-800/80' : 'bg-white border-slate-200'}`}>
+          <div className={`glass-card p-4 rounded-2xl border ${theme === 'dark' ? 'border-slate-800/80' : ''}`}>
             <p className="text-xl sm:text-2xl font-black text-[#00A9A3] font-heading">3-6 Meses</p>
             <p className="text-[11px] text-slate-400 font-medium">Garantía Reposición</p>
           </div>
-          <div className={`p-4 rounded-2xl border ${theme === 'dark' ? 'bg-slate-900/50 border-slate-800/80' : 'bg-white border-slate-200'}`}>
+          <div className={`glass-card p-4 rounded-2xl border ${theme === 'dark' ? 'border-slate-800/80' : ''}`}>
             <p className="text-xl sm:text-2xl font-black text-blue-400 font-heading">98.4%</p>
             <p className="text-[11px] text-slate-400 font-medium">Tasa de Retención</p>
           </div>
-          <div className={`p-4 rounded-2xl border ${theme === 'dark' ? 'bg-slate-900/50 border-slate-800/80' : 'bg-white border-slate-200'}`}>
+          <div className={`glass-card p-4 rounded-2xl border ${theme === 'dark' ? 'border-slate-800/80' : ''}`}>
             <p className="text-xl sm:text-2xl font-black text-emerald-400 font-heading">100%</p>
             <p className="text-[11px] text-slate-400 font-medium">Blindaje Contractual</p>
           </div>

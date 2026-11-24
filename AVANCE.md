@@ -98,6 +98,13 @@
 **Archivos modificados:** C:/dev/proyectos/nexotalentos/src/components/jobhunting/JobhuntingHero.tsx; C:/dev/proyectos/nexotalentos/AVANCE.md
 
 ## [2026-11-24] - Nexo Talento - Codex
+**Qué se hizo:** Se corrigió el glassmorphism visible del inicio: se eliminaron fondos sólidos `bg-white` que anulaban el desenfoque y se creó una superficie glass compartida con transparencia, saturación, blur, borde luminoso y sombra interna para tarjetas del hero, métricas y logos.
+**Resultado:** La página `/` ahora deja ver el fondo fotográfico a través de las tarjetas en modo claro; la comprobación visual local confirma el efecto sobre el hero y el strip de confianza. Lint y `git diff --check` pasan.
+**Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
+**Próximos pasos:** Revisar las secciones internas que aún usan tarjetas intencionalmente sólidas, como tablas y formularios, sin convertir controles de entrada en superficies transparentes ilegibles.
+**Archivos modificados:** C:/dev/proyectos/nexotalentos/src/index.css; C:/dev/proyectos/nexotalentos/src/components/Hero.tsx; C:/dev/proyectos/nexotalentos/src/components/BragBar.tsx; C:/dev/proyectos/nexotalentos/AVANCE.md
+
+## [2026-11-24] - Nexo Talento - Codex
 **Qué se hizo:** Se completó la carga real de CV: arrastre y soltado, validación de formato/tamaño, lectura Base64 desde el formulario y extracción de texto PDF/DOCX en el backend. Se eliminó la película de “Garantía de Reactivación” superpuesta en el hero de Jobhunting y se reforzó el glassmorphism visible de las tarjetas de creación de perfil.
 **Resultado:** Un PDF local real fue procesado por `/api/analyze-cv` con HTTP 200 y devolvió un borrador estructurado. Lint, build y `git diff --check` pasan; se verificó visualmente la tarjeta glassmorphism en `http://localhost:4174/crear-perfil`.
 **Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
