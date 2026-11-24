@@ -41,7 +41,7 @@ export const JobhuntingHero: React.FC = () => {
             <img 
               src="/jobhunting-hero-mobile.jpg" 
               alt="Candidata programa ProProfile Nexo Talento" 
-              className="w-full aspect-[9/16] sm:aspect-[4/5] object-cover object-center"
+              className="w-full h-80 sm:h-96 object-cover object-center"
               loading="eager"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#0A1826] via-transparent to-transparent" />

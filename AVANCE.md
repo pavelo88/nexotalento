@@ -96,3 +96,10 @@
 **Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
 **Próximos pasos:** Revisar el comportamiento final en el dominio desplegado después del deploy automático.
 **Archivos modificados:** C:/dev/proyectos/nexotalentos/src/components/jobhunting/JobhuntingHero.tsx; C:/dev/proyectos/nexotalentos/AVANCE.md
+
+## [2026-11-24] - Nexo Talento - Codex
+**Qué se hizo:** Se corrigió el exceso de altura del hero móvil de Jobhunting y se devolvió la imagen a una altura contenida, dejando los CTA inmediatamente debajo de la imagen y la garantía al pie del recurso visual.
+**Resultado:** El hero móvil deja de ocupar casi toda la pantalla; la candidata sigue visible y la revisión en localhost con Vite/HMR confirma la composición solicitada. Lint pasa sin errores.
+**Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
+**Próximos pasos:** Mantener la imagen actual como recurso provisional; para publicidad conviene sustituirla más adelante por fotografía real, testimonio o evidencia de resultados del servicio.
+**Archivos modificados:** C:/dev/proyectos/nexotalentos/src/components/jobhunting/JobhuntingHero.tsx; C:/dev/proyectos/nexotalentos/AVANCE.md
