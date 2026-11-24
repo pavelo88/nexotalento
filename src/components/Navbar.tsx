@@ -11,7 +11,6 @@ import {
   Menu, 
   X, 
   Sparkles, 
-  WandSparkles,
   FileSearch, 
   ChevronDown,
   ShieldCheck, 
@@ -49,7 +48,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const navRef = useRef<HTMLDivElement>(null);
   const { theme, toggleTheme } = useTheme();
-  const headerUsesDarkBrand = theme === 'dark' || (currentPath === '/jobhunting' && !isScrolled);
+  const headerUsesDarkBrand = theme === 'dark' || ((currentPath === '/' || currentPath === '/jobhunting') && !isScrolled);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -270,19 +269,6 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Right Action Cluster: Primary CTA + Theme Toggle + Mobile Menu */}
           <div className="flex items-center gap-2 sm:gap-3">
             
-            {/* Primary Action Button (El único CTA destacado, equilibrado) */}
-            <button
-              onClick={() => handleLinkClick('/crear-perfil')}
-              className={`h-9 px-4 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 active:scale-95 cursor-pointer shadow-md ${
-                currentPath === '/crear-perfil'
-                  ? 'bg-[#00E5C9] text-slate-950 shadow-[#00E5C9]/25'
-                  : 'bg-[#00A896] hover:bg-[#00C4AF] text-slate-950 shadow-[#00A896]/20'
-              }`}
-            >
-              <WandSparkles className="w-3.5 h-3.5" />
-              <span>Crear tu perfil</span>
-            </button>
-
             {/* Dark/Light Mode Switcher */}
             <button
               id="theme-toggle-btn"
@@ -375,17 +361,6 @@ export const Navbar: React.FC<NavbarProps> = ({
             >
               <span>Jobhunting ProProfile</span>
               <Sparkles className="w-3.5 h-3.5" />
-            </button>
-            <button
-              onClick={() => handleLinkClick('/crear-perfil')}
-              className={`p-2.5 rounded-xl text-left text-xs font-extrabold flex items-center justify-between ${
-                currentPath === '/crear-perfil'
-                  ? 'bg-cyan-500 text-slate-950'
-                  : theme === 'dark' ? 'bg-cyan-500/10 text-cyan-300 border border-cyan-500/30' : 'bg-cyan-50 text-cyan-900 border border-cyan-200'
-              }`}
-            >
-              <span>Crear tu perfil con IA</span>
-              <WandSparkles className="w-3.5 h-3.5" />
             </button>
             <button
               onClick={() => handleLinkClick('/calculadora-roi')}

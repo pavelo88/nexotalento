@@ -20,9 +20,10 @@ import {
 interface JobsPortalProps {
   onOpenCVAnalyzer: () => void;
   isFullPage?: boolean;
+  headerAfter?: React.ReactNode;
 }
 
-export const JobsPortal: React.FC<JobsPortalProps> = ({ onOpenCVAnalyzer, isFullPage = false }) => {
+export const JobsPortal: React.FC<JobsPortalProps> = ({ onOpenCVAnalyzer, isFullPage = false, headerAfter }) => {
   const { theme } = useTheme();
 
   // Search & Filter State
@@ -152,6 +153,8 @@ export const JobsPortal: React.FC<JobsPortalProps> = ({ onOpenCVAnalyzer, isFull
             Todas las ofertas cuentan con <strong>bandas salariales transparentes</strong>, procesos confidenciales y respuesta ágil en selección corporativa.
           </p>
         </div>
+
+        {headerAfter}
 
         {/* MOBILE STICKY SEARCH & TACTILE PILLS */}
         <div className={`sticky top-16 z-30 mb-8 p-3 rounded-2xl border backdrop-blur-xl shadow-lg transition-all ${

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useTheme } from '../context/ThemeContext';
 import {
   ShieldCheck,
   ArrowRight,
@@ -25,7 +24,6 @@ export const Hero: React.FC<HeroProps> = ({
   onOpenCVAnalyzer,
   onNavigate
 }) => {
-  const { theme } = useTheme();
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleSearchSubmit = (e: React.FormEvent) => {
@@ -63,9 +61,7 @@ export const Hero: React.FC<HeroProps> = ({
   return (
     <section
       id="inicio"
-      className={`relative pt-28 pb-16 sm:pt-36 sm:pb-24 lg:pt-40 lg:pb-28 overflow-hidden transition-colors duration-300 bg-transparent ${
-        theme === 'dark' ? 'text-slate-100' : 'text-slate-900'
-      }`}
+      className="relative pt-28 pb-16 sm:pt-36 sm:pb-24 lg:pt-40 lg:pb-28 overflow-hidden bg-transparent text-slate-100"
     >
       {/* Subtle Top Ambient Glow */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-gradient-to-tr from-cyan-500/10 via-[#00A9A3]/10 to-blue-600/10 rounded-full blur-[140px] pointer-events-none -z-10" />
@@ -98,10 +94,8 @@ export const Hero: React.FC<HeroProps> = ({
             para tu empresa
           </h1>
 
-          <p className={`mt-4 text-sm sm:text-base lg:text-lg max-w-2xl mx-auto leading-relaxed ${
-            theme === 'dark' ? 'text-slate-200' : 'text-slate-700'
-          }`}>
-            Garantizamos la máxima precisión de selección en Quito, Guayaquil y la región. Entrega de terna validada en <strong className={theme === 'dark' ? 'text-white' : 'text-slate-950'}>18 días hábiles</strong> con <strong className={theme === 'dark' ? 'text-white' : 'text-slate-950'}>garantía contractual de 3 a 6 meses</strong>.
+          <p className="mt-4 text-sm sm:text-base lg:text-lg max-w-2xl mx-auto leading-relaxed text-slate-200">
+            Garantizamos la máxima precisión de selección en Quito, Guayaquil y la región. Entrega de terna validada en <strong className="text-white">18 días hábiles</strong> con <strong className="text-white">garantía contractual de 3 a 6 meses</strong>.
           </p>
         </div>
 
@@ -109,11 +103,7 @@ export const Hero: React.FC<HeroProps> = ({
         <div className="max-w-3xl mx-auto mb-10">
           <form
             onSubmit={handleSearchSubmit}
-            className={`p-2 rounded-2xl sm:rounded-3xl border shadow-2xl flex flex-col sm:flex-row items-center gap-2 transition-all ${
-              theme === 'dark'
-                ? 'bg-slate-900 border-slate-700 shadow-black/60 focus-within:border-cyan-400'
-                : 'bg-white border-slate-300 shadow-xl focus-within:border-[#00A9A3]'
-            }`}
+            className="p-2 rounded-2xl sm:rounded-3xl border shadow-2xl flex flex-col sm:flex-row items-center gap-2 transition-all bg-slate-900 border-slate-700 shadow-black/60 focus-within:border-cyan-400"
           >
             <div className="relative flex-1 w-full flex items-center">
               <Search className="w-5 h-5 text-slate-400 absolute left-4 pointer-events-none" />
@@ -122,9 +112,7 @@ export const Hero: React.FC<HeroProps> = ({
                 placeholder="¿Qué perfil buscas? Ej: Jefe de Marketing, Asesor Comercial, Contable..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className={`w-full pl-12 pr-4 py-3 text-xs sm:text-sm bg-transparent outline-none font-semibold ${
-                  theme === 'dark' ? 'text-white placeholder:text-slate-400' : 'text-slate-900 placeholder:text-slate-500'
-                }`}
+                className="w-full pl-12 pr-4 py-3 text-xs sm:text-sm bg-transparent outline-none font-semibold text-white placeholder:text-slate-400"
               />
             </div>
             <button
@@ -147,11 +135,7 @@ export const Hero: React.FC<HeroProps> = ({
                   setSearchQuery(tag);
                   if (onNavigate) onNavigate('/vacantes');
                 }}
-                className={`text-[10px] px-2.5 py-1 rounded-full border transition-all ${
-                  theme === 'dark'
-                    ? 'bg-slate-900/60 text-slate-300 border-slate-800 hover:border-cyan-500'
-                    : 'bg-white text-slate-700 border-slate-200 hover:border-[#00A9A3]'
-                }`}
+                className="text-[10px] px-2.5 py-1 rounded-full border transition-all bg-slate-900/60 text-slate-300 border-slate-800 hover:border-cyan-500"
               >
                 {tag}
               </button>
@@ -165,11 +149,7 @@ export const Hero: React.FC<HeroProps> = ({
           {/* Card 1: Para Empresas */}
           <div
             onClick={handleSeekTalent}
-            className={`glass-card p-6 sm:p-8 rounded-3xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl cursor-pointer relative group flex flex-col justify-between ${
-              theme === 'dark'
-                ? 'bg-gradient-to-br from-slate-900/90 to-slate-950 border-slate-800 hover:border-cyan-500/60 shadow-xl'
-                : 'hover:border-cyan-500/60 shadow-md'
-            }`}
+            className="glass-card p-6 sm:p-8 rounded-3xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl cursor-pointer relative group flex flex-col justify-between bg-gradient-to-br from-slate-900/90 to-slate-950 border-slate-800 hover:border-cyan-500/60 shadow-xl"
           >
             <div>
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 mb-4">
@@ -181,9 +161,7 @@ export const Hero: React.FC<HeroProps> = ({
                 Necesito contratar talento
               </h2>
 
-              <p className={`text-xs sm:text-sm leading-relaxed mb-6 ${
-                theme === 'dark' ? 'text-slate-300' : 'text-slate-800'
-              }`}>
+              <p className="text-xs sm:text-sm leading-relaxed mb-6 text-slate-300">
                 Publica un requerimiento o solicita headhunting directo. Te presentamos una terna finalista evaluada en 18 días hábiles.
               </p>
             </div>
@@ -203,11 +181,7 @@ export const Hero: React.FC<HeroProps> = ({
           {/* Card 2: Para Candidatos */}
           <div
             onClick={handleSeekJob}
-            className={`glass-card p-6 sm:p-8 rounded-3xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl cursor-pointer relative group flex flex-col justify-between ${
-              theme === 'dark'
-                ? 'bg-gradient-to-br from-slate-900/90 to-slate-950 border-slate-800 hover:border-[#00A9A3]/60 shadow-xl'
-                : 'hover:border-[#00A9A3]/60 shadow-md'
-            }`}
+            className="glass-card p-6 sm:p-8 rounded-3xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl cursor-pointer relative group flex flex-col justify-between bg-gradient-to-br from-slate-900/90 to-slate-950 border-slate-800 hover:border-[#00A9A3]/60 shadow-xl"
           >
             <div>
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#00A9A3]/10 text-[#00A9A3] border border-[#00A9A3]/20 mb-4">
@@ -219,9 +193,7 @@ export const Hero: React.FC<HeroProps> = ({
                 Quiero postular a vacantes
               </h2>
 
-              <p className={`text-xs sm:text-sm leading-relaxed mb-6 ${
-                theme === 'dark' ? 'text-slate-300' : 'text-slate-800'
-              }`}>
+              <p className="text-xs sm:text-sm leading-relaxed mb-6 text-slate-300">
                 Explora los 4 procesos oficiales de selección abiertos en Quito y Guayaquil con bandas salariales transparentes.
               </p>
             </div>
@@ -242,19 +214,19 @@ export const Hero: React.FC<HeroProps> = ({
 
         {/* Trust Badges Strip (Freelancer metrics footer) */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto text-center">
-          <div className={`glass-card p-4 rounded-2xl border ${theme === 'dark' ? 'border-slate-800/80' : ''}`}>
+          <div className="glass-card p-4 rounded-2xl border border-slate-800/80 bg-slate-900/75">
             <p className="text-xl sm:text-2xl font-black text-cyan-400 font-heading">18 Días</p>
             <p className="text-[11px] text-slate-700 dark:text-slate-300 font-medium">Terna Validada</p>
           </div>
-          <div className={`glass-card p-4 rounded-2xl border ${theme === 'dark' ? 'border-slate-800/80' : ''}`}>
+          <div className="glass-card p-4 rounded-2xl border border-slate-800/80 bg-slate-900/75">
             <p className="text-xl sm:text-2xl font-black text-[#00A9A3] font-heading">3-6 Meses</p>
             <p className="text-[11px] text-slate-700 dark:text-slate-300 font-medium">Garantía Reposición</p>
           </div>
-          <div className={`glass-card p-4 rounded-2xl border ${theme === 'dark' ? 'border-slate-800/80' : ''}`}>
+          <div className="glass-card p-4 rounded-2xl border border-slate-800/80 bg-slate-900/75">
             <p className="text-xl sm:text-2xl font-black text-blue-400 font-heading">98.4%</p>
             <p className="text-[11px] text-slate-700 dark:text-slate-300 font-medium">Tasa de Retención</p>
           </div>
-          <div className={`glass-card p-4 rounded-2xl border ${theme === 'dark' ? 'border-slate-800/80' : ''}`}>
+          <div className="glass-card p-4 rounded-2xl border border-slate-800/80 bg-slate-900/75">
             <p className="text-xl sm:text-2xl font-black text-emerald-400 font-heading">100%</p>
             <p className="text-[11px] text-slate-700 dark:text-slate-300 font-medium">Blindaje Contractual</p>
           </div>
