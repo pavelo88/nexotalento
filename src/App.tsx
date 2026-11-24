@@ -8,6 +8,8 @@ import { HomePage } from './pages/HomePage';
 import { PageRoute } from './types';
 import { Bot, Sparkles, MessageSquare } from 'lucide-react';
 import { COMPANY_CONFIG } from './config/company';
+import { getPublicProfileSlug } from './features/profiles/profileHost';
+import { PublicProfilePage } from './pages/PublicProfilePage';
 
 // Code-Splitting: Lazy load all secondary routes & heavy interactive modals
 const ServiciosPage = lazy(() => import('./pages/ServiciosPage').then(m => ({ default: m.ServiciosPage })));
@@ -16,6 +18,8 @@ const ProcesoPage = lazy(() => import('./pages/ProcesoPage').then(m => ({ defaul
 const TestimoniosPage = lazy(() => import('./pages/TestimoniosPage').then(m => ({ default: m.TestimoniosPage })));
 const ContactoPage = lazy(() => import('./pages/ContactoPage').then(m => ({ default: m.ContactoPage })));
 const VacantesPage = lazy(() => import('./pages/VacantesPage').then(m => ({ default: m.VacantesPage })));
+const JobhuntingPage = lazy(() => import('./pages/JobhuntingPage').then(m => ({ default: m.JobhuntingPage })));
+const CreateProfilePage = lazy(() => import('./pages/CreateProfilePage').then(m => ({ default: m.CreateProfilePage })));
 const GuiaSalarialPage = lazy(() => import('./pages/GuiaSalarialPage').then(m => ({ default: m.GuiaSalarialPage })));
 const CalculadoraRoiPage = lazy(() => import('./pages/CalculadoraRoiPage').then(m => ({ default: m.CalculadoraRoiPage })));
 const BlogPage = lazy(() => import('./pages/BlogPage').then(m => ({ default: m.BlogPage })));
@@ -35,6 +39,7 @@ const JobSpecGeneratorModal = lazy(() =>
 
 function AppContent() {
   const [currentPath, setCurrentPath] = useState<PageRoute>('/');
+  const [publicProfileSlug, setPublicProfileSlug] = useState<string | null>(() => getPublicProfileSlug());
   const [isCVModalOpen, setIsCVModalOpen] = useState(false);
   const [isJobSpecModalOpen, setIsJobSpecModalOpen] = useState(false);
   const [isConciergeOpen, setIsConciergeOpen] = useState(false);
@@ -45,6 +50,7 @@ function AppContent() {
 
   // Parse path on initial load & handle browser back/forward buttons
   useEffect(() => {
+    setPublicProfileSlug(getPublicProfileSlug());
     const syncRouteWithLocation = () => {
       const fullPath = window.location.pathname;
       const [pathname] = fullPath.split('#');
@@ -64,6 +70,8 @@ function AppContent() {
         '/proceso',
         '/contacto',
         '/vacantes',
+        '/jobhunting',
+        '/crear-perfil',
         '/guia-salarial',
         '/calculadora-roi',
         '/admin',
@@ -144,6 +152,8 @@ function AppContent() {
     setSelectedAgentType(type);
     window.open(COMPANY_CONFIG.whatsappUrl, '_blank');
   };
+
+  if (publicProfileSlug) return <PublicProfilePage slug={publicProfileSlug} />;
 
   return (
       <div className={`min-h-screen font-sans selection:bg-cyan-500 selection:text-white relative overflow-x-clip transition-colors duration-300 ${
@@ -239,6 +249,15 @@ function AppContent() {
                   onOpenCVAnalyzer={() => setIsCVModalOpen(true)}
                 />
               )}
+
+              {currentPath === '/jobhunting' && (
+                <JobhuntingPage
+                  onNavigate={handleNavigate}
+                  onOpenCVAnalyzer={() => setIsCVModalOpen(true)}
+                />
+              )}
+
+              {currentPath === '/crear-perfil' && <CreateProfilePage />}
 
               {currentPath === '/guia-salarial' && (
                 <GuiaSalarialPage

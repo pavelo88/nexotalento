@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTheme } from '../../context/ThemeContext';
 import { Logo } from '../Logo';
+import { auth } from '../../lib/firebase';
 import { 
   BarChart3, 
   FileText, 
@@ -291,38 +292,45 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   const [isSaving, setIsSaving] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
 
-  useEffect(() => {
-    // Cargar contenido CMS
-    fetch('/api/admin/content')
-      .then(res => res.json())
-      .then(data => {
-        if (data && data.hero) setSiteContent(data);
-        if (data && Array.isArray(data.vacancies) && data.vacancies.length > 0) {
-          setVacancies(data.vacancies);
-        }
-        if (data && Array.isArray(data.areas) && data.areas.length > 0) {
-          setAreasList(data.areas);
-        }
-        if (data && Array.isArray(data.sectors) && data.sectors.length > 0) {
-          setSectorsList(data.sectors);
-        }
-      })
-      .catch(err => console.warn('No se pudo cargar CMS:', err));
+  const adminFetch = async (input: RequestInfo | URL, init: RequestInit = {}) => {
+    const user = auth.currentUser;
+    if (!user) throw new Error('La sesión administrativa ha expirado.');
+    const token = await user.getIdToken();
+    const headers = new Headers(init.headers);
+    headers.set('Authorization', `Bearer ${token}`);
+    return fetch(input, { ...init, headers });
+  };
 
-    // Cargar Leads
-    fetch('/api/admin/leads')
-      .then(res => res.json())
-      .then(data => {
-        if (Array.isArray(data)) setLeads(data);
-      })
-      .catch(err => console.warn('No se pudieron cargar leads:', err));
+  useEffect(() => {
+    let cancelled = false;
+    const loadAdminData = async () => {
+      try {
+        const [contentRes, leadsRes] = await Promise.all([
+          adminFetch('/api/admin/content'),
+          adminFetch('/api/admin/leads')
+        ]);
+        if (!contentRes.ok || !leadsRes.ok) throw new Error('No fue posible validar la sesión administrativa.');
+        const data = await contentRes.json();
+        const leadsData = await leadsRes.json();
+        if (cancelled) return;
+        if (data && data.hero) setSiteContent(data);
+        if (data && Array.isArray(data.vacancies) && data.vacancies.length > 0) setVacancies(data.vacancies);
+        if (data && Array.isArray(data.areas) && data.areas.length > 0) setAreasList(data.areas);
+        if (data && Array.isArray(data.sectors) && data.sectors.length > 0) setSectorsList(data.sectors);
+        if (Array.isArray(leadsData)) setLeads(leadsData);
+      } catch (err) {
+        console.warn('No se pudieron cargar datos administrativos:', err);
+      }
+    };
+    loadAdminData();
+    return () => { cancelled = true; };
   }, []);
 
   const handleSaveCMS = async () => {
     setIsSaving(true);
     setSaveSuccess(false);
     try {
-      const res = await fetch('/api/admin/content', {
+      const res = await adminFetch('/api/admin/content', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...siteContent, vacancies, areas: areasList, sectors: sectorsList })

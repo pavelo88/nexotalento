@@ -7,6 +7,7 @@ import { google } from "googleapis";
 import { GoogleGenAI } from "@google/genai";
 import rateLimit from "express-rate-limit";
 import { AI_KNOWLEDGE_BASE } from "./ai-knowledge";
+import { verifyAdminToken } from "./src/server/firebase-admin";
 
 dotenv.config();
 
@@ -853,8 +854,8 @@ const contactRateLimiter = rateLimit({
   legacyHeaders: false, // Deshabilita headers X-RateLimit-*
 });
 
-// Contact Form Submission Endpoint
-app.post("/api/contact", contactRateLimiter, async (req, res) => {
+// Contact & Jobhunting Leads Submission Endpoint
+app.post(["/api/contact", "/api/leads"], contactRateLimiter, async (req, res) => {
   try {
     const name = sanitizeInput(req.body?.name) || "Sin nombre";
     const email = sanitizeInput(req.body?.email) || "Sin email";
@@ -995,131 +996,39 @@ app.post("/api/contact", contactRateLimiter, async (req, res) => {
 // ADMIN API ENDPOINTS (CMS, AUTH CON CÉDULA, PRIMER INGRESO & LEADS)
 // =========================================================================
 
-const ADMIN_USERS_PATH = path.join(process.cwd(), "data", "admin-users.json");
 const SITE_CONTENT_PATH = path.join(process.cwd(), "data", "site-content.json");
 const LEADS_FILE_PATH = path.join(process.cwd(), "data", "leads.json");
 
-// Helper para leer/escribir usuarios admin
-function getAdminUsers() {
-  try {
-    if (!fs.existsSync(ADMIN_USERS_PATH)) {
-      return [{
-        email: "pablofgarciaf@gmail.com",
-        cedula: "1721790721",
-        password: "1721790721",
-        nombre: "Pablo García",
-        primerIngreso: true,
-        role: "superadmin"
-      }];
-    }
-    const raw = fs.readFileSync(ADMIN_USERS_PATH, "utf-8");
-    return JSON.parse(raw).users || [];
-  } catch (err) {
-    return [];
-  }
+function adminAuth(req: express.Request, res: express.Response, next: express.NextFunction) {
+  const header = req.header("authorization");
+  const token = header?.startsWith("Bearer ") ? header.slice(7).trim() : "";
+  if (!token) return res.status(401).json({ error: "Autenticación requerida." });
+
+  verifyAdminToken(token)
+    .then((decoded) => {
+      res.locals.admin = decoded;
+      next();
+    })
+    .catch((error: unknown) => {
+      const message = error instanceof Error ? error.message : "Token inválido.";
+      if (message.includes("no está configurado")) {
+        console.error("[Auth] Configuración Firebase Admin ausente.");
+        return res.status(503).json({ error: "Autenticación administrativa no disponible." });
+      }
+      return res.status(403).json({ error: "Sesión administrativa inválida o sin permisos." });
+    });
 }
 
-function saveAdminUsers(users: any[]) {
-  try {
-    fs.writeFileSync(ADMIN_USERS_PATH, JSON.stringify({ users }, null, 2), "utf-8");
-  } catch (err) {
-    console.error("Error saving admin users:", err);
-  }
-}
+app.post("/api/admin/login", (_req, res) =>
+  res.status(410).json({ error: "El login local fue retirado. Inicia sesión con Firebase Authentication desde el cliente." })
+);
 
-// 1. Login Admin
-app.post("/api/admin/login", (req, res) => {
-  try {
-    const email = sanitizeInput(req.body?.email || "").toLowerCase().trim();
-    const password = String(req.body?.password || "").trim();
-
-    if (!email || !password) {
-      return res.status(400).json({ error: "Email y contraseña requeridos." });
-    }
-
-    const users = getAdminUsers();
-    const user = users.find((u: any) => u.email.toLowerCase() === email);
-
-    if (!user) {
-      return res.status(401).json({ error: "Credenciales inválidas. Verifica tu correo." });
-    }
-
-    // Si es primer ingreso y la contraseña coincide con la cédula
-    const isFirstLoginMatch = user.primerIngreso && (password === user.cedula || password === "1721790721");
-    const isPasswordMatch = user.password && user.password === password;
-
-    if (!isFirstLoginMatch && !isPasswordMatch) {
-      return res.status(401).json({ error: "Contraseña incorrecta." });
-    }
-
-    // Generar token de sesión simple
-    const token = Buffer.from(`${email}:${Date.now()}:${user.role}`).toString("base64");
-
-    return res.json({
-      success: true,
-      token,
-      primerIngreso: !!user.primerIngreso,
-      user: {
-        email: user.email,
-        nombre: user.nombre,
-        role: user.role
-      }
-    });
-  } catch (error) {
-    console.error("Error en login admin:", error);
-    res.status(500).json({ error: "Error en el servidor de autenticación." });
-  }
-});
-
-// 2. Cambio Obligatorio de Contraseña (Primer Ingreso)
-app.post("/api/admin/change-password", (req, res) => {
-  try {
-    const email = sanitizeInput(req.body?.email || "").toLowerCase().trim();
-    const currentPassword = String(req.body?.currentPassword || "").trim();
-    const newPassword = String(req.body?.newPassword || "").trim();
-
-    if (!email || !newPassword) {
-      return res.status(400).json({ error: "Datos incompletos." });
-    }
-
-    if (newPassword.length < 6) {
-      return res.status(400).json({ error: "La nueva contraseña debe tener al menos 6 caracteres." });
-    }
-
-    const users = getAdminUsers();
-    const userIndex = users.findIndex((u: any) => u.email.toLowerCase() === email);
-
-    if (userIndex === -1) {
-      return res.status(404).json({ error: "Usuario no encontrado." });
-    }
-
-    // Actualizar contraseña y retirar bandera de primer ingreso
-    users[userIndex].password = newPassword;
-    users[userIndex].primerIngreso = false;
-    users[userIndex].updatedAt = new Date().toISOString();
-
-    saveAdminUsers(users);
-
-    const token = Buffer.from(`${email}:${Date.now()}:${users[userIndex].role}`).toString("base64");
-
-    res.json({
-      success: true,
-      message: "Contraseña actualizada exitosamente. Ahora puedes ingresar con tu nueva clave.",
-      token,
-      user: {
-        email: users[userIndex].email,
-        nombre: users[userIndex].nombre,
-        role: users[userIndex].role
-      }
-    });
-  } catch (error) {
-    console.error("Error cambiando contraseña:", error);
-    res.status(500).json({ error: "Error actualizando la contraseña." });
-  }
-});
+app.post("/api/admin/change-password", (_req, res) =>
+  res.status(410).json({ error: "El cambio local fue retirado. Usa Firebase Authentication con reautenticación." })
+);
 
 // 3. Obtener Contenido del CMS (Landing Page)
-app.get("/api/admin/content", (req, res) => {
+app.get("/api/admin/content", adminAuth, (req, res) => {
   try {
     if (fs.existsSync(SITE_CONTENT_PATH)) {
       const data = fs.readFileSync(SITE_CONTENT_PATH, "utf-8");
@@ -1132,7 +1041,7 @@ app.get("/api/admin/content", (req, res) => {
 });
 
 // 4. Guardar Contenido del CMS (Landing Page)
-app.post("/api/admin/content", (req, res) => {
+app.post("/api/admin/content", adminAuth, (req, res) => {
   try {
     const content = req.body;
     if (!content || typeof content !== "object") {
@@ -1148,7 +1057,7 @@ app.post("/api/admin/content", (req, res) => {
 });
 
 // 5. Obtener Leads Recibidos
-app.get("/api/admin/leads", (req, res) => {
+app.get("/api/admin/leads", adminAuth, (req, res) => {
   try {
     if (fs.existsSync(LEADS_FILE_PATH)) {
       const data = fs.readFileSync(LEADS_FILE_PATH, "utf-8");

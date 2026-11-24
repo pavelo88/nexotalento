@@ -150,6 +150,12 @@ export const Footer: React.FC<FooterProps> = ({
                   </button>
                 </li>
                 <li>
+                  <button onClick={() => handleNav('/jobhunting')} className="w-full text-left p-1.5 md:p-0 rounded-lg bg-slate-900/60 md:bg-transparent border border-slate-800/60 md:border-0 hover:text-[#00E5C9] transition-colors flex items-center gap-1 text-[#00E5C9] font-bold active:scale-95">
+                    <Sparkles className="w-3 h-3 text-[#00A896] shrink-0" />
+                    <span className="truncate">Jobhunting ProProfile</span>
+                  </button>
+                </li>
+                <li>
                   <button onClick={() => handleNav('/guia-salarial')} className="w-full text-left p-1.5 md:p-0 rounded-lg bg-slate-900/60 md:bg-transparent border border-slate-800/60 md:border-0 hover:text-cyan-400 transition-colors flex items-center gap-1 active:scale-95">
                     <ChevronRight className="w-3 h-3 text-cyan-500 shrink-0" />
                     <span className="truncate">Guía Salarial 2026</span>

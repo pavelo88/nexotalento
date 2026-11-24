@@ -2,36 +2,30 @@ import React, { useState, useEffect } from 'react';
 import { AdminLoginPage } from '../components/admin/AdminLoginPage';
 import { AdminDashboard } from '../components/admin/AdminDashboard';
 import { PageRoute } from '../types';
+import { signOutAdmin, subscribeToAdmin, type AdminUser } from '../auth/adminAuth';
 
 interface AdminPageProps {
   onNavigate: (path: PageRoute) => void;
 }
 
 export const AdminPage: React.FC<AdminPageProps> = ({ onNavigate }) => {
-  const [currentUser, setCurrentUser] = useState<any>(null);
+  const [currentUser, setCurrentUser] = useState<AdminUser | null>(null);
   const [isCheckingSession, setIsCheckingSession] = useState(true);
 
   useEffect(() => {
-    try {
-      const savedUser = localStorage.getItem('nexo_admin_user');
-      const token = localStorage.getItem('nexo_admin_token');
-      if (savedUser && token) {
-        setCurrentUser(JSON.parse(savedUser));
-      }
-    } catch {
-      // Ignorar error de parsing
-    } finally {
+    const unsubscribe = subscribeToAdmin((user) => {
+      setCurrentUser(user);
       setIsCheckingSession(false);
-    }
+    });
+    return unsubscribe;
   }, []);
 
-  const handleLoginSuccess = (user: any) => {
+  const handleLoginSuccess = (user: AdminUser) => {
     setCurrentUser(user);
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('nexo_admin_token');
-    localStorage.removeItem('nexo_admin_user');
+  const handleLogout = async () => {
+    await signOutAdmin();
     setCurrentUser(null);
   };
 

@@ -4,6 +4,7 @@ import { Hero } from '../components/Hero';
 import { BragBar } from '../components/BragBar';
 import { MetricStatsSection } from '../components/MetricStatsSection';
 import { PageRoute, AgentType } from '../types';
+import { NexoCommunitySection } from '../components/NexoCommunitySection';
 
 // Lazy loaded components for aggressive initial load code-splitting
 const FeaturedVacanciesSummary = lazy(() => import('../components/FeaturedVacanciesSummary').then(m => ({ default: m.FeaturedVacanciesSummary })));
@@ -13,6 +14,7 @@ const FAQSection = lazy(() => import('../components/FAQSection').then(m => ({ de
 const ContactSection = lazy(() => import('../components/ContactSection').then(m => ({ default: m.ContactSection })));
 const SpecializationSectorsSection = lazy(() => import('../components/SpecializationSectorsSection').then(m => ({ default: m.SpecializationSectorsSection })));
 const AreasEspecializacionSection = lazy(() => import('../components/AreasEspecializacionSection').then(m => ({ default: m.AreasEspecializacionSection })));
+const JobhuntingTeaserSection = lazy(() => import('../components/JobhuntingTeaserSection').then(m => ({ default: m.JobhuntingTeaserSection })));
 
 interface HomePageProps {
   onNavigate: (path: PageRoute) => void;
@@ -85,6 +87,11 @@ export const HomePage: React.FC<HomePageProps> = ({
 
           {/* 8. Success Stories & Audited Testimonials */}
           <SuccessStories onNavigateToTestimonials={() => onNavigate('/testimonios')} />
+
+          {/* 8.1 Jobhunting ProProfile Teaser (Nuevo servicio para candidatos del PDF) */}
+          <JobhuntingTeaserSection onNavigate={onNavigate} />
+
+          <NexoCommunitySection onNavigate={onNavigate} />
 
           {/* 9. FAQ Section */}
           <FAQSection />

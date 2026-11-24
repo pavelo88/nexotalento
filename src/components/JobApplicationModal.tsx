@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { User } from 'firebase/auth';
 import { JobPosition } from '../types';
+import { loginCandidate, registerCandidate, submitCandidateApplication, validateCv } from '../features/candidates/application';
 import { 
   X, 
   ChevronRight, 
@@ -31,8 +33,15 @@ export const JobApplicationModal: React.FC<JobApplicationModalProps> = ({
   const [candidatePhone, setCandidatePhone] = useState('');
   const [candidateLinkedin, setCandidateLinkedin] = useState('');
   const [cvFileName, setCvFileName] = useState<string | null>(null);
+  const [cvFile, setCvFile] = useState<File | null>(null);
   const [desiredSalary, setDesiredSalary] = useState('');
   const [availability, setAvailability] = useState('Inmediata');
+  const [candidatePassword, setCandidatePassword] = useState('');
+  const [authMode, setAuthMode] = useState<'register' | 'login'>('register');
+  const [candidateUser, setCandidateUser] = useState<User | null>(null);
+  const [consent, setConsent] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState('');
 
   if (!isOpen || !job) return null;
 
@@ -41,22 +50,36 @@ export const JobApplicationModal: React.FC<JobApplicationModalProps> = ({
     setStep(1);
     setIsSuccess(false);
     setCvFileName(null);
+    setCvFile(null);
+    setCandidatePassword('');
+    setCandidateUser(null);
+    setConsent(false);
+    setError('');
   };
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      const validationError = validateCv(file);
+      if (validationError) { setError(validationError); return; }
+      setError('');
+      setCvFile(file);
       setCvFileName(file.name);
     }
   };
 
-  const handleFakeImport = (source: string) => {
-    setCvFileName(`Perfil_Importado_${source}_${candidateName.replace(/\s+/g, '_') || 'Candidato'}.pdf`);
-  };
-
-  const handleFinalSubmit = (e: React.FormEvent) => {
+  const handleFinalSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSuccess(true);
+    if (!cvFile || !consent) { setError('Selecciona un CV válido y acepta el consentimiento para continuar.'); return; }
+    setIsSubmitting(true); setError('');
+    try {
+      const user = candidateUser || (authMode === 'register' ? await registerCandidate(candidateEmail, candidatePassword) : await loginCandidate(candidateEmail, candidatePassword));
+      if (!user.emailVerified) throw new Error('Verifica tu email antes de enviar la postulación y luego inicia sesión nuevamente.');
+      setCandidateUser(user);
+      await submitCandidateApplication({ user, file: cvFile, name: candidateName, phone: candidatePhone, linkedin: candidateLinkedin, desiredSalary, availability, jobId: job.id, jobTitle: job.title });
+      setIsSuccess(true);
+    } catch (submitError) { setError(submitError instanceof Error ? submitError.message : 'No fue posible enviar la postulación.'); }
+    finally { setIsSubmitting(false); }
   };
 
   return (
@@ -243,6 +266,8 @@ export const JobApplicationModal: React.FC<JobApplicationModalProps> = ({
                     )}
                   </div>
 
+                  {error && <p role="alert" className="text-xs text-rose-400 bg-rose-500/10 border border-rose-500/30 rounded-xl p-3">{error}</p>}
+
                   {/* 1-Click Cloud & LinkedIn Connectors */}
                   <div>
                     <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2 text-center">
@@ -251,7 +276,7 @@ export const JobApplicationModal: React.FC<JobApplicationModalProps> = ({
                     <div className="grid grid-cols-3 gap-2">
                       <button
                         type="button"
-                        onClick={() => handleFakeImport('LinkedIn')}
+                        onClick={() => setError('La importación directa desde LinkedIn aún no está habilitada. Selecciona tu archivo para continuar.')}
                         className={`p-2.5 rounded-xl border text-xs font-semibold flex items-center justify-center gap-1.5 transition-all ${
                           theme === 'dark' ? 'bg-slate-950 border-slate-800 hover:border-blue-500' : 'bg-slate-50 border-slate-200'
                         }`}
@@ -260,7 +285,7 @@ export const JobApplicationModal: React.FC<JobApplicationModalProps> = ({
                       </button>
                       <button
                         type="button"
-                        onClick={() => handleFakeImport('GoogleDrive')}
+                        onClick={() => setError('La importación directa desde Drive aún no está habilitada. Selecciona tu archivo para continuar.')}
                         className={`p-2.5 rounded-xl border text-xs font-semibold flex items-center justify-center gap-1.5 transition-all ${
                           theme === 'dark' ? 'bg-slate-950 border-slate-800 hover:border-cyan-500' : 'bg-slate-50 border-slate-200'
                         }`}
@@ -270,7 +295,7 @@ export const JobApplicationModal: React.FC<JobApplicationModalProps> = ({
                       </button>
                       <button
                         type="button"
-                        onClick={() => handleFakeImport('iCloud')}
+                        onClick={() => setError('La importación directa desde iCloud aún no está habilitada. Selecciona tu archivo para continuar.')}
                         className={`p-2.5 rounded-xl border text-xs font-semibold flex items-center justify-center gap-1.5 transition-all ${
                           theme === 'dark' ? 'bg-slate-950 border-slate-800 hover:border-teal-500' : 'bg-slate-50 border-slate-200'
                         }`}
@@ -367,6 +392,21 @@ export const JobApplicationModal: React.FC<JobApplicationModalProps> = ({
                     </p>
                   </div>
 
+                  <div className="space-y-2">
+                    <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider">Cuenta segura del candidato</label>
+                    <div className="flex gap-2 text-[11px] font-bold">
+                      <button type="button" onClick={() => setAuthMode('register')} className={authMode === 'register' ? 'text-emerald-400' : 'text-slate-400'}>Crear cuenta</button>
+                      <button type="button" onClick={() => setAuthMode('login')} className={authMode === 'login' ? 'text-emerald-400' : 'text-slate-400'}>Ya tengo cuenta</button>
+                    </div>
+                    <input type="password" required minLength={8} placeholder="Contraseña (mínimo 8 caracteres)" value={candidatePassword} onChange={(e) => setCandidatePassword(e.target.value)} className={`w-full py-2.5 px-3.5 text-xs rounded-xl border ${theme === 'dark' ? 'bg-slate-950 text-slate-100 border-slate-800' : 'bg-white text-slate-900 border-slate-200'}`} />
+                    <label className="flex gap-2 items-start text-[11px] text-slate-400">
+                      <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="mt-0.5 accent-emerald-500" />
+                      <span>Acepto el tratamiento de mis datos y CV para esta postulación, según la política de privacidad. *</span>
+                    </label>
+                  </div>
+
+                  {error && <p role="alert" className="text-xs text-rose-400 bg-rose-500/10 border border-rose-500/30 rounded-xl p-3">{error}</p>}
+
                   <div className="pt-3 flex justify-between">
                     <button
                       type="button"
@@ -380,7 +420,7 @@ export const JobApplicationModal: React.FC<JobApplicationModalProps> = ({
                       className="px-7 py-3 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 font-extrabold text-xs rounded-xl shadow-lg flex items-center gap-2 cursor-pointer active:scale-95 transition-all"
                     >
                       <Send className="w-3.5 h-3.5" />
-                      <span>Confirmar y Enviar Postulación</span>
+                      <span>{isSubmitting ? 'Enviando de forma segura...' : 'Confirmar y Enviar Postulación'}</span>
                     </button>
                   </div>
                 </form>

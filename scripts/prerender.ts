@@ -266,6 +266,76 @@ const ROUTES: RouteMetadata[] = [
     ]
   },
   {
+    path: '/jobhunting',
+    title: 'Programa ProProfile de Jobhunting | Nexo Talentos',
+    description: 'Acelerador de empleo con psicólogos de RRHH y headhunters senior. 95% de éxito, colocación media en 2,5 meses y garantía de reactivación.',
+    h1: 'Programa de Jobhunting y ProProfile para Profesionales',
+    h2: 'Acompañamiento Integral para Conseguir el Empleo que Mereces',
+    summaryText: 'Redefine tu posicionamiento en el mercado laboral con headhunters en activo y psicólogos especializados en bienestar profesional. Accede al mercado oculto de oportunidades no publicadas y supera cualquier entrevista con éxito. Te acompañamos desde la estrategia hasta la negociación salarial.',
+    closingText: 'Tú pones la historia, nosotros la estrategia. Conectamos talento con oportunidades en LATAM y España. Solicita tu sesión de diagnóstico hoy mismo.',
+    h3s: [
+      {
+        title: 'Sesión con Psicólogo de RRHH',
+        desc: 'Trabajamos autoconfianza, gestión del estrés y creencias limitantes para afrontar los procesos de selección con mentalidad ganadora.',
+        linkText: 'Ver Metodología de Fases',
+        linkHref: '/jobhunting'
+      },
+      {
+        title: 'Estrategia de Escaparate CV y LinkedIn',
+        desc: 'Transformamos tu currículum y tu presencia digital para captar el interés inmediato de empresas y reclutadores.',
+        linkText: 'Conocer Entregables',
+        linkHref: '/jobhunting'
+      },
+      {
+        title: 'Preparación de Entrevistas y Conversión',
+        desc: 'Simulaciones de entrevistas reales y storytelling STAR para defender tu valor frente a otros candidatos y cerrar ofertas.',
+        linkText: 'Ver Fases del Programa',
+        linkHref: '/jobhunting'
+      },
+      {
+        title: 'Modelos a Éxito e Inversión Cerrada',
+        desc: 'Elige entre un modelo vinculado a resultados (300 € + 25%) o inversión cerrada sin comisiones (450 €) con 3 sesiones psicológicas.',
+        linkText: 'Consultar Modalidades',
+        linkHref: '/jobhunting'
+      },
+      {
+        title: 'Garantía Exclusiva de Reactivación',
+        desc: 'Si el encaje no funciona tras incorporarte a una empresa, reactivamos el programa de acompañamiento para ayudarte a recolocarte.',
+        linkText: 'Postular a ProProfile',
+        linkHref: '/jobhunting'
+      }
+    ]
+  },
+  {
+    path: '/crear-perfil',
+    title: 'Crea tu Perfil Profesional con IA | Nexo Talento',
+    description: 'Carga tu CV o completa tus datos y genera un perfil profesional compartible y un PDF listo para revisar.',
+    h1: 'Crea tu Perfil Profesional con Inteligencia Artificial',
+    h2: 'Carga tu CV o Completa tus Datos en Pocos Pasos',
+    summaryText: 'Nexo Talento te ayuda a convertir tu trayectoria en un perfil profesional claro, editable y listo para compartir. Puedes cargar un PDF, un archivo Word o imágenes de tu CV, o comenzar con un formulario manual.',
+    closingText: 'Revisa la información, elige el diseño y prepara tu perfil para publicarlo con un enlace personal.',
+    h3s: [
+      {
+        title: 'Carga un PDF, Word o Imagen',
+        desc: 'La información de tu documento se utiliza como punto de partida para organizar tu trayectoria profesional.',
+        linkText: 'Crear mi perfil',
+        linkHref: '/crear-perfil'
+      },
+      {
+        title: 'Completa tus Datos Manualmente',
+        desc: 'Si no tienes un CV listo, puedes escribir tu experiencia, formación, habilidades y objetivos desde cero.',
+        linkText: 'Llenar mis datos',
+        linkHref: '/crear-perfil'
+      },
+      {
+        title: 'Añade tu Foto Profesional',
+        desc: 'Carga una fotografía independiente para utilizarla en el sitio público y en el PDF final.',
+        linkText: 'Cargar foto',
+        linkHref: '/crear-perfil'
+      }
+    ]
+  },
+  {
     path: '/guia-salarial',
     title: 'Guía Salarial Directiva y Tech 2026 | Nexo Talentos',
     description: 'Estudio integral de bandas salariales, variables y equity para directores generales, mandos medios y perfiles tech en España en 2026.',

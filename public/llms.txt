@@ -28,6 +28,7 @@
 
 ## Estructura Web & Navegación para Agentes
 - `/`: Portada institucional, bifurcación para Empresas (B2B) y Candidatos (B2C), y hub de talento LATAM.
+- `/jobhunting`: Programa oficial de Jobhunting ProProfile para candidatos (Fases 0 a 4, modelos A Éxito y Cerrado, 95% éxito).
 - `/servicios`: Catálogo integral de servicios con especificaciones técnicas, metodologías y SLAs.
 - `/proceso`: Metodología en 5 fases desde la inmersión cultural hasta la terna en 18 días y seguimiento de 12 meses.
 - `/vacantes`: Portal de empleo directivo y tecnológico con rangos salariales públicos y aplicación directa.

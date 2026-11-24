@@ -6,6 +6,8 @@ export type PageRoute =
   | '/proceso'
   | '/contacto'
   | '/vacantes'
+  | '/jobhunting'
+  | '/crear-perfil'
   | '/guia-salarial'
   | '/calculadora-roi'
   | '/agentes-ia'

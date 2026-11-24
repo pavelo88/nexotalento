@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useTheme } from '../../context/ThemeContext';
+import { signInAdmin, type AdminUser } from '../../auth/adminAuth';
 import { 
   ShieldCheck, 
   Lock, 
@@ -14,7 +15,7 @@ import {
 } from 'lucide-react';
 
 interface AdminLoginPageProps {
-  onLoginSuccess: (userData: any) => void;
+  onLoginSuccess: (userData: AdminUser) => void;
   onNavigateHome: () => void;
 }
 
@@ -23,18 +24,11 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({
   onNavigateHome
 }) => {
   const { theme } = useTheme();
-  const [email, setEmail] = useState('pablofgarciaf@gmail.com');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-
-  // Estados de Primer Ingreso (Cambio forzado)
-  const [isFirstLogin, setIsFirstLogin] = useState(false);
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [showNewPassword, setShowNewPassword] = useState(false);
-  const [passwordChangeSuccess, setPasswordChangeSuccess] = useState(false);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,76 +36,12 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({
     setIsLoading(true);
 
     try {
-      const res = await fetch('/api/admin/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.error || 'Credenciales inválidas.');
-      }
-
-      if (data.primerIngreso) {
-        setIsFirstLogin(true);
-        setIsLoading(false);
-        return;
-      }
-
-      // Login regular exitoso
-      localStorage.setItem('nexo_admin_token', data.token);
-      localStorage.setItem('nexo_admin_user', JSON.stringify(data.user));
-      onLoginSuccess(data.user);
+      const user = await signInAdmin(email, password);
+      onLoginSuccess(user);
     } catch (err: any) {
-      setErrorMessage(err.message || 'Error al iniciar sesión.');
-      setIsLoading(false);
-    }
-  };
-
-  const handlePasswordChange = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setErrorMessage('');
-
-    if (newPassword.length < 6) {
-      setErrorMessage('La nueva contraseña debe tener al menos 6 caracteres.');
-      return;
-    }
-
-    if (newPassword !== confirmPassword) {
-      setErrorMessage('Las contraseñas no coinciden. Por favor verifica.');
-      return;
-    }
-
-    setIsLoading(true);
-
-    try {
-      const res = await fetch('/api/admin/change-password', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email,
-          currentPassword: password,
-          newPassword
-        })
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.error || 'No se pudo actualizar la contraseña.');
-      }
-
-      setPasswordChangeSuccess(true);
-      localStorage.setItem('nexo_admin_token', data.token);
-      localStorage.setItem('nexo_admin_user', JSON.stringify(data.user));
-
-      setTimeout(() => {
-        onLoginSuccess(data.user);
-      }, 1200);
-    } catch (err: any) {
-      setErrorMessage(err.message || 'Error actualizando contraseña.');
+      setErrorMessage(err.code === 'auth/invalid-credential'
+        ? 'Correo o contraseña inválidos.'
+        : err.message || 'Error al iniciar sesión.');
       setIsLoading(false);
     }
   };
@@ -152,85 +82,8 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({
           </div>
         )}
 
-        {/* ================= VISTA DE PRIMER INGRESO (CAMBIO DE CLAVE) ================= */}
-        {isFirstLogin ? (
-          <div>
-            <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-500 text-xs mb-6 flex items-start gap-3">
-              <KeyRound className="w-5 h-5 shrink-0 mt-0.5" />
-              <div>
-                <strong className="block font-bold">¡Bienvenido a tu Primer Ingreso!</strong>
-                <p className="text-[11px] text-amber-400/90 mt-0.5 leading-relaxed">
-                  Por seguridad, ingresaste con tu cédula. Debes definir una nueva contraseña definitiva y segura para proteger el panel.
-                </p>
-              </div>
-            </div>
-
-            {passwordChangeSuccess ? (
-              <div className="text-center py-6">
-                <CheckCircle2 className="w-12 h-12 text-emerald-500 mx-auto mb-3 animate-bounce" />
-                <h3 className="text-base font-bold text-emerald-400">¡Contraseña Actualizada!</h3>
-                <p className="text-xs text-slate-400 mt-1">Accediendo a tu panel de control...</p>
-              </div>
-            ) : (
-              <form onSubmit={handlePasswordChange} className="space-y-4">
-                <div>
-                  <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">
-                    Nueva Contraseña
-                  </label>
-                  <div className="relative">
-                    <input
-                      type={showNewPassword ? 'text' : 'password'}
-                      required
-                      placeholder="Mínimo 6 caracteres"
-                      value={newPassword}
-                      onChange={(e) => setNewPassword(e.target.value)}
-                      className={`w-full px-4 py-2.5 text-xs rounded-xl border transition-all ${
-                        theme === 'dark' 
-                          ? 'bg-slate-950 border-slate-700 focus:border-[#00A9A3]' 
-                          : 'bg-slate-50 border-slate-200 focus:border-[#00A9A3]'
-                      }`}
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowNewPassword(!showNewPassword)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200"
-                    >
-                      {showNewPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                    </button>
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">
-                    Confirmar Nueva Contraseña
-                  </label>
-                  <input
-                    type={showNewPassword ? 'text' : 'password'}
-                    required
-                    placeholder="Repite tu nueva contraseña"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    className={`w-full px-4 py-2.5 text-xs rounded-xl border transition-all ${
-                      theme === 'dark' 
-                        ? 'bg-slate-950 border-slate-700 focus:border-[#00A9A3]' 
-                        : 'bg-slate-50 border-slate-200 focus:border-[#00A9A3]'
-                    }`}
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={isLoading}
-                  className="w-full py-3 bg-gradient-to-r from-[#00A9A3] to-blue-600 hover:from-[#00918C] hover:to-blue-500 text-white font-extrabold text-xs rounded-xl shadow-lg transition-all active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
-                >
-                  <span>{isLoading ? 'Actualizando...' : 'Guardar y Entrar al Dashboard'}</span>
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-              </form>
-            )}
-          </div>
-        ) : (
-          /* ================= VISTA DE LOGIN ESTÁNDAR ================= */
+        <>
+          {/* ================= VISTA DE LOGIN ESTÁNDAR ================= */}
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
               <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">
@@ -241,7 +94,7 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({
                 <input
                   type="email"
                   required
-                  placeholder="pablofgarciaf@gmail.com"
+              placeholder="tu correo administrativo"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className={`w-full pl-10 pr-4 py-2.5 text-xs rounded-xl border transition-all ${
@@ -279,9 +132,6 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
               </div>
-              <p className="text-[10px] text-slate-400 mt-1.5">
-                * Para tu primer acceso usa tu número de cédula registrado (1721790721).
-              </p>
             </div>
 
             <button
@@ -293,7 +143,7 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({
               <ArrowRight className="w-4 h-4" />
             </button>
           </form>
-        )}
+        </>
 
         {/* Footer Navigation */}
         <div className="mt-8 pt-4 border-t border-slate-800 text-center">

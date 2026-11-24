@@ -11,6 +11,7 @@ import {
   Menu, 
   X, 
   Sparkles, 
+  WandSparkles,
   FileSearch, 
   ChevronDown,
   ShieldCheck, 
@@ -230,6 +231,34 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             </button>
 
+            {/* 4.1 Jobhunting ProProfile (Programa para profesionales) */}
+            <button
+              onClick={() => handleLinkClick('/jobhunting')}
+              className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-all flex items-center gap-1.5 ${
+                currentPath === '/jobhunting' 
+                  ? 'text-[#00E5C9] bg-[#00A896]/20 border border-[#00A896]/40 font-bold shadow-xs'
+                  : theme === 'dark' ? 'text-slate-200 hover:text-[#00E5C9] hover:bg-[#00A896]/10' : 'text-slate-700 hover:text-[#00A896] hover:bg-teal-50'
+              }`}
+            >
+              <Sparkles className="w-3.5 h-3.5 text-[#00A896]" />
+              <span>Jobhunting</span>
+              <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-[#00A896]/20 text-[#00A896] dark:text-[#00E5C9] font-black uppercase">
+                Nuevo
+              </span>
+            </button>
+
+            <button
+              onClick={() => handleLinkClick('/crear-perfil')}
+              className={`px-3 py-1.5 rounded-lg text-sm font-extrabold transition-all flex items-center gap-1.5 ${
+                currentPath === '/crear-perfil'
+                  ? 'bg-cyan-500 text-slate-950 shadow-lg shadow-cyan-500/20'
+                  : 'bg-cyan-500/10 text-cyan-700 hover:bg-cyan-500 hover:text-slate-950 dark:text-cyan-300'
+              }`}
+            >
+              <WandSparkles className="w-3.5 h-3.5" />
+              <span>Crear mi perfil</span>
+            </button>
+
             {/* 5. Calculadora de Coste de Vacante */}
             <button
               onClick={() => handleLinkClick('/calculadora-roi')}
@@ -341,6 +370,28 @@ export const Navbar: React.FC<NavbarProps> = ({
               }`}
             >
               Vacantes Activas
+            </button>
+            <button
+              onClick={() => handleLinkClick('/jobhunting')}
+              className={`p-2.5 rounded-xl text-left text-xs font-bold flex items-center justify-between ${
+                currentPath === '/jobhunting' 
+                  ? 'bg-[#00A896] text-[#0A1826]' 
+                  : theme === 'dark' ? 'bg-[#00A896]/15 text-[#00E5C9] border border-[#00A896]/30' : 'bg-teal-50 text-teal-900 border border-teal-200'
+              }`}
+            >
+              <span>Jobhunting ProProfile</span>
+              <Sparkles className="w-3.5 h-3.5" />
+            </button>
+            <button
+              onClick={() => handleLinkClick('/crear-perfil')}
+              className={`p-2.5 rounded-xl text-left text-xs font-extrabold flex items-center justify-between ${
+                currentPath === '/crear-perfil'
+                  ? 'bg-cyan-500 text-slate-950'
+                  : theme === 'dark' ? 'bg-cyan-500/10 text-cyan-300 border border-cyan-500/30' : 'bg-cyan-50 text-cyan-900 border border-cyan-200'
+              }`}
+            >
+              <span>Crear mi perfil con IA</span>
+              <WandSparkles className="w-3.5 h-3.5" />
             </button>
             <button
               onClick={() => handleLinkClick('/calculadora-roi')}
