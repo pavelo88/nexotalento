@@ -62,7 +62,7 @@ export const CostCalculatorTeaser: React.FC<CostCalculatorTeaserProps> = ({ onNa
         </div>
 
         {/* Compact Interactive Panel */}
-        <div className={`p-6 sm:p-8 rounded-3xl border shadow-xl grid grid-cols-1 lg:grid-cols-12 gap-6 items-center ${
+        <div className={`p-6 sm:p-8 rounded-3xl border shadow-xl grid grid-cols-1 lg:grid-cols-12 gap-6 items-center card-spring-hover ${
           theme === 'dark' ? 'bg-slate-900/80 border-slate-800' : 'bg-white border-slate-200 shadow-md'
         }`}>
           

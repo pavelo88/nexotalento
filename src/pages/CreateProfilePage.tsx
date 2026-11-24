@@ -71,7 +71,7 @@ export const CreateProfilePage: React.FC = () => {
   }, []);
 
   const isDark = theme === 'dark';
-  const surface = isDark ? 'bg-slate-900/80 border-slate-800' : 'bg-white border-slate-200';
+  const surface = `card-spring-hover ${isDark ? 'bg-slate-900/80 border-slate-800' : 'bg-white border-slate-200'}`;
   const muted = isDark ? 'text-slate-400' : 'text-slate-600';
   const input = isDark
     ? 'bg-slate-950 border-slate-700 text-white placeholder:text-slate-500'

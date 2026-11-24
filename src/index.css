@@ -130,6 +130,15 @@
 .card-spring-hover {
   transition: transform 400ms cubic-bezier(0.25, 1, 0.5, 1), border-color 300ms ease, box-shadow 400ms cubic-bezier(0.25, 1, 0.5, 1);
   will-change: transform;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0.18));
+  backdrop-filter: blur(22px) saturate(140%);
+  -webkit-backdrop-filter: blur(22px) saturate(140%);
+  box-shadow: 0 12px 36px rgba(31, 41, 55, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.78);
+}
+
+.dark .card-spring-hover {
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.5), rgba(15, 23, 42, 0.24));
+  box-shadow: 0 12px 36px rgba(2, 8, 23, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .card-spring-hover:hover {

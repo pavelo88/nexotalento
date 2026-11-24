@@ -191,7 +191,7 @@ export const SuccessStories: React.FC<SuccessStoriesProps> = ({ onNavigateToTest
           {featuredStories.map((story) => (
             <div
               key={story.id}
-              className={`p-6 rounded-2xl border flex flex-col justify-between transition-all duration-300 hover:scale-[1.02] ${
+              className={`p-6 rounded-2xl border flex flex-col justify-between transition-all duration-300 hover:scale-[1.02] card-spring-hover ${
                 theme === 'dark'
                   ? 'bg-slate-950/80 border-slate-800 hover:border-amber-500/40'
                   : 'bg-white border-slate-200 hover:border-amber-500/50 shadow-sm'

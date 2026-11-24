@@ -48,7 +48,7 @@ export const AgentesIAPage: React.FC<AgentesIAPageProps> = ({ onNavigate }) => {
 
         {/* Feature Badges */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-4xl mx-auto mb-10">
-          <div className={`p-4 rounded-2xl border flex items-center gap-3 ${
+          <div className={`p-4 rounded-2xl border flex items-center gap-3 card-spring-hover ${
             theme === 'dark' ? 'bg-slate-900/60 border-slate-800' : 'bg-white border-slate-200 shadow-sm'
           }`}>
             <div className="w-9 h-9 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-500 shrink-0">
@@ -60,7 +60,7 @@ export const AgentesIAPage: React.FC<AgentesIAPageProps> = ({ onNavigate }) => {
             </div>
           </div>
 
-          <div className={`p-4 rounded-2xl border flex items-center gap-3 ${
+          <div className={`p-4 rounded-2xl border flex items-center gap-3 card-spring-hover ${
             theme === 'dark' ? 'bg-slate-900/60 border-slate-800' : 'bg-white border-slate-200 shadow-sm'
           }`}>
             <div className="w-9 h-9 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-500 shrink-0">
@@ -72,7 +72,7 @@ export const AgentesIAPage: React.FC<AgentesIAPageProps> = ({ onNavigate }) => {
             </div>
           </div>
 
-          <div className={`p-4 rounded-2xl border flex items-center gap-3 ${
+          <div className={`p-4 rounded-2xl border flex items-center gap-3 card-spring-hover ${
             theme === 'dark' ? 'bg-slate-900/60 border-slate-800' : 'bg-white border-slate-200 shadow-sm'
           }`}>
             <div className="w-9 h-9 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-500 shrink-0">

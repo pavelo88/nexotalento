@@ -119,6 +119,13 @@
 **Archivos modificados:** C:/dev/proyectos/nexotalentos/src/components/AreasEspecializacionSection.tsx; C:/dev/proyectos/nexotalentos/src/components/FAQSection.tsx; C:/dev/proyectos/nexotalentos/src/components/NexoCommunitySection.tsx; C:/dev/proyectos/nexotalentos/src/components/ServicesSection.tsx; C:/dev/proyectos/nexotalentos/src/components/SpecializationSectorsSection.tsx; C:/dev/proyectos/nexotalentos/AVANCE.md
 
 ## [2026-11-24] - Nexo Talento - Codex
+**Qué se hizo:** Se corrigió el navbar para que vuelva a ser transparente al inicio en todas las rutas y se extendió el tratamiento glassmorphism mediante `card-spring-hover` a tarjetas compartidas de sectores, testimonios, calculadoras, agentes, creación de perfil y otras secciones internas.
+**Resultado:** La transparencia inicial del navbar ya no depende de la ruta; al hacer scroll conserva la transición configurada. Lint y `git diff --check` pasan.
+**Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
+**Próximos pasos:** Verificar visualmente las rutas internas en móvil y ajustar solo las tarjetas que necesiten más o menos contraste.
+**Archivos modificados:** C:/dev/proyectos/nexotalentos/src/components/Navbar.tsx; C:/dev/proyectos/nexotalentos/src/index.css; C:/dev/proyectos/nexotalentos/src/components/SpecializationSectorsSection.tsx; C:/dev/proyectos/nexotalentos/src/components/SuccessStories.tsx; C:/dev/proyectos/nexotalentos/src/components/CostCalculatorSection.tsx; C:/dev/proyectos/nexotalentos/src/components/CostCalculatorTeaser.tsx; C:/dev/proyectos/nexotalentos/src/components/AIAgentsTeaser.tsx; C:/dev/proyectos/nexotalentos/src/pages/CreateProfilePage.tsx; C:/dev/proyectos/nexotalentos/src/pages/AgentesIAPage.tsx; C:/dev/proyectos/nexotalentos/AVANCE.md
+
+## [2026-11-24] - Nexo Talento - Codex
 **Qué se hizo:** Se corrigió el exceso de altura del hero móvil de Jobhunting y se devolvió la imagen a una altura contenida, dejando los CTA inmediatamente debajo de la imagen y la garantía al pie del recurso visual.
 **Resultado:** El hero móvil deja de ocupar casi toda la pantalla; la candidata sigue visible y la revisión en localhost con Vite/HMR confirma la composición solicitada. Lint pasa sin errores.
 **Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.

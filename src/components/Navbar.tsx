@@ -49,7 +49,6 @@ export const Navbar: React.FC<NavbarProps> = ({
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const navRef = useRef<HTMLDivElement>(null);
   const { theme, toggleTheme } = useTheme();
-  const headerIsDark = !isScrolled || theme === 'dark';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -93,7 +92,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           ? theme === 'dark'
             ? 'bg-slate-950/90 backdrop-blur-2xl border-b border-slate-800/80 shadow-2xl py-2.5'
             : 'bg-white/90 backdrop-blur-2xl border-b border-slate-200 shadow-xl py-2.5'
-          : 'bg-slate-950/90 backdrop-blur-2xl border-b border-slate-800/80 shadow-2xl py-4'
+          : 'bg-transparent border-b border-transparent py-4'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -105,7 +104,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             className="flex items-center focus:outline-none text-left group transition-transform hover:scale-[1.02]"
             aria-label="Ir a página de inicio Nexo Talento"
           >
-            <Logo size="md" showText={true} showSubtitle={true} forceDark={headerIsDark} />
+            <Logo size="md" showText={true} showSubtitle={true} />
           </button>
 
           {/* Desktop Navigation Links (Consistent, Unified Apple-Style System) */}
@@ -288,7 +287,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               id="theme-toggle-btn"
               onClick={toggleTheme}
               className={`p-2 rounded-xl border transition-all duration-200 focus:outline-none cursor-pointer ${
-                headerIsDark
+                theme === 'dark'
                   ? 'bg-slate-900/90 border-slate-800 text-amber-400 hover:bg-slate-800'
                   : 'bg-slate-100 border-slate-300 text-indigo-600 hover:bg-slate-200'
               }`}
@@ -306,7 +305,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className={`lg:hidden p-2 rounded-xl border transition-colors cursor-pointer ${
-                headerIsDark
+                theme === 'dark'
                   ? 'bg-slate-900 border-slate-800 text-slate-200' 
                   : 'bg-slate-100 border-slate-300 text-slate-800'
               }`}

@@ -309,7 +309,7 @@ export const SpecializationSectorsSection: React.FC<SpecializationSectorsSection
                   isGridMode
                     ? isFullWidthSpan ? 'md:col-span-2 lg:col-span-1' : ''
                     : 'snap-start shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]'
-                } group relative rounded-3xl p-6 sm:p-7 border transition-all duration-300 hover:shadow-2xl flex flex-col justify-between ${
+                } group relative rounded-3xl p-6 sm:p-7 border transition-all duration-300 hover:shadow-2xl flex flex-col justify-between card-spring-hover ${
                   theme === 'dark'
                     ? 'bg-slate-900/42 hover:bg-slate-900/60 border-white/10 hover:border-[#00A9A3]/50 backdrop-blur-2xl shadow-xl shadow-slate-950/20'
                     : 'bg-white/38 hover:bg-white/55 border-white/80 hover:border-[#00A9A3]/40 backdrop-blur-2xl shadow-xl shadow-slate-400/10'

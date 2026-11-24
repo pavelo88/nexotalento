@@ -97,7 +97,7 @@ export const AIAgentsTeaser: React.FC<AIAgentsTeaserProps> = ({
         </div>
 
         {/* Compact Interactive Teaser Card */}
-        <div className={`p-5 sm:p-8 rounded-3xl border shadow-xl transition-all ${
+        <div className={`p-5 sm:p-8 rounded-3xl border shadow-xl transition-all card-spring-hover ${
           theme === 'dark' ? 'bg-slate-900/80 border-slate-800' : 'bg-white border-slate-200 shadow-md'
         }`}>
           

@@ -68,7 +68,7 @@ export const CostCalculatorSection: React.FC<CostCalculatorSectionProps> = ({ is
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           
           {/* Sliders Input Panel (Col 1) */}
-          <div className={`lg:col-span-6 rounded-3xl p-7 flex flex-col justify-between space-y-6 border shadow-xl ${
+          <div className={`lg:col-span-6 rounded-3xl p-7 flex flex-col justify-between space-y-6 border shadow-xl card-spring-hover ${
             theme === 'dark'
               ? 'bg-slate-900/80 border-slate-800'
               : 'bg-white border-slate-200 shadow-md'
@@ -202,7 +202,7 @@ export const CostCalculatorSection: React.FC<CostCalculatorSectionProps> = ({ is
           </div>
 
           {/* Results Analytics Panel (Col 2) */}
-          <div className={`lg:col-span-6 border rounded-3xl p-7 shadow-2xl flex flex-col justify-between relative overflow-hidden ${
+          <div className={`lg:col-span-6 border rounded-3xl p-7 shadow-2xl flex flex-col justify-between relative overflow-hidden card-spring-hover ${
             theme === 'dark'
               ? 'bg-gradient-to-b from-slate-900 to-slate-950 border-cyan-500/40'
               : 'bg-gradient-to-b from-white to-slate-50 border-slate-200'
