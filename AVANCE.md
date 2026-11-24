@@ -89,3 +89,10 @@
 **Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
 **Próximos pasos:** Configurar IDs reales y variables en Vercel, probar un lead real en producción y corregir los riesgos pendientes de Storage, persistencia y dependencias antes de activar campañas.
 **Archivos modificados:** C:/dev/proyectos/nexotalentos/src/components/jobhunting/JobhuntingPhases.tsx; C:/dev/proyectos/nexotalentos/src/components/jobhunting/JobhuntingPainPoints.tsx; C:/dev/proyectos/nexotalentos/src/components/jobhunting/JobhuntingForm.tsx; C:/dev/proyectos/nexotalentos/src/components/ContactSection.tsx; C:/dev/proyectos/nexotalentos/src/pages/ContactoPage.tsx; C:/dev/proyectos/nexotalentos/src/components/TalentAssessmentWizard.tsx; C:/dev/proyectos/nexotalentos/src/lib/attribution.ts; C:/dev/proyectos/nexotalentos/server.ts; C:/dev/proyectos/nexotalentos/package.json; C:/dev/proyectos/nexotalentos/package-lock.json; C:/dev/proyectos/nexotalentos/AVANCE.md
+
+## [2026-11-24] - Nexo Talento - Codex
+**Qué se hizo:** Se corrigió la proporción de la imagen del hero móvil de Jobhunting: el recurso vertical `768x1376` dejó de estar limitado a una altura fija que recortaba la escena y ahora conserva una proporción vertical adecuada para mostrar la candidata y el contexto visual.
+**Resultado:** La revisión visual local confirma un hero más alto, con el mismo ancho y sin el recorte superior que ocultaba la imagen. Lint, build, prerender de 12 rutas y bundle del servidor pasan.
+**Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
+**Próximos pasos:** Revisar el comportamiento final en el dominio desplegado después del deploy automático.
+**Archivos modificados:** C:/dev/proyectos/nexotalentos/src/components/jobhunting/JobhuntingHero.tsx; C:/dev/proyectos/nexotalentos/AVANCE.md
