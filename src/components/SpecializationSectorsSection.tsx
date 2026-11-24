@@ -224,7 +224,7 @@ export const SpecializationSectorsSection: React.FC<SpecializationSectorsSection
     <section 
       id="sectores-especializacion" 
       aria-label="Áreas de especialización por sectores productivos"
-      className={`py-16 sm:py-24 relative overflow-hidden transition-colors duration-300 ${className}`}
+      className={`py-16 sm:py-24 relative overflow-hidden transition-colors duration-300 bg-gradient-to-br from-white via-violet-50/35 to-cyan-50/45 dark:from-slate-950 dark:via-slate-900 dark:to-indigo-950/30 ${className}`}
     >
       {/* Background Accent Glows */}
       <div 
@@ -311,8 +311,8 @@ export const SpecializationSectorsSection: React.FC<SpecializationSectorsSection
                     : 'snap-start shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]'
                 } group relative rounded-3xl p-6 sm:p-7 border transition-all duration-300 hover:shadow-2xl flex flex-col justify-between ${
                   theme === 'dark'
-                    ? 'bg-slate-900/60 hover:bg-slate-900/90 border-slate-800/80 hover:border-[#00A9A3]/50'
-                    : 'bg-white hover:bg-slate-50/80 border-slate-200/90 hover:border-[#00A9A3]/40 shadow-sm'
+                    ? 'bg-slate-900/42 hover:bg-slate-900/60 border-white/10 hover:border-[#00A9A3]/50 backdrop-blur-2xl shadow-xl shadow-slate-950/20'
+                    : 'bg-white/38 hover:bg-white/55 border-white/80 hover:border-[#00A9A3]/40 backdrop-blur-2xl shadow-xl shadow-slate-400/10'
                 }`}
               >
                 {/* Subtle top border gradient glow on hover */}

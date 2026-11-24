@@ -112,6 +112,13 @@
 **Archivos modificados:** C:/dev/proyectos/nexotalentos/src/components/FAQSection.tsx; C:/dev/proyectos/nexotalentos/src/components/NexoCommunitySection.tsx; C:/dev/proyectos/nexotalentos/src/pages/ContactoPage.tsx; C:/dev/proyectos/nexotalentos/src/components/AreasEspecializacionSection.tsx; C:/dev/proyectos/nexotalentos/src/components/ServicesSection.tsx; C:/dev/proyectos/nexotalentos/src/components/SuccessStories.tsx; C:/dev/proyectos/nexotalentos/AVANCE.md
 
 ## [2026-11-24] - Nexo Talento - Codex
+**Qué se hizo:** Se hizo visible el glassmorphism real en la página principal: tarjetas con transparencia, blur, saturación, bordes luminosos y sombras internas, junto con fondos degradados que permiten percibir el efecto.
+**Resultado:** El ajuste queda aplicado a las tarjetas de sectores, áreas, comunidad, FAQ y servicios del inicio. Lint, build, prerender de 12 rutas y bundle del servidor pasan; `git diff --check` queda limpio.
+**Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
+**Próximos pasos:** Revisar visualmente el inicio completo en el navegador móvil y ajustar intensidades si alguna tarjeta compite demasiado con el contenido.
+**Archivos modificados:** C:/dev/proyectos/nexotalentos/src/components/AreasEspecializacionSection.tsx; C:/dev/proyectos/nexotalentos/src/components/FAQSection.tsx; C:/dev/proyectos/nexotalentos/src/components/NexoCommunitySection.tsx; C:/dev/proyectos/nexotalentos/src/components/ServicesSection.tsx; C:/dev/proyectos/nexotalentos/src/components/SpecializationSectorsSection.tsx; C:/dev/proyectos/nexotalentos/AVANCE.md
+
+## [2026-11-24] - Nexo Talento - Codex
 **Qué se hizo:** Se corrigió el exceso de altura del hero móvil de Jobhunting y se devolvió la imagen a una altura contenida, dejando los CTA inmediatamente debajo de la imagen y la garantía al pie del recurso visual.
 **Resultado:** El hero móvil deja de ocupar casi toda la pantalla; la candidata sigue visible y la revisión en localhost con Vite/HMR confirma la composición solicitada. Lint pasa sin errores.
 **Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.

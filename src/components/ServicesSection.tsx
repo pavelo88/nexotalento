@@ -201,8 +201,8 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
             key={currentService.id}
             className={`p-6 rounded-3xl border transition-all duration-300 shadow-xl flex flex-col justify-between min-h-[310px] ${
               theme === 'dark'
-                ? 'bg-slate-900/55 border-white/10 shadow-cyan-950/20 backdrop-blur-xl'
-                : 'bg-white/55 border-white/70 shadow-lg backdrop-blur-xl'
+                ? 'bg-slate-900/42 border-white/15 shadow-cyan-950/20 backdrop-blur-2xl'
+                : 'bg-white/38 border-white/85 shadow-lg shadow-slate-400/10 backdrop-blur-2xl'
             }`}
           >
             <div>

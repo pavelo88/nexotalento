@@ -85,8 +85,8 @@ export const FAQSection: React.FC = () => {
                 key={idx}
                 className={`rounded-2xl border transition-all duration-300 overflow-hidden ${
                   theme === 'dark'
-                    ? 'bg-slate-900/55 border-white/10 shadow-xl shadow-black/40 hover:border-cyan-500/50 backdrop-blur-xl'
-                    : 'bg-white/55 border-white/70 shadow-md hover:shadow-xl hover:border-[#00A9A3]/50 backdrop-blur-xl'
+                    ? 'bg-slate-900/42 border-white/15 shadow-xl shadow-black/40 hover:border-cyan-500/50 backdrop-blur-2xl'
+                    : 'bg-white/38 border-white/85 shadow-xl shadow-slate-400/10 hover:border-[#00A9A3]/50 backdrop-blur-2xl'
                 }`}
               >
                 <button

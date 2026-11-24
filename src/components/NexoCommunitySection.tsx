@@ -42,7 +42,7 @@ export const NexoCommunitySection: React.FC<NexoCommunitySectionProps> = ({ onNa
   ];
 
   return (
-    <section className={`relative overflow-hidden px-4 py-20 sm:px-6 lg:px-8 ${dark ? 'bg-slate-950' : 'bg-slate-100/80'}`}>
+    <section className={`relative overflow-hidden px-4 py-20 sm:px-6 lg:px-8 ${dark ? 'bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950/40' : 'bg-gradient-to-br from-slate-100 via-cyan-50/55 to-violet-50/55'}`}>
       <div className="absolute -left-32 top-10 h-72 w-72 rounded-full bg-cyan-500/10 blur-3xl" />
       <div className="absolute -right-32 bottom-0 h-80 w-80 rounded-full bg-violet-500/10 blur-3xl" />
       <div className="relative mx-auto max-w-7xl">
@@ -60,7 +60,7 @@ export const NexoCommunitySection: React.FC<NexoCommunitySectionProps> = ({ onNa
 
         <div className="mt-12 grid gap-5 md:grid-cols-3">
           {cards.map(({ icon: Icon, eyebrow, title, text, action, path, tone }) => (
-            <article key={title} className={`group relative overflow-hidden rounded-3xl border p-5 backdrop-blur-xl shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl ${dark ? 'border-white/10 bg-slate-900/55' : 'border-white/70 bg-white/55'}`}>
+            <article key={title} className={`group relative overflow-hidden rounded-3xl border p-5 backdrop-blur-2xl shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl ${dark ? 'border-white/15 bg-slate-900/42 shadow-slate-950/30' : 'border-white/85 bg-white/38 shadow-slate-400/15'}`}>
               <div className={`mb-7 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${tone} text-white shadow-lg`}>
                 <Icon className="h-6 w-6" />
               </div>
