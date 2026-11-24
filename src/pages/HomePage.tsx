@@ -48,7 +48,7 @@ export const HomePage: React.FC<HomePageProps> = ({
           <div className={`absolute inset-0 ${
             theme === 'dark'
               ? 'bg-gradient-to-b from-slate-950/40 via-transparent to-slate-950/90'
-              : 'bg-gradient-to-b from-white/30 via-transparent to-slate-50'
+              : 'bg-gradient-to-b from-white/25 via-transparent to-transparent'
           }`} />
         </div>
 
