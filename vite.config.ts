@@ -15,6 +15,7 @@ export default defineConfig(() => {
         webp: { quality: 75, lossless: false },
       }),
     ],
+    envPrefix: ['VITE_', 'NEXT_PUBLIC_'],
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),
