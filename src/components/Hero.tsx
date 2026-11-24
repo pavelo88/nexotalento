@@ -182,14 +182,14 @@ export const Hero: React.FC<HeroProps> = ({
               </h2>
 
               <p className={`text-xs sm:text-sm leading-relaxed mb-6 ${
-                theme === 'dark' ? 'text-slate-400' : 'text-slate-600'
+                theme === 'dark' ? 'text-slate-300' : 'text-slate-800'
               }`}>
                 Publica un requerimiento o solicita headhunting directo. Te presentamos una terna finalista evaluada en 18 días hábiles.
               </p>
             </div>
 
             <div className="flex items-center justify-between pt-4 border-t border-slate-800">
-              <span className="text-xs font-bold text-cyan-400 flex items-center gap-1.5">
+              <span className="text-xs font-bold text-cyan-700 dark:text-cyan-300 flex items-center gap-1.5">
                 <Clock className="w-3.5 h-3.5" />
                 Terna en 18 días
               </span>
@@ -220,14 +220,14 @@ export const Hero: React.FC<HeroProps> = ({
               </h2>
 
               <p className={`text-xs sm:text-sm leading-relaxed mb-6 ${
-                theme === 'dark' ? 'text-slate-400' : 'text-slate-600'
+                theme === 'dark' ? 'text-slate-300' : 'text-slate-800'
               }`}>
                 Explora los 4 procesos oficiales de selección abiertos en Quito y Guayaquil con bandas salariales transparentes.
               </p>
             </div>
 
             <div className="flex items-center justify-between pt-4 border-t border-slate-800">
-              <span className="text-xs font-bold text-emerald-400 flex items-center gap-1.5">
+              <span className="text-xs font-bold text-emerald-700 dark:text-emerald-300 flex items-center gap-1.5">
                 <CheckCircle2 className="w-3.5 h-3.5" />
                 Bolsa Activa 2026
               </span>
@@ -244,19 +244,19 @@ export const Hero: React.FC<HeroProps> = ({
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto text-center">
           <div className={`glass-card p-4 rounded-2xl border ${theme === 'dark' ? 'border-slate-800/80' : ''}`}>
             <p className="text-xl sm:text-2xl font-black text-cyan-400 font-heading">18 Días</p>
-            <p className="text-[11px] text-slate-400 font-medium">Terna Validada</p>
+            <p className="text-[11px] text-slate-700 dark:text-slate-300 font-medium">Terna Validada</p>
           </div>
           <div className={`glass-card p-4 rounded-2xl border ${theme === 'dark' ? 'border-slate-800/80' : ''}`}>
             <p className="text-xl sm:text-2xl font-black text-[#00A9A3] font-heading">3-6 Meses</p>
-            <p className="text-[11px] text-slate-400 font-medium">Garantía Reposición</p>
+            <p className="text-[11px] text-slate-700 dark:text-slate-300 font-medium">Garantía Reposición</p>
           </div>
           <div className={`glass-card p-4 rounded-2xl border ${theme === 'dark' ? 'border-slate-800/80' : ''}`}>
             <p className="text-xl sm:text-2xl font-black text-blue-400 font-heading">98.4%</p>
-            <p className="text-[11px] text-slate-400 font-medium">Tasa de Retención</p>
+            <p className="text-[11px] text-slate-700 dark:text-slate-300 font-medium">Tasa de Retención</p>
           </div>
           <div className={`glass-card p-4 rounded-2xl border ${theme === 'dark' ? 'border-slate-800/80' : ''}`}>
             <p className="text-xl sm:text-2xl font-black text-emerald-400 font-heading">100%</p>
-            <p className="text-[11px] text-slate-400 font-medium">Blindaje Contractual</p>
+            <p className="text-[11px] text-slate-700 dark:text-slate-300 font-medium">Blindaje Contractual</p>
           </div>
         </div>
 

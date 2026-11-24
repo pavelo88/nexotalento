@@ -61,7 +61,7 @@ export const JobhuntingForm: React.FC<JobhuntingFormProps> = ({ theme, selectedP
   return (
     <section id="formulario-postulacion" className={`py-24 border-t ${theme === 'dark' ? 'bg-[#090C11] border-stone-800' : 'bg-stone-100/70 border-stone-200'}`}>
       <div className="max-w-3xl mx-auto px-4 sm:px-6">
-        <div className="p-8 sm:p-12 rounded-3xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 shadow-2xl">
+        <div className="glass-card p-8 sm:p-12 rounded-3xl border border-white/80 dark:border-white/10 shadow-2xl">
           
           <div className="text-center mb-8">
             <span className="text-xs font-black uppercase tracking-wider text-[#00A896]">

@@ -19,7 +19,7 @@ export const JobhuntingPage: React.FC<JobhuntingPageProps> = () => {
   const [selectedPlan, setSelectedPlan] = useState<'exito' | 'cerrado'>('exito');
 
   return (
-    <div className={`min-h-screen ${theme === 'dark' ? 'bg-[#06080B] text-slate-100' : 'bg-[#FAF8F5] text-slate-900'} transition-colors duration-300 pb-28 lg:pb-0`}>
+    <div className={`min-h-screen ${theme === 'dark' ? 'bg-[radial-gradient(circle_at_15%_24%,rgba(0,168,150,0.12),transparent_30%),#06080B] text-slate-100' : 'bg-[radial-gradient(circle_at_12%_30%,rgba(0,168,150,0.13),transparent_30%),radial-gradient(circle_at_88%_48%,rgba(59,130,246,0.12),transparent_34%),#FAF8F5] text-slate-900'} transition-colors duration-300 pb-28 lg:pb-0`}>
       {/* 1. Hero con Proporción Perfecta y Fotografía Inmediata en Celulares */}
       <JobhuntingHero />
 

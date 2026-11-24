@@ -131,10 +131,10 @@ export const MethodologySection: React.FC<MethodologySectionProps> = ({ onNaviga
               <div
                 key={`${step.number}-${idx}`}
                 onClick={() => onNavigateToProcess && onNavigateToProcess('/proceso')}
-                className={`w-[310px] sm:w-[350px] shrink-0 p-5 rounded-2xl border flex flex-col justify-between transition-all duration-300 hover:scale-[1.03] cursor-pointer relative group select-none ${
+                className={`glass-card w-[310px] sm:w-[350px] shrink-0 p-5 rounded-2xl border flex flex-col justify-between transition-all duration-300 hover:scale-[1.03] cursor-pointer relative group select-none ${
                   theme === 'dark'
                     ? 'bg-slate-900/85 border-slate-800 hover:border-cyan-500/60 shadow-xl shadow-black/40 hover:bg-slate-900'
-                    : 'bg-white border-slate-200 hover:border-cyan-500/60 shadow-md hover:shadow-xl hover:bg-cyan-50/10'
+                    : 'hover:border-cyan-500/60 shadow-md hover:shadow-xl'
                 }`}
               >
                 <div>
@@ -196,8 +196,8 @@ export const MethodologySection: React.FC<MethodologySectionProps> = ({ onNaviga
 
       {/* Bottom Banner with Guarantee */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mt-8">
-        <div className={`p-4 sm:p-5 rounded-2xl border flex flex-col sm:flex-row items-center justify-between gap-4 ${
-          theme === 'dark' ? 'bg-slate-900/50 border-slate-800' : 'bg-white border-slate-200 shadow-sm'
+        <div className={`glass-card p-4 sm:p-5 rounded-2xl border flex flex-col sm:flex-row items-center justify-between gap-4 ${
+          theme === 'dark' ? 'border-slate-800' : 'shadow-sm'
         }`}>
           <div className="flex items-center gap-3 text-left">
             <ShieldCheck className="w-6 h-6 text-emerald-500 shrink-0" />

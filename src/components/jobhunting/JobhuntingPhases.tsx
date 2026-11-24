@@ -165,10 +165,10 @@ export const JobhuntingPhases: React.FC<JobhuntingPhasesProps> = ({ theme }) => 
         </div>
 
         {/* Tarjeta Expandida de la Fase Activa */}
-        <div className={`p-5 sm:p-8 lg:p-12 rounded-2xl sm:rounded-3xl border transition-all duration-500 shadow-2xl relative overflow-hidden ${
+        <div className={`glass-card p-5 sm:p-8 lg:p-12 rounded-2xl sm:rounded-3xl border transition-all duration-500 shadow-2xl relative overflow-hidden ${
           theme === 'dark' 
             ? 'bg-stone-900 border-stone-700 text-white' 
-            : 'bg-white border-stone-200 text-stone-900'
+            : 'border-white/80 text-stone-900'
         }`}>
           {/* Glow decorativo de fondo */}
           <div className={`absolute top-0 right-0 w-80 h-80 bg-gradient-to-bl ${current.color} opacity-10 rounded-full blur-3xl pointer-events-none`} />

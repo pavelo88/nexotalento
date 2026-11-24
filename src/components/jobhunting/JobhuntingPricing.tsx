@@ -30,11 +30,11 @@ export const JobhuntingPricing: React.FC<JobhuntingPricingProps> = ({
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
         
         {/* Modalidad 1: Modelo a Éxito */}
-        <div className={`p-6 sm:p-8 lg:p-10 rounded-2xl sm:rounded-3xl border relative flex flex-col justify-between transition-all duration-300 ${
+        <div className={`glass-card p-6 sm:p-8 lg:p-10 rounded-2xl sm:rounded-3xl border relative flex flex-col justify-between transition-all duration-300 ${
           selectedPlan === 'exito'
             ? 'border-[#00A896] ring-2 ring-[#00A896]/40 shadow-2xl shadow-[#00A896]/15'
             : 'border-stone-200 dark:border-stone-800'
-        } ${theme === 'dark' ? 'bg-stone-900/90' : 'bg-white'}`}>
+        }`}>
 
           <div className="absolute top-5 right-5 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-[#00A896]/15 text-[#00A896] dark:text-[#00E5C9] border border-[#00A896]/30">
             Más Solicitado
@@ -91,11 +91,11 @@ export const JobhuntingPricing: React.FC<JobhuntingPricingProps> = ({
         </div>
 
         {/* Modalidad 2: Modelo Sin Exclusividad (Inversión Cerrada) */}
-        <div className={`p-6 sm:p-8 lg:p-10 rounded-2xl sm:rounded-3xl border relative flex flex-col justify-between transition-all duration-300 ${
+        <div className={`glass-card p-6 sm:p-8 lg:p-10 rounded-2xl sm:rounded-3xl border relative flex flex-col justify-between transition-all duration-300 ${
           selectedPlan === 'cerrado'
             ? 'border-cyan-500 ring-2 ring-cyan-500/40 shadow-2xl shadow-cyan-500/15'
             : 'border-stone-200 dark:border-stone-800'
-        } ${theme === 'dark' ? 'bg-stone-900/90' : 'bg-white'}`}>
+        }`}>
 
           <div>
             <span className="text-xs font-black uppercase text-stone-400">Modalidad 02 · Total Autonomía</span>

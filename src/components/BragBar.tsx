@@ -21,10 +21,10 @@ export const BragBar: React.FC = () => {
   ];
 
   return (
-    <section className={`py-6 sm:py-8 border-y relative transition-colors duration-300 overflow-hidden ${
+    <section className={`py-6 sm:py-8 relative transition-colors duration-300 overflow-hidden ${
       theme === 'dark'
-        ? 'bg-slate-950/70 border-slate-800 text-slate-100'
-        : 'bg-white/60 border-slate-200/90 text-slate-900 shadow-sm backdrop-blur-md'
+        ? 'text-slate-100'
+        : 'text-slate-900'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Corporate Trust Title & Compliance Badge */}
@@ -45,7 +45,7 @@ export const BragBar: React.FC = () => {
       </div>
 
       {/* Infinite Seamless Moving Band (Fondo blanco estricto tanto en claro como oscuro) */}
-      <div className={`relative w-full overflow-hidden py-3 border-y shadow-xs backdrop-blur-2xl ${theme === 'dark' ? 'bg-slate-950/35 border-white/10' : 'bg-white/25 border-white/70'}`}>
+      <div className="relative w-full overflow-hidden py-2">
         {/* Left & Right gradient fades to white */}
         <div className={`absolute top-0 left-0 bottom-0 w-16 sm:w-28 z-10 pointer-events-none ${theme === 'dark' ? 'bg-gradient-to-r from-slate-950/80' : 'bg-gradient-to-r from-white/70'} to-transparent`} />
         <div className={`absolute top-0 right-0 bottom-0 w-16 sm:w-28 z-10 pointer-events-none ${theme === 'dark' ? 'bg-gradient-to-l from-slate-950/80' : 'bg-gradient-to-l from-white/70'} to-transparent`} />
@@ -55,13 +55,13 @@ export const BragBar: React.FC = () => {
           {[...trustedCompanies, ...trustedCompanies].map((company, index) => (
             <div
               key={index}
-              className="glass-card shrink-0 flex items-center justify-center px-5 py-3 rounded-2xl border hover:border-cyan-500 shadow-xs hover:shadow-md transition-all duration-300 hover:scale-105 select-none min-w-[120px]"
+              className="shrink-0 flex items-center justify-center px-4 py-2 transition-all duration-300 hover:scale-105 select-none min-w-[170px] sm:min-w-[210px]"
               title={`${company.name} · ${company.sector}`}
             >
               <img
                 src={company.logoFile}
                 alt={company.name}
-                className="h-7 sm:h-8 w-auto max-w-[140px] object-contain"
+                className="h-12 sm:h-14 w-auto max-w-[190px] sm:max-w-[230px] object-contain drop-shadow-sm"
                 onError={(e) => {
                   (e.currentTarget as HTMLImageElement).classList.add('hidden');
                 }}

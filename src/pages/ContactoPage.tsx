@@ -288,22 +288,22 @@ export const ContactoPage: React.FC<ContactoPageProps> = ({
 
           {/* Right Column: Interactive Form (7 cols) */}
           <div className="lg:col-span-7">
-            <div className={`border rounded-3xl p-6 sm:p-10 shadow-2xl ${
+            <div className={`glass-card border rounded-3xl p-6 sm:p-10 shadow-2xl ${
               theme === 'dark'
                 ? 'bg-slate-900/90 border-slate-800'
-                : 'bg-white border-slate-200 shadow-xl'
+                : 'border-white/80 shadow-xl'
             }`}>
               
               {/* Type Switcher */}
-              <div className={`flex p-1.5 rounded-2xl border mb-8 ${
+              <div className={`glass-card grid grid-cols-1 sm:grid-cols-2 gap-2 p-2 rounded-2xl border mb-8 ${
                 theme === 'dark'
-                  ? 'bg-slate-950 border-slate-800'
-                  : 'bg-slate-100 border-slate-200'
+                  ? 'border-slate-800'
+                  : 'border-white/80'
               }`}>
                 <button
                   type="button"
                   onClick={() => setTab('empresa')}
-                  className={`flex-1 py-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 btn-spring-press ${
+                  className={`min-h-14 px-4 py-3 rounded-xl text-xs font-bold transition-all flex items-center gap-3 text-left btn-spring-press ${
                     tab === 'empresa'
                       ? 'bg-gradient-to-r from-[#00A9A3] to-blue-600 text-white shadow-md'
                       : theme === 'dark'
@@ -311,14 +311,14 @@ export const ContactoPage: React.FC<ContactoPageProps> = ({
                         : 'text-slate-600 hover:text-slate-900'
                   }`}
                 >
-                  <Building2 className="w-4 h-4" />
-                  <span>Soy Empresa (Búsqueda de Talento)</span>
+                  <Building2 className="w-5 h-5 shrink-0" />
+                  <span><strong className="block">Soy empresa</strong><small className="block font-medium opacity-80">Buscar talento</small></span>
                 </button>
 
                 <button
                   type="button"
                   onClick={() => setTab('candidato')}
-                  className={`flex-1 py-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 btn-spring-press ${
+                  className={`min-h-14 px-4 py-3 rounded-xl text-xs font-bold transition-all flex items-center gap-3 text-left btn-spring-press ${
                     tab === 'candidato'
                       ? 'bg-gradient-to-r from-[#00A9A3] to-blue-600 text-white shadow-md'
                       : theme === 'dark'
@@ -326,8 +326,8 @@ export const ContactoPage: React.FC<ContactoPageProps> = ({
                         : 'text-slate-600 hover:text-slate-900'
                   }`}
                 >
-                  <UserCheck className="w-4 h-4" />
-                  <span>Soy Candidato (Enviar Perfil)</span>
+                  <UserCheck className="w-5 h-5 shrink-0" />
+                  <span><strong className="block">Soy candidato</strong><small className="block font-medium opacity-80">Enviar perfil</small></span>
                 </button>
               </div>
 

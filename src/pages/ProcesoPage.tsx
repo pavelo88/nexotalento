@@ -127,8 +127,11 @@ export const ProcesoPage: React.FC<ProcesoPageProps> = ({
             <Clock className="w-3.5 h-3.5" />
             <span>SLA Comprometido: Terna en 18 Días</span>
           </div>
-          <h1 className="text-3xl sm:text-5xl font-black tracking-tight font-heading">
-El Proceso de <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00A9A3] to-blue-500">Executive Search</span> <br /> Paso a Paso          </h1>
+          <h1 className="text-3xl sm:text-5xl font-black tracking-tight font-heading leading-tight">
+            <span className="block sm:inline">El Proceso de</span>{' '}
+            <span className="block sm:inline text-transparent bg-clip-text bg-gradient-to-r from-[#00A9A3] to-blue-500">Executive Search</span>{' '}
+            <span className="block">Paso a Paso</span>
+          </h1>
           <p className={`mt-4 text-base leading-relaxed ${
             theme === 'dark' ? 'text-slate-300' : 'text-slate-600'
           }`}>
@@ -172,10 +175,10 @@ El Proceso de <span className="text-transparent bg-clip-text bg-gradient-to-r fr
           const st = steps[activeStep];
           const Icon = st.icon;
           return (
-            <div className={`border rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden mb-16 ${
+            <div className={`glass-card border rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden mb-16 ${
               theme === 'dark'
                 ? 'bg-slate-900/80 border-[#00A9A3]/40'
-                : 'bg-white border-slate-200 shadow-xl'
+                : 'border-white/80 shadow-xl'
             }`}>
               <div className={`flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b ${
                 theme === 'dark' ? 'border-slate-800' : 'border-slate-200'

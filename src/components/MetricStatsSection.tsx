@@ -49,16 +49,16 @@ export const MetricStatsSection: React.FC = () => {
             return (
               <div
                 key={idx}
-                className={`p-5 sm:p-6 rounded-3xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col justify-between ${
+                className={`glass-card p-5 sm:p-6 rounded-3xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col justify-between ${
                   theme === 'dark'
                     ? 'bg-slate-900/80 border-slate-800 shadow-xl shadow-black/30'
-                    : 'bg-white border-slate-200/90 shadow-md'
+                    : 'shadow-md'
                 }`}
               >
                 <div className="flex items-center gap-2 mb-3">
                   <Icon className={`w-4 h-4 ${metric.color} shrink-0`} />
                   <span className={`text-[10px] sm:text-[11px] uppercase tracking-wider font-extrabold ${
-                    theme === 'dark' ? 'text-slate-300' : 'text-slate-700'
+                    theme === 'dark' ? 'text-slate-200' : 'text-slate-800'
                   }`}>
                     {metric.label}
                   </span>
@@ -69,7 +69,7 @@ export const MetricStatsSection: React.FC = () => {
                 </div>
 
                 <p className={`text-xs mt-2 font-medium ${
-                  theme === 'dark' ? 'text-slate-400' : 'text-slate-600'
+                  theme === 'dark' ? 'text-slate-300' : 'text-slate-700'
                 }`}>
                   {metric.detail}
                 </p>

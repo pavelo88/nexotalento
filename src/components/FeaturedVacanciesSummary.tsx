@@ -214,10 +214,10 @@ export const FeaturedVacanciesSummary: React.FC<FeaturedVacanciesSummaryProps> =
             <div
               key={`${job.id}-${idx}`}
               onClick={() => onNavigate('/vacantes')}
-              className={`w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] shrink-0 snap-start group relative rounded-3xl p-6 border transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl flex flex-col justify-between cursor-pointer ${
+              className={`glass-card w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] shrink-0 snap-start group relative rounded-3xl p-6 border transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl flex flex-col justify-between cursor-pointer ${
                 theme === 'dark'
                   ? 'bg-slate-900/80 hover:bg-slate-900 border-slate-800 hover:border-cyan-500/60 shadow-xl shadow-black/40'
-                  : 'bg-white hover:bg-cyan-50/20 border-slate-200 hover:border-cyan-500/60 shadow-md hover:shadow-xl'
+                  : 'hover:border-cyan-500/60 shadow-md hover:shadow-xl'
               }`}
             >
               {/* Glow bar superior */}

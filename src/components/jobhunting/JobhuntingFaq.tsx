@@ -79,8 +79,8 @@ export const JobhuntingFaq: React.FC<JobhuntingFaqProps> = ({ theme }) => {
         {faqs.map((faq, idx) => (
           <div 
             key={idx}
-            className={`rounded-2xl border transition-all overflow-hidden ${
-              theme === 'dark' ? 'bg-stone-900/60 border-stone-800' : 'bg-white border-stone-200 shadow-xs'
+            className={`glass-card rounded-2xl border transition-all overflow-hidden ${
+              theme === 'dark' ? 'border-stone-800' : 'shadow-xs'
             }`}
           >
             <button

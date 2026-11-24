@@ -35,17 +35,17 @@ export const JobhuntingPainPoints: React.FC<JobhuntingPainPointsProps> = ({ them
         {painPoints.map((item) => (
           <div 
             key={item.id}
-            className={`p-3 sm:p-7 rounded-2xl sm:rounded-3xl border transition-all duration-300 hover:-translate-y-1.5 group cursor-default relative overflow-hidden ${
+            className={`glass-card p-3 sm:p-7 rounded-2xl sm:rounded-3xl border transition-all duration-300 hover:-translate-y-1.5 group cursor-default relative overflow-hidden ${
               theme === 'dark' 
                 ? 'bg-stone-900/60 border-stone-800 hover:border-[#00A896]/50 hover:bg-stone-900 shadow-lg shadow-black/40' 
-                : 'bg-white border-stone-200/90 hover:border-[#00A896]/50 shadow-md hover:shadow-xl'
+                : 'hover:border-[#00A896]/50 shadow-md hover:shadow-xl'
             }`}
           >
             <div className="flex items-center gap-2 mb-3">
               <span className="w-7 h-7 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-gradient-to-br from-[#00A896] to-cyan-500 text-slate-950 font-black text-[11px] sm:text-sm flex items-center justify-center shadow-md shrink-0">
                 0{item.id}
               </span>
-              <span className="text-[9px] sm:text-[10px] font-black uppercase tracking-wider text-stone-500 dark:text-stone-400 leading-tight">
+              <span className="text-[9px] sm:text-[10px] font-black uppercase tracking-wider text-stone-700 dark:text-stone-300 leading-tight">
                 {item.title}
               </span>
             </div>
