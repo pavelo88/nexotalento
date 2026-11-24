@@ -50,8 +50,8 @@ export const NexoCommunitySection: React.FC<NexoCommunitySectionProps> = ({ onNa
           <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-cyan-500">
             <Sparkles className="h-3.5 w-3.5" /> Comunidad Nexo
           </div>
-          <h2 className={`font-heading text-3xl font-black tracking-tight sm:text-5xl ${dark ? 'text-white' : 'text-slate-950'}`}>
-            El próximo gran talento puede estar <span className="bg-gradient-to-r from-cyan-500 via-blue-600 to-violet-600 bg-clip-text text-transparent">en tu red</span>
+          <h2 className={`font-heading text-2xl leading-[1.08] text-balance font-black tracking-tight sm:text-5xl ${dark ? 'text-white' : 'text-slate-950'}`}>
+            El próximo gran talento puede estar <span className="inline-block whitespace-nowrap bg-gradient-to-r from-cyan-500 via-blue-600 to-violet-600 bg-clip-text text-transparent">en tu red</span>
           </h2>
           <p className={`mx-auto mt-5 max-w-2xl text-sm leading-relaxed sm:text-base ${dark ? 'text-slate-300' : 'text-slate-600'}`}>
             Nexo es más que una firma de selección: es una comunidad de personas ambiciosas, humanas y listas para crear conexiones que dejan huella.
@@ -60,7 +60,7 @@ export const NexoCommunitySection: React.FC<NexoCommunitySectionProps> = ({ onNa
 
         <div className="mt-12 grid gap-5 md:grid-cols-3">
           {cards.map(({ icon: Icon, eyebrow, title, text, action, path, tone }) => (
-            <article key={title} className={`group relative overflow-hidden rounded-3xl border p-6 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl ${dark ? 'border-slate-800 bg-slate-900/80' : 'border-slate-200 bg-white'}`}>
+            <article key={title} className={`group relative overflow-hidden rounded-3xl border p-5 backdrop-blur-xl shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl ${dark ? 'border-white/10 bg-slate-900/55' : 'border-white/70 bg-white/55'}`}>
               <div className={`mb-7 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${tone} text-white shadow-lg`}>
                 <Icon className="h-6 w-6" />
               </div>

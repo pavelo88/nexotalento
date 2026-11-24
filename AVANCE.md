@@ -105,6 +105,13 @@
 **Archivos modificados:** C:/dev/proyectos/nexotalentos/src/components/Navbar.tsx; C:/dev/proyectos/nexotalentos/src/components/jobhunting/JobhuntingPhases.tsx; C:/dev/proyectos/nexotalentos/src/components/jobhunting/JobhuntingDifferentiators.tsx; C:/dev/proyectos/nexotalentos/AVANCE.md
 
 ## [2026-11-24] - Nexo Talento - Codex
+**Qué se hizo:** Se aplicó una pasada de diseño móvil a Contacto, FAQ, Comunidad Nexo, Áreas de Especialización, Servicios y Testimonios: títulos con mejor control de salto de línea, frases clave agrupadas, tarjetas glassmorphism y controles de carrusel rediseñados como botones circulares translúcidos.
+**Resultado:** Lint, build, prerender de 12 rutas y bundle del servidor pasan sin errores. Se redujo el riesgo de palabras huérfanas en móvil y se unificó la estética de tarjetas y carruseles.
+**Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
+**Próximos pasos:** Continuar la auditoría visual de las rutas restantes con el mismo sistema antes de activar campañas publicitarias.
+**Archivos modificados:** C:/dev/proyectos/nexotalentos/src/components/FAQSection.tsx; C:/dev/proyectos/nexotalentos/src/components/NexoCommunitySection.tsx; C:/dev/proyectos/nexotalentos/src/pages/ContactoPage.tsx; C:/dev/proyectos/nexotalentos/src/components/AreasEspecializacionSection.tsx; C:/dev/proyectos/nexotalentos/src/components/ServicesSection.tsx; C:/dev/proyectos/nexotalentos/src/components/SuccessStories.tsx; C:/dev/proyectos/nexotalentos/AVANCE.md
+
+## [2026-11-24] - Nexo Talento - Codex
 **Qué se hizo:** Se corrigió el exceso de altura del hero móvil de Jobhunting y se devolvió la imagen a una altura contenida, dejando los CTA inmediatamente debajo de la imagen y la garantía al pie del recurso visual.
 **Resultado:** El hero móvil deja de ocupar casi toda la pantalla; la candidata sigue visible y la revisión en localhost con Vite/HMR confirma la composición solicitada. Lint pasa sin errores.
 **Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.

@@ -182,8 +182,8 @@ export const AreasEspecializacionSection: React.FC<AreasEspecializacionProps> = 
               <span>Portafolio Oficial de Soluciones</span>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight font-heading">
-              Áreas de <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-[#00A9A3] to-blue-500">Especialización</span>
+            <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-[1.08] text-balance font-heading">
+              Áreas de <span className="inline-block whitespace-nowrap text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-[#00A9A3] to-blue-500">Especialización</span>
             </h2>
 
             <p className={`text-xs sm:text-base font-medium leading-relaxed ${
@@ -198,14 +198,14 @@ export const AreasEspecializacionSection: React.FC<AreasEspecializacionProps> = 
             <button
               onClick={() => scroll('left')}
               aria-label="Anterior área de especialización"
-              className="w-11 h-11 rounded-2xl border flex items-center justify-center transition-all bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700 text-slate-800 dark:text-white hover:border-cyan-400 active:scale-95 shadow-md cursor-pointer"
+              className="w-10 h-10 rounded-full border flex items-center justify-center transition-all bg-white/45 dark:bg-slate-900/55 border-white/70 dark:border-white/10 text-slate-800 dark:text-white hover:border-cyan-400 active:scale-95 shadow-lg backdrop-blur-xl cursor-pointer"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <button
               onClick={() => scroll('right')}
               aria-label="Siguiente área de especialización"
-              className="w-11 h-11 rounded-2xl border flex items-center justify-center transition-all bg-gradient-to-r from-cyan-500 to-[#00A9A3] text-slate-950 font-black hover:opacity-90 active:scale-95 shadow-lg shadow-cyan-500/20 cursor-pointer"
+              className="w-10 h-10 rounded-full border flex items-center justify-center transition-all bg-cyan-400/75 dark:bg-cyan-500/65 border-white/70 dark:border-cyan-300/30 text-slate-950 font-black hover:opacity-90 active:scale-95 shadow-lg shadow-cyan-500/20 backdrop-blur-xl cursor-pointer"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
@@ -227,8 +227,8 @@ export const AreasEspecializacionSection: React.FC<AreasEspecializacionProps> = 
                 onClick={() => handleConsult(area.title)}
                 className={`snap-start shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] group relative rounded-3xl border transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl flex flex-col justify-between cursor-pointer overflow-hidden ${
                   theme === 'dark'
-                    ? 'bg-slate-900/90 border-slate-800 hover:border-cyan-500/50 shadow-xl shadow-black/40'
-                    : 'bg-white border-slate-200 hover:border-[#00A9A3]/60 shadow-lg hover:shadow-2xl'
+                    ? 'bg-slate-900/55 border-white/10 hover:border-cyan-500/50 shadow-xl shadow-black/40 backdrop-blur-xl'
+                    : 'bg-white/55 border-white/70 hover:border-[#00A9A3]/60 shadow-lg hover:shadow-2xl backdrop-blur-xl'
                 }`}
               >
                 {/* Header Image with Floating Icon & Badge (Foto nítida sin degradado oscuro que tape los rostros) */}

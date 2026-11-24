@@ -171,7 +171,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
             <div className="flex items-center gap-1.5">
               <button
                 onClick={handlePrev}
-                className="w-8 h-8 rounded-lg bg-slate-800 text-white flex items-center justify-center border border-slate-700 active:scale-95 transition-all shadow-sm"
+                className="w-8 h-8 rounded-full bg-slate-900/55 text-white flex items-center justify-center border border-white/15 active:scale-95 transition-all shadow-lg backdrop-blur-xl"
                 aria-label="Servicio anterior"
               >
                 <ChevronLeft className="w-4 h-4" />
@@ -179,7 +179,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
 
               <button
                 onClick={() => setIsPlaying(!isPlaying)}
-                className="px-2.5 h-8 rounded-lg text-[10px] font-bold bg-slate-800 text-slate-300 border border-slate-700 flex items-center gap-1 active:scale-95 transition-all"
+                className="px-2.5 h-8 rounded-full text-[10px] font-bold bg-slate-900/55 text-slate-300 border border-white/15 flex items-center gap-1 active:scale-95 transition-all backdrop-blur-xl"
                 aria-label={isPlaying ? 'Pausar rotación' : 'Activar rotación automática'}
               >
                 {isPlaying ? <Pause className="w-3 h-3 text-amber-400" /> : <Play className="w-3 h-3 text-emerald-400" />}
@@ -188,7 +188,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
 
               <button
                 onClick={handleNext}
-                className="w-8 h-8 rounded-lg bg-slate-800 text-white flex items-center justify-center border border-slate-700 active:scale-95 transition-all shadow-sm"
+                className="w-8 h-8 rounded-full bg-slate-900/55 text-white flex items-center justify-center border border-white/15 active:scale-95 transition-all shadow-lg backdrop-blur-xl"
                 aria-label="Siguiente servicio"
               >
                 <ChevronRight className="w-4 h-4" />
@@ -201,8 +201,8 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
             key={currentService.id}
             className={`p-6 rounded-3xl border transition-all duration-300 shadow-xl flex flex-col justify-between min-h-[310px] ${
               theme === 'dark'
-                ? 'bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 border-cyan-500/40 shadow-cyan-950/20'
-                : 'bg-white border-slate-200 shadow-lg'
+                ? 'bg-slate-900/55 border-white/10 shadow-cyan-950/20 backdrop-blur-xl'
+                : 'bg-white/55 border-white/70 shadow-lg backdrop-blur-xl'
             }`}
           >
             <div>

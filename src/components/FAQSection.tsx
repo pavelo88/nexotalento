@@ -43,7 +43,7 @@ export const FAQSection: React.FC = () => {
   };
 
   return (
-    <section id="faq" className="py-20 sm:py-28 relative overflow-hidden transition-colors duration-300">
+    <section id="faq" className="py-14 sm:py-28 relative overflow-hidden transition-colors duration-300">
       
       {/* Fondo Arquitectónico Corporativo: Muy visible en Modo Claro (opacidad 75%) vs sutil en Modo Oscuro (25%) */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
@@ -63,13 +63,13 @@ export const FAQSection: React.FC = () => {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Header with clear H2 for Google FAQ snippet rich results */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-8 sm:mb-12">
           <div className="inline-flex items-center gap-2 bg-[#00A9A3]/10 border border-[#00A9A3]/30 px-3.5 py-1.5 rounded-full text-xs font-bold text-[#00A9A3] mb-4 backdrop-blur-md">
             <HelpCircle className="w-3.5 h-3.5" />
             <span>Preguntas Frecuentes · FAQ</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight font-heading text-slate-900 dark:text-white drop-shadow-xs">
-            Dudas Frecuentes sobre <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 via-[#00A9A3] to-blue-600">Headhunting &amp; Selección</span>
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-[1.08] text-balance font-heading text-slate-900 dark:text-white drop-shadow-xs">
+            Dudas Frecuentes sobre <span className="inline-block whitespace-nowrap text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 via-[#00A9A3] to-blue-600">Headhunting &amp; Selección</span>
           </h2>
           <p className="mt-4 text-xs sm:text-base font-medium leading-relaxed text-slate-700 dark:text-slate-300 max-w-2xl mx-auto">
             Respuestas claras sobre nuestros plazos de 18 días, garantías contractuales de 3 a 6 meses y metodología directa de búsqueda.
@@ -85,13 +85,13 @@ export const FAQSection: React.FC = () => {
                 key={idx}
                 className={`rounded-2xl border transition-all duration-300 overflow-hidden ${
                   theme === 'dark'
-                    ? 'bg-slate-900/90 border-slate-800 shadow-xl shadow-black/40 hover:border-cyan-500/50'
-                    : 'bg-white/95 border-slate-200/90 shadow-md hover:shadow-xl hover:border-[#00A9A3]/50 backdrop-blur-md'
+                    ? 'bg-slate-900/55 border-white/10 shadow-xl shadow-black/40 hover:border-cyan-500/50 backdrop-blur-xl'
+                    : 'bg-white/55 border-white/70 shadow-md hover:shadow-xl hover:border-[#00A9A3]/50 backdrop-blur-xl'
                 }`}
               >
                 <button
                   onClick={() => toggle(idx)}
-                  className="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 focus:outline-none cursor-pointer"
+                  className="w-full p-4 sm:p-6 text-left flex items-center justify-between gap-3 focus:outline-none cursor-pointer"
                   aria-expanded={isOpen}
                 >
                   <span className="text-base sm:text-lg font-bold font-heading text-slate-900 dark:text-white leading-snug">

@@ -116,8 +116,8 @@ export const ContactoPage: React.FC<ContactoPageProps> = ({
             <Building2 className="w-3.5 h-3.5" />
             <span>Atención Directa &amp; Confidencial</span>
           </div>
-          <h1 className="text-3xl sm:text-5xl font-black tracking-tight font-heading">
-            Contacto, Sedes y <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00A9A3] to-blue-500">Consultor Directo</span>
+          <h1 className="text-2xl sm:text-5xl font-black tracking-tight leading-[1.08] text-balance font-heading">
+            Contacto, Sedes y <span className="inline-block whitespace-nowrap text-transparent bg-clip-text bg-gradient-to-r from-[#00A9A3] to-blue-500">Consultor Directo</span>
           </h1>
           <p className={`mt-4 text-base leading-relaxed ${
             theme === 'dark' ? 'text-slate-300' : 'text-slate-600'

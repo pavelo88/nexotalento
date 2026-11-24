@@ -115,14 +115,14 @@ export const SuccessStories: React.FC<SuccessStoriesProps> = ({ onNavigateToTest
             <div className="flex items-center gap-1.5">
               <button
                 onClick={handlePrev}
-                className="w-8 h-8 rounded-lg bg-slate-800 text-white flex items-center justify-center border border-slate-700 active:scale-95 transition-all shadow-sm"
+                className="w-8 h-8 rounded-full bg-slate-900/55 text-white flex items-center justify-center border border-white/15 active:scale-95 transition-all shadow-lg backdrop-blur-xl"
                 aria-label="Testimonio anterior"
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
               <button
                 onClick={handleNext}
-                className="w-8 h-8 rounded-lg bg-slate-800 text-white flex items-center justify-center border border-slate-700 active:scale-95 transition-all shadow-sm"
+                className="w-8 h-8 rounded-full bg-slate-900/55 text-white flex items-center justify-center border border-white/15 active:scale-95 transition-all shadow-lg backdrop-blur-xl"
                 aria-label="Siguiente testimonio"
               >
                 <ChevronRight className="w-4 h-4" />
@@ -134,8 +134,8 @@ export const SuccessStories: React.FC<SuccessStoriesProps> = ({ onNavigateToTest
             key={currentMobileStory.id}
             className={`p-6 rounded-2xl border flex flex-col justify-between transition-all duration-300 animate-fadeIn shadow-lg ${
               theme === 'dark'
-                ? 'bg-slate-950/90 border-slate-800'
-                : 'bg-white border-slate-200'
+                ? 'bg-slate-950/55 border-white/10 backdrop-blur-xl'
+                : 'bg-white/55 border-white/70 backdrop-blur-xl'
             }`}
           >
             <div>
