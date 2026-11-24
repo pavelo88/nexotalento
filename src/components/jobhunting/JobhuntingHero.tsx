@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, Award, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, CheckCircle2 } from 'lucide-react';
 
 export const JobhuntingHero: React.FC = () => {
   return (
@@ -36,7 +36,7 @@ export const JobhuntingHero: React.FC = () => {
             Acompañamiento integral con psicólogos de RRHH y headhunters senior para redefinir tu posicionamiento real y conseguir ofertas de alto nivel.
           </p>
 
-          {/* FOTOGRAFÍA EJECUTIVA INMEDIATA EN MÓVIL (Con Garantía de Reactivación) */}
+          {/* Fotografía ejecutiva en móvil */}
           <div className="relative rounded-2xl overflow-hidden border border-white/20 shadow-2xl bg-[#0A1826] max-w-sm mx-auto my-3 group">
             <img 
               src="/jobhunting-hero-mobile.jpg" 
@@ -45,20 +45,6 @@ export const JobhuntingHero: React.FC = () => {
               loading="eager"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#0A1826] via-transparent to-transparent" />
-            
-            {/* Badge de Garantía flotante en móvil */}
-            <div className="absolute bottom-2.5 left-2.5 right-2.5 p-2 rounded-xl bg-[#0E243A]/95 border border-white/15 backdrop-blur-md flex items-center gap-2.5 text-left">
-              <div className="w-7 h-7 rounded-lg bg-[#00A896]/20 flex items-center justify-center shrink-0 text-[#00E5C9] border border-[#00A896]/30">
-                <Award className="w-4 h-4" />
-              </div>
-              <div className="min-w-0">
-                <div className="flex items-center gap-1.5">
-                  <p className="text-[11px] font-black text-white">Garantía de Reactivación</p>
-                  <span className="text-[8px] px-1 py-0.2 rounded bg-emerald-500/20 text-emerald-300 font-bold">100% Real</span>
-                </div>
-                <p className="text-[9px] text-slate-300 truncate">Te recolocamos sin coste si el encaje no funciona</p>
-              </div>
-            </div>
           </div>
 
           {/* Botones de Acción Móviles con feedback táctil active:scale-95 */}
@@ -175,7 +161,7 @@ export const JobhuntingHero: React.FC = () => {
 
           </div>
 
-          {/* Lado Derecho: Tarjeta Fotográfica con Garantía de Reactivación */}
+          {/* Lado derecho: fotografía ejecutiva */}
           <div className="lg:col-span-5 relative">
             <div className="relative mx-auto max-w-md group">
               <div className="absolute -inset-1 bg-gradient-to-r from-[#00A896] to-cyan-400 rounded-3xl blur-xl opacity-30 group-hover:opacity-60 transition-opacity duration-500" />
@@ -190,24 +176,6 @@ export const JobhuntingHero: React.FC = () => {
                 />
 
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0A1826] via-transparent to-transparent" />
-
-                {/* Badge Flotante con Garantía de Reactivación */}
-                <div className="absolute bottom-3 left-3 right-3 p-3 rounded-2xl bg-[#0E243A]/95 border border-white/15 backdrop-blur-xl shadow-2xl">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-[#00A896]/20 flex items-center justify-center shrink-0 border border-[#00A896]/40 text-[#00E5C9]">
-                      <Award className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <p className="text-xs font-black text-white">Garantía de Reactivación</p>
-                        <span className="text-[9px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300 font-bold">100% Real</span>
-                      </div>
-                      <p className="text-[11px] text-slate-300 leading-snug mt-0.5">
-                        Si el encaje no funciona tras incorporarte, te ayudamos a recolocarte sin coste.
-                      </p>
-                    </div>
-                  </div>
-                </div>
 
               </div>
             </div>

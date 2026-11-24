@@ -98,6 +98,13 @@
 **Archivos modificados:** C:/dev/proyectos/nexotalentos/src/components/jobhunting/JobhuntingHero.tsx; C:/dev/proyectos/nexotalentos/AVANCE.md
 
 ## [2026-11-24] - Nexo Talento - Codex
+**Qué se hizo:** Se completó la carga real de CV: arrastre y soltado, validación de formato/tamaño, lectura Base64 desde el formulario y extracción de texto PDF/DOCX en el backend. Se eliminó la película de “Garantía de Reactivación” superpuesta en el hero de Jobhunting y se reforzó el glassmorphism visible de las tarjetas de creación de perfil.
+**Resultado:** Un PDF local real fue procesado por `/api/analyze-cv` con HTTP 200 y devolvió un borrador estructurado. Lint, build y `git diff --check` pasan; se verificó visualmente la tarjeta glassmorphism en `http://localhost:4174/crear-perfil`.
+**Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
+**Próximos pasos:** Probar en navegador con el CV definitivo y revisar en producción que Firebase Storage mantenga permisos de subida para el usuario autenticado.
+**Archivos modificados:** C:/dev/proyectos/nexotalentos/server.ts; C:/dev/proyectos/nexotalentos/src/pages/CreateProfilePage.tsx; C:/dev/proyectos/nexotalentos/src/components/jobhunting/JobhuntingHero.tsx; C:/dev/proyectos/nexotalentos/package.json; C:/dev/proyectos/nexotalentos/package-lock.json; C:/dev/proyectos/nexotalentos/AVANCE.md
+
+## [2026-11-24] - Nexo Talento - Codex
 **Qué se hizo:** Se ajustó Jobhunting para usar la marca oscura al inicio del navbar transparente, aumentar el hero móvil un 10 %, cambiar la navegación móvil de fases a un único selector y renombrar el CTA a “Crear tu perfil”. También se añadió el proxy local `/api` hacia el backend en `3001`.
 **Resultado:** El formulario de creación vuelve a alcanzar `/api/validate-email` desde `localhost:4174`; la prueba devolvió `400` controlado para una petición sin correo, confirmando que ya no cae en `404`. Lint, build y `git diff --check` pasan.
 **Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.

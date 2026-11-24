@@ -18,6 +18,21 @@ const PORT = Number(process.env.PORT) || 3001;
 // Security & Body Parser
 app.use(express.json({ limit: "5mb" }));
 
+app.use("/api/analyze-cv", (
+  error: { type?: string },
+  _req: express.Request,
+  res: express.Response,
+  next: express.NextFunction,
+) => {
+  if (error.type === "entity.too.large") {
+    res.status(413).json({ error: "La solicitud supera el límite de 5 MB. Usa un archivo de hasta 3,5 MB." });
+  } else if (error.type === "entity.parse.failed") {
+    res.status(400).json({ error: "El cuerpo de la solicitud debe ser JSON válido." });
+  } else {
+    next(error);
+  }
+});
+
 // Security Headers Middleware
 app.use((req, res, next) => {
   res.setHeader("X-Content-Type-Options", "nosniff");
@@ -675,20 +690,91 @@ app.post("/api/chat", async (req, res) => {
 });
 
 
+const MAX_CV_FILE_BYTES = 3.5 * 1024 * 1024;
+
+type CvExtraction = { text: string } | { status: number; error: string };
+
+async function extractCvFile(sourceFile: unknown): Promise<CvExtraction> {
+  if (!sourceFile || typeof sourceFile !== "object" ||
+      !("base64" in sourceFile) || typeof sourceFile.base64 !== "string") {
+    return { status: 400, error: "Envía el contenido del archivo en sourceFile.base64." };
+  }
+
+  const base64 = sourceFile.base64.trim().replace(/^data:[^,;]*;base64,/i, "");
+  if (base64.length > Math.ceil(MAX_CV_FILE_BYTES / 3) * 4) {
+    return { status: 413, error: "El archivo supera el límite de 3,5 MB." };
+  }
+  if (!/^[A-Za-z0-9+/]+={0,2}$/.test(base64)) {
+    return { status: 400, error: "El contenido del archivo no es Base64 válido." };
+  }
+
+  const buffer = Buffer.from(base64, "base64");
+  const canonicalBase64 = buffer.toString("base64");
+  if (base64 !== canonicalBase64 && base64 !== canonicalBase64.replace(/=+$/, "")) {
+    return { status: 400, error: "El contenido del archivo no es Base64 válido." };
+  }
+  if (buffer.length > MAX_CV_FILE_BYTES) {
+    return { status: 413, error: "El archivo supera el límite de 3,5 MB." };
+  }
+
+  const isPdf = buffer.subarray(0, 1024).includes("%PDF-");
+  const isZip = buffer.subarray(0, 4).equals(Buffer.from([0x50, 0x4b, 0x03, 0x04]));
+  if (!isPdf && !isZip) {
+    return { status: 415, error: "El formato no es compatible. Usa un archivo PDF o DOCX." };
+  }
+
+  let text: string;
+  try {
+    if (isPdf) {
+      const { PDFParse } = await import("pdf-parse");
+      const parser = new PDFParse({ data: new Uint8Array(buffer), isEvalSupported: false });
+      try {
+        text = (await parser.getText()).text;
+      } finally {
+        await parser.destroy();
+      }
+    } else {
+      const { default: mammoth } = await import("mammoth");
+      text = (await mammoth.extractRawText({ buffer })).value;
+    }
+  } catch (error) {
+    if (error instanceof Error && error.name === "PasswordException") {
+      return { status: 422, error: "El PDF está protegido. Quita la contraseña o pega el texto del CV." };
+    }
+    return {
+      status: 422,
+      error: `No se pudo leer el ${isPdf ? "PDF" : "DOCX"}. Comprueba que el archivo se abra correctamente o pega el texto del CV.`,
+    };
+  }
+
+  const cleanText = sanitizeInput(text);
+  if (cleanText.length < 20) {
+    return {
+      status: 422,
+      error: "El archivo no contiene suficiente texto extraíble. Si es un escaneo, usa un PDF con texto seleccionable o pega el texto del CV.",
+    };
+  }
+  return { text: cleanText };
+}
+
 // CV Analysis endpoint with structured JSON parsing
 app.post("/api/analyze-cv", async (req, res) => {
   try {
-    const rawCvText = req.body?.cvText;
-    const rawTargetRole = req.body?.targetRole;
+    const { sourceFile, cvText: rawCvText, targetRole: rawTargetRole } = req.body ?? {};
+    const manualText = sanitizeInput(rawCvText);
+    const extracted = sourceFile == null ? undefined : await extractCvFile(sourceFile);
+    const cvText = extracted && "text" in extracted ? extracted.text : manualText;
 
-    const cvText = sanitizeInput(rawCvText);
-    const targetRole = sanitizeInput(rawTargetRole) || "Posición Ejecutiva / Tech";
-
-    if (!cvText || cvText.length < 20) {
-      res.status(400).json({ error: "Por favor proporciona un texto de CV más detallado." });
+    if (cvText.length < 20) {
+      if (extracted && "error" in extracted) {
+        res.status(extracted.status).json({ error: extracted.error });
+        return;
+      }
+      res.status(400).json({ error: "Adjunta un PDF o DOCX, o pega al menos 20 caracteres del CV." });
       return;
     }
 
+    const targetRole = sanitizeInput(rawTargetRole) || "Posición Ejecutiva / Tech";
     const systemPrompt = `Actúa como Director de Selección y Headhunter Sénior de Nexo Talento en España.
 Analiza el siguiente CV para la posición objetivo "${targetRole}".
 Aplica los criterios de selección de 2026 (Metodología STAR, adecuación a bandas salariales de España, competencias de liderazgo, brechas formativas y compliance con la Directiva UE de Transparencia).
