@@ -98,6 +98,13 @@
 **Archivos modificados:** C:/dev/proyectos/nexotalentos/src/components/jobhunting/JobhuntingHero.tsx; C:/dev/proyectos/nexotalentos/AVANCE.md
 
 ## [2026-11-24] - Nexo Talento - Codex
+**Qué se hizo:** Se ajustó Jobhunting para usar la marca oscura al inicio del navbar transparente, aumentar el hero móvil un 10 %, cambiar la navegación móvil de fases a un único selector y renombrar el CTA a “Crear tu perfil”. También se añadió el proxy local `/api` hacia el backend en `3001`.
+**Resultado:** El formulario de creación vuelve a alcanzar `/api/validate-email` desde `localhost:4174`; la prueba devolvió `400` controlado para una petición sin correo, confirmando que ya no cae en `404`. Lint, build y `git diff --check` pasan.
+**Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
+**Próximos pasos:** Verificar visualmente en el navegador el alta con un correo real y el selector de fases en móvil.
+**Archivos modificados:** C:/dev/proyectos/nexotalentos/src/components/Navbar.tsx; C:/dev/proyectos/nexotalentos/src/components/jobhunting/JobhuntingHero.tsx; C:/dev/proyectos/nexotalentos/src/components/jobhunting/JobhuntingPhases.tsx; C:/dev/proyectos/nexotalentos/vite.config.ts; C:/dev/proyectos/nexotalentos/AVANCE.md
+
+## [2026-11-24] - Nexo Talento - Codex
 **Qué se hizo:** Se rehízo la interacción móvil de Jobhunting: el navbar inicia con la estética oscura de marca y cambia al modo claro al hacer scroll; las fases se convierten en un carrusel automático exclusivo para celular, sin botones de navegación; y se compactó la sección de diferenciadores alineando cada check con su texto.
 **Resultado:** La revisión visual en `http://localhost:4174/jobhunting` confirma mejor jerarquía móvil, fases automáticas y una sección de beneficios menos alta. Lint, build, prerender de 12 rutas y bundle del servidor pasan.
 **Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.

@@ -49,6 +49,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const navRef = useRef<HTMLDivElement>(null);
   const { theme, toggleTheme } = useTheme();
+  const headerUsesDarkBrand = theme === 'dark' || (currentPath === '/jobhunting' && !isScrolled);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -104,7 +105,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             className="flex items-center focus:outline-none text-left group transition-transform hover:scale-[1.02]"
             aria-label="Ir a página de inicio Nexo Talento"
           >
-            <Logo size="md" showText={true} showSubtitle={true} />
+            <Logo size="md" showText={true} showSubtitle={true} forceDark={headerUsesDarkBrand} />
           </button>
 
           {/* Desktop Navigation Links (Consistent, Unified Apple-Style System) */}
@@ -279,7 +280,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               }`}
             >
               <WandSparkles className="w-3.5 h-3.5" />
-              <span>Crear mi perfil</span>
+              <span>Crear tu perfil</span>
             </button>
 
             {/* Dark/Light Mode Switcher */}
@@ -287,7 +288,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               id="theme-toggle-btn"
               onClick={toggleTheme}
               className={`p-2 rounded-xl border transition-all duration-200 focus:outline-none cursor-pointer ${
-                theme === 'dark'
+                headerUsesDarkBrand
                   ? 'bg-slate-900/90 border-slate-800 text-amber-400 hover:bg-slate-800'
                   : 'bg-slate-100 border-slate-300 text-indigo-600 hover:bg-slate-200'
               }`}
@@ -305,7 +306,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className={`lg:hidden p-2 rounded-xl border transition-colors cursor-pointer ${
-                theme === 'dark'
+                headerUsesDarkBrand
                   ? 'bg-slate-900 border-slate-800 text-slate-200' 
                   : 'bg-slate-100 border-slate-300 text-slate-800'
               }`}
@@ -383,7 +384,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   : theme === 'dark' ? 'bg-cyan-500/10 text-cyan-300 border border-cyan-500/30' : 'bg-cyan-50 text-cyan-900 border border-cyan-200'
               }`}
             >
-              <span>Crear mi perfil con IA</span>
+              <span>Crear tu perfil con IA</span>
               <WandSparkles className="w-3.5 h-3.5" />
             </button>
             <button

@@ -244,15 +244,18 @@ export const JobhuntingPhases: React.FC<JobhuntingPhasesProps> = ({ theme }) => 
             </button>
           </div>
 
-          <div className="flex lg:hidden items-center justify-center gap-1.5 pt-5" aria-label="Progreso automático de fases">
-            {phases.map((phase, idx) => (
-              <span
-                key={phase.num}
-                className={`h-1.5 rounded-full transition-all duration-500 ${
-                  idx === activePhaseIndex ? 'w-7 bg-[#00A896]' : 'w-1.5 bg-stone-300 dark:bg-stone-700'
-                }`}
-              />
-            ))}
+          <div className="lg:hidden pt-5">
+            <label htmlFor="jobhunting-phase-select" className="sr-only">Seleccionar fase</label>
+            <select
+              id="jobhunting-phase-select"
+              value={activePhaseIndex}
+              onChange={(event) => setActivePhaseIndex(Number(event.target.value))}
+              className="w-full rounded-2xl border border-white/70 bg-white/45 px-4 py-3 text-sm font-bold text-stone-800 shadow-lg backdrop-blur-2xl dark:border-white/10 dark:bg-slate-900/45 dark:text-white"
+            >
+              {phases.map((phase, idx) => (
+                <option key={phase.num} value={idx}>Fase {phase.num} · {phase.title}</option>
+              ))}
+            </select>
           </div>
         </div>
 
