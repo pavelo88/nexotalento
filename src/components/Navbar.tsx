@@ -11,6 +11,7 @@ import {
   Menu, 
   X, 
   Sparkles, 
+  WandSparkles,
   FileSearch, 
   ChevronDown,
   ShieldCheck, 
@@ -268,6 +269,19 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* Right Action Cluster: Primary CTA + Theme Toggle + Mobile Menu */}
           <div className="flex items-center gap-2 sm:gap-3">
+
+            {/* CTA disponible solo en escritorio; se oculta por completo en móviles. */}
+            <button
+              onClick={() => handleLinkClick('/crear-perfil')}
+              className={`hidden lg:flex h-9 px-4 rounded-xl text-xs font-bold transition-all items-center gap-1.5 active:scale-95 cursor-pointer shadow-md ${
+                currentPath === '/crear-perfil'
+                  ? 'bg-[#00E5C9] text-slate-950 shadow-[#00E5C9]/25'
+                  : 'bg-[#00A896] hover:bg-[#00C4AF] text-slate-950 shadow-[#00A896]/20'
+              }`}
+            >
+              <WandSparkles className="w-3.5 h-3.5" />
+              <span>Crear tu perfil</span>
+            </button>
             
             {/* Dark/Light Mode Switcher */}
             <button
