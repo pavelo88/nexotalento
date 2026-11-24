@@ -54,7 +54,8 @@ export const Navbar: React.FC<NavbarProps> = ({
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 15);
     };
-    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -91,9 +92,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           ? theme === 'dark'
             ? 'bg-slate-950/90 backdrop-blur-2xl border-b border-slate-800/80 shadow-2xl py-2.5'
             : 'bg-white/90 backdrop-blur-2xl border-b border-slate-200 shadow-xl py-2.5'
-          : theme === 'dark'
-            ? 'bg-slate-950/60 backdrop-blur-md border-b border-slate-800/40 py-3.5'
-            : 'bg-white/75 backdrop-blur-md border-b border-slate-200/80 py-3.5'
+          : 'bg-transparent border-b border-transparent py-4'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -108,21 +107,21 @@ export const Navbar: React.FC<NavbarProps> = ({
             <Logo size="md" showText={true} showSubtitle={true} />
           </button>
 
-          {/* Desktop Grouped Navigation Menu (Clean & Uncluttered) */}
-          <nav className="hidden lg:flex items-center gap-1 xl:gap-1.5" aria-label="Navegación principal">
+          {/* Desktop Navigation Links (Consistent, Unified Apple-Style System) */}
+          <nav className="hidden lg:flex items-center gap-1 xl:gap-2" aria-label="Navegación principal">
             
-            {/* 2. Servicios Dropdown */}
+            {/* 1. Servicios Dropdown */}
             <div className="relative">
               <button
                 onClick={() => toggleDropdown('servicios')}
-                className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-all flex items-center gap-1 ${
+                className={`px-3 py-1.5 rounded-lg text-xs xl:text-sm font-semibold tracking-tight transition-all duration-150 flex items-center gap-1 cursor-pointer ${
                   currentPath === '/servicios' || activeDropdown === 'servicios'
-                    ? theme === 'dark' ? 'text-cyan-300 bg-cyan-950/60 font-bold' : 'text-cyan-900 bg-cyan-100 font-extrabold'
-                    : theme === 'dark' ? 'text-slate-300 hover:text-white hover:bg-slate-900/60' : 'text-slate-700 hover:text-slate-950 hover:bg-slate-100'
+                    ? theme === 'dark' ? 'bg-slate-800 text-white font-bold' : 'bg-slate-100 text-slate-950 font-bold'
+                    : theme === 'dark' ? 'text-slate-300 hover:text-white hover:bg-slate-800/50' : 'text-slate-600 hover:text-slate-950 hover:bg-slate-100/70'
                 }`}
               >
                 <span>Servicios</span>
-                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${activeDropdown === 'servicios' ? 'rotate-180 text-cyan-500' : ''}`} />
+                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${activeDropdown === 'servicios' ? 'rotate-180 text-[#00A896]' : ''}`} />
               </button>
 
               {activeDropdown === 'servicios' && (
@@ -133,7 +132,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 }`}>
                   <button
                     onClick={() => handleLinkClick('/servicios#executive-search')}
-                    className={`w-full text-left p-2.5 rounded-xl transition-all flex items-start gap-3 group ${
+                    className={`w-full text-left p-2.5 rounded-xl transition-all flex items-start gap-3 group cursor-pointer ${
                       theme === 'dark' ? 'hover:bg-slate-900' : 'hover:bg-slate-50'
                     }`}
                   >
@@ -153,7 +152,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
                   <button
                     onClick={() => handleLinkClick('/servicios#tech-digital')}
-                    className={`w-full text-left p-2.5 rounded-xl transition-all flex items-start gap-3 group ${
+                    className={`w-full text-left p-2.5 rounded-xl transition-all flex items-start gap-3 group cursor-pointer ${
                       theme === 'dark' ? 'hover:bg-slate-900' : 'hover:bg-slate-50'
                     }`}
                   >
@@ -172,7 +171,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
                   <button
                     onClick={() => handleLinkClick('/servicios#rpo-scaleup')}
-                    className={`w-full text-left p-2.5 rounded-xl transition-all flex items-start gap-3 group ${
+                    className={`w-full text-left p-2.5 rounded-xl transition-all flex items-start gap-3 group cursor-pointer ${
                       theme === 'dark' ? 'hover:bg-slate-900' : 'hover:bg-slate-50'
                     }`}
                   >
@@ -194,7 +193,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   }`}>
                     <button
                       onClick={() => handleLinkClick('/servicios')}
-                      className="text-xs text-cyan-800 dark:text-cyan-300 font-bold hover:underline flex items-center gap-1"
+                      className="text-xs text-cyan-800 dark:text-cyan-300 font-bold hover:underline flex items-center gap-1 cursor-pointer"
                     >
                       <span>Ver catálogo completo de soluciones</span>
                       <ArrowRight className="w-3 h-3" />
@@ -204,81 +203,62 @@ export const Navbar: React.FC<NavbarProps> = ({
               )}
             </div>
 
-            {/* 3. Buscar Personal (Pestaña dedicada y funcional hacia /proceso) */}
+            {/* 2. Buscar Personal (Para empresas) */}
             <button
               id="nav-buscar-personal-btn"
               onClick={() => handleLinkClick('/proceso')}
-              className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-all flex items-center gap-1.5 ${
+              className={`px-3 py-1.5 rounded-lg text-xs xl:text-sm font-semibold tracking-tight transition-all duration-150 cursor-pointer ${
                 currentPath === '/proceso'
-                  ? theme === 'dark' ? 'text-cyan-300 bg-cyan-950/60 font-bold' : 'text-cyan-900 bg-cyan-100 font-extrabold'
-                  : theme === 'dark' ? 'text-slate-200 hover:text-white hover:bg-slate-900/60' : 'text-slate-700 hover:text-slate-950 hover:bg-slate-100'
+                  ? theme === 'dark' ? 'bg-slate-800 text-white font-bold' : 'bg-slate-100 text-slate-950 font-bold'
+                  : theme === 'dark' ? 'text-slate-300 hover:text-white hover:bg-slate-800/50' : 'text-slate-600 hover:text-slate-950 hover:bg-slate-100/70'
               }`}
             >
-              <Users className="w-4 h-4 text-cyan-500" />
-              <span>Buscar Personal</span>
+              Buscar Personal
             </button>
 
-            {/* 4. Vacantes (Para candidatos) */}
+            {/* 3. Vacantes (Para candidatos) */}
             <button
               onClick={() => handleLinkClick('/vacantes')}
-              className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-all flex items-center gap-1.5 ${
+              className={`px-3 py-1.5 rounded-lg text-xs xl:text-sm font-semibold tracking-tight transition-all duration-150 cursor-pointer ${
                 currentPath === '/vacantes' 
-                  ? theme === 'dark' ? 'text-cyan-300 bg-cyan-950/60 font-bold' : 'text-cyan-900 bg-cyan-100 font-extrabold'
-                  : theme === 'dark' ? 'text-slate-300 hover:text-white hover:bg-slate-900/60' : 'text-slate-700 hover:text-slate-950 hover:bg-slate-100'
+                  ? theme === 'dark' ? 'bg-slate-800 text-white font-bold' : 'bg-slate-100 text-slate-950 font-bold'
+                  : theme === 'dark' ? 'text-slate-300 hover:text-white hover:bg-slate-800/50' : 'text-slate-600 hover:text-slate-950 hover:bg-slate-100/70'
               }`}
             >
-              <span>Vacantes</span>
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              Vacantes
             </button>
 
-            {/* 4.1 Jobhunting ProProfile (Programa para profesionales) */}
+            {/* 4. Jobhunting ProProfile */}
             <button
               onClick={() => handleLinkClick('/jobhunting')}
-              className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-all flex items-center gap-1.5 ${
+              className={`px-3 py-1.5 rounded-lg text-xs xl:text-sm font-semibold tracking-tight transition-all duration-150 cursor-pointer ${
                 currentPath === '/jobhunting' 
-                  ? 'text-[#00E5C9] bg-[#00A896]/20 border border-[#00A896]/40 font-bold shadow-xs'
-                  : theme === 'dark' ? 'text-slate-200 hover:text-[#00E5C9] hover:bg-[#00A896]/10' : 'text-slate-700 hover:text-[#00A896] hover:bg-teal-50'
+                  ? theme === 'dark' ? 'bg-slate-800 text-[#00E5C9] font-bold' : 'bg-slate-100 text-[#00A896] font-bold'
+                  : theme === 'dark' ? 'text-slate-300 hover:text-white hover:bg-slate-800/50' : 'text-slate-600 hover:text-slate-950 hover:bg-slate-100/70'
               }`}
             >
-              <Sparkles className="w-3.5 h-3.5 text-[#00A896]" />
-              <span>Jobhunting</span>
-              <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-[#00A896]/20 text-[#00A896] dark:text-[#00E5C9] font-black uppercase">
-                Nuevo
-              </span>
+              Jobhunting
             </button>
 
-            <button
-              onClick={() => handleLinkClick('/crear-perfil')}
-              className={`px-3 py-1.5 rounded-lg text-sm font-extrabold transition-all flex items-center gap-1.5 ${
-                currentPath === '/crear-perfil'
-                  ? 'bg-cyan-500 text-slate-950 shadow-lg shadow-cyan-500/20'
-                  : 'bg-cyan-500/10 text-cyan-700 hover:bg-cyan-500 hover:text-slate-950 dark:text-cyan-300'
-              }`}
-            >
-              <WandSparkles className="w-3.5 h-3.5" />
-              <span>Crear mi perfil</span>
-            </button>
-
-            {/* 5. Calculadora de Coste de Vacante */}
+            {/* 5. Calculadora de Costes */}
             <button
               onClick={() => handleLinkClick('/calculadora-roi')}
-              className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-all flex items-center gap-1.5 ${
+              className={`px-3 py-1.5 rounded-lg text-xs xl:text-sm font-semibold tracking-tight transition-all duration-150 cursor-pointer ${
                 currentPath === '/calculadora-roi' 
-                  ? theme === 'dark' ? 'text-cyan-300 bg-cyan-950/60 font-bold' : 'text-cyan-900 bg-cyan-100 font-extrabold'
-                  : theme === 'dark' ? 'text-slate-300 hover:text-white hover:bg-slate-900/60' : 'text-slate-700 hover:text-slate-950 hover:bg-slate-100'
+                  ? theme === 'dark' ? 'bg-slate-800 text-white font-bold' : 'bg-slate-100 text-slate-950 font-bold'
+                  : theme === 'dark' ? 'text-slate-300 hover:text-white hover:bg-slate-800/50' : 'text-slate-600 hover:text-slate-950 hover:bg-slate-100/70'
               }`}
             >
-              <Calculator className="w-3.5 h-3.5 text-amber-500" />
-              <span>Calculadora ROI</span>
+              Calculadora ROI
             </button>
 
             {/* 6. Contacto */}
             <button
               onClick={() => handleLinkClick('/contacto')}
-              className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-all ${
+              className={`px-3 py-1.5 rounded-lg text-xs xl:text-sm font-semibold tracking-tight transition-all duration-150 cursor-pointer ${
                 currentPath === '/contacto'
-                  ? theme === 'dark' ? 'text-cyan-300 bg-cyan-950/60 font-bold' : 'text-cyan-900 bg-cyan-100 font-extrabold'
-                  : theme === 'dark' ? 'text-slate-300 hover:text-white hover:bg-slate-900/60' : 'text-slate-700 hover:text-slate-950 hover:bg-slate-100'
+                  ? theme === 'dark' ? 'bg-slate-800 text-white font-bold' : 'bg-slate-100 text-slate-950 font-bold'
+                  : theme === 'dark' ? 'text-slate-300 hover:text-white hover:bg-slate-800/50' : 'text-slate-600 hover:text-slate-950 hover:bg-slate-100/70'
               }`}
             >
               Contacto
@@ -286,14 +266,27 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           </nav>
 
-          {/* Right Action Cluster: Theme Toggle + Mobile Menu */}
+          {/* Right Action Cluster: Primary CTA + Theme Toggle + Mobile Menu */}
           <div className="flex items-center gap-2 sm:gap-3">
             
+            {/* Primary Action Button (El único CTA destacado, equilibrado) */}
+            <button
+              onClick={() => handleLinkClick('/crear-perfil')}
+              className={`h-9 px-4 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 active:scale-95 cursor-pointer shadow-md ${
+                currentPath === '/crear-perfil'
+                  ? 'bg-[#00E5C9] text-slate-950 shadow-[#00E5C9]/25'
+                  : 'bg-[#00A896] hover:bg-[#00C4AF] text-slate-950 shadow-[#00A896]/20'
+              }`}
+            >
+              <WandSparkles className="w-3.5 h-3.5" />
+              <span>Crear mi perfil</span>
+            </button>
+
             {/* Dark/Light Mode Switcher */}
             <button
               id="theme-toggle-btn"
               onClick={toggleTheme}
-              className={`p-2 rounded-xl border transition-all duration-200 focus:outline-none ${
+              className={`p-2 rounded-xl border transition-all duration-200 focus:outline-none cursor-pointer ${
                 theme === 'dark'
                   ? 'bg-slate-900/90 border-slate-800 text-amber-400 hover:bg-slate-800'
                   : 'bg-slate-100 border-slate-300 text-indigo-600 hover:bg-slate-200'
@@ -302,7 +295,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               aria-label="Cambiar tema de color"
             >
               {theme === 'dark' ? (
-                <Sun className="w-4 h-4 text-amber-400 animate-spin-slow" />
+                <Sun className="w-4 h-4 text-amber-400" />
               ) : (
                 <Moon className="w-4 h-4 text-indigo-600" />
               )}
@@ -311,7 +304,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Mobile Hamburger Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className={`lg:hidden p-2 rounded-xl border transition-colors ${
+              className={`lg:hidden p-2 rounded-xl border transition-colors cursor-pointer ${
                 theme === 'dark' 
                   ? 'bg-slate-900 border-slate-800 text-slate-200' 
                   : 'bg-slate-100 border-slate-300 text-slate-800'

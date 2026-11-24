@@ -2,6 +2,7 @@ import { createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailA
 import { collection, doc, serverTimestamp, setDoc } from 'firebase/firestore';
 import { deleteObject, ref, uploadBytes } from 'firebase/storage';
 import { auth, db, storage } from '../../lib/firebase';
+import { verifyEmailIsReal } from '../../lib/emailValidator';
 
 export const MAX_CV_BYTES = 10 * 1024 * 1024;
 const ACCEPTED_TYPES = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
@@ -15,13 +16,19 @@ export function validateCv(file: File): string | null {
 }
 
 export async function registerCandidate(email: string, password: string) {
-  const credential = await createUserWithEmailAndPassword(auth, email, password);
+  const cleanEmail = email.trim().toLowerCase();
+  const emailCheck = await verifyEmailIsReal(cleanEmail);
+  if (!emailCheck.valid) {
+    throw new Error(emailCheck.reason || 'El correo ingresado no es válido o no tiene servidores de correo activos.');
+  }
+
+  const credential = await createUserWithEmailAndPassword(auth, cleanEmail, password);
   await sendEmailVerification(credential.user);
   return credential.user;
 }
 
 export async function loginCandidate(email: string, password: string) {
-  return (await signInWithEmailAndPassword(auth, email, password)).user;
+  return (await signInWithEmailAndPassword(auth, email.trim().toLowerCase(), password)).user;
 }
 
 export async function submitCandidateApplication(input: { user: { uid: string; email: string | null }; file: File; name: string; phone: string; linkedin?: string; desiredSalary?: string; availability: string; jobId: string; jobTitle: string; }) {
@@ -34,8 +41,38 @@ export async function submitCandidateApplication(input: { user: { uid: string; e
   const fileRef = ref(storage, storagePath);
   await uploadBytes(fileRef, input.file, { contentType: input.file.type });
   try {
-    await setDoc(doc(db, 'users', input.user.uid), { uid: input.user.uid, email: input.user.email, displayName: input.name, phone: input.phone, accountType: 'candidate', updatedAt: serverTimestamp() }, { merge: true });
-    await setDoc(applicationRef, { candidateUid: input.user.uid, jobId: input.jobId, jobTitle: input.jobTitle, status: 'received', name: input.name, email: input.user.email, phone: input.phone, linkedin: input.linkedin || null, desiredSalary: input.desiredSalary || null, availability: input.availability, cv: { storagePath, originalName: input.file.name, contentType: input.file.type, sizeBytes: input.file.size }, consentVersion: 'candidate-cv-v1', consentedAt: serverTimestamp(), createdAt: serverTimestamp(), updatedAt: serverTimestamp() });
+    await setDoc(doc(db, 'users', input.user.uid), {
+      uid: input.user.uid,
+      email: input.user.email,
+      displayName: input.name,
+      phone: input.phone,
+      role: 'candidate',
+      accountType: 'candidate',
+      status: 'active',
+      emailVerified: Boolean(auth.currentUser?.emailVerified),
+      termsAccepted: true,
+      policyVersion: '2026-v1',
+      securityVersion: 2,
+      updatedAt: serverTimestamp(),
+      createdAt: serverTimestamp(),
+    }, { merge: true });
+    await setDoc(applicationRef, {
+      candidateUid: input.user.uid,
+      jobId: input.jobId,
+      jobTitle: input.jobTitle,
+      status: 'received',
+      name: input.name,
+      email: input.user.email,
+      phone: input.phone,
+      linkedin: input.linkedin || null,
+      desiredSalary: input.desiredSalary || null,
+      availability: input.availability,
+      cv: { storagePath, originalName: input.file.name, contentType: input.file.type, sizeBytes: input.file.size },
+      consentVersion: 'candidate-cv-v1',
+      consentedAt: serverTimestamp(),
+      createdAt: serverTimestamp(),
+      updatedAt: serverTimestamp(),
+    });
   } catch (error) {
     await deleteObject(fileRef).catch(() => undefined);
     throw error;

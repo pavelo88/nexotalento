@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { useTheme } from '../context/ThemeContext';
 import { PageRoute } from '../types';
 import { 
@@ -74,8 +74,25 @@ export const FeaturedVacanciesSummary: React.FC<FeaturedVacanciesSummaryProps> =
     }
   ];
 
+  const [vacanciesList, setVacanciesList] = useState(vacancies);
+
+  useEffect(() => {
+    let active = true;
+    fetch('/api/vacancies')
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (active && Array.isArray(data) && data.length > 0) {
+          setVacanciesList(data);
+        }
+      })
+      .catch(() => {});
+    return () => {
+      active = false;
+    };
+  }, []);
+
   // Buffer de 3 sets para desplazamiento infinito y fluido sin salto brusco hacia atrás
-  const extendedVacancies = [...vacancies, ...vacancies, ...vacancies];
+  const extendedVacancies = [...vacanciesList, ...vacanciesList, ...vacanciesList];
 
   useEffect(() => {
     const container = carouselRef.current;
@@ -83,8 +100,8 @@ export const FeaturedVacanciesSummary: React.FC<FeaturedVacanciesSummaryProps> =
 
     const timer = setTimeout(() => {
       const cards = container.children;
-      if (cards.length >= vacancies.length * 2) {
-        const target = cards[vacancies.length] as HTMLElement;
+      if (cards.length >= vacanciesList.length * 2) {
+        const target = cards[vacanciesList.length] as HTMLElement;
         if (target) {
           container.scrollLeft = target.offsetLeft;
         }
@@ -92,16 +109,16 @@ export const FeaturedVacanciesSummary: React.FC<FeaturedVacanciesSummaryProps> =
     }, 80);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [vacanciesList]);
 
   const handleScroll = () => {
     const container = carouselRef.current;
     if (!container) return;
     const cards = container.children;
-    if (cards.length < vacancies.length * 3) return;
+    if (cards.length < vacanciesList.length * 3) return;
 
-    const firstMiddleCard = cards[vacancies.length] as HTMLElement;
-    const firstThirdCard = cards[vacancies.length * 2] as HTMLElement;
+    const firstMiddleCard = cards[vacanciesList.length] as HTMLElement;
+    const firstThirdCard = cards[vacanciesList.length * 2] as HTMLElement;
     if (!firstMiddleCard || !firstThirdCard) return;
 
     const singleSetWidth = firstThirdCard.offsetLeft - firstMiddleCard.offsetLeft;

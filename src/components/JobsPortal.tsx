@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTheme } from '../context/ThemeContext';
 import { JobPosition } from '../types';
 import { INITIAL_JOBS } from '../data/jobsData';
@@ -34,6 +34,22 @@ export const JobsPortal: React.FC<JobsPortalProps> = ({ onOpenCVAnalyzer, isFull
   // Application Modal State
   const [selectedJob, setSelectedJob] = useState<JobPosition | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [jobsList, setJobsList] = useState<JobPosition[]>(INITIAL_JOBS);
+
+  useEffect(() => {
+    let isMounted = true;
+    fetch('/api/vacancies')
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (isMounted && Array.isArray(data) && data.length > 0) {
+          setJobsList(data);
+        }
+      })
+      .catch(() => {});
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   // Pill filter options
   const filterPills = [
@@ -80,7 +96,7 @@ export const JobsPortal: React.FC<JobsPortalProps> = ({ onOpenCVAnalyzer, isFull
   };
 
   // Filter jobs
-  const filteredJobs = INITIAL_JOBS.filter((job) => {
+  const filteredJobs = jobsList.filter((job) => {
     const term = searchTerm.toLowerCase();
     const matchesSearch = 
       !term ||

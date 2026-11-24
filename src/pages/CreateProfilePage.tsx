@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { createUserWithEmailAndPassword, onAuthStateChanged, sendEmailVerification } from 'firebase/auth';
+import { onAuthStateChanged } from 'firebase/auth';
 import { doc, getDoc, serverTimestamp, setDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import {
@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import { auth, db, storage } from '../lib/firebase';
+import { AccountSetupCard } from '../components/profile/AccountSetupCard';
 import { downloadProfilePdf, type ProfilePdfData } from '../utils/profilePdfGenerator';
 
 type CreationMode = 'choose' | 'manual' | 'upload';
@@ -42,9 +43,6 @@ export const CreateProfilePage: React.FC = () => {
   const photoInputRef = useRef<HTMLInputElement>(null);
   const [mode, setMode] = useState<CreationMode>('choose');
   const [accountReady, setAccountReady] = useState(Boolean(auth.currentUser));
-  const [accountError, setAccountError] = useState<string | null>(null);
-  const [isCreatingAccount, setIsCreatingAccount] = useState(false);
-  const [accountForm, setAccountForm] = useState({ name: '', email: '', password: '' });
   const [cvFile, setCvFile] = useState<File | null>(null);
   const [photoFile, setPhotoFile] = useState<File | null>(null);
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
@@ -83,31 +81,7 @@ export const CreateProfilePage: React.FC = () => {
     setForm((current) => ({ ...current, [field]: value }));
   };
 
-  const createAccount = async (event: React.FormEvent) => {
-    event.preventDefault();
-    if (isCreatingAccount) return;
-    setAccountError(null);
-    setIsCreatingAccount(true);
-    try {
-      const credential = await createUserWithEmailAndPassword(auth, accountForm.email.trim(), accountForm.password);
-      await setDoc(doc(db, 'users', credential.user.uid), {
-        uid: credential.user.uid,
-        displayName: accountForm.name.trim(),
-        email: accountForm.email.trim(),
-        accountType: 'candidate',
-        createdAt: serverTimestamp(),
-        updatedAt: serverTimestamp(),
-      });
-      await sendEmailVerification(credential.user);
-      setForm((current) => ({ ...current, name: accountForm.name.trim(), email: accountForm.email.trim() }));
-      setAccountReady(true);
-    } catch (error) {
-      const code = error instanceof Error ? error.message : '';
-      setAccountError(code.includes('auth/email-already-in-use') ? 'Ese correo ya tiene una cuenta. Inicia sesión para continuar.' : 'No se pudo crear la cuenta. Revisa el correo y usa una contraseña de al menos 6 caracteres.');
-    } finally {
-      setIsCreatingAccount(false);
-    }
-  };
+
 
   const handleCvChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0] ?? null;
@@ -219,26 +193,24 @@ export const CreateProfilePage: React.FC = () => {
     }
   };
 
-  if (!accountReady) return (
-    <div className={`min-h-screen pt-28 pb-20 ${isDark ? 'bg-[#06080B] text-white' : 'bg-[#F8FAFC] text-slate-900'}`}>
-      <div className="max-w-md mx-auto px-4 sm:px-6">
-        <form onSubmit={createAccount} className={`rounded-3xl border ${surface} p-7 sm:p-8 shadow-xl`}>
-          <div className="w-12 h-12 rounded-2xl bg-cyan-500/15 text-cyan-500 flex items-center justify-center mb-5"><UserRound className="w-6 h-6" /></div>
-          <p className="text-xs font-bold uppercase tracking-wider text-cyan-500">Paso 1 de 4</p>
-          <h1 className="mt-2 text-3xl font-black">Crea tu cuenta profesional</h1>
-          <p className={`mt-3 text-sm leading-relaxed ${muted}`}>Primero creamos tu espacio privado. Después podrás cargar tu CV, añadir tu foto, generar el PDF y publicar tu perfil.</p>
-          <div className="mt-6 space-y-4">
-            <label className="block text-xs font-bold">Nombre completo<input required value={accountForm.name} onChange={(e) => setAccountForm({ ...accountForm, name: e.target.value })} placeholder="Ej. María López" className={`mt-1.5 w-full rounded-xl border px-3.5 py-3 text-sm outline-none focus:border-cyan-500 ${input}`} /></label>
-            <label className="block text-xs font-bold">Correo electrónico<input required type="email" value={accountForm.email} onChange={(e) => setAccountForm({ ...accountForm, email: e.target.value })} placeholder="tu@correo.com" className={`mt-1.5 w-full rounded-xl border px-3.5 py-3 text-sm outline-none focus:border-cyan-500 ${input}`} /></label>
-            <label className="block text-xs font-bold">Contraseña<input required minLength={6} type="password" value={accountForm.password} onChange={(e) => setAccountForm({ ...accountForm, password: e.target.value })} placeholder="Mínimo 6 caracteres" className={`mt-1.5 w-full rounded-xl border px-3.5 py-3 text-sm outline-none focus:border-cyan-500 ${input}`} /></label>
-          </div>
-          {accountError && <p className="mt-4 rounded-xl bg-red-500/10 border border-red-500/30 px-3 py-2 text-xs text-red-500">{accountError}</p>}
-          <button type="submit" disabled={isCreatingAccount} className="mt-6 w-full rounded-xl py-3.5 px-5 bg-gradient-to-r from-cyan-500 to-teal-500 text-slate-950 font-extrabold flex items-center justify-center gap-2 disabled:opacity-60">{isCreatingAccount ? <><LoaderCircle className="w-4 h-4 animate-spin" /> Creando tu espacio...</> : <><ArrowRight className="w-4 h-4" /> Crear mi cuenta</>}</button>
-          <p className={`mt-4 text-[11px] text-center ${muted}`}>Te enviaremos un correo para verificar la cuenta. Tus documentos quedan asociados a tu espacio privado.</p>
-        </form>
-      </div>
-    </div>
-  );
+  if (!accountReady) {
+    return (
+      <AccountSetupCard
+        isDark={isDark}
+        surface={surface}
+        input={input}
+        muted={muted}
+        onSuccess={(name, email) => {
+          setForm((current) => ({ ...current, name, email }));
+          setAccountReady(true);
+        }}
+        onContinueLocal={(name, email) => {
+          setForm((current) => ({ ...current, name, email }));
+          setAccountReady(true);
+        }}
+      />
+    );
+  }
 
   const handlePdfDownload = async () => {
     if (!draft || isGeneratingPdf) return;

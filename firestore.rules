@@ -1,21 +1,363 @@
 rules_version = '2';
+
 service cloud.firestore {
   match /databases/{database}/documents {
-    function signedIn() { return request.auth != null; }
-    function owner(uid) { return signedIn() && request.auth.uid == uid; }
-    function admin() { return signedIn() && request.auth.token.admin == true; }
-    match /users/{uid} {
-      allow create: if owner(uid) && request.resource.data.accountType == 'candidate';
-      allow read: if owner(uid) || admin();
-      allow update: if admin() || (owner(uid) && request.resource.data.accountType == resource.data.accountType && request.resource.data.uid == resource.data.uid);
-      allow delete: if admin();
+
+    // =========================================================================
+    // 0. DEFAULT DENY
+    // =========================================================================
+    // Bloqueo estricto por defecto para cualquier ruta o colección no declarada.
+    match /{document=**} {
+      allow read, write: if false;
     }
-    match /applications/{id} { allow create: if signedIn() && request.resource.data.candidateUid == request.auth.uid && request.resource.data.status == 'received'; allow read: if admin() || (signedIn() && resource.data.candidateUid == request.auth.uid); allow update, delete: if admin(); }
+
+    // =========================================================================
+    // 1. HELPERS DE AUTENTICACIÓN, PROPIEDAD Y RBAC
+    // =========================================================================
+
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(uid) {
+      return isAuthenticated() && request.auth.uid == uid;
+    }
+
+    // Roles validados mediante Custom Claims en el Token (fuente fidedigna criptográfica, costo 0)
+    function isClaimAdmin() {
+      return isAuthenticated() && (
+        ('admin' in request.auth.token && request.auth.token.admin == true) ||
+        ('isAdmin' in request.auth.token && request.auth.token.isAdmin == true) ||
+        ('role' in request.auth.token && request.auth.token.role in ['admin', 'super', 'superadmin', 'recruiter'])
+      );
+    }
+
+    function isClaimSuper() {
+      return isAuthenticated() && (
+        ('super' in request.auth.token && request.auth.token.super == true) ||
+        ('role' in request.auth.token && request.auth.token.role in ['super', 'superadmin'])
+      );
+    }
+
+    // Fallback de roles leyendo el documento del usuario en Firestore
+    function isDocAdmin() {
+      return isAuthenticated() &&
+        exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.get('role', '') in ['admin', 'super', 'superadmin', 'recruiter'];
+    }
+
+    function isDocSuper() {
+      return isAuthenticated() &&
+        exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.get('role', '') in ['super', 'superadmin'];
+    }
+
+    function isAdmin() {
+      return isClaimAdmin() || isDocAdmin();
+    }
+
+    function isSuper() {
+      return isClaimSuper() || isDocSuper();
+    }
+
+    function isInstructor() {
+      return isAuthenticated() && (
+        ('role' in request.auth.token && request.auth.token.role in ['instructor', 'teacher']) ||
+        (exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.get('role', '') in ['instructor', 'teacher']) ||
+        isAdmin()
+      );
+    }
+
+    // =========================================================================
+    // 2. VALIDATOR FUNCTIONS (Defensa contra DoS, Exhaustion y Type Safety)
+    // =========================================================================
+
+    function isValidUser(data) {
+      return data.uid is string &&
+        data.uid.size() > 0 &&
+        data.uid.size() <= 128 &&
+        data.email is string &&
+        data.email.size() > 0 &&
+        data.email.size() <= 150 &&
+        (!('displayName' in data) || (data.displayName is string && data.displayName.size() <= 120)) &&
+        (!('phone' in data) || (data.phone == null || (data.phone is string && data.phone.size() <= 30))) &&
+        (!('role' in data) || (data.role is string && data.role.size() <= 30)) &&
+        (!('accountType' in data) || (data.accountType is string && data.accountType.size() <= 30)) &&
+        (!('skills' in data) || (data.skills is list && data.skills.size() <= 100)) &&
+        (!('courses' in data) || (data.courses is list && data.courses.size() <= 100));
+    }
+
+    function isValidUserSelfRoleAssignment(data) {
+      return (!('role' in data) || data.role in ['candidate', 'afiliate']) &&
+        (!('accountType' in data) || data.accountType in ['candidate', 'afiliate']);
+    }
+
+    function isValidApplication(data) {
+      return data.candidateUid is string &&
+        data.candidateUid.size() > 0 &&
+        data.candidateUid.size() <= 128 &&
+        data.jobId is string &&
+        data.jobId.size() > 0 &&
+        data.jobId.size() <= 128 &&
+        data.jobTitle is string &&
+        data.jobTitle.size() > 0 &&
+        data.jobTitle.size() <= 200 &&
+        data.status is string &&
+        data.status in ['received', 'pending', 'reviewing', 'shortlisted', 'interviewing', 'accepted', 'rejected', 'withdrawn'] &&
+        data.name is string &&
+        data.name.size() > 0 &&
+        data.name.size() <= 120 &&
+        data.email is string &&
+        data.email.size() > 0 &&
+        data.email.size() <= 150 &&
+        (!('phone' in data) || (data.phone == null || (data.phone is string && data.phone.size() <= 30))) &&
+        (!('linkedin' in data) || (data.linkedin == null || (data.linkedin is string && data.linkedin.size() <= 300))) &&
+        (!('desiredSalary' in data) || (data.desiredSalary == null || (data.desiredSalary is string && data.desiredSalary.size() <= 100))) &&
+        (!('availability' in data) || (data.availability is string && data.availability.size() <= 100)) &&
+        (!('cv' in data) || (data.cv is map));
+    }
+
+    function isValidCandidate(data) {
+      return data.name is string &&
+        data.name.size() > 0 &&
+        data.name.size() <= 120 &&
+        (!('headline' in data) || (data.headline is string && data.headline.size() <= 200)) &&
+        (!('summary' in data) || (data.summary is string && data.summary.size() <= 5000)) &&
+        (!('email' in data) || (data.email is string && data.email.size() <= 150)) &&
+        (!('phone' in data) || (data.phone == null || (data.phone is string && data.phone.size() <= 30))) &&
+        (!('location' in data) || (data.location is string && data.location.size() <= 120)) &&
+        (!('photoUrl' in data) || (data.photoUrl == null || (data.photoUrl is string && data.photoUrl.size() <= 2048))) &&
+        (!('specialties' in data) || (data.specialties is list && data.specialties.size() <= 50)) &&
+        (!('experience' in data) || (data.experience is list && data.experience.size() <= 50)) &&
+        (!('education' in data) || (data.education is list && data.education.size() <= 50)) &&
+        (!('links' in data) || (data.links is list && data.links.size() <= 30)) &&
+        (!('published' in data) || (data.published is bool)) &&
+        (!('ownerUid' in data) || (data.ownerUid is string && data.ownerUid.size() <= 128));
+    }
+
+    function isValidVacancy(data) {
+      return data.title is string &&
+        data.title.size() > 0 &&
+        data.title.size() <= 200 &&
+        data.description is string &&
+        data.description.size() <= 20000 &&
+        (!('department' in data) || (data.department is string && data.department.size() <= 120)) &&
+        (!('location' in data) || (data.location is string && data.location.size() <= 120)) &&
+        (!('modality' in data) || (data.modality is string && data.modality.size() <= 60)) &&
+        (!('salaryRange' in data) || (data.salaryRange is string && data.salaryRange.size() <= 100)) &&
+        (!('experienceLevel' in data) || (data.experienceLevel is string && data.experienceLevel.size() <= 100)) &&
+        (!('status' in data) || (data.status in ['active', 'paused', 'closed', 'draft', 'archived'])) &&
+        (!('requirements' in data) || (data.requirements is list && data.requirements.size() <= 50)) &&
+        (!('benefits' in data) || (data.benefits is list && data.benefits.size() <= 50)) &&
+        (!('tags' in data) || (data.tags is list && data.tags.size() <= 30));
+    }
+
+    function isValidCourse(data) {
+      return data.title is string &&
+        data.title.size() > 0 &&
+        data.title.size() <= 200 &&
+        data.description is string &&
+        data.description.size() <= 20000 &&
+        (!('published' in data) || (data.published is bool)) &&
+        (!('category' in data) || (data.category is string && data.category.size() <= 100)) &&
+        (!('level' in data) || (data.level in ['beginner', 'intermediate', 'advanced', 'all_levels'])) &&
+        (!('instructorUid' in data) || (data.instructorUid is string && data.instructorUid.size() <= 128)) &&
+        (!('modules' in data) || (data.modules is list && data.modules.size() <= 100)) &&
+        (!('price' in data) || (data.price is number && data.price >= 0));
+    }
+
+    function isValidEnrollment(data) {
+      return data.userId is string &&
+        data.userId == request.auth.uid &&
+        data.courseId is string &&
+        data.courseId.size() > 0 &&
+        data.courseId.size() <= 128 &&
+        (!('status' in data) || (data.status in ['active', 'enrolled', 'completed', 'cancelled', 'expired'])) &&
+        (!('progress' in data) || (data.progress is number && data.progress >= 0 && data.progress <= 100)) &&
+        (!('completedLessons' in data) || (data.completedLessons is list && data.completedLessons.size() <= 500));
+    }
+
+    // =========================================================================
+    // 3. COLECCIÓN USERS (Candidatos, Afiliados y Administradores)
+    // =========================================================================
+    match /users/{userId} {
+      // Dueño o Administrador pueden leer el perfil
+      allow read: if isOwner(userId) || isAdmin();
+
+      // Creación: Dueño (autenticado) o Administrador/Super
+      // Si es el dueño, se restringe la asignación de rol para evitar escalada de privilegios
+      allow create: if (isSuper() || isAdmin()) || (
+        isOwner(userId) &&
+        request.resource.data.uid == userId &&
+        isValidUser(request.resource.data) &&
+        isValidUserSelfRoleAssignment(request.resource.data)
+      );
+
+      // Edición: Dueño o Administrador/Super
+      // Si es el dueño, se validan los tipos y campos inmutables (uid, createdAt, rol no escalable)
+      allow update: if (isSuper() || isAdmin()) || (
+        isOwner(userId) &&
+        request.resource.data.uid == resource.data.uid &&
+        (!('createdAt' in resource.data) || request.resource.data.createdAt == resource.data.createdAt) &&
+        isValidUser(request.resource.data) &&
+        isValidUserSelfRoleAssignment(request.resource.data) &&
+        (!('role' in resource.data) || request.resource.data.get('role', '') == resource.data.role)
+      );
+
+      // Eliminación: Exclusiva de Superusuarios o Administradores
+      allow delete: if isSuper() || isAdmin();
+
+      // Subcolecciones del usuario (notificaciones, logs, preferencias)
+      match /{allChildren=**} {
+        allow read, write: if isOwner(userId) || isAdmin();
+      }
+    }
+
+    // =========================================================================
+    // 4. COLECCIÓN APPLICATIONS (Postulaciones a Vacantes)
+    // =========================================================================
+    match /applications/{applicationId} {
+      // Postulante puede leer sus propias postulaciones; administradores leen todas
+      allow read: if (isAuthenticated() && resource.data.candidateUid == request.auth.uid) || isAdmin();
+
+      // Creación: Candidato/Afiliado autenticado para sí mismo con estado inicial recibido o pendiente
+      allow create: if isAuthenticated() &&
+        request.resource.data.candidateUid == request.auth.uid &&
+        request.resource.data.status in ['received', 'pending'] &&
+        isValidApplication(request.resource.data);
+
+      // Actualización:
+      // - Administradores pueden actualizar estado y campos de revisión
+      // - Candidato postulante solo puede retirar su postulación ('withdrawn') sin modificar datos ajenos
+      allow update: if (
+        isAdmin() &&
+        isValidApplication(request.resource.data) &&
+        request.resource.data.candidateUid == resource.data.candidateUid &&
+        request.resource.data.jobId == resource.data.jobId &&
+        (!('createdAt' in resource.data) || request.resource.data.createdAt == resource.data.createdAt)
+      ) || (
+        isAuthenticated() &&
+        resource.data.candidateUid == request.auth.uid &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'updatedAt']) &&
+        request.resource.data.status == 'withdrawn'
+      );
+
+      // Eliminación: Administradores o Superusuarios
+      allow delete: if isSuper() || isAdmin();
+    }
+
+    // =========================================================================
+    // 5. COLECCIONES CANDIDATES Y PROFILES (Hojas de Vida y Perfiles Profesionales)
+    // =========================================================================
+    match /candidates/{candidateId} {
+      // Lectura pública si está publicado o aprobado; el dueño y admins leen siempre
+      allow read: if resource.data.get('published', false) == true ||
+        resource.data.get('status', '') == 'approved' ||
+        isOwner(candidateId) ||
+        (isAuthenticated() && resource.data.get('ownerUid', '') == request.auth.uid) ||
+        isAdmin();
+
+      // Creación: Dueño de la cuenta o Administrador
+      allow create: if isAuthenticated() &&
+        (candidateId == request.auth.uid || request.resource.data.get('ownerUid', '') == request.auth.uid) &&
+        isValidCandidate(request.resource.data);
+
+      // Actualización: Dueño o Administrador, preservando la propiedad inmutable
+      allow update: if isAuthenticated() &&
+        (candidateId == request.auth.uid || resource.data.get('ownerUid', '') == request.auth.uid || isAdmin()) &&
+        (!('ownerUid' in resource.data) || request.resource.data.get('ownerUid', '') == resource.data.ownerUid) &&
+        isValidCandidate(request.resource.data);
+
+      // Eliminación: Dueño o Administrador
+      allow delete: if isAuthenticated() &&
+        (candidateId == request.auth.uid || resource.data.get('ownerUid', '') == request.auth.uid || isAdmin());
+    }
+
+    // Compatibilidad para perfiles por slug ('profiles/{slug}')
     match /profiles/{slug} {
-      allow read: if resource.data.published == true;
-      allow create: if signedIn() && request.resource.data.ownerUid == request.auth.uid;
-      allow update: if signedIn() && (resource.data.ownerUid == request.auth.uid || admin());
-      allow delete: if signedIn() && (resource.data.ownerUid == request.auth.uid || admin());
+      allow read: if resource.data.get('published', false) == true ||
+        (isAuthenticated() && resource.data.get('ownerUid', '') == request.auth.uid) ||
+        isAdmin();
+
+      allow create: if isAuthenticated() &&
+        request.resource.data.get('ownerUid', '') == request.auth.uid &&
+        isValidCandidate(request.resource.data);
+
+      allow update: if isAuthenticated() &&
+        (resource.data.get('ownerUid', '') == request.auth.uid || isAdmin()) &&
+        (!('ownerUid' in resource.data) || request.resource.data.get('ownerUid', '') == resource.data.ownerUid) &&
+        isValidCandidate(request.resource.data);
+
+      allow delete: if isAuthenticated() &&
+        (resource.data.get('ownerUid', '') == request.auth.uid || isAdmin());
+    }
+
+    // =========================================================================
+    // 6. COLECCIONES VACANCIES Y JOBS (Vacantes de Empleo)
+    // =========================================================================
+    match /vacancies/{vacancyId} {
+      // Lectura pública para cualquier visitante (candidato, reclutador, público general)
+      allow read: if true;
+
+      // Creación y Modificación: Exclusiva para administradores y superusuarios
+      allow create, update: if isAdmin() && isValidVacancy(request.resource.data);
+
+      // Eliminación: Exclusiva para administradores y superusuarios
+      allow delete: if isSuper() || isAdmin();
+    }
+
+    match /jobs/{jobId} {
+      allow read: if true;
+      allow create, update: if isAdmin() && isValidVacancy(request.resource.data);
+      allow delete: if isSuper() || isAdmin();
+    }
+
+    // =========================================================================
+    // 7. B1 ACADEMY: COURSES Y ENROLLMENTS
+    // =========================================================================
+    match /courses/{courseId} {
+      // Lectura pública si está publicado; si no, visible para usuarios autenticados o instructores
+      allow read: if resource.data.get('published', false) == true ||
+        isAuthenticated();
+
+      // Creación y edición: Instructores autorizados o Administradores/Super
+      allow create, update: if (isInstructor() || isAdmin()) && isValidCourse(request.resource.data);
+
+      // Eliminación: Administrador o Superusuario
+      allow delete: if isSuper() || isAdmin();
+
+      // Subcolecciones de lecciones, módulos y materiales
+      match /{allChildren=**} {
+        allow read: if resource.data.get('published', false) == true || isAuthenticated();
+        allow write: if isInstructor() || isAdmin();
+      }
+    }
+
+    match /enrollments/{enrollmentId} {
+      // Lectura: El usuario inscrito o administradores
+      allow read: if isAuthenticated() && (resource.data.userId == request.auth.uid || isAdmin());
+
+      // Inscripción: Usuario autenticado registrándose a sí mismo
+      allow create: if isAuthenticated() &&
+        request.resource.data.userId == request.auth.uid &&
+        request.resource.data.get('status', 'active') in ['active', 'enrolled'] &&
+        isValidEnrollment(request.resource.data);
+
+      // Actualización de progreso: El usuario inscrito (sin cambiar id de usuario ni curso) o administradores
+      allow update: if (
+        isAdmin()
+      ) || (
+        isAuthenticated() &&
+        resource.data.userId == request.auth.uid &&
+        request.resource.data.userId == resource.data.userId &&
+        request.resource.data.courseId == resource.data.courseId &&
+        (!('createdAt' in resource.data) || request.resource.data.createdAt == resource.data.createdAt) &&
+        isValidEnrollment(request.resource.data)
+      );
+
+      // Eliminación: Administrador o Superusuario
+      allow delete: if isSuper() || isAdmin();
     }
   }
 }

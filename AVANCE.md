@@ -5,6 +5,13 @@
 **Próximos pasos:** Migrar autenticación, usuarios, leads y contenido a Firebase con reglas y verificación server-side; conectar GA4 Data API o una fuente equivalente al dashboard; retirar secretos del repositorio; validar producción, consentimiento, eventos y entrega real de leads antes de activar campañas.
 **Archivos modificados:** C:/dev/proyectos/nexotalentos/AVANCE.md
 
+## [2026-11-23] - Nexo Talento - Codex
+**Qué se hizo:** Se reparó un intento fallido de división de componentes que había dejado `BlogPage.tsx` truncado. Se restauró el archivo completo desde HEAD y se conservó únicamente la división compilable de `AdminDashboard` en layout y paneles.
+**Resultado:** `npm run lint` y `npm run build` pasan; el prerender vuelve a generar 12 rutas, incluyendo `/crear-perfil` y `/admin`. `AdminDashboard.tsx` quedó en 441 líneas y sus archivos extraídos están por debajo de 500; `BlogPage.tsx` quedó íntegro en 863 líneas para evitar otra ruptura.
+**Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
+**Próximos pasos:** No dividir `BlogPage.tsx` hasta hacerlo en una rama o copia verificable; configurar en Vercel las variables `VITE_FIREBASE_*` del `.env` para que la creación de trabajadores funcione en producción.
+**Archivos modificados:** C:/dev/proyectos/nexotalentos/src/components/admin/AdminDashboard.tsx; C:/dev/proyectos/nexotalentos/src/components/admin/AdminDashboardLayout.tsx; C:/dev/proyectos/nexotalentos/src/components/admin/AdminDashboardPrimaryTabs.tsx; C:/dev/proyectos/nexotalentos/src/components/admin/AdminDashboardSecondaryTabs.tsx; C:/dev/proyectos/nexotalentos/src/pages/BlogPage.tsx; C:/dev/proyectos/nexotalentos/AVANCE.md
+
 ## [2026-11-19] - Nexo Talento - Codex
 **Qué se hizo:** Auditoría paralela de ciberseguridad, arquitectura y preservación visual; inicio de migración de autenticación y candidaturas a Firebase.
 **Resultado:** Se retiró del servidor el login local y el token Base64, se protegieron las rutas administrativas con verificación de Firebase Admin, se sustituyó el login frontend por Firebase Auth, se añadieron reglas iniciales de Firestore/Storage y se retiraron del JSON versionado los datos de autenticación expuestos. El flujo de CV dejó de simular importaciones y ahora valida consentimiento, cuenta y carga privada; queda pendiente validar dependencias y entorno Firebase real.
@@ -61,3 +68,24 @@
 **Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
 **Archivos modificados:** C:/dev/proyectos/nexotalentos/src/pages/CreateProfilePage.tsx; C:/dev/proyectos/nexotalentos/storage.rules; C:/dev/proyectos/nexotalentos/AVANCE.md
 
+## [2026-11-23] - Nexo Talento - Codex
+**Qué se hizo:** Se realizó una auditoría de código, compilación, endpoints locales, reglas Firebase, SEO, dependencias y configuración de despliegue, sin modificar la aplicación.
+**Resultado:** El build y el prerender de 12 rutas pasan; el endpoint administrativo devuelve 401 sin token. Se identificaron riesgos prioritarios en lectura pública de archivos de perfil en Storage, persistencia local de leads, exposición de PII en logs/correos, dependencias vulnerables, CSP permisiva y archivos monolíticos.
+**Skills usadas/modificadas:** reglas-seguridad, aplicación-seguridad, find-security-vulnerabilities-in-code, modularidad-archivos, registrar-avance.
+**Próximos pasos:** Corregir primero la privacidad de Storage y persistencia de leads; después validar autenticación Firebase en staging, actualizar dependencias de forma controlada y realizar pruebas visuales/funcionales completas.
+**Archivos modificados:** C:/dev/proyectos/nexotalentos/AVANCE.md
+
+
+## [2026-11-23] - Nexo Talento - Antigravity (Hermes Web A+)
+**Qué se hizo:** Implementación de validación de correo real en tiempo real (sintaxis estricta RFC, lista negra de correos temporales/desechables y resolución DNS de registros MX activos en Node.js vía resolvers públicos 8.8.8.8 / 1.1.1.1), endpoint `/api/validate-email`, modularización del formulario de alta en `AccountSetupCard.tsx`, robustecimiento del esquema de usuario en Firestore (`users/{uid}`) con auditoría inmutable (`role: 'afiliate'`, `status: 'pending_verification'`, `emailVerified: false`, `termsAccepted: true`), y refactorización de `CreateProfilePage.tsx` de 499 a 346 líneas.
+**Resultado:** Cero errores de TypeScript (`npx tsc --noEmit`), compilación de producción y pre-renderizado de 12 rutas estáticas exitoso (`npm run build` exit code 0). Se impide el registro de cuentas fraudulentas o correos inexistentes. Git push retenido según la regla de oro a la espera de aprobación de Pablo.
+**Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
+**Próximos pasos:** Obtener autorización de Pablo para `git push`, desplegar reglas de Firestore/Storage actualizadas y avanzar con el módulo de inscripciones y cursos de B1 Academy.
+**Archivos modificados:** C:/dev/proyectos/nexotalentos/server.ts; C:/dev/proyectos/nexotalentos/src/server/emailValidator.ts; C:/dev/proyectos/nexotalentos/src/lib/emailValidator.ts; C:/dev/proyectos/nexotalentos/src/components/profile/AccountSetupCard.tsx; C:/dev/proyectos/nexotalentos/src/pages/CreateProfilePage.tsx; C:/dev/proyectos/nexotalentos/src/features/candidates/application.ts; C:/dev/proyectos/nexotalentos/firestore.rules; C:/dev/proyectos/nexotalentos/storage.rules; C:/dev/proyectos/nexotalentos/AVANCE.md
+
+## [2026-11-24] - Nexo Talento - Codex
+**Qué se hizo:** Se ajustó la experiencia móvil de Jobhunting para mostrar fases y bloqueos en dos columnas, con numeración integrada y copy más orientado a conversión. Se añadieron captura de atribución UTM/click IDs, manejo real de errores en formularios y eventos de generación de lead.
+**Resultado:** Lint, build de Vite, prerender y bundle del servidor completan correctamente; se eliminó el aviso de optimización de SVG instalando `svgo`. La auditoría de publicidad detectó que Meta/TikTok aún tienen IDs de marcador y que la persistencia/variables de producción deben verificarse antes de invertir presupuesto.
+**Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
+**Próximos pasos:** Configurar IDs reales y variables en Vercel, probar un lead real en producción y corregir los riesgos pendientes de Storage, persistencia y dependencias antes de activar campañas.
+**Archivos modificados:** C:/dev/proyectos/nexotalentos/src/components/jobhunting/JobhuntingPhases.tsx; C:/dev/proyectos/nexotalentos/src/components/jobhunting/JobhuntingPainPoints.tsx; C:/dev/proyectos/nexotalentos/src/components/jobhunting/JobhuntingForm.tsx; C:/dev/proyectos/nexotalentos/src/components/ContactSection.tsx; C:/dev/proyectos/nexotalentos/src/pages/ContactoPage.tsx; C:/dev/proyectos/nexotalentos/src/components/TalentAssessmentWizard.tsx; C:/dev/proyectos/nexotalentos/src/lib/attribution.ts; C:/dev/proyectos/nexotalentos/server.ts; C:/dev/proyectos/nexotalentos/package.json; C:/dev/proyectos/nexotalentos/package-lock.json; C:/dev/proyectos/nexotalentos/AVANCE.md

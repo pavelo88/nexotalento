@@ -21,6 +21,8 @@ import {
 import { isValidEmail, isValidPhone, sanitizeInput } from '../utils/security';
 import { COMPANY_CONFIG } from '../config/company';
 import { SuccessModal } from './SuccessModal';
+import { getMarketingAttribution } from '../lib/attribution';
+import { trackEvent } from '../lib/tracking';
 
 export const ContactSection: React.FC = () => {
   const { theme } = useTheme();
@@ -98,19 +100,20 @@ Enviado desde el formulario web de Nexo Talento.`;
           company: tab === 'empresa' ? cleanCompany : 'Candidato Confidencial',
           role,
           serviceType: tab === 'empresa' ? serviceType : 'Candidatura Espontánea / Base de Talento',
-          message: cleanMessage
+          message: cleanMessage,
+          attribution: getMarketingAttribution()
         })
       });
 
       if (!response.ok) {
-        console.error('Error al enviar la solicitud (probablemente en Vercel falta backend)');
+        throw new Error('No se pudo registrar la solicitud.');
       }
 
+      trackEvent({ eventName: 'generate_lead', category: 'ContactSection', label: 'Contact form' });
       setSubmitted(true);
     } catch (err) {
       console.error('Error de red:', err);
-      // Forzamos el popup como pidió el usuario, aunque falle la red.
-      setSubmitted(true);
+      setErrorMsg('No pudimos registrar tu solicitud. Revisa tu conexión e inténtalo nuevamente.');
     } finally {
       setIsSubmitting(false);
     }

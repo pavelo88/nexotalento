@@ -14,6 +14,8 @@ import {
   Award
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import { getMarketingAttribution } from '../lib/attribution';
+import { trackEvent } from '../lib/tracking';
 import { SuccessModal } from './SuccessModal';
 
 export const TalentAssessmentWizard: React.FC = () => {
@@ -62,14 +64,16 @@ export const TalentAssessmentWizard: React.FC = () => {
           company: formData.companyName,
           role: formData.profileCategory,
           serviceType: 'Diagnóstico de Talento & Headhunting',
-          message: `Diagnóstico realizado: Empresa: ${formData.companyType}, Tamaño: ${formData.teamSize}, Urgencia: ${formData.urgency}, Posición: ${formData.profileCategory}, Ubicación: ${formData.location}`
+          message: `Diagnóstico realizado: Empresa: ${formData.companyType}, Tamaño: ${formData.teamSize}, Urgencia: ${formData.urgency}, Posición: ${formData.profileCategory}, Ubicación: ${formData.location}`,
+          attribution: getMarketingAttribution()
         })
       });
 
       if (!response.ok) {
-        console.error('Error al enviar el formulario (probablemente en Vercel falta backend)');
+        throw new Error('No se pudo registrar el diagnóstico.');
       }
 
+      trackEvent({ eventName: 'generate_lead', category: 'TalentAssessment', label: 'Talent assessment wizard' });
       setIsCompleted(true);
       confetti({
         particleCount: 100,
@@ -78,8 +82,6 @@ export const TalentAssessmentWizard: React.FC = () => {
       });
     } catch (err) {
       console.error('Error de red:', err);
-      // Forzamos el popup como pidió el usuario, aunque falle la red.
-      setIsCompleted(true);
     } finally {
       setIsSubmitting(false);
     }

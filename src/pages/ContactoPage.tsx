@@ -21,6 +21,8 @@ import { PageRoute } from '../types';
 import { useTheme } from '../context/ThemeContext';
 import { COMPANY_CONFIG } from '../config/company';
 import { SuccessModal } from '../components/SuccessModal';
+import { getMarketingAttribution } from '../lib/attribution';
+import { trackEvent } from '../lib/tracking';
 
 interface ContactoPageProps {
   onNavigate: (path: PageRoute) => void;
@@ -42,6 +44,7 @@ export const ContactoPage: React.FC<ContactoPageProps> = ({
   const [message, setMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
 
   const whatsappPhone = '34614143763';
   const whatsappUrl = `https://wa.me/${whatsappPhone}?text=${encodeURIComponent(
@@ -53,6 +56,7 @@ export const ContactoPage: React.FC<ContactoPageProps> = ({
     if (!name || !email) return;
 
     setIsSubmitting(true);
+    setErrorMsg('');
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
@@ -65,19 +69,20 @@ export const ContactoPage: React.FC<ContactoPageProps> = ({
           role: tab === 'empresa' ? role : 'Perfil Directivo',
           serviceType,
           message,
-          source: 'Pagina Contacto'
+          source: 'Pagina Contacto',
+          attribution: getMarketingAttribution()
         })
       });
 
       if (!response.ok) {
-        console.error('Error al enviar la solicitud (probablemente en Vercel falta backend)');
+        throw new Error('No se pudo registrar la solicitud.');
       }
 
+      trackEvent({ eventName: 'generate_lead', category: 'ContactoPage', label: 'Contact page form' });
       setSubmitted(true);
     } catch (err) {
       console.error('Error de red:', err);
-      // Forzamos el popup como pidió el usuario, aunque falle la red.
-      setSubmitted(true);
+      setErrorMsg('No pudimos registrar tu solicitud. Revisa tu conexión e inténtalo nuevamente.');
     } finally {
       setIsSubmitting(false);
     }
@@ -325,6 +330,12 @@ export const ContactoPage: React.FC<ContactoPageProps> = ({
                   <span>Soy Candidato (Enviar Perfil)</span>
                 </button>
               </div>
+
+              {errorMsg && (
+                <p className="mb-4 rounded-xl border border-rose-200 bg-rose-50 px-3 py-2 text-xs font-semibold text-rose-700 dark:border-rose-500/30 dark:bg-rose-950/30 dark:text-rose-300">
+                  {errorMsg}
+                </p>
+              )}
 
               <form onSubmit={handleSubmit} className="space-y-4" data-webmcp-form="contacto-page-form">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

@@ -8,6 +8,7 @@ import { GoogleGenAI } from "@google/genai";
 import rateLimit from "express-rate-limit";
 import { AI_KNOWLEDGE_BASE } from "./ai-knowledge";
 import { verifyAdminToken } from "./src/server/firebase-admin";
+import { validateRealEmail } from "./src/server/emailValidator";
 
 dotenv.config();
 
@@ -64,6 +65,17 @@ function sanitizeInput(input: unknown, maxLen = 8000): string {
     clean = clean.substring(0, maxLen);
   }
   return clean;
+}
+
+function sanitizeAttribution(input: unknown): Record<string, string> {
+  if (!input || typeof input !== 'object') return {};
+  const allowed = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid', 'fbclid', 'ttclid'];
+  return Object.fromEntries(
+    allowed.flatMap((key) => {
+      const value = sanitizeInput((input as Record<string, unknown>)[key], 200);
+      return value ? [[key, value]] : [];
+    })
+  );
 }
 
 // Prompt Injection Guard: Isolates user data within XML tags to prevent directive overrides
@@ -839,7 +851,7 @@ async function appendToGoogleSheet(rowData: string[]): Promise<void> {
   const sheets = google.sheets({ version: "v4", auth });
   await sheets.spreadsheets.values.append({
     spreadsheetId: sheetId,
-    range: "Leads!A:J",
+    range: "Leads!A:K",
     valueInputOption: "USER_ENTERED",
     requestBody: { values: [rowData] },
   });
@@ -864,11 +876,13 @@ app.post(["/api/contact", "/api/leads"], contactRateLimiter, async (req, res) =>
     const role = sanitizeInput(req.body?.role) || "Sin cargo especificado";
     const serviceType = sanitizeInput(req.body?.serviceType) || "Consulta General";
     const message = sanitizeInput(req.body?.message) || "Sin mensaje";
+    const source = sanitizeInput(req.body?.source, 200) || "Formulario web";
+    const attribution = sanitizeAttribution(req.body?.attribution);
     const clientIP = (req.headers["x-forwarded-for"] as string || req.ip || "unknown").split(",")[0].trim();
     const leadId = "lead_" + Date.now();
     const createdAt = new Date().toISOString();
 
-    const newLead = { id: leadId, createdAt, name, email, phone, company, role, serviceType, message, clientIP };
+    const newLead = { id: leadId, createdAt, name, email, phone, company, role, serviceType, message, source, attribution, clientIP };
     console.log("📨 [NUEVO LEAD — NEXO TALENTO]:", JSON.stringify(newLead, null, 2));
 
     // ── 1. Backup JSON local ──────────────────────────────────────────
@@ -977,7 +991,7 @@ app.post(["/api/contact", "/api/leads"], contactRateLimiter, async (req, res) =>
     // ── 3. Google Sheets en paralelo ──────────────────────────────────
     asyncTasks.push(
       appendToGoogleSheet([
-        leadId, createdAt, name, email, phone, company, role, serviceType, message, clientIP
+        leadId, createdAt, name, email, phone, company, role, serviceType, message, source, JSON.stringify(attribution)
       ]).then(() => console.log("[Sheets] ✅ Lead registrado en Google Sheets."))
         .catch((sheetErr) => console.warn("[Sheets] Error registrando en Google Sheets (no crítico):", sheetErr))
     );
@@ -1053,6 +1067,51 @@ app.post("/api/admin/content", adminAuth, (req, res) => {
   } catch (error) {
     console.error("Error guardando contenido:", error);
     res.status(500).json({ error: "Error guardando configuración del sitio." });
+  }
+});
+
+// 4.1. Obtener Contenido Público y Vacantes en Vivo
+app.get("/api/content", (_req, res) => {
+  try {
+    if (fs.existsSync(SITE_CONTENT_PATH)) {
+      const data = fs.readFileSync(SITE_CONTENT_PATH, "utf-8");
+      return res.json(JSON.parse(data));
+    }
+    res.json({ hero: {}, contact: {}, vacancies: [] });
+  } catch (error) {
+    res.status(500).json({ error: "Error leyendo configuración pública del sitio." });
+  }
+});
+
+app.get("/api/vacancies", (_req, res) => {
+  try {
+    if (fs.existsSync(SITE_CONTENT_PATH)) {
+      const parsed = JSON.parse(fs.readFileSync(SITE_CONTENT_PATH, "utf-8"));
+      if (Array.isArray(parsed.vacancies) && parsed.vacancies.length > 0) {
+        return res.json(parsed.vacancies);
+      }
+    }
+    res.json([]);
+  } catch (error) {
+    res.status(500).json({ error: "Error leyendo vacantes del sitio." });
+  }
+});
+
+// 4.2. Validación de Correo Real (Sintaxis RFC, Bloqueo Desechables y DNS MX)
+app.post("/api/validate-email", async (req, res) => {
+  try {
+    const { email } = req.body || {};
+    if (!email || typeof email !== "string") {
+      return res.status(400).json({ valid: false, error: "El correo electrónico es requerido." });
+    }
+    const result = await validateRealEmail(email);
+    if (!result.valid) {
+      return res.status(422).json(result);
+    }
+    return res.json(result);
+  } catch (err: any) {
+    console.error("[EmailValidator] Error validando correo:", err);
+    return res.status(500).json({ valid: false, error: "Error interno al validar el correo." });
   }
 });
 
