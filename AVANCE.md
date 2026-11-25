@@ -283,3 +283,10 @@
 **Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance, application-security-testing.
 **Próximos pasos:** Configurar Firebase Admin en Vercel, desplegar las reglas de Firebase y el commit actual, asignar el rol administrativo a la cuenta corporativa y ejecutar pruebas reales de alta, perfil, postulación, lead, WhatsApp y panel Admin antes de invertir en campañas.
 **Archivos modificados:** C:/dev/proyectos/nexotalentos/src/pages/ContactoPage.tsx; C:/dev/proyectos/nexotalentos/src/components/ContactSection.tsx; C:/dev/proyectos/nexotalentos/src/components/Hero.tsx; C:/dev/proyectos/nexotalentos/src/components/JobApplicationModal.tsx; C:/dev/proyectos/nexotalentos/src/components/profile/AccountSetupCard.tsx; C:/dev/proyectos/nexotalentos/server.ts; C:/dev/proyectos/nexotalentos/src/server/serverless-contact.ts; C:/dev/proyectos/nexotalentos/package-lock.json; C:/dev/proyectos/nexotalentos/AVANCE.md
+
+## [2026-11-25] - Nexo Talento - Codex
+**Qué se hizo:** Se centralizó la política de roles administrativos en Firebase Admin y se subió un commit nuevo a `main` para disparar el despliegue automático de GitHub.
+**Resultado:** `npm run lint`, `npm run build` y la comprobación de formato pasaron. Las tres variables privadas de Firebase Admin ya están registradas como secretos de producción en Vercel; queda verificar el despliegue y los flujos reales en producción.
+**Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
+**Próximos pasos:** Confirmar que el nuevo despliegue de Vercel quede listo y probar contacto, evento de WhatsApp, acceso Admin y persistencia de leads.
+**Archivos modificados:** C:/dev/proyectos/nexotalentos/src/server/firebase-admin.ts; C:/dev/proyectos/nexotalentos/AVANCE.md
