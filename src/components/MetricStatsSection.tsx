@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTheme } from '../context/ThemeContext';
 import { Users, Clock, TrendingUp, ShieldCheck } from 'lucide-react';
+import { Reveal } from './motion/Reveal';
 
 export const MetricStatsSection: React.FC = () => {
   const { theme } = useTheme();
@@ -47,8 +48,12 @@ export const MetricStatsSection: React.FC = () => {
           {metrics.map((metric, idx) => {
             const Icon = metric.icon;
             return (
-              <div
+              <Reveal
                 key={idx}
+                delay={idx * 0.08}
+                className="h-full"
+              >
+              <div
                 className={`glass-card p-5 sm:p-6 rounded-3xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col justify-between ${
                   theme === 'dark'
                     ? 'bg-slate-900/80 border-slate-800 shadow-xl shadow-black/30'
@@ -74,6 +79,7 @@ export const MetricStatsSection: React.FC = () => {
                   {metric.detail}
                 </p>
               </div>
+              </Reveal>
             );
           })}
         </div>

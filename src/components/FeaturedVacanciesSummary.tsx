@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { useTheme } from '../context/ThemeContext';
 import { JobPosition, PageRoute } from '../types';
 import { INITIAL_JOBS } from '../data/jobsData';
+import { Reveal } from './motion/Reveal';
 import { 
   MapPin, 
   ArrowRight, 
@@ -103,7 +104,7 @@ export const FeaturedVacanciesSummary: React.FC<FeaturedVacanciesSummaryProps> =
         
         {/* Header con estética SaaS de Alto Impacto */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-          <div className="max-w-2xl">
+          <Reveal className="max-w-2xl">
             <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border shadow-sm mb-3.5 text-xs font-bold ${
               theme === 'dark' 
                 ? 'bg-cyan-950/40 border-cyan-500/30 text-cyan-300' 
@@ -128,10 +129,10 @@ export const FeaturedVacanciesSummary: React.FC<FeaturedVacanciesSummaryProps> =
             }`}>
               Procesos activos para empresas líderes en España y Latam. Bandas salariales transparentes, contratación directa y gestión de terna ejecutiva.
             </p>
-          </div>
+          </Reveal>
 
           {/* Carousel Navigation Buttons & Actions (Always Active, Continuous Loop) */}
-          <div className="flex items-center gap-2.5 self-start md:self-auto shrink-0">
+          <Reveal delay={0.12} className="flex items-center gap-2.5 self-start md:self-auto shrink-0">
             <button
               onClick={() => scroll('left')}
               aria-label="Anterior vacante"
@@ -146,7 +147,7 @@ export const FeaturedVacanciesSummary: React.FC<FeaturedVacanciesSummaryProps> =
             >
               <ChevronRight className="w-5 h-5" />
             </button>
-          </div>
+          </Reveal>
         </div>
 
       </div>
@@ -159,10 +160,14 @@ export const FeaturedVacanciesSummary: React.FC<FeaturedVacanciesSummaryProps> =
           className="flex gap-6 overflow-x-auto pb-4 pt-1 snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
         >
           {extendedVacancies.map((job, idx) => (
-            <div
+            <Reveal
               key={`${job.id}-${idx}`}
+              delay={0.16 + (idx % 3) * 0.08}
+              className="w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] shrink-0 snap-start"
+            >
+            <div
               onClick={() => onNavigate('/vacantes')}
-              className={`glass-card w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] shrink-0 snap-start group relative rounded-3xl p-6 border transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl flex flex-col justify-between cursor-pointer ${
+              className={`glass-card w-full h-full group relative rounded-3xl p-6 border transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl flex flex-col justify-between cursor-pointer ${
                 theme === 'dark'
                   ? 'bg-slate-900/80 hover:bg-slate-900 border-slate-800 hover:border-cyan-500/60 shadow-xl shadow-black/40'
                   : 'hover:border-cyan-500/60 shadow-md hover:shadow-xl'
@@ -247,6 +252,7 @@ export const FeaturedVacanciesSummary: React.FC<FeaturedVacanciesSummaryProps> =
               </div>
 
             </div>
+            </Reveal>
           ))}
         </div>
 

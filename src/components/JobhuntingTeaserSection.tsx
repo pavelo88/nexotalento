@@ -2,6 +2,7 @@ import React from 'react';
 import { useTheme } from '../context/ThemeContext';
 import { PageRoute } from '../types';
 import { Sparkles, ArrowRight, CheckCircle2, Clock, Award, ShieldCheck, HeartHandshake } from 'lucide-react';
+import { Reveal } from './motion/Reveal';
 
 interface JobhuntingTeaserSectionProps {
   onNavigate: (path: PageRoute) => void;
@@ -26,6 +27,7 @@ export const JobhuntingTeaserSection: React.FC<JobhuntingTeaserSectionProps> = (
             {/* Columna Izquierda: Mensaje y Propuesta */}
             <div className="lg:col-span-7 space-y-5">
               
+              <Reveal>
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#00A896]/20 border border-[#00A896]/40 backdrop-blur-md">
                 <Sparkles className="w-3.5 h-3.5 text-[#00E5C9]" />
                 <span className="text-[11px] font-bold uppercase tracking-wider text-[#00E5C9]">
@@ -43,8 +45,10 @@ export const JobhuntingTeaserSection: React.FC<JobhuntingTeaserSectionProps> = (
               <p className="text-sm sm:text-base text-slate-200 font-light leading-relaxed max-w-xl">
                 Descubre <strong>Impulso laboral</strong>: un acompañamiento integral con psicólogos de RRHH y headhunters senior para redefinir tu posicionamiento real y acelerar tu colocación en España y LATAM.
               </p>
+              </Reveal>
 
               {/* 3 Bullets con métricas del PDF */}
+              <Reveal delay={0.12}>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
                 <div className="p-3 rounded-xl bg-white/5 border border-white/10">
                   <p className="text-xl font-black text-[#00E5C9]">2,5 meses</p>
@@ -59,8 +63,10 @@ export const JobhuntingTeaserSection: React.FC<JobhuntingTeaserSectionProps> = (
                   <p className="text-[11px] text-slate-300">Plan según tu objetivo</p>
                 </div>
               </div>
+              </Reveal>
 
               {/* CTAs */}
+              <Reveal delay={0.2}>
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-3">
                 <button
                   onClick={() => onNavigate('/jobhunting')}
@@ -77,11 +83,12 @@ export const JobhuntingTeaserSection: React.FC<JobhuntingTeaserSectionProps> = (
                   Solicitar información
                 </button>
               </div>
+              </Reveal>
 
             </div>
 
             {/* Columna Derecha: Tarjeta Fotográfica de Autoridad */}
-            <div className="lg:col-span-5 relative">
+            <Reveal delay={0.16} className="lg:col-span-5 relative">
               <div className="relative rounded-2xl overflow-hidden border border-white/20 shadow-2xl bg-[#0A1826] group">
                 <img 
                   src="/jobhunting-hero-desktop.jpg" 
@@ -100,7 +107,7 @@ export const JobhuntingTeaserSection: React.FC<JobhuntingTeaserSectionProps> = (
                   </div>
                 </div>
               </div>
-            </div>
+            </Reveal>
 
           </div>
 

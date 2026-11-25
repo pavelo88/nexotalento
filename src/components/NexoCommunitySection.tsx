@@ -2,6 +2,7 @@ import React from 'react';
 import { ArrowRight, Crown, HeartHandshake, Sparkles, UsersRound } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import { PageRoute } from '../types';
+import { Reveal } from './motion/Reveal';
 
 interface NexoCommunitySectionProps {
   onNavigate: (path: PageRoute | string) => void;
@@ -46,7 +47,7 @@ export const NexoCommunitySection: React.FC<NexoCommunitySectionProps> = ({ onNa
       <div className="absolute -left-32 top-10 h-72 w-72 rounded-full bg-cyan-500/10 blur-3xl" />
       <div className="absolute -right-32 bottom-0 h-80 w-80 rounded-full bg-violet-500/10 blur-3xl" />
       <div className="relative mx-auto max-w-7xl">
-        <div className="mx-auto max-w-3xl text-center">
+        <Reveal className="mx-auto max-w-3xl text-center">
           <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-cyan-500">
             <Sparkles className="h-3.5 w-3.5" /> Comunidad Nexo
           </div>
@@ -56,11 +57,12 @@ export const NexoCommunitySection: React.FC<NexoCommunitySectionProps> = ({ onNa
           <p className={`mx-auto mt-5 max-w-2xl text-sm leading-relaxed sm:text-base ${dark ? 'text-slate-300' : 'text-slate-600'}`}>
             Nexo es más que una firma de selección: es una comunidad de personas ambiciosas, humanas y listas para crear conexiones que dejan huella.
           </p>
-        </div>
+        </Reveal>
 
         <div className="mt-12 grid gap-5 md:grid-cols-3">
-          {cards.map(({ icon: Icon, eyebrow, title, text, action, path, tone }) => (
-            <article key={title} className={`group relative overflow-hidden rounded-3xl border p-5 backdrop-blur-2xl shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl ${dark ? 'border-white/15 bg-slate-900/42 shadow-slate-950/30' : 'border-white/85 bg-white/38 shadow-slate-400/15'}`}>
+          {cards.map(({ icon: Icon, eyebrow, title, text, action, path, tone }, index) => (
+            <Reveal key={title} delay={0.12 + index * 0.08} className="h-full">
+            <article className={`h-full group relative overflow-hidden rounded-3xl border p-5 backdrop-blur-2xl shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl ${dark ? 'border-white/15 bg-slate-900/42 shadow-slate-950/30' : 'border-white/85 bg-white/38 shadow-slate-400/15'}`}>
               <div className={`mb-7 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${tone} text-white shadow-lg`}>
                 <Icon className="h-6 w-6" />
               </div>
@@ -71,6 +73,7 @@ export const NexoCommunitySection: React.FC<NexoCommunitySectionProps> = ({ onNa
                 {action} <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </button>
             </article>
+            </Reveal>
           ))}
         </div>
       </div>

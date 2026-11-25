@@ -49,13 +49,14 @@ export const Navbar: React.FC<NavbarProps> = ({
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const navRef = useRef<HTMLDivElement>(null);
   const { theme, toggleTheme } = useTheme();
-  // La navegación conserva la misma firma navy en ambos temas. El tema claro
-  // queda reservado para el contenido, no para diluir la identidad de marca.
-  const headerUsesDarkBrand = true;
+  const hasNavbarSurface = isScrolled || mobileMenuOpen || activeDropdown !== null;
+  const headerUsesDarkBrand = theme === 'dark' || ((currentPath === '/' || currentPath === '/jobhunting') && !hasNavbarSurface);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 15);
+      // El header permanece transparente durante el arranque del hero.
+      // La superficie aparece cuando el contenido ya pasó una parte visible de la pantalla.
+      setIsScrolled(window.scrollY > 72);
     };
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -89,8 +90,12 @@ export const Navbar: React.FC<NavbarProps> = ({
     <header
       id="main-header"
       ref={navRef}
-      className={`fixed top-0 left-0 right-0 z-50 border-b border-slate-800/80 bg-slate-950/95 backdrop-blur-2xl transition-all duration-300 ${
-        isScrolled ? 'py-2.5 shadow-2xl shadow-slate-950/35' : 'py-3.5 shadow-lg shadow-slate-950/20'
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        hasNavbarSurface
+          ? theme === 'dark'
+            ? 'bg-slate-950/90 backdrop-blur-2xl border-b border-slate-800/80 shadow-2xl py-2.5'
+            : 'bg-white/90 backdrop-blur-2xl border-b border-slate-200 shadow-xl py-2.5'
+          : 'bg-transparent border-b border-transparent py-4'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

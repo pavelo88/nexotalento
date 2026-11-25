@@ -27,6 +27,13 @@
 **Archivos modificados:** C:/dev/proyectos/nexotalentos/src/components/motion/Reveal.tsx; C:/dev/proyectos/nexotalentos/AVANCE.md
 
 ## [2026-11-24] - Nexo Talento - Codex
+**Qué se hizo:** Se reemplazó la animación de secciones completas por entradas por nivel: encabezado primero y tarjetas escalonadas después. Un agente independiente restauró el navbar transparente al inicio y su superficie legible al desplazarse o abrir menús.
+**Resultado:** La portada ya no revela título y tarjetas en un solo bloque. El navbar conserva todos sus ítems, desplegable de Servicios, Calculadora ROI y `Tu próximo empleo`. `npm run build` y `git diff --check` pasan.
+**Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
+**Próximos pasos:** Confirmar visualmente la cadencia de cada sección durante scroll en el despliegue publicado.
+**Archivos modificados:** C:/dev/proyectos/nexotalentos/src/components/Navbar.tsx; C:/dev/proyectos/nexotalentos/src/components/MetricStatsSection.tsx; C:/dev/proyectos/nexotalentos/src/components/JobhuntingTeaserSection.tsx; C:/dev/proyectos/nexotalentos/src/components/FeaturedVacanciesSummary.tsx; C:/dev/proyectos/nexotalentos/src/components/NexoCommunitySection.tsx; C:/dev/proyectos/nexotalentos/src/pages/HomePage.tsx; C:/dev/proyectos/nexotalentos/AVANCE.md
+
+## [2026-11-24] - Nexo Talento - Codex
 **Qué se hizo:** Se añadió un sistema nativo de entradas al hacer scroll, escalonado de tarjetas y avance automático pausado por interacción en el carrusel restaurado de Áreas de Especialización.
 **Resultado:** La portada, Vacantes y las secciones de Jobhunting dejan de sentirse estáticas sin introducir una librería pesada ni alterar la paleta clara. Se respetan las preferencias de reducción de movimiento del dispositivo. `npm run lint`, `npm run build` y `git diff --check` pasan; se revisó la instancia local en `http://127.0.0.1:3001`.
 **Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.

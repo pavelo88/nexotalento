@@ -4,7 +4,6 @@ import { BragBar } from '../components/BragBar';
 import { MetricStatsSection } from '../components/MetricStatsSection';
 import { PageRoute, AgentType } from '../types';
 import { NexoCommunitySection } from '../components/NexoCommunitySection';
-import { Reveal } from '../components/motion/Reveal';
 
 // Lazy loaded components for aggressive initial load code-splitting
 const FeaturedVacanciesSummary = lazy(() => import('../components/FeaturedVacanciesSummary').then(m => ({ default: m.FeaturedVacanciesSummary })));
@@ -58,19 +57,19 @@ export const HomePage: React.FC<HomePageProps> = ({
       <div className="relative z-10">
 
         {/* 3. Métricas Clave de Desempeño (Garantía, Retención, Terna y Vacantes) */}
-        <Reveal><MetricStatsSection /></Reveal>
+        <MetricStatsSection />
 
         {/* Lazy-loaded sections with zero initial bundle footprint */}
         <Suspense fallback={<div className="h-32 flex items-center justify-center"><div className="w-6 h-6 border-2 border-cyan-500 border-t-transparent rounded-full animate-spin"></div></div>}>
 
           {/* 4. Acompañamiento para candidatos, antes de explorar oportunidades */}
-          <Reveal><JobhuntingTeaserSection onNavigate={onNavigate} /></Reveal>
+          <JobhuntingTeaserSection onNavigate={onNavigate} />
 
           {/* 5. Vacantes en Selección Inmediata (Carrusel Interactivo Oficial) */}
-          <Reveal><FeaturedVacanciesSummary
+          <FeaturedVacanciesSummary
               onNavigate={onNavigate}
               onOpenCVAnalyzer={onOpenCVAnalyzer}
-            /></Reveal>
+            />
 
           {/* Metodología de Selección Ágil & Predictiva: sección conservada en código,
               oculta de la portada para no repetir la propuesta de valor del hero. */}
@@ -80,18 +79,18 @@ export const HomePage: React.FC<HomePageProps> = ({
           <AreasEspecializacionSection onNavigate={onNavigate} />
 
           {/* 7. Áreas de Especialización - 7 Sectores Productivos Clave */}
-          <Reveal><SpecializationSectorsSection onNavigate={onNavigate} /></Reveal>
+          <SpecializationSectorsSection onNavigate={onNavigate} />
 
           {/* 8. Success Stories & Audited Testimonials */}
-          <Reveal><SuccessStories onNavigateToTestimonials={() => onNavigate('/testimonios')} /></Reveal>
+          <SuccessStories onNavigateToTestimonials={() => onNavigate('/testimonios')} />
 
-          <Reveal><NexoCommunitySection onNavigate={onNavigate} /></Reveal>
+          <NexoCommunitySection onNavigate={onNavigate} />
 
           {/* 9. FAQ Section */}
-          <Reveal><FAQSection /></Reveal>
+          <FAQSection />
 
           {/* 10. Contact Section (Con invitación directa a WhatsApp y llamada) */}
-          <Reveal><ContactSection /></Reveal>
+          <ContactSection />
         </Suspense>
       </div>
     </div>
