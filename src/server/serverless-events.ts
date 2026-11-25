@@ -1,5 +1,5 @@
-import { createTrackingEvent } from "./firestore-repository";
-import type { ServerlessRequest, ServerlessResponse } from "./serverless-types";
+import { createTrackingEvent } from "./firestore-repository.js";
+import type { ServerlessRequest, ServerlessResponse } from "./serverless-types.js";
 
 const MAX_EVENT_NAME_LENGTH = 80;
 

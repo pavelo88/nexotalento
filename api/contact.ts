@@ -1,3 +1,3 @@
-import { handleContactLead } from "../src/server/serverless-contact";
+import { handleContactLead } from "../src/server/serverless-contact.js";
 
 export default handleContactLead;

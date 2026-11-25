@@ -1,3 +1,3 @@
-import { handleTrackingEvent } from "../src/server/serverless-events";
+import { handleTrackingEvent } from "../src/server/serverless-events.js";
 
 export default handleTrackingEvent;

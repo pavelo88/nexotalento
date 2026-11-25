@@ -1,5 +1,5 @@
-import { createLead } from "./firestore-repository";
-import type { ServerlessRequest, ServerlessResponse } from "./serverless-types";
+import { createLead } from "./firestore-repository.js";
+import type { ServerlessRequest, ServerlessResponse } from "./serverless-types.js";
 
 function sanitizeInput(input: unknown, maxLen = 8000): string {
   if (typeof input !== "string") return "";

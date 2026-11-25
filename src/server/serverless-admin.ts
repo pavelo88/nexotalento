@@ -1,5 +1,5 @@
-import { verifyAdminToken } from "./firebase-admin";
-import type { ServerlessRequest, ServerlessResponse } from "./serverless-types";
+import { verifyAdminToken } from "./firebase-admin.js";
+import type { ServerlessRequest, ServerlessResponse } from "./serverless-types.js";
 
 function getBearerToken(headers: ServerlessRequest["headers"]): string {
   const authorization = headers.authorization;

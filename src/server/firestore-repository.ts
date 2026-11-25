@@ -1,5 +1,5 @@
 import { FieldValue, type DocumentData, type QueryDocumentSnapshot } from "firebase-admin/firestore";
-import { getFirebaseAdminFirestore } from "./firebase-admin";
+import { getFirebaseAdminFirestore } from "./firebase-admin.js";
 
 export interface LeadInput {
   name: string;
