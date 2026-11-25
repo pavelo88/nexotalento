@@ -290,3 +290,10 @@
 **Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
 **Próximos pasos:** Confirmar que el nuevo despliegue de Vercel quede listo y probar contacto, evento de WhatsApp, acceso Admin y persistencia de leads.
 **Archivos modificados:** C:/dev/proyectos/nexotalentos/src/server/firebase-admin.ts; C:/dev/proyectos/nexotalentos/AVANCE.md
+
+## [2026-11-25] - Nexo Talento - Codex
+**Qué se hizo:** Se sincronizó la configuración privada de Firebase Admin con el entorno local ignorado por Git.
+**Resultado:** El proyecto local dispone de las tres variables requeridas por el servidor sin exponerlas en el repositorio ni en este registro.
+**Skills usadas/modificadas:** reglas-seguridad, registrar-avance.
+**Próximos pasos:** Mantener las credenciales fuera de Git y, al migrar de cuenta de Vercel, importar la configuración segura en el nuevo proyecto antes de desplegar.
+**Archivos modificados:** C:/dev/proyectos/nexotalentos/.env; C:/dev/proyectos/nexotalentos/AVANCE.md
