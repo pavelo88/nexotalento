@@ -12,6 +12,7 @@ interface FirebaseAdminAuth {
 
 let authInstance: FirebaseAdminAuth | null = null;
 let firestoreInstance: Firestore | null = null;
+const ADMIN_ROLES = new Set(["super", "superadmin", "admin", "recruiter"]);
 
 function getFirebaseAdminApp(): FirebaseAdminApp {
   const projectId = process.env.FIREBASE_PROJECT_ID;
@@ -46,7 +47,7 @@ export function getFirebaseAdminFirestore(): Firestore {
 export async function verifyAdminToken(token: string): Promise<DecodedIdToken> {
   const decoded = await getFirebaseAdminAuth().verifyIdToken(token, true);
   const role = decoded.role;
-  const hasAdminClaim = decoded.admin === true || (typeof role === "string" && ["super", "superadmin", "admin", "recruiter"].includes(role));
+  const hasAdminClaim = decoded.admin === true || (typeof role === "string" && ADMIN_ROLES.has(role));
 
   if (hasAdminClaim) return decoded;
 
@@ -60,7 +61,7 @@ export async function verifyAdminToken(token: string): Promise<DecodedIdToken> {
 
   const userRecord = await getFirebaseAdminFirestore().collection("users").doc(uid).get();
   const storedRole = userRecord.exists ? userRecord.data()?.role : undefined;
-  if (typeof storedRole === "string" && ["super", "superadmin", "admin", "recruiter"].includes(storedRole)) {
+  if (typeof storedRole === "string" && ADMIN_ROLES.has(storedRole)) {
     return decoded;
   }
 
