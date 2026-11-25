@@ -11,20 +11,15 @@ export const COMPANY_CONFIG = {
   },
   emailUser: 'info',
   emailDomain: 'nexotalento.com',
-  // Direcciones institucionales: listas para actualizar en cuanto Caro entregue la dirección definitiva
+  // Dirección institucional única acordada en la reunión del 24/11/2026.
   addresses: {
     madrid: {
       city: 'Madrid',
       zone: 'Sede España',
-      full: 'Calle Principal, Madrid, España',
+      full: 'Calle Cabestrero 5, 28012 Madrid, España',
       short: 'Madrid, España',
-    },
-    barcelona: {
-      city: 'Barcelona',
-      zone: 'Hub Empresarial',
-      full: 'Distrito de Negocios, Barcelona, España',
-      short: 'Barcelona, España',
     }
+    // Barcelona se conserva fuera de la configuración activa por la decisión de sede única.
   },
   // Compromisos y SLAs oficiales actualizados
   commitments: {

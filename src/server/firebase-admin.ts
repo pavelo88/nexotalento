@@ -1,11 +1,19 @@
 import { cert, getApps, initializeApp } from "firebase-admin/app";
-import { getAuth, type Auth, type DecodedIdToken } from "firebase-admin/auth";
+import { getAuth, type DecodedIdToken } from "firebase-admin/auth";
+import { getFirestore, type Firestore } from "firebase-admin/firestore";
 
-let authInstance: Auth | null = null;
+type FirebaseAdminApp = NonNullable<Parameters<typeof getAuth>[0]>;
 
-function getFirebaseAdminAuth(): Auth {
-  if (authInstance) return authInstance;
+interface FirebaseAdminAuth {
+  verifyIdToken(token: string, checkRevoked?: boolean): Promise<DecodedIdToken>;
+  getUserByEmail(email: string): Promise<{ uid: string }>;
+  setCustomUserClaims(uid: string, claims: object | null): Promise<void>;
+}
 
+let authInstance: FirebaseAdminAuth | null = null;
+let firestoreInstance: Firestore | null = null;
+
+function getFirebaseAdminApp(): FirebaseAdminApp {
   const projectId = process.env.FIREBASE_PROJECT_ID;
   const clientEmail = process.env.FIREBASE_CLIENT_EMAIL;
   const privateKey = process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, "\n");
@@ -16,17 +24,29 @@ function getFirebaseAdminAuth(): Auth {
     );
   }
 
-  const app = getApps()[0] ?? initializeApp({
+  return (getApps()[0] ?? initializeApp({
     credential: cert({ projectId, clientEmail, privateKey }),
-  });
-  authInstance = getAuth(app);
+  })) as FirebaseAdminApp;
+}
+
+export function getFirebaseAdminAuth(): FirebaseAdminAuth {
+  if (authInstance) return authInstance;
+  authInstance = getAuth(getFirebaseAdminApp()) as unknown as FirebaseAdminAuth;
   return authInstance;
+}
+
+export function getFirebaseAdminFirestore(): Firestore {
+  if (firestoreInstance) return firestoreInstance;
+  // La distribución actual de firebase-admin expone tipos distintos para app/auth
+  // bajo moduleResolution=bundler; en runtime ambas APIs reciben la misma App Admin.
+  firestoreInstance = getFirestore(getFirebaseAdminApp() as never);
+  return firestoreInstance;
 }
 
 export async function verifyAdminToken(token: string): Promise<DecodedIdToken> {
   const decoded = await getFirebaseAdminAuth().verifyIdToken(token, true);
   const role = decoded.role;
-  const isAdmin = decoded.admin === true || ["superadmin", "admin"].includes(role);
+  const isAdmin = decoded.admin === true || ["super", "superadmin", "admin", "recruiter"].includes(role);
 
   if (!isAdmin) {
     throw new Error("El usuario autenticado no tiene permisos administrativos.");

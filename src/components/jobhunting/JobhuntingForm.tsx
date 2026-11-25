@@ -6,27 +6,21 @@ import { trackEvent } from '../../lib/tracking';
 
 interface JobhuntingFormProps {
   theme: string;
-  selectedPlan: 'exito' | 'cerrado';
 }
 
-export const JobhuntingForm: React.FC<JobhuntingFormProps> = ({ theme, selectedPlan }) => {
+export const JobhuntingForm: React.FC<JobhuntingFormProps> = ({ theme }) => {
   const [formData, setFormData] = useState<JobhuntingFormData>({
     name: '',
     email: '',
     phone: '',
     role: '',
     experience: '3-5 años',
-    plan: selectedPlan,
+    plan: 'exito',
     notes: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-
-  // Sync if selectedPlan prop changes
-  React.useEffect(() => {
-    setFormData(prev => ({ ...prev, plan: selectedPlan }));
-  }, [selectedPlan]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,7 +36,7 @@ export const JobhuntingForm: React.FC<JobhuntingFormProps> = ({ theme, selectedP
           phone: formData.phone,
           company: 'Candidato ProProfile',
           role: `${formData.role} (${formData.experience})`,
-          serviceType: `Programa Jobhunting ProProfile - Modalidad ${formData.plan === 'exito' ? 'A Éxito (300€ + 25%)' : 'Inversión Cerrada (450€)'}`,
+          serviceType: 'Programa Impulso laboral - solicitud de información',
           message: formData.notes,
           source: 'Landing /jobhunting',
           attribution: getMarketingAttribution()
@@ -59,7 +53,7 @@ export const JobhuntingForm: React.FC<JobhuntingFormProps> = ({ theme, selectedP
   };
 
   return (
-    <section id="formulario-postulacion" className={`py-24 border-t ${theme === 'dark' ? 'bg-[#090C11] border-stone-800' : 'bg-stone-100/70 border-stone-200'}`}>
+    <section id="formulario-postulacion" data-reveal className={`reveal-on-scroll py-24 border-t ${theme === 'dark' ? 'bg-[#090C11] border-stone-800' : 'bg-stone-100/70 border-stone-200'}`}>
       <div className="max-w-3xl mx-auto px-4 sm:px-6">
         <div className="glass-card p-8 sm:p-12 rounded-3xl border border-white/80 dark:border-white/10 shadow-2xl">
           
@@ -153,34 +147,7 @@ export const JobhuntingForm: React.FC<JobhuntingFormProps> = ({ theme, selectedP
                 />
               </div>
 
-              <div>
-                <label className="block text-xs font-bold text-stone-700 dark:text-stone-300 mb-1">Modalidad de Preferencia</label>
-                <div className="grid grid-cols-2 gap-3">
-                  <button
-                    type="button"
-                    onClick={() => setFormData({ ...formData, plan: 'exito' })}
-                    className={`p-3.5 rounded-xl border text-xs font-bold text-left transition-all cursor-pointer ${
-                      formData.plan === 'exito'
-                        ? 'border-[#00A896] bg-[#00A896]/15 text-[#00A896] font-black'
-                        : 'border-stone-200 dark:border-stone-800'
-                    }`}
-                  >
-                    Modelo a Éxito (300 € + 25%)
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => setFormData({ ...formData, plan: 'cerrado' })}
-                    className={`p-3.5 rounded-xl border text-xs font-bold text-left transition-all cursor-pointer ${
-                      formData.plan === 'cerrado'
-                        ? 'border-cyan-500 bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 font-black'
-                        : 'border-stone-200 dark:border-stone-800'
-                    }`}
-                  >
-                    Inversión Cerrada (450 €)
-                  </button>
-                </div>
-              </div>
+              {/* Las opciones comerciales se coordinan de forma privada tras el diagnóstico. */}
 
               <div>
                 <label className="block text-xs font-bold text-stone-700 dark:text-stone-300 mb-1">Situación Actual o Desafíos</label>

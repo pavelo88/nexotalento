@@ -45,7 +45,8 @@ export const SpecializationSectorsSection: React.FC<SpecializationSectorsSection
   const carouselRef = useRef<HTMLDivElement>(null);
   const [isGridMode, setIsGridMode] = useState(false);
 
-  const sectors: SectorItem[] = [
+  // Catálogo original de siete sectores: preservado y oculto por la revisión de producto.
+  const legacySectors: SectorItem[] = [
     {
       id: 'retail-consumo',
       name: 'Retail y Consumo Masivo',
@@ -153,6 +154,26 @@ export const SpecializationSectorsSection: React.FC<SpecializationSectorsSection
     }
   ];
 
+  // La interfaz pública agrupa el catálogo anterior en cinco ecosistemas claros.
+  const sectors: SectorItem[] = [
+    {
+      id: 'consumo-servicios', name: 'Consumo, Retail & Servicios', subtitle: 'Comercial, experiencia de cliente y expansión', icon: ShoppingBag, color: 'from-amber-500 to-orange-600', badge: 'Mercado & Crecimiento', description: 'Talento para marcas de consumo, retail, hospitality y operaciones de servicio.', typicalProfiles: [], metrics: 'Cobertura España & Latam'
+    },
+    {
+      id: 'finanzas-profesionales', name: 'Finanzas & Servicios Profesionales', subtitle: 'Banca, seguros, fintech y funciones corporativas', icon: Landmark, color: 'from-blue-600 to-indigo-700', badge: 'Confidencialidad', description: 'Conocimiento de mercados regulados y funciones financieras críticas.', typicalProfiles: [], metrics: 'Búsqueda consultiva'
+    },
+    {
+      id: 'operaciones-industria', name: 'Operaciones, Industria & Logística', subtitle: 'Supply chain, manufactura y distribución', icon: Factory, color: 'from-slate-600 to-cyan-700', badge: 'Ejecución Operativa', description: 'Perfiles para cadenas de suministro, plantas, comercio exterior y excelencia operacional.', typicalProfiles: [], metrics: 'Visión integral de operación'
+    },
+    {
+      id: 'agro-negocios', name: 'Agroindustria & Negocios Especializados', subtitle: 'Sectores productivos y mercados de nicho', icon: Trees, color: 'from-emerald-600 to-teal-700', badge: 'Contexto Sectorial', description: 'Acompañamiento a empresas con retos técnicos, territoriales o productivos específicos.', typicalProfiles: [], metrics: 'Conocimiento de contexto'
+    },
+    {
+      id: 'tecnologia-digital', name: 'Tecnología, Datos & Digital', subtitle: 'Producto, ingeniería, IA y ciberseguridad', icon: Cpu, color: 'from-violet-600 to-purple-700', badge: 'Talento Digital', description: 'Especialistas y líderes tecnológicos evaluados desde el contexto de negocio.', typicalProfiles: [], metrics: 'Especialización técnica'
+    }
+  ];
+  void legacySectors;
+
   // Buffer de 3 sets para desplazamiento infinito y fluido sin salto brusco hacia atrás
   const carouselSectors = [...sectors, ...sectors, ...sectors];
 
@@ -239,7 +260,7 @@ export const SpecializationSectorsSection: React.FC<SpecializationSectorsSection
           <div className="max-w-2xl space-y-3 pt-2">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wide uppercase border backdrop-blur-md bg-[#00A9A3]/10 border-[#00A9A3]/30 text-[#00A9A3]">
               <Sparkles className="w-3.5 h-3.5" />
-              <span>7 Ecosistemas Productivos Clave</span>
+              <span>5 Ecosistemas Productivos Clave</span>
             </div>
 
             <h2 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight font-heading">
@@ -252,8 +273,7 @@ export const SpecializationSectorsSection: React.FC<SpecializationSectorsSection
             <p className={`text-xs sm:text-base leading-relaxed ${
               theme === 'dark' ? 'text-slate-300' : 'text-slate-600'
             }`}>
-              No creemos en soluciones genéricas. Nuestros consultores provienen de las mismas industrias 
-              que asesoran, garantizando un entendimiento profundo del léxico técnico y perfiles demandados en 7 ecosistemas productivos.
+              Conocimiento de mercado para conversar con precisión, sin saturar la experiencia con listas de cargos.
             </p>
           </div>
 
@@ -264,7 +284,7 @@ export const SpecializationSectorsSection: React.FC<SpecializationSectorsSection
               className="h-10 px-3.5 rounded-xl border text-xs font-bold transition-all flex items-center gap-1.5 bg-slate-900 border-slate-700 text-slate-200 hover:text-white active:scale-95 shadow-sm"
             >
               {isGridMode ? <Layers className="w-3.5 h-3.5 text-cyan-400" /> : <LayoutGrid className="w-3.5 h-3.5 text-cyan-400" />}
-              <span>{isGridMode ? 'Ver como Carrusel' : 'Ver Todos (7)'}</span>
+              <span>{isGridMode ? 'Ver como Carrusel' : 'Ver Todos (5)'}</span>
             </button>
 
             {!isGridMode && (
@@ -351,7 +371,7 @@ export const SpecializationSectorsSection: React.FC<SpecializationSectorsSection
                     {sector.description}
                   </p>
 
-                  {/* Typical Profiles Box */}
+                  {/* Perfiles clave reclutados: bloque anterior preservado, oculto por decisión editorial.
                   <div className={`p-3.5 rounded-2xl mb-6 border ${
                     theme === 'dark'
                       ? 'bg-slate-950/60 border-slate-800/80'
@@ -373,7 +393,7 @@ export const SpecializationSectorsSection: React.FC<SpecializationSectorsSection
                         </li>
                       ))}
                     </ul>
-                  </div>
+                  </div> */}
                 </div>
 
                 {/* Footer Metrics & Actions */}

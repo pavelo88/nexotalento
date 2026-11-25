@@ -53,6 +53,7 @@ type AdminTab =
   | 'services' 
   | 'sectors' 
   | 'leads' 
+  | 'applications'
   | 'settings';
 
 export const AdminDashboard: React.FC<AdminDashboardProps> = ({
@@ -291,6 +292,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
   // Leads State con Actions (Marcar atendido / Eliminar)
   const [leads, setLeads] = useState<any[]>([]);
+  const [applications, setApplications] = useState<any[]>([]);
   const [leadStatusFilter, setLeadStatusFilter] = useState<'all' | 'pending' | 'attended'>('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [isSaving, setIsSaving] = useState(false);
@@ -310,19 +312,22 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
     let cancelled = false;
     const loadAdminData = async () => {
       try {
-        const [contentRes, leadsRes] = await Promise.all([
+        const [contentRes, leadsRes, applicationsRes] = await Promise.all([
           adminFetch('/api/admin/content'),
-          adminFetch('/api/admin/leads')
+          adminFetch('/api/admin/leads'),
+          adminFetch('/api/admin/applications')
         ]);
-        if (!contentRes.ok || !leadsRes.ok) throw new Error('No fue posible validar la sesión administrativa.');
+        if (!contentRes.ok || !leadsRes.ok || !applicationsRes.ok) throw new Error('No fue posible validar la sesión administrativa.');
         const data = await contentRes.json();
         const leadsData = await leadsRes.json();
+        const applicationsData = await applicationsRes.json();
         if (cancelled) return;
         if (data && data.hero) setSiteContent(data);
         if (data && Array.isArray(data.vacancies) && data.vacancies.length > 0) setVacancies(data.vacancies);
         if (data && Array.isArray(data.areas) && data.areas.length > 0) setAreasList(data.areas);
         if (data && Array.isArray(data.sectors) && data.sectors.length > 0) setSectorsList(data.sectors);
         if (Array.isArray(leadsData)) setLeads(leadsData);
+        if (Array.isArray(applicationsData)) setApplications(applicationsData);
       } catch (err) {
         console.warn('No se pudieron cargar datos administrativos:', err);
       }
@@ -432,6 +437,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
     { id: 'services' as AdminTab, label: 'Áreas de Especialización', icon: Layers },
     { id: 'sectors' as AdminTab, label: 'Sectores de Industria', icon: Building2 },
     { id: 'leads' as AdminTab, label: 'Bandeja de Leads', icon: MessageSquare, count: leads.length },
+    { id: 'applications' as AdminTab, label: 'Postulaciones', icon: Briefcase, count: applications.length },
     { id: 'settings' as AdminTab, label: 'Configuración y Contacto', icon: Settings }
   ];
 
@@ -452,7 +458,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
     activeTab, siteContent, setSiteContent, vacancies, setVacancies, areasList, setAreasList, sectorsList, setSectorsList,
     isCreatingVacancy, setIsCreatingVacancy, newVacTitle, setNewVacTitle, newVacDept, setNewVacDept, newVacLoc, setNewVacLoc,
     newVacMod, setNewVacMod, newVacSalary, setNewVacSalary, newVacDesc, setNewVacDesc, leads, leadStatusFilter, setLeadStatusFilter,
-    searchTerm, setSearchTerm, filteredLeads, handleAddVacancy, handleDeleteVacancy, handleDeleteLead, handleToggleLeadAttended
+    applications, searchTerm, setSearchTerm, filteredLeads, handleAddVacancy, handleDeleteVacancy, handleDeleteLead, handleToggleLeadAttended
   };
 
   const dashboardState = {

@@ -23,6 +23,7 @@ interface AreasEspecializacionProps {
 export const AreasEspecializacionSection: React.FC<AreasEspecializacionProps> = ({ onNavigate }) => {
   const { theme } = useTheme();
   const carouselRef = useRef<HTMLDivElement>(null);
+  const carouselPausedRef = useRef(false);
 
   // Las 6 áreas exactas con imágenes corporativas premium y encuadre garantizado
   const areas = [
@@ -155,6 +156,14 @@ export const AreasEspecializacionSection: React.FC<AreasEspecializacionProps> = 
     });
   };
 
+  useEffect(() => {
+    const advance = window.setInterval(() => {
+      if (!carouselPausedRef.current) scroll('right');
+    }, 5600);
+
+    return () => window.clearInterval(advance);
+  }, []);
+
   const handleConsult = (areaTitle: string) => {
     trackEvent({
       eventName: 'area_especializacion_click',
@@ -167,7 +176,7 @@ export const AreasEspecializacionSection: React.FC<AreasEspecializacionProps> = 
   };
 
   return (
-    <section id="areas-especializacion" className="py-16 sm:py-24 relative overflow-hidden bg-gradient-to-br from-white via-cyan-50/45 to-blue-50/50 dark:from-slate-950 dark:via-slate-900 dark:to-cyan-950/30">
+    <section id="areas-especializacion" data-reveal className="reveal-on-scroll py-16 sm:py-24 relative overflow-hidden bg-gradient-to-br from-white via-cyan-50/45 to-blue-50/50 dark:from-slate-950 dark:via-slate-900 dark:to-cyan-950/30">
       
       {/* Background Glows */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-tr from-[#00A9A3]/10 via-cyan-500/10 to-blue-600/10 rounded-full blur-[140px] pointer-events-none -z-10" />
@@ -216,6 +225,10 @@ export const AreasEspecializacionSection: React.FC<AreasEspecializacionProps> = 
         <div
           ref={carouselRef}
           onScroll={handleScroll}
+          onPointerEnter={() => { carouselPausedRef.current = true; }}
+          onPointerLeave={() => { carouselPausedRef.current = false; }}
+          onPointerDown={() => { carouselPausedRef.current = true; }}
+          onPointerUp={() => { carouselPausedRef.current = false; }}
           className="flex items-stretch gap-6 overflow-x-auto pb-6 scrollbar-none snap-x snap-mandatory"
         >
           {extendedAreas.map((area, index) => {

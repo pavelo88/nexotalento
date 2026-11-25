@@ -176,7 +176,7 @@ Enviado desde el formulario web de Nexo Talento.`;
                   theme === 'dark' ? 'text-white' : 'text-slate-900'
                 }`}>
                   <Building2 className={`w-5 h-5 ${theme === 'dark' ? 'text-cyan-400' : 'text-cyan-500'}`} />
-                  Sedes en España
+                  Sede en Madrid
                 </h3>
                 <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full border ${
                   theme === 'dark' 
@@ -252,7 +252,8 @@ Enviado desde el formulario web de Nexo Talento.`;
                 </p>
               </div>
 
-              {/* Barcelona Office */}
+              {/* Oficina adicional conservada en el histórico de contenido, no visible por decisión comercial. */}
+              {/*
               <div className={`p-4 rounded-2xl border space-y-1.5 transition-colors ${
                 theme === 'dark'
                   ? 'bg-slate-800/50 border-slate-700 hover:border-slate-600'
@@ -280,7 +281,7 @@ Enviado desde el formulario web de Nexo Talento.`;
                   <Phone className={`w-3.5 h-3.5 ${theme === 'dark' ? 'text-blue-400' : 'text-blue-500'}`} />
                   <a href={`tel:${COMPANY_CONFIG.phone.replace(/\s+/g, '')}`} className="hover:text-cyan-500 font-medium">{COMPANY_CONFIG.phoneDisplay}</a>
                 </p>
-              </div>
+              </div> */}
 
               {/* Emails and Schedule */}
               <div className={`p-4 rounded-2xl border space-y-2 text-xs ${
@@ -295,13 +296,7 @@ Enviado desde el formulario web de Nexo Talento.`;
                   </div>
                   <span className={`text-[10px] font-bold ${theme === 'dark' ? 'text-cyan-300' : 'text-cyan-900'}`}>General</span>
                 </div>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <Mail className={`w-4 h-4 ${theme === 'dark' ? 'text-blue-400' : 'text-blue-700'}`} />
-                    <span><span>empresas</span><span className={theme === 'dark' ? 'text-blue-400' : 'text-blue-700'}>&#64;</span><span>nexotalento.com</span></span>
-                  </div>
-                  <span className={`text-[10px] font-bold ${theme === 'dark' ? 'text-blue-300' : 'text-blue-900'}`}>Headhunting</span>
-                </div>
+                {/* El contacto comercial usa únicamente info@nexotalento.com. */}
                 <div className={`flex items-center gap-2 pt-2 border-t text-[11px] ${
                   theme === 'dark' ? 'border-slate-700 text-slate-400' : 'border-slate-300 text-slate-700'
                 }`}>

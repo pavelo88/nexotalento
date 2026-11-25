@@ -1,38 +1,49 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
+import { ArrowRight, Briefcase, FileSearch, Filter, MapPin, Search, Sparkles, TrendingUp, X } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
-import { JobPosition } from '../types';
 import { INITIAL_JOBS } from '../data/jobsData';
+import { JobPosition } from '../types';
 import { JobApplicationModal } from './JobApplicationModal';
-import { 
-  Briefcase, 
-  MapPin, 
-  Clock, 
-  Search, 
-  Filter, 
-  Sparkles, 
-  FileSearch, 
-  ArrowRight, 
-  X, 
-  TrendingUp,
-  Flame
-} from 'lucide-react';
+import { Reveal } from './motion/Reveal';
 
 interface JobsPortalProps {
   onOpenCVAnalyzer: () => void;
   isFullPage?: boolean;
-  headerAfter?: React.ReactNode;
 }
 
-export const JobsPortal: React.FC<JobsPortalProps> = ({ onOpenCVAnalyzer, isFullPage = false, headerAfter }) => {
-  const { theme } = useTheme();
+const matchesTextSearch = (job: JobPosition, rawTerm: string) => {
+  const term = rawTerm.trim().toLocaleLowerCase();
+  if (!term) return true;
 
-  // Search & Filter State
+  return [
+    job.title,
+    job.department,
+    job.location,
+    job.modality,
+    job.description,
+    job.experienceLevel,
+    ...(job.tags ?? [])
+  ].some((value) => value.toLocaleLowerCase().includes(term));
+};
+
+const FilterGroup = ({ label, values, selected, onToggle }: { label: string; values: string[]; selected: string[]; onToggle: (value: string) => void }) => (
+  <fieldset className="border-b py-5 last:border-0 dark:border-slate-800">
+    <legend className="text-xs font-black uppercase tracking-wide">{label}</legend>
+    <div className="mt-3 space-y-3">
+      {values.map((value) => <label key={value} className="flex cursor-pointer items-center gap-3 text-sm font-semibold"><input type="checkbox" checked={selected.includes(value)} onChange={() => onToggle(value)} className="h-4 w-4 accent-emerald-500" />{value}</label>)}
+    </div>
+  </fieldset>
+);
+
+const JobFact = ({ icon, label, value, accent = false }: { icon: React.ReactNode; label: string; value: string; accent?: boolean }) => (
+  <div className="flex items-start gap-2"><span className="mt-0.5 shrink-0">{icon}</span><div><p className="text-[10px] font-black uppercase tracking-wide text-slate-500">{label}</p><p className={`mt-1 font-bold leading-snug ${accent ? 'text-emerald-600 dark:text-emerald-300' : 'text-slate-800 dark:text-white'}`}>{value}</p></div></div>
+);
+
+export const JobsPortal: React.FC<JobsPortalProps> = ({ onOpenCVAnalyzer, isFullPage = false }) => {
+  const { theme } = useTheme();
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedPill, setSelectedPill] = useState('Todos');
   const [selectedModalities, setSelectedModalities] = useState<string[]>([]);
   const [selectedDepartments, setSelectedDepartments] = useState<string[]>([]);
-
-  // Application Modal State
   const [selectedJob, setSelectedJob] = useState<JobPosition | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [jobsList, setJobsList] = useState<JobPosition[]>(INITIAL_JOBS);
@@ -40,450 +51,190 @@ export const JobsPortal: React.FC<JobsPortalProps> = ({ onOpenCVAnalyzer, isFull
   useEffect(() => {
     let isMounted = true;
     fetch('/api/vacancies')
-      .then((res) => (res.ok ? res.json() : null))
+      .then((response) => (response.ok ? response.json() : null))
       .then((data) => {
-        if (isMounted && Array.isArray(data) && data.length > 0) {
-          setJobsList(data);
-        }
+        if (isMounted && Array.isArray(data) && data.length > 0) setJobsList(data);
       })
-      .catch(() => {});
+      .catch(() => undefined);
+
     return () => {
       isMounted = false;
     };
   }, []);
 
-  // Pill filter options
-  const filterPills = [
-    'Todos',
-    'Quito',
-    'Guayaquil',
-    'Valle de los Chillos',
-    'Marketing',
-    'Contabilidad',
-    'Carga Internacional',
-    'Ventas B2B'
-  ];
+  const filteredJobs = useMemo(() => jobsList.filter((job) => {
+    const modalityMatches = !selectedModalities.length || selectedModalities.includes(job.modality);
+    const departmentMatches = !selectedDepartments.length || selectedDepartments.some((department) => job.department.toLowerCase().includes(department.toLowerCase()));
+    return matchesTextSearch(job, searchTerm) && modalityMatches && departmentMatches;
+  }), [jobsList, searchTerm, selectedModalities, selectedDepartments]);
 
-  const handlePillClick = (pill: string) => {
-    setSelectedPill(pill);
-    if (pill === 'Todos') {
-      setSelectedModalities([]);
-      setSelectedDepartments([]);
-      setSearchTerm('');
-    } else if (pill === '100% Remoto') {
-      setSelectedModalities(['100% Remoto']);
-      setSearchTerm('');
-    } else if (pill === 'Híbrido') {
-      setSelectedModalities(['Híbrido']);
-      setSearchTerm('');
-    } else if (pill === 'Presencial') {
-      setSelectedModalities(['Presencial']);
-      setSearchTerm('');
-    } else {
-      setSearchTerm(pill);
-    }
+  const toggleFilter = (value: string, group: 'modality' | 'department') => {
+    const update = group === 'modality' ? setSelectedModalities : setSelectedDepartments;
+    update((current) => current.includes(value) ? current.filter((item) => item !== value) : [...current, value]);
   };
 
-  const toggleModality = (mod: string) => {
-    setSelectedModalities((prev) =>
-      prev.includes(mod) ? prev.filter((m) => m !== mod) : [...prev, mod]
-    );
-  };
-
-  const toggleDepartment = (dept: string) => {
-    setSelectedDepartments((prev) =>
-      prev.includes(dept) ? prev.filter((d) => d !== dept) : [...prev, dept]
-    );
-  };
-
-  // Filter jobs
-  const filteredJobs = jobsList.filter((job) => {
-    const term = searchTerm.toLowerCase();
-    const matchesSearch = 
-      !term ||
-      job.title.toLowerCase().includes(term) ||
-      job.description.toLowerCase().includes(term) ||
-      job.location.toLowerCase().includes(term) ||
-      job.department.toLowerCase().includes(term) ||
-      job.tags?.some((t) => t.toLowerCase().includes(term));
-
-    const matchesModality = 
-      selectedModalities.length === 0 || selectedModalities.includes(job.modality);
-
-    const matchesDept = 
-      selectedDepartments.length === 0 || selectedDepartments.some((d) => job.department.toLowerCase().includes(d.toLowerCase()));
-
-    return matchesSearch && matchesModality && matchesDept;
-  });
-
-  const handleOpenApply = (job: JobPosition) => {
+  const openApplication = (job: JobPosition) => {
     setSelectedJob(job);
     setIsModalOpen(true);
   };
 
-  const handleCloseModal = () => {
+  const closeApplication = () => {
     setIsModalOpen(false);
     setSelectedJob(null);
   };
 
   return (
-    <section id="vacantes" className={`${isFullPage ? '' : 'py-16 sm:py-12 sm:py-16'} relative transition-colors duration-300 ${
-      isFullPage ? '' : theme === 'dark' ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-900'
-    }`}>
-      <div className={`${isFullPage ? '' : 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'} relative z-10`}>
-        
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
-          <div className="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/30 px-3.5 py-1.5 rounded-full text-xs font-bold text-emerald-600 dark:text-emerald-400 mb-3.5">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Bolsa de Empleo &amp; Procesos de Executive Search</span>
+    <section
+      id="oportunidades"
+      className={`scroll-mt-24 pt-14 sm:pt-20 ${
+        isFullPage ? '' : theme === 'dark' ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-900'
+      }`}
+    >
+      <div className={isFullPage ? '' : 'mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'}>
+        <Reveal className="mx-auto mb-8 max-w-3xl text-center sm:mb-10">
+          <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3.5 py-1.5 text-xs font-bold text-emerald-700 dark:text-emerald-300">
+            <Sparkles className="h-3.5 w-3.5" />
+            Oportunidades seleccionadas
           </div>
-          {isFullPage ? (
-            <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight font-heading">
-              Posiciones Directivas &amp; <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-teal-500">Talento en Selección Activa</span>
-            </h1>
-          ) : (
-            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight font-heading">
-              Posiciones Directivas &amp; <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-teal-500">Talento en Selección Activa</span>
-            </h2>
-          )}
-          <p className={`mt-3 text-sm sm:text-base leading-relaxed ${
-            theme === 'dark' ? 'text-slate-300' : 'text-slate-600'
-          }`}>
-            Todas las ofertas cuentan con <strong>bandas salariales transparentes</strong>, procesos confidenciales y respuesta ágil en selección corporativa.
+          <h2 className="font-heading text-3xl font-extrabold tracking-tight sm:text-4xl">
+            Vacantes en Selección <span className="bg-gradient-to-r from-cyan-400 via-[#00A9A3] to-blue-500 bg-clip-text text-transparent">Inmediata</span>
+          </h2>
+          <p className={`mt-3 text-sm leading-relaxed sm:text-base ${theme === 'dark' ? 'text-slate-300' : 'text-slate-600'}`}>
+            Encuentra la posición que mejor encaja con tu experiencia. Puedes buscar por cargo, área, habilidad o ubicación.
           </p>
-        </div>
+        </Reveal>
 
-        {headerAfter}
-
-        {/* MOBILE STICKY SEARCH & TACTILE PILLS */}
-        <div className={`sticky top-16 z-30 mb-8 p-3 rounded-2xl border backdrop-blur-xl shadow-lg transition-all ${
+        <Reveal delay={0.08} className={`sticky top-20 z-20 mb-8 rounded-2xl border p-3 shadow-lg backdrop-blur-xl ${
           theme === 'dark'
-            ? 'bg-slate-900/95 border-slate-700/80 shadow-black/40'
-            : 'bg-white/95 border-slate-300 shadow-slate-200/60'
+            ? 'border-slate-700/80 bg-slate-900/95 shadow-black/40'
+            : 'border-slate-200 bg-white/95 shadow-slate-200/60'
         }`}>
-          {/* Search Input */}
-          <div className="relative mb-3">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+          <label htmlFor="jobs-search-input" className="sr-only">
+            Buscar vacantes por cargo, área, habilidad o ubicación
+          </label>
+          <div className="relative">
+            <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-cyan-600 dark:text-cyan-400" />
             <input
               id="jobs-search-input"
-              type="text"
-              placeholder="Buscar por cargo (ej. Jefe de Marketing, Asesor Comercial, Contable) o ciudad..."
-              aria-label="Buscar posiciones por cargo, especialidad o ciudad"
-              data-webmcp-field="jobs-search"
+              type="search"
+              placeholder="Ej.: marketing, finanzas, Madrid, remoto, ventas B2B…"
+              aria-describedby="jobs-search-help jobs-results-count"
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className={`w-full pl-10 pr-10 py-2.5 text-xs sm:text-sm rounded-xl border transition-all ${
+              onChange={(event) => setSearchTerm(event.target.value)}
+              className={`w-full rounded-xl border py-3 pl-12 pr-12 text-sm font-medium outline-none transition focus:ring-4 focus:ring-cyan-500/15 ${
                 theme === 'dark'
-                  ? 'bg-slate-900/90 text-slate-100 border-slate-700 focus:border-emerald-500'
-                  : 'bg-slate-50 text-slate-900 border-slate-200 focus:border-emerald-500'
+                  ? 'border-slate-700 bg-slate-950/80 text-slate-100 placeholder:text-slate-500 focus:border-cyan-400'
+                  : 'border-slate-200 bg-slate-50 text-slate-900 placeholder:text-slate-400 focus:border-cyan-500'
               }`}
             />
             {searchTerm && (
               <button
+                type="button"
                 onClick={() => setSearchTerm('')}
                 aria-label="Limpiar búsqueda"
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200"
+                className="absolute right-3 top-1/2 -translate-y-1/2 rounded-lg p-2 text-slate-400 transition hover:bg-slate-100 hover:text-slate-700 dark:hover:bg-slate-800 dark:hover:text-white"
               >
-                <X className="w-4 h-4" />
+                <X className="h-4 w-4" />
               </button>
             )}
           </div>
+          <div className="mt-2 flex items-center justify-between gap-3 px-1 text-xs">
+            <p id="jobs-search-help" className={theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}>
+              Busca por cargo, ciudad o habilidad; afina por modalidad y sector.
+            </p>
+            <p id="jobs-results-count" aria-live="polite" className="shrink-0 font-black text-cyan-700 dark:text-cyan-300">
+              {filteredJobs.length} {filteredJobs.length === 1 ? 'resultado' : 'resultados'}
+            </p>
+          </div>
+        </Reveal>
 
-          {/* Tactile Pills Filter Bar (Horizontal touch scroll) */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
-            <span className="text-[10px] uppercase font-extrabold text-slate-400 shrink-0 hidden sm:inline">
-              Filtro Rápido:
-            </span>
-            {filterPills.map((pill) => (
-              <button
-                key={pill}
-                onClick={() => handlePillClick(pill)}
-                className={`text-xs px-3 py-1.5 rounded-xl whitespace-nowrap font-bold transition-all border shrink-0 active:scale-95 ${
-                  selectedPill === pill
-                    ? 'bg-emerald-500 text-slate-950 border-emerald-400 shadow-sm'
-                    : theme === 'dark'
-                      ? 'bg-slate-900/90 text-slate-300 border-slate-800 hover:border-slate-700'
-                      : 'bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200'
+        <div className="grid gap-6 lg:grid-cols-[280px_minmax(0,1fr)] lg:items-start">
+          <Reveal delay={0.12}><aside className={`rounded-3xl border p-5 lg:sticky lg:top-24 ${theme === 'dark' ? 'border-slate-700 bg-slate-900/95' : 'border-slate-200 bg-white shadow-sm'}`}>
+            <div className={`flex items-center justify-between border-b pb-4 ${theme === 'dark' ? 'border-slate-800' : 'border-slate-100'}`}>
+              <div className="flex items-center gap-2"><Filter className="h-4 w-4 text-emerald-500" /><h3 className="text-xs font-black uppercase tracking-wide">Filtros avanzados</h3></div>
+              <span className="rounded-md bg-emerald-500/10 px-2 py-1 text-xs font-black text-emerald-500">{filteredJobs.length} activas</span>
+            </div>
+            <FilterGroup label="Modalidad de trabajo" values={['Presencial', 'Híbrido', '100% Remoto']} selected={selectedModalities} onToggle={(value) => toggleFilter(value, 'modality')} />
+            <FilterGroup label="Sector / departamento" values={['Marketing', 'Finanzas', 'Logística', 'Ventas', 'Tecnología', 'People']} selected={selectedDepartments} onToggle={(value) => toggleFilter(value, 'department')} />
+            <button type="button" onClick={onOpenCVAnalyzer} className="mt-5 w-full rounded-xl bg-emerald-500/10 px-3 py-3 text-xs font-black text-emerald-600 transition hover:bg-emerald-500/20 dark:text-emerald-300">No encuentro mi posición: preparar mi CV</button>
+          </aside></Reveal>
+
+          <div className="space-y-4">
+            <div className={`flex items-center justify-between border-b pb-3 text-xs ${theme === 'dark' ? 'border-slate-800 text-slate-300' : 'border-slate-200 text-slate-600'}`}><span>Mostrando <strong>{filteredJobs.length}</strong> posiciones activas</span><span className="font-black text-emerald-500">Procesos actualizados</span></div>
+        {filteredJobs.length > 0 ? (
+          <div className="space-y-4">
+            {filteredJobs.map((job, index) => (
+              <Reveal key={job.id} delay={0.12 + index * 0.06}>
+              <article
+                key={job.id}
+                className={`flex min-h-full flex-col rounded-3xl border p-5 sm:p-6 shadow-sm transition duration-300 hover:shadow-xl ${
+                  theme === 'dark'
+                    ? 'border-slate-700 bg-slate-900/90 hover:border-cyan-500/60'
+                    : 'border-slate-200 bg-white hover:border-cyan-500/60'
                 }`}
               >
-                {pill}
-              </button>
+                <div className="flex items-start justify-between gap-3">
+                  <span className="rounded-full border border-cyan-500/25 bg-cyan-500/10 px-2.5 py-1 text-[10px] font-black uppercase tracking-wide text-cyan-700 dark:text-cyan-300">
+                    {job.department}
+                  </span>
+                  {job.isUrgent && <span className="text-[10px] font-black text-amber-600 dark:text-amber-300">Proceso activo</span>}
+                </div>
+
+                <h3 className={`mt-5 font-heading text-xl font-black leading-snug ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
+                  {job.title}
+                </h3>
+                <p className={`mt-4 text-sm leading-relaxed ${theme === 'dark' ? 'text-slate-300' : 'text-slate-600'}`}>
+                  {job.description}
+                </p>
+
+                <div className={`mt-5 grid gap-3 rounded-2xl border p-4 text-xs sm:grid-cols-3 ${theme === 'dark' ? 'border-slate-700 bg-slate-950/60' : 'border-slate-200 bg-slate-50'}`}>
+                  <JobFact icon={<TrendingUp className="h-4 w-4 text-emerald-500" />} label="Banda salarial" value={job.salaryRange} accent />
+                  <JobFact icon={<MapPin className="h-4 w-4 text-cyan-500" />} label="Ubicación" value={job.location} />
+                  <JobFact icon={<Briefcase className="h-4 w-4 text-blue-500" />} label="Experiencia / nivel" value={job.experienceLevel} />
+                </div>
+
+                <div className="mt-5"><p className="text-[11px] font-black uppercase tracking-wide">Requisitos clave</p><ul className="mt-2 grid gap-2 text-xs leading-relaxed sm:grid-cols-2">{job.requirements.map((requirement) => <li key={requirement} className="flex gap-2"><span className="text-emerald-500">•</span>{requirement}</li>)}</ul></div>
+                <div className="mt-5 flex flex-wrap gap-2">{job.tags?.map((tag) => <span key={tag} className={`rounded-md border px-2 py-1 text-[10px] font-bold ${theme === 'dark' ? 'border-slate-700 bg-slate-950 text-slate-300' : 'border-slate-200 bg-white text-slate-600'}`}>#{tag}</span>)}</div>
+
+                <button
+                  type="button"
+                  onClick={() => openApplication(job)}
+                  className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyan-400 to-emerald-400 px-4 py-3 text-sm font-black text-slate-950 transition hover:brightness-110 active:scale-[0.98]"
+                >
+                  Postular a esta vacante
+                  <ArrowRight className="h-4 w-4" />
+                </button>
+              </article>
+              </Reveal>
             ))}
           </div>
-        </div>
-
-        {/* MAIN JOBS LAYOUT (DESKTOP PERSISTENT STICKY SIDEBAR + JOB CARDS GRID) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          
-          {/* DESKTOP PERSISTENT LEFT SIDEBAR - Stays visible on scroll down to footer */}
-          <aside className="hidden lg:block lg:col-span-3 sticky top-24 self-start space-y-6">
-            <div className={`p-5 rounded-2xl border ${
-              theme === 'dark' ? 'bg-slate-900 border-slate-700 shadow-xl' : 'bg-white border-slate-200 shadow-md'
-            }`}>
-              
-              <div className={`flex items-center justify-between pb-3 border-b ${
-                theme === 'dark' ? 'border-slate-800' : 'border-slate-200'
-              }`}>
-                <div className="flex items-center gap-2">
-                  <Filter className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-                  <h3 className={`text-xs font-black uppercase tracking-wider ${
-                    theme === 'dark' ? 'text-white' : 'text-slate-900'
-                  }`}>
-                    Filtros Avanzados
-                  </h3>
-                </div>
-                <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-md border border-emerald-500/20">
-                  {filteredJobs.length} Activas
-                </span>
-              </div>
-
-              {/* Modality Filter */}
-              <div className="pt-4">
-                <label className="block text-xs font-black uppercase tracking-wider mb-2.5 text-slate-900 dark:text-slate-100">
-                  Modalidad de Trabajo
-                </label>
-                <div className="space-y-2.5">
-                  {['Presencial', 'Híbrido', '100% Remoto'].map((mod) => (
-                    <label key={mod} className="flex items-center gap-2.5 text-xs font-bold cursor-pointer transition-colors text-slate-900 dark:text-slate-100 hover:text-emerald-600 dark:hover:text-emerald-400">
-                      <input
-                        type="checkbox"
-                        checked={selectedModalities.includes(mod)}
-                        onChange={() => toggleModality(mod)}
-                        className="rounded border-slate-400 dark:border-slate-600 text-emerald-600 focus:ring-emerald-500 accent-emerald-600 w-4 h-4 cursor-pointer"
-                      />
-                      <span>{mod}</span>
-                    </label>
-                  ))}
-                </div>
-              </div>
-
-              {/* Department Filter */}
-              <div className="pt-4 border-t border-slate-200 dark:border-slate-800">
-                <label className="block text-xs font-black uppercase tracking-wider mb-2.5 text-slate-900 dark:text-slate-100">
-                  Sector / Departamento
-                </label>
-                <div className="space-y-2.5">
-                  {['Marketing', 'Finanzas', 'Logística', 'Ventas', 'Tecnología', 'People'].map((dept) => (
-                    <label key={dept} className="flex items-center gap-2.5 text-xs font-bold cursor-pointer transition-colors text-slate-900 dark:text-slate-100 hover:text-emerald-600 dark:hover:text-emerald-400">
-                      <input
-                        type="checkbox"
-                        checked={selectedDepartments.includes(dept)}
-                        onChange={() => toggleDepartment(dept)}
-                        className="rounded border-slate-400 dark:border-slate-600 text-emerald-600 focus:ring-emerald-500 accent-emerald-600 w-4 h-4 cursor-pointer"
-                      />
-                      <span>{dept}</span>
-                    </label>
-                  ))}
-                </div>
-              </div>
-
-              {/* AI CV Audit Promo Box */}
-              <div className={`pt-4 border-t ${theme === 'dark' ? 'border-slate-800' : 'border-slate-200'}`}>
-                <div className="p-3.5 rounded-xl bg-gradient-to-br from-emerald-500/15 to-teal-500/15 border border-emerald-500/30 text-center">
-                  <Sparkles className="w-5 h-5 text-emerald-500 dark:text-emerald-400 mx-auto mb-1.5" />
-                  <p className={`text-xs font-black ${
-                    theme === 'dark' ? 'text-white' : 'text-slate-900'
-                  }`}>
-                    ¿No encuentras tu posición ideal?
-                  </p>
-                  <p className={`text-[10px] mt-1 mb-2.5 font-medium ${
-                    theme === 'dark' ? 'text-slate-300' : 'text-slate-700'
-                  }`}>
-                    Sube tu CV para que nuestros Headhunters te emparejen con posiciones confidenciales en Ecuador e internacional.
-                  </p>
-                  <button
-                    onClick={onOpenCVAnalyzer}
-                    className="w-full py-2.5 px-3 bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs rounded-lg shadow-md transition-all cursor-pointer active:scale-95"
-                  >
-                    Auditar CV con IA
-                  </button>
-                </div>
-              </div>
-
-            </div>
-          </aside>
-
-          {/* JOB LISTINGS CARDS (GRID OF JOBS) */}
-          <div className="lg:col-span-9 space-y-4">
-            
-            {/* Live Count Header */}
-            <div className="flex items-center justify-between text-xs pb-2 border-b border-slate-300 dark:border-slate-800">
-              <p className="text-slate-900 dark:text-slate-100 font-semibold">
-                Mostrando <strong className="text-slate-950 dark:text-white font-black">{filteredJobs.length}</strong> posiciones activas
-              </p>
-              <span className="text-[11px] text-emerald-700 dark:text-emerald-400 font-black bg-emerald-500/15 px-2.5 py-0.5 rounded-md border border-emerald-500/20">
-                Procesos Actualizados
-              </span>
-            </div>
-
-            {filteredJobs.length > 0 ? (
-              filteredJobs.map((job) => (
-                <div
-                  key={job.id}
-                  className={`p-5 sm:p-6 rounded-2xl border transition-all duration-300 hover:scale-[1.01] hover:shadow-xl relative flex flex-col justify-between ${
-                    job.isFeatured
-                      ? theme === 'dark'
-                        ? 'bg-slate-900 border-emerald-500/40 hover:border-emerald-500 shadow-lg'
-                        : 'bg-white border-emerald-300 hover:border-emerald-500 shadow-md'
-                      : theme === 'dark'
-                        ? 'bg-slate-900/90 border-slate-700 hover:border-slate-600'
-                        : 'bg-white border-slate-200 hover:border-slate-300 shadow-sm'
-                  }`}
-                >
-                  {/* Top Tags & Badges */}
-                  <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
-                    <div className="flex items-center gap-2">
-                      <span className="text-[10px] uppercase font-black px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30">
-                        {job.department}
-                      </span>
-                      {job.hot && (
-                        <span className="inline-flex items-center gap-1 text-[10px] font-black px-2 py-0.5 rounded-full bg-rose-500/15 text-rose-700 dark:text-rose-300 border border-rose-500/30">
-                          <Flame className="w-3 h-3 text-rose-500" />
-                          <span>Proceso Activo</span>
-                        </span>
-                      )}
-                    </div>
-                    <span className={`text-[11px] font-semibold flex items-center gap-1 ${
-                      theme === 'dark' ? 'text-slate-300' : 'text-slate-600'
-                    }`}>
-                      <Clock className="w-3.5 h-3.5 text-slate-400" />
-                      {job.postedDate}
-                    </span>
-                  </div>
-
-                  {/* Job Title & Main Specs */}
-                  <div>
-                    <h3 className={`text-lg sm:text-xl font-black font-heading mb-2 transition-colors ${
-                      theme === 'dark' ? 'text-white hover:text-emerald-400' : 'text-slate-950 hover:text-emerald-600'
-                    }`}>
-                      {job.title}
-                    </h3>
-                    <p className={`text-xs sm:text-sm font-medium leading-relaxed mb-4 ${
-                      theme === 'dark' ? 'text-slate-200' : 'text-slate-800'
-                    }`}>
-                      {job.description}
-                    </p>
-
-                    {/* Salary & Location Strip */}
-                    <div className={`grid grid-cols-1 sm:grid-cols-3 gap-2.5 p-3 rounded-xl border mb-4 text-xs ${
-                      theme === 'dark' ? 'bg-slate-950 border-slate-700' : 'bg-slate-100 border-slate-300'
-                    }`}>
-                      <div className="flex items-center gap-2">
-                        <TrendingUp className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
-                        <div>
-                          <p className={`text-[10px] uppercase font-black ${
-                            theme === 'dark' ? 'text-slate-300' : 'text-slate-700'
-                          }`}>Banda Salarial</p>
-                          <p className="font-black text-emerald-700 dark:text-emerald-400 text-sm">{job.salaryRange}</p>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <MapPin className="w-4 h-4 text-cyan-600 dark:text-cyan-400 shrink-0" />
-                        <div>
-                          <p className={`text-[10px] uppercase font-black ${
-                            theme === 'dark' ? 'text-slate-300' : 'text-slate-700'
-                          }`}>Ubicación</p>
-                          <p className={`font-bold ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{job.location}</p>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Briefcase className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0" />
-                        <div>
-                          <p className={`text-[10px] uppercase font-black ${
-                            theme === 'dark' ? 'text-slate-300' : 'text-slate-700'
-                          }`}>Experiencia / Nivel</p>
-                          <p className={`font-bold ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{job.experienceLevel}</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Requirements List */}
-                    {job.requirements && job.requirements.length > 0 && (
-                      <div className="mb-4">
-                        <p className={`text-[11px] font-black uppercase tracking-wider mb-1.5 ${
-                          theme === 'dark' ? 'text-slate-200' : 'text-slate-800'
-                        }`}>
-                          Requisitos Clave:
-                        </p>
-                        <ul className="grid grid-cols-1 md:grid-cols-2 gap-1.5 text-xs">
-                          {job.requirements.map((req, rIdx) => (
-                            <li key={rIdx} className={`flex items-start gap-1.5 font-medium ${
-                              theme === 'dark' ? 'text-slate-200' : 'text-slate-800'
-                            }`}>
-                              <span className="text-emerald-600 dark:text-emerald-400 font-black shrink-0">•</span>
-                              <span className="leading-snug">{req}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-
-                    {/* Tags */}
-                    {job.tags && (
-                      <div className="flex flex-wrap gap-1.5 mb-4">
-                        {job.tags.map((tag, idx) => (
-                          <span
-                            key={idx}
-                            className={`text-[10px] font-bold px-2 py-0.5 rounded-md border ${
-                              theme === 'dark'
-                                ? 'bg-slate-950 border-slate-700 text-slate-200'
-                                : 'bg-slate-100 border-slate-300 text-slate-800'
-                            }`}
-                          >
-                            #{tag}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Card Action Buttons */}
-                  <div className={`pt-3 border-t flex flex-col sm:flex-row items-center justify-between gap-3 ${
-                    theme === 'dark' ? 'border-slate-800' : 'border-slate-100'
-                  }`}>
-                    <span className="text-[11px] text-slate-400 hidden sm:inline">
-                      Proceso confidencial gestionado por Nexo Talento
-                    </span>
-                    <button
-                      onClick={() => handleOpenApply(job)}
-                      className="w-full sm:w-auto px-6 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 font-extrabold text-xs rounded-xl shadow-md transition-all flex items-center justify-center gap-2 group cursor-pointer active:scale-95"
-                    >
-                      <span>Postular a esta Vacante</span>
-                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                    </button>
-                  </div>
-
-                </div>
-              ))
-            ) : (
-              <div className="p-12 text-center border rounded-2xl bg-slate-900/30 border-slate-800">
-                <FileSearch className="w-12 h-12 text-slate-400 mx-auto mb-3" />
-                <h4 className="text-base font-bold">No se encontraron posiciones con estos filtros</h4>
-                <p className="text-xs text-slate-400 mt-1 mb-4">Prueba a borrar términos o seleccionar otra modalidad/ciudad.</p>
-                <button
-                  onClick={() => handlePillClick('Todos')}
-                  className="px-4 py-2 bg-emerald-500 text-slate-950 text-xs font-bold rounded-xl active:scale-95 cursor-pointer"
-                >
-                  Restablecer Todos los Filtros
-                </button>
-              </div>
-            )}
-
+        ) : (
+          <div className={`rounded-3xl border p-10 text-center ${theme === 'dark' ? 'border-slate-700 bg-slate-900/70' : 'border-slate-200 bg-white'}`}>
+            <FileSearch className="mx-auto h-11 w-11 text-cyan-500" />
+            <h3 className={`mt-4 font-heading text-xl font-black ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
+              No encontramos una coincidencia exacta
+            </h3>
+            <p className={`mx-auto mt-2 max-w-md text-sm ${theme === 'dark' ? 'text-slate-300' : 'text-slate-600'}`}>
+              Prueba una palabra más amplia, como el área, una habilidad o una ciudad.
+            </p>
+            <button
+              type="button"
+              onClick={onOpenCVAnalyzer}
+              className="mt-5 inline-flex items-center gap-2 text-sm font-black text-cyan-700 underline decoration-cyan-400 underline-offset-4 dark:text-cyan-300"
+            >
+              <Briefcase className="h-4 w-4" />
+              Preparar mi CV para nuevas oportunidades
+            </button>
           </div>
-
-        </div>
-
+        )}</div></div>
       </div>
 
-      {/* Frictionless Multi-step Application Modal */}
-      <JobApplicationModal 
-        job={selectedJob} 
-        isOpen={isModalOpen} 
-        onClose={handleCloseModal} 
-        theme={theme} 
+      <JobApplicationModal
+        job={selectedJob}
+        isOpen={isModalOpen}
+        onClose={closeApplication}
+        theme={theme}
       />
-
     </section>
   );
 };

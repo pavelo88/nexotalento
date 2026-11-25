@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ExternalLink, LoaderCircle, MapPin, Mail, Phone, BriefcaseBusiness, GraduationCap } from 'lucide-react';
+import { ExternalLink, LoaderCircle, MapPin, BriefcaseBusiness, GraduationCap } from 'lucide-react';
 import { getPublicProfile, type PublicProfile } from '../features/profiles/publicProfile';
 import { useTheme } from '../context/ThemeContext';
 
@@ -40,7 +40,7 @@ export const PublicProfilePage: React.FC<PublicProfilePageProps> = ({ slug }) =>
       <header className="bg-gradient-to-br from-[#102B45] via-[#0E243A] to-[#08111F] text-white pt-16 pb-14">
         <div className="max-w-5xl mx-auto px-6 grid md:grid-cols-[160px_1fr] gap-8 items-center">
           {profile.photoUrl ? <img src={profile.photoUrl} alt={`Foto de ${profile.name}`} className="w-40 h-40 rounded-3xl object-cover border-4 border-cyan-400/60 shadow-2xl" /> : <div className="w-40 h-40 rounded-3xl bg-white/10 border border-white/20 flex items-center justify-center text-5xl font-black text-cyan-300">{profile.name.charAt(0)}</div>}
-          <div><p className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-300">Perfil profesional</p><h1 className="mt-3 text-4xl sm:text-5xl font-black">{profile.name}</h1><p className="mt-3 text-xl text-cyan-200 font-semibold">{profile.headline || 'Profesional en desarrollo'}</p><div className="mt-5 flex flex-wrap gap-4 text-sm text-slate-300">{profile.location && <span className="flex items-center gap-1.5"><MapPin className="w-4 h-4 text-cyan-300" />{profile.location}</span>}{profile.email && <a className="flex items-center gap-1.5 hover:text-white" href={`mailto:${profile.email}`}><Mail className="w-4 h-4 text-cyan-300" />{profile.email}</a>}{profile.phone && <a className="flex items-center gap-1.5 hover:text-white" href={`https://wa.me/${profile.phone.replace(/\D/gu, '')}`}><Phone className="w-4 h-4 text-cyan-300" />{profile.phone}</a>}</div></div>
+          <div><p className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-300">Perfil profesional</p><h1 className="mt-3 text-4xl sm:text-5xl font-black">{profile.name}</h1><p className="mt-3 text-xl text-cyan-200 font-semibold">{profile.headline || 'Profesional en desarrollo'}</p><div className="mt-5 flex flex-wrap gap-4 text-sm text-slate-300">{profile.location && <span className="flex items-center gap-1.5"><MapPin className="w-4 h-4 text-cyan-300" />{profile.location}</span>}</div></div>
         </div>
       </header>
       <main className="max-w-5xl mx-auto px-6 py-12 space-y-8">

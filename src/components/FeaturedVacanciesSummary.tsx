@@ -1,16 +1,11 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { useTheme } from '../context/ThemeContext';
-import { PageRoute } from '../types';
+import { JobPosition, PageRoute } from '../types';
+import { INITIAL_JOBS } from '../data/jobsData';
 import { 
-  Briefcase, 
   MapPin, 
   ArrowRight, 
   Flame, 
-  Clock, 
-  Building2, 
-  CheckCircle2, 
-  Sparkles,
-  TrendingUp,
   ChevronLeft,
   ChevronRight
 } from 'lucide-react';
@@ -27,54 +22,7 @@ export const FeaturedVacanciesSummary: React.FC<FeaturedVacanciesSummaryProps> =
   const { theme } = useTheme();
   const carouselRef = useRef<HTMLDivElement>(null);
 
-  const vacancies = [
-    {
-      id: 'job-jefe-marketing',
-      title: 'Jefe de Marketing',
-      department: 'Marketing & Comercial',
-      location: 'Quito, Ecuador',
-      modality: 'Presencial',
-      salary: 'USD 1.500 – 2.000',
-      experience: 'Liderazgo en marketing digital y posicionamiento',
-      tags: ['Marketing Digital', 'Estrategia', 'SEO/SEM', 'Leads'],
-      hot: true
-    },
-    {
-      id: 'job-asistente-contable',
-      title: 'Asistente Contable',
-      department: 'Finanzas & Contabilidad',
-      location: 'Valle de los Chillos, Quito',
-      modality: 'Presencial',
-      salary: 'USD 600 – 700',
-      experience: 'Mínimo 3 años en procesos contables',
-      tags: ['Contabilidad', 'Conciliaciones', 'Retenciones', 'Impuestos'],
-      hot: true
-    },
-    {
-      id: 'job-asesor-nuevos-negocios',
-      title: 'Asesor de Nuevos Negocios (Sector carga internacional)',
-      department: 'Logística & Comercio Exterior',
-      location: 'Quito, Ecuador',
-      modality: 'Presencial',
-      salary: 'A convenir (experiencia y cartera)',
-      experience: 'Mínimo 4 años en freight forwarding',
-      tags: ['Carga Internacional', 'Freight Forwarding', 'Cartera Activa', 'B2B'],
-      hot: true
-    },
-    {
-      id: 'job-asesor-comercial-corporativo',
-      title: 'Asesor Comercial Corporativo',
-      department: 'Ventas Corporativas & Tech',
-      location: 'Guayaquil, Ecuador',
-      modality: 'Presencial',
-      salary: 'A convenir + Comisiones',
-      experience: 'Cartera corporativa en sector tecnológico',
-      tags: ['Ventas B2B', 'Sector Tecnológico', 'Cartera Corporativa', 'Comisiones'],
-      hot: true
-    }
-  ];
-
-  const [vacanciesList, setVacanciesList] = useState(vacancies);
+  const [vacanciesList, setVacanciesList] = useState<JobPosition[]>(INITIAL_JOBS);
 
   useEffect(() => {
     let active = true;
@@ -165,7 +113,7 @@ export const FeaturedVacanciesSummary: React.FC<FeaturedVacanciesSummaryProps> =
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500" />
               </span>
-              <span>4 Procesos Oficiales de Selección Abiertos</span>
+              <span>{vacanciesList.length} Procesos Oficiales de Selección Abiertos</span>
             </div>
 
             <h2 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight font-heading">
@@ -178,7 +126,7 @@ export const FeaturedVacanciesSummary: React.FC<FeaturedVacanciesSummaryProps> =
             <p className={`mt-3 text-xs sm:text-sm leading-relaxed ${
               theme === 'dark' ? 'text-slate-300' : 'text-slate-600'
             }`}>
-              Procesos activos para empresas líderes en Quito y Guayaquil. Bandas salariales transparentes, contratación directa y gestión de terna ejecutiva.
+              Procesos activos para empresas líderes en España y Latam. Bandas salariales transparentes, contratación directa y gestión de terna ejecutiva.
             </p>
           </div>
 
@@ -258,12 +206,12 @@ export const FeaturedVacanciesSummary: React.FC<FeaturedVacanciesSummaryProps> =
                 <p className={`text-xs leading-relaxed mb-4 line-clamp-2 ${
                   theme === 'dark' ? 'text-slate-400' : 'text-slate-600'
                 }`}>
-                  {job.experience}
+                  {job.experienceLevel}
                 </p>
 
                 {/* Tags */}
                 <div className="flex flex-wrap gap-1.5 mb-5">
-                  {job.tags.slice(0, 3).map((tag, tIdx) => (
+                  {(job.tags ?? []).slice(0, 3).map((tag, tIdx) => (
                     <span 
                       key={tIdx}
                       className={`text-[9px] font-semibold px-2 py-0.5 rounded-md border ${
@@ -289,7 +237,7 @@ export const FeaturedVacanciesSummary: React.FC<FeaturedVacanciesSummaryProps> =
                   <span className={`text-xs font-extrabold font-heading ${
                     theme === 'dark' ? 'text-emerald-400' : 'text-emerald-600'
                   }`}>
-                    {job.salary}
+                    {job.salaryRange}
                   </span>
                 </div>
 
@@ -308,7 +256,7 @@ export const FeaturedVacanciesSummary: React.FC<FeaturedVacanciesSummaryProps> =
             onClick={() => onNavigate('/vacantes')}
             className="px-6 py-3 rounded-2xl bg-gradient-to-r from-cyan-500 via-[#00A9A3] to-blue-600 text-slate-950 font-black text-xs sm:text-sm hover:scale-105 active:scale-95 transition-all shadow-xl shadow-cyan-500/20 inline-flex items-center gap-2 cursor-pointer"
           >
-            <span>Ver todas las opciones disponibles (4 activas)</span>
+            <span>Explorar oportunidades activas ({vacanciesList.length})</span>
             <ArrowRight className="w-4 h-4" />
           </button>
         </div>

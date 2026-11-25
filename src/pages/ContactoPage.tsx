@@ -117,7 +117,7 @@ export const ContactoPage: React.FC<ContactoPageProps> = ({
             <span>Atención Directa &amp; Confidencial</span>
           </div>
           <h1 className="text-2xl sm:text-5xl font-black tracking-tight leading-[1.08] text-balance font-heading">
-            Contacto, Sedes y <span className="inline-block whitespace-nowrap text-transparent bg-clip-text bg-gradient-to-r from-[#00A9A3] to-blue-500">Consultor Directo</span>
+            Contacto y <span className="inline-block whitespace-nowrap text-transparent bg-clip-text bg-gradient-to-r from-[#00A9A3] to-blue-500">Consultor Directo</span>
           </h1>
           <p className={`mt-4 text-base leading-relaxed ${
             theme === 'dark' ? 'text-slate-300' : 'text-slate-600'
@@ -203,7 +203,8 @@ export const ContactoPage: React.FC<ContactoPageProps> = ({
               </div>
             </div>
 
-            {/* Barcelona HQ Card */}
+            {/* Oficina adicional conservada como referencia histórica, no visible. */}
+            {/*
             <div className={`border rounded-3xl p-6 sm:p-7 shadow-xl space-y-3 transition-colors card-spring-hover ${
               theme === 'dark'
                 ? 'bg-slate-900/80 border-slate-800 hover:border-blue-500/40'
@@ -237,7 +238,7 @@ export const ContactoPage: React.FC<ContactoPageProps> = ({
                 <span className={theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}>Atención:</span>
                 <span className={theme === 'dark' ? 'text-slate-200' : 'text-slate-700 font-medium'}>Lunes a Viernes (9:00 - 19:30 CET)</span>
               </div>
-            </div>
+            </div> */}
 
             {/* Department Emails & Schedule */}
             <div className={`border rounded-3xl p-6 space-y-3 text-xs ${
@@ -249,19 +250,19 @@ export const ContactoPage: React.FC<ContactoPageProps> = ({
                 theme === 'dark' ? 'border-slate-800' : 'border-slate-100'
               }`}>
                 <span className={theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}>Dirección General &amp; Búsqueda C-Level:</span>
-                <span className="text-[#00A9A3] font-semibold"><span>empresas</span><span className="text-[#00A9A3]">&#64;</span><span>nexotalento.com</span></span>
+                <span className="text-[#00A9A3] font-semibold">info@nexotalento.com</span>
               </div>
               <div className={`flex items-center justify-between pb-2 border-b ${
                 theme === 'dark' ? 'border-slate-800' : 'border-slate-100'
               }`}>
                 <span className={theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}>Candidaturas y Base de Talento:</span>
-                <span className="text-blue-500 font-semibold"><span>talento</span><span className="text-blue-500">&#64;</span><span>nexotalento.com</span></span>
+                <span className="text-blue-500 font-semibold">info@nexotalento.com</span>
               </div>
               <div className={`flex items-center justify-between pb-2 border-b ${
                 theme === 'dark' ? 'border-slate-800' : 'border-slate-100'
               }`}>
                 <span className={theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}>Consultas Generales:</span>
-                <span className="font-semibold"><span>contacto</span><span>&#64;</span><span>nexotalento.com</span></span>
+                <span className="font-semibold">info@nexotalento.com</span>
               </div>
               <div className={`flex items-center gap-2 pt-2 text-[11px] ${
                 theme === 'dark' ? 'text-slate-400' : 'text-slate-500'

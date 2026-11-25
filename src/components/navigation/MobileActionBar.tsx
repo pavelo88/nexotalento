@@ -1,5 +1,4 @@
 import React from 'react';
-import { useTheme } from '../../context/ThemeContext';
 import { 
   Briefcase, 
   Building2, 
@@ -21,7 +20,6 @@ export const MobileActionBar: React.FC<MobileActionBarProps> = ({
   currentPath,
   onNavigate
 }) => {
-  const { theme } = useTheme();
   const phoneClean = COMPANY_CONFIG.phone.replace(/\D/g, '') || '34614143763';
   const whatsappUrl = COMPANY_CONFIG.whatsappUrl;
 
@@ -100,11 +98,7 @@ export const MobileActionBar: React.FC<MobileActionBarProps> = ({
         {/* Apple Frosted Glass Background with Elliptic Arch & Center Notch */}
         <div
           aria-hidden
-          className={`pointer-events-none absolute inset-0 rounded-t-[50%_1.75rem] border-t backdrop-blur-2xl ios-notch-mask ${
-            theme === 'dark'
-              ? 'border-white/[0.12] bg-[#082041]/95'
-              : 'border-slate-300/80 bg-white/95 shadow-2xl'
-          }`}
+          className="pointer-events-none absolute inset-0 rounded-t-[50%_1.75rem] border-t border-white/[0.12] bg-[#082041]/95 backdrop-blur-2xl ios-notch-mask"
         />
 
         {/* 5-Column Grid */}

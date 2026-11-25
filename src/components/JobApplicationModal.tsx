@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { User } from 'firebase/auth';
 import { JobPosition } from '../types';
 import { loginCandidate, registerCandidate, submitCandidateApplication, validateCv } from '../features/candidates/application';
+import { auth } from '../lib/firebase';
 import { 
   X, 
   ChevronRight, 
@@ -67,6 +68,21 @@ export const JobApplicationModal: React.FC<JobApplicationModalProps> = ({
       setCvFileName(file.name);
     }
   };
+
+  if (!auth.currentUser) {
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4 backdrop-blur-md">
+        <section role="dialog" aria-modal="true" aria-label="Acceso requerido para postular" className={`w-full max-w-md rounded-3xl border p-7 shadow-2xl ${theme === 'dark' ? 'border-slate-700 bg-slate-900 text-white' : 'border-slate-200 bg-white text-slate-900'}`}>
+          <button type="button" onClick={handleClose} className="float-right rounded-lg p-2 text-slate-400 hover:bg-slate-800 hover:text-white" aria-label="Cerrar"><X className="h-5 w-5" /></button>
+          <span className="text-xs font-black uppercase tracking-wide text-emerald-500">Postulación segura</span>
+          <h2 className="mt-3 font-heading text-2xl font-black">Crea o ingresa a tu perfil primero</h2>
+          <p className="mt-3 text-sm leading-relaxed text-slate-400">Para postular a <strong className="text-inherit">{job.title}</strong>, necesitamos asociar tu CV y el estado de tu proceso a una cuenta privada.</p>
+          <button type="button" onClick={() => { window.location.assign('/crear-perfil'); }} className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyan-400 to-emerald-400 px-4 py-3 font-black text-slate-950">Crear mi perfil o iniciar sesión <ArrowRight className="h-4 w-4" /></button>
+          <p className="mt-3 text-center text-xs text-slate-400">Si ya tienes cuenta, usa “Ya tengo una cuenta” en la siguiente pantalla.</p>
+        </section>
+      </div>
+    );
+  }
 
   const handleFinalSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

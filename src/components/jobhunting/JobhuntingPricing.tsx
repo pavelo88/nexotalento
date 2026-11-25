@@ -12,6 +12,9 @@ export const JobhuntingPricing: React.FC<JobhuntingPricingProps> = ({
   selectedPlan,
   onSelectPlan
 }) => {
+  // Los precios explícitos se conservan para una futura revisión comercial,
+  // pero no se muestran públicamente hasta que exista una aprobación vigente.
+  return null;
   return (
     <section id="modalidades-precios" className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="text-center max-w-3xl mx-auto mb-16">

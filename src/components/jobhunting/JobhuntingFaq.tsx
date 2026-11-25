@@ -33,14 +33,9 @@ const faqs: FaqItem[] = [
     a: 'Es totalmente válido. La primera fase del programa está enfocada precisamente en definir tu posicionamiento, perfil profesional y objetivos.'
   },
   {
-    cat: 'Modelos y pagos',
-    q: '¿Qué diferencia hay entre los dos modelos?',
-    a: 'ProProfile a éxito: trabajamos en exclusividad, con un modelo vinculado a resultado (300 € inicial + 25% del salario mensual descontando el retain al conseguir empleo). ProProfile – Inversión cerrada (450 €): no hay exclusividad ni porcentaje. Incluye mayor foco en la parte psicológica, con 3 sesiones con psicóloga, y un formato más estructurado desde el inicio.'
-  },
-  {
-    cat: 'Modelos y pagos',
-    q: '¿Cuándo se paga el success fee?',
-    a: 'En la modalidad a éxito, únicamente cuando aceptas una oferta laboral dentro del periodo acordado. Además, ofrecemos distintas opciones de pago para facilitar el proceso.'
+    cat: 'Diagnóstico y condiciones',
+    q: '¿Cómo se definen las condiciones del programa?',
+    a: 'Después del diagnóstico inicial, un consultor comparte la alternativa de acompañamiento que mejor se ajusta a tu objetivo y experiencia. Así recibes una propuesta clara antes de tomar una decisión.'
   },
   {
     cat: 'Entrevistas y oportunidades',
@@ -62,7 +57,7 @@ export const JobhuntingFaq: React.FC<JobhuntingFaqProps> = ({ theme }) => {
   };
 
   return (
-    <section className="py-24 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section data-reveal className="reveal-on-scroll py-24 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="text-center mb-14">
         <span className="text-xs font-black uppercase tracking-wider text-[#00A896]">
           Preguntas Frecuentes

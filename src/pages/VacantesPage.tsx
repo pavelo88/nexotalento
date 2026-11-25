@@ -2,7 +2,7 @@ import React from 'react';
 import { JobsPortal } from '../components/JobsPortal';
 import { PageRoute } from '../types';
 import { useTheme } from '../context/ThemeContext';
-import { ProProfileCallout } from '../components/vacancies/ProProfileCallout';
+import { VacancyCampaignHero } from '../components/vacancies/VacancyCampaignHero';
 
 interface VacantesPageProps {
   onNavigate: (path: PageRoute) => void;
@@ -24,10 +24,11 @@ export const VacantesPage: React.FC<VacantesPageProps> = ({
       <div className="absolute top-1/2 right-10 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <VacancyCampaignHero onNavigate={onNavigate} />
+
         <JobsPortal
           onOpenCVAnalyzer={onOpenCVAnalyzer}
           isFullPage={true}
-          headerAfter={<ProProfileCallout onNavigate={onNavigate} />}
         />
       </div>
     </div>

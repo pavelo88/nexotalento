@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
-import { doc, getDoc, serverTimestamp, setDoc } from 'firebase/firestore';
+import { collection, doc, getDocs, getDoc, limit, query, serverTimestamp, setDoc, where } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import {
   ArrowRight,
@@ -20,6 +20,7 @@ import {
 import { useTheme } from '../context/ThemeContext';
 import { auth, db, storage } from '../lib/firebase';
 import { AccountSetupCard } from '../components/profile/AccountSetupCard';
+import { MiNexoPortal } from '../components/profile/MiNexoPortal';
 import { downloadProfilePdf, type ProfilePdfData } from '../utils/profilePdfGenerator';
 
 type CreationMode = 'choose' | 'manual' | 'upload';
@@ -97,6 +98,21 @@ export const CreateProfilePage: React.FC = () => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setAccountReady(Boolean(user));
       if (user?.email) updateForm('email', user.email);
+      if (user) {
+        getDocs(query(collection(db, 'profiles'), where('ownerUid', '==', user.uid), limit(1))).then((snapshot) => {
+          const existing = snapshot.docs[0]?.data();
+          if (!existing) return;
+          setForm((current) => ({
+            ...current,
+            name: existing.name || current.name,
+            headline: existing.headline || current.headline,
+            summary: existing.summary || current.summary,
+            skills: Array.isArray(existing.specialties) ? existing.specialties.join(', ') : current.skills,
+          }));
+          setDraft({ name: existing.name || '', headline: existing.headline || '', summary: existing.summary || '' });
+          setPublishStatus('Recuperamos tu perfil guardado. Puedes editarlo y volver a publicarlo.');
+        }).catch(() => undefined);
+      }
     });
     return unsubscribe;
   }, []);
@@ -163,7 +179,8 @@ export const CreateProfilePage: React.FC = () => {
   const uploadPhoto = async (): Promise<string | undefined> => {
     const user = auth.currentUser;
     if (!user || !photoFile) return undefined;
-    const photoRef = ref(storage, `users/${user.uid}/profile/photo-${Date.now()}-${photoFile.name.replace(/[^a-z0-9.]+/giu, '-')}`);
+    if (!photoFile.type.startsWith('image/') || photoFile.size > 5 * 1024 * 1024) throw new Error('La foto debe ser una imagen de máximo 5 MB.');
+    const photoRef = ref(storage, `users/${user.uid}/public-profile/photo-${Date.now()}.${photoFile.name.split('.').pop() || 'jpg'}`);
     await uploadBytes(photoRef, photoFile, { contentType: photoFile.type });
     return getDownloadURL(photoRef);
   };
@@ -172,7 +189,7 @@ export const CreateProfilePage: React.FC = () => {
     const user = auth.currentUser;
     if (!user || !cvFile) return;
     const safeName = cvFile.name.replace(/[^a-z0-9.]+/giu, '-');
-    const cvRef = ref(storage, `users/${user.uid}/profile/source-cv-${Date.now()}-${safeName}`);
+    const cvRef = ref(storage, `users/${user.uid}/private-cvs/source-cv-${Date.now()}-${safeName}`);
     await uploadBytes(cvRef, cvFile, { contentType: cvFile.type || 'application/octet-stream' });
   };
 
@@ -189,6 +206,7 @@ export const CreateProfilePage: React.FC = () => {
       const baseRef = doc(db, 'profiles', baseSlug);
       const existing = await getDoc(baseRef);
       const slug = existing.exists() && existing.data().ownerUid !== user.uid ? `${baseSlug}-${user.uid.slice(0, 6).toLowerCase()}` : baseSlug;
+      if (!user.emailVerified) throw new Error('Verifica tu correo antes de publicar el perfil.');
       const [photoUrl] = await Promise.all([uploadPhoto(), uploadSourceCv()]);
       await setDoc(doc(db, 'profiles', slug), {
         ownerUid: user.uid,
@@ -196,7 +214,6 @@ export const CreateProfilePage: React.FC = () => {
         name: draft.name || form.name,
         headline: draft.headline || form.headline,
         summary: draft.summary || form.summary,
-        email: form.email || user.email || '',
         photoUrl: photoUrl || null,
         specialties: form.skills.split(/[,\n]/u).map((item) => item.trim()).filter(Boolean).slice(0, 12),
         experience: form.experience ? [{ role: 'Experiencia profesional', description: form.experience }] : [],
@@ -334,10 +351,6 @@ export const CreateProfilePage: React.FC = () => {
           setForm((current) => ({ ...current, name, email }));
           setAccountReady(true);
         }}
-        onContinueLocal={(name, email) => {
-          setForm((current) => ({ ...current, name, email }));
-          setAccountReady(true);
-        }}
       />
     );
   }
@@ -370,6 +383,7 @@ export const CreateProfilePage: React.FC = () => {
 
   return (
     <div className={`min-h-screen pt-28 pb-20 ${isDark ? 'bg-[radial-gradient(circle_at_15%_5%,rgba(0,229,201,0.12),transparent_32%),#06080B] text-white' : 'bg-[radial-gradient(circle_at_12%_8%,rgba(34,211,238,0.16),transparent_30%),radial-gradient(circle_at_88%_38%,rgba(129,140,248,0.13),transparent_34%),#F8FAFC] text-slate-900'}`}>
+      <MiNexoPortal isDark={isDark} muted={muted} surface={surface} />
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto text-center mb-10">
           <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-500 text-xs font-bold uppercase tracking-wider">

@@ -121,7 +121,7 @@ export const JobhuntingPhases: React.FC<JobhuntingPhasesProps> = ({ theme }) => 
   }, []);
 
   return (
-    <section className={`py-24 border-y ${theme === 'dark' ? 'bg-[#090C11] border-stone-800' : 'bg-stone-100/60 border-stone-200'}`}>
+    <section data-reveal className={`reveal-on-scroll py-24 border-y ${theme === 'dark' ? 'bg-[#090C11] border-stone-800' : 'bg-stone-100/60 border-stone-200'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="text-center max-w-3xl mx-auto mb-16">

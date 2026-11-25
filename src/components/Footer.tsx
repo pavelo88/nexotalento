@@ -55,7 +55,7 @@ export const Footer: React.FC<FooterProps> = ({
           <div className="flex items-center gap-3 text-slate-300 text-center md:text-left">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping shrink-0" />
             <span className="text-xs">
-              <strong className="text-white">Atención Ejecutiva Inmediata:</strong> Consultores Sénior disponibles para proyectos en Madrid, Barcelona y toda España.
+              <strong className="text-white">Atención Ejecutiva Inmediata:</strong> Consultores Sénior disponibles para proyectos en Madrid y toda España, con cobertura Latam.
             </span>
           </div>
 
@@ -97,10 +97,6 @@ export const Footer: React.FC<FooterProps> = ({
               <div className="flex items-center gap-2">
                 <Building2 className="w-4 h-4 text-cyan-400 shrink-0" />
                 <span><strong>Sede Madrid:</strong> {COMPANY_CONFIG.addresses.madrid.full}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Building2 className="w-4 h-4 text-cyan-400 shrink-0" />
-                <span><strong>Sede Barcelona:</strong> {COMPANY_CONFIG.addresses.barcelona.full}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="w-4 h-4 text-cyan-400 shrink-0" />
@@ -152,7 +148,7 @@ export const Footer: React.FC<FooterProps> = ({
                 <li>
                   <button onClick={() => handleNav('/jobhunting')} className="w-full text-left p-1.5 md:p-0 rounded-lg bg-slate-900/60 md:bg-transparent border border-slate-800/60 md:border-0 hover:text-[#00E5C9] transition-colors flex items-center gap-1 text-[#00E5C9] font-bold active:scale-95">
                     <Sparkles className="w-3 h-3 text-[#00A896] shrink-0" />
-                    <span className="truncate">Jobhunting ProProfile</span>
+                    <span className="truncate">Impulso laboral</span>
                   </button>
                 </li>
                 <li>
@@ -185,12 +181,7 @@ export const Footer: React.FC<FooterProps> = ({
                     <span className="truncate">Briefing de Posición</span>
                   </button>
                 </li>
-                <li>
-                  <button onClick={() => handleNav('/calculadora-roi')} className="w-full text-left p-1.5 md:p-0 rounded-lg bg-slate-900/60 md:bg-transparent border border-slate-800/60 md:border-0 hover:text-cyan-400 transition-colors flex items-center gap-1 active:scale-95">
-                    <ChevronRight className="w-3 h-3 text-cyan-500 shrink-0" />
-                    <span className="truncate">Calculadora ROI</span>
-                  </button>
-                </li>
+                {/* Calculadora ROI: ruta y código conservados, enlace público oculto. */}
                 <li>
                   <button onClick={() => handleNav('/proceso')} className="w-full text-left p-1.5 md:p-0 rounded-lg bg-slate-900/60 md:bg-transparent border border-slate-800/60 md:border-0 hover:text-cyan-400 transition-colors flex items-center gap-1 active:scale-95">
                     <ChevronRight className="w-3 h-3 text-cyan-500 shrink-0" />

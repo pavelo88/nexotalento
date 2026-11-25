@@ -58,10 +58,10 @@ export const JobhuntingHero: React.FC = () => {
             </a>
 
             <a
-              href="#modalidades-precios"
+              href="#formulario-postulacion"
               className="w-full h-11 rounded-xl font-bold text-xs bg-white/10 hover:bg-white/15 text-white border border-white/20 flex items-center justify-center active:scale-95 transition-all"
             >
-              Ver Modelos &amp; Inversión (300 € / 450 €)
+              Solicitar información
             </a>
           </div>
 
@@ -136,10 +136,10 @@ export const JobhuntingHero: React.FC = () => {
               </a>
 
               <a
-                href="#modalidades-precios"
+                href="#formulario-postulacion"
                 className="h-12 px-5 rounded-xl font-bold text-xs xl:text-sm bg-white/10 hover:bg-white/15 text-white border border-white/20 transition-all flex items-center justify-center active:scale-95"
               >
-                Ver Modelos &amp; Inversión
+                Solicitar información
               </a>
             </div>
 

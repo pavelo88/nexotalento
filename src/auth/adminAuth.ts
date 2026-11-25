@@ -7,7 +7,8 @@ import {
 } from 'firebase/auth';
 import { auth, authPersistenceReady } from '../lib/firebase';
 
-const ADMIN_ROLES = new Set(['admin', 'superadmin', 'recruiter', 'analyst', 'support']);
+// Debe mantenerse alineado con las reglas de Firestore/Storage y el servidor.
+const ADMIN_ROLES = new Set(['admin', 'super', 'superadmin', 'recruiter']);
 
 export interface AdminUser {
   uid: string;

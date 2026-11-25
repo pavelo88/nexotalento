@@ -98,17 +98,24 @@ service firebase.storage {
     // =========================================================================
     // Ruta: users/{userId}/profile/{fileName}
     // Fotos de perfil y hojas de vida públicas para reclutadores
-    match /users/{userId}/profile/{fileName} {
-      // Lectura pública para que las empresas y reclutadores vean fotos y CV de perfiles publicados
+    match /users/{userId}/public-profile/{fileName} {
       allow read: if true;
 
       // Subida por el usuario dueño (imágenes o CV en PDF/Word < 10MB)
       allow write: if isOwner(userId) &&
                    request.resource.size < 10 * 1024 * 1024 &&
-                   (isImageType() || isDocType());
+                   isImageType();
 
       // Eliminación reservada al dueño o administrador
       allow delete: if isOwner(userId) || isAdmin();
+    }
+
+    // CV fuente privado: nunca se sirve desde una carpeta pública.
+    match /users/{userId}/private-cvs/{fileName} {
+      allow read, delete: if isOwner(userId) || isAdmin();
+      allow write: if isOwner(userId) &&
+                   request.resource.size < 10 * 1024 * 1024 &&
+                   isDocType();
     }
 
     // =========================================================================

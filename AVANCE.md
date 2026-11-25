@@ -5,6 +5,34 @@
 **Próximos pasos:** Migrar autenticación, usuarios, leads y contenido a Firebase con reglas y verificación server-side; conectar GA4 Data API o una fuente equivalente al dashboard; retirar secretos del repositorio; validar producción, consentimiento, eventos y entrega real de leads antes de activar campañas.
 **Archivos modificados:** C:/dev/proyectos/nexotalentos/AVANCE.md
 
+## [2026-11-24] - Nexo Talento - Codex
+**Qué se hizo:** Se sustituyeron las transiciones CSS que ocultaban secciones por animaciones reales con `motion/react`, replicando el patrón de entrada por viewport de Baterías: título primero y tarjetas escalonadas después.
+**Resultado:** No se reserva espacio vacío mientras se hace scroll; la portada local mantiene todo su contenido, las tarjetas de servicios y vacantes aparecen de forma progresiva, y `npm run build` finalizó correctamente. Se comprobó la portada en `http://127.0.0.1:3001`.
+**Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
+**Próximos pasos:** Validar las transiciones en el despliegue de Vercel tras la publicación y completar la configuración privada de Firebase Admin para habilitar persistencia productiva.
+**Archivos modificados:** C:/dev/proyectos/nexotalentos/src/components/motion/Reveal.tsx; C:/dev/proyectos/nexotalentos/src/pages/HomePage.tsx; C:/dev/proyectos/nexotalentos/src/pages/ServiciosPage.tsx; C:/dev/proyectos/nexotalentos/src/components/services/CompactServicesGrid.tsx; C:/dev/proyectos/nexotalentos/src/components/JobsPortal.tsx; C:/dev/proyectos/nexotalentos/src/components/jobhunting/JobhuntingPainPoints.tsx; C:/dev/proyectos/nexotalentos/AVANCE.md
+
+## [2026-11-24] - Nexo Talento - Codex
+**Qué se hizo:** Se añadió un sistema nativo de entradas al hacer scroll, escalonado de tarjetas y avance automático pausado por interacción en el carrusel restaurado de Áreas de Especialización.
+**Resultado:** La portada, Vacantes y las secciones de Jobhunting dejan de sentirse estáticas sin introducir una librería pesada ni alterar la paleta clara. Se respetan las preferencias de reducción de movimiento del dispositivo. `npm run lint`, `npm run build` y `git diff --check` pasan; se revisó la instancia local en `http://127.0.0.1:3001`.
+**Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
+**Próximos pasos:** Revisar el movimiento en escritorio y móvil con el usuario antes de desplegar los cambios acumulados.
+**Archivos modificados:** C:/dev/proyectos/nexotalentos/src/hooks/useScrollReveal.ts; C:/dev/proyectos/nexotalentos/src/App.tsx; C:/dev/proyectos/nexotalentos/src/index.css; C:/dev/proyectos/nexotalentos/src/pages/HomePage.tsx; C:/dev/proyectos/nexotalentos/src/components/AreasEspecializacionSection.tsx; C:/dev/proyectos/nexotalentos/src/components/JobsPortal.tsx; C:/dev/proyectos/nexotalentos/src/components/jobhunting/JobhuntingPainPoints.tsx; C:/dev/proyectos/nexotalentos/src/components/jobhunting/JobhuntingPhases.tsx; C:/dev/proyectos/nexotalentos/src/components/jobhunting/JobhuntingDifferentiators.tsx; C:/dev/proyectos/nexotalentos/src/components/jobhunting/JobhuntingForm.tsx; C:/dev/proyectos/nexotalentos/src/components/jobhunting/JobhuntingFaq.tsx; C:/dev/proyectos/nexotalentos/AVANCE.md
+
+## [2026-11-24] - Nexo Talento - Codex
+**Qué se hizo:** Se retiró el efecto de entrada que ocultaba secciones; se recuperaron navegación a Tu próximo empleo, barra móvil de firma oscura, filtros avanzados y fichas completas de Vacantes. Se añadió acceso/registro antes de postular, inicio de sesión para cuentas existentes y prevención de duplicados por vacante.
+**Resultado:** La portada vuelve a renderizar sin el bloque vacío después de las marcas. Las cuatro vacantes recuperan el contenido de Quito y Guayaquil solicitado, con requisitos, ubicación y bandas salariales. `npm run build` pasó y la portada local fue revisada.
+**Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
+**Próximos pasos:** Probar el registro y la postulación real contra Firebase una vez confirmada la configuración publicada de Auth, Firestore y Storage.
+**Archivos modificados:** C:/dev/proyectos/nexotalentos/src/App.tsx; C:/dev/proyectos/nexotalentos/src/index.css; C:/dev/proyectos/nexotalentos/src/components/Navbar.tsx; C:/dev/proyectos/nexotalentos/src/components/navigation/MobileActionBar.tsx; C:/dev/proyectos/nexotalentos/src/components/services/CompactServicesGrid.tsx; C:/dev/proyectos/nexotalentos/src/components/JobsPortal.tsx; C:/dev/proyectos/nexotalentos/src/components/JobApplicationModal.tsx; C:/dev/proyectos/nexotalentos/src/components/profile/AccountSetupCard.tsx; C:/dev/proyectos/nexotalentos/src/features/candidates/application.ts; C:/dev/proyectos/nexotalentos/src/data/jobsData.ts; C:/dev/proyectos/nexotalentos/AVANCE.md
+
+## [2026-11-24] - Nexo Talento - Codex
+**Qué se hizo:** Se corrigió el modo claro global de tarjetas, se restauró el carrusel original con imágenes de Áreas de Especialización y se simplificó la navegación pública.
+**Resultado:** El navy de `.glass-card` queda limitado al hero de portada; Jobhunting ya no aparece en desktop ni móvil, Servicios es un enlace simple sin menú de tarjetas y Vacantes conserva únicamente la búsqueda textual, sin filtros laterales. Se comprobó visualmente en localhost Contacto y Vacantes, además de compilar correctamente.
+**Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
+**Próximos pasos:** Mantener la revisión visual en modo claro antes de desplegar; no extender el tratamiento oscuro fuera de bloques visuales intencionales.
+**Archivos modificados:** C:/dev/proyectos/nexotalentos/src/index.css; C:/dev/proyectos/nexotalentos/src/components/Navbar.tsx; C:/dev/proyectos/nexotalentos/src/components/AreasEspecializacionSection.tsx; C:/dev/proyectos/nexotalentos/AVANCE.md
+
 ## [2026-11-23] - Nexo Talento - Codex
 **Qué se hizo:** Se reparó un intento fallido de división de componentes que había dejado `BlogPage.tsx` truncado. Se restauró el archivo completo desde HEAD y se conservó únicamente la división compilable de `AdminDashboard` en layout y paneles.
 **Resultado:** `npm run lint` y `npm run build` pasan; el prerender vuelve a generar 12 rutas, incluyendo `/crear-perfil` y `/admin`. `AdminDashboard.tsx` quedó en 441 líneas y sus archivos extraídos están por debajo de 500; `BlogPage.tsx` quedó íntegro en 863 líneas para evitar otra ruptura.
@@ -159,3 +187,64 @@
 **Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
 **Próximos pasos:** Revisar en el dispositivo móvil real la velocidad del carrusel de marcas y ajustar únicamente si algún logo de origen incluye demasiado espacio transparente.
 **Archivos modificados:** C:/dev/proyectos/nexotalentos/src/index.css; C:/dev/proyectos/nexotalentos/src/components/BragBar.tsx; C:/dev/proyectos/nexotalentos/src/components/Hero.tsx; C:/dev/proyectos/nexotalentos/src/components/FeaturedVacanciesSummary.tsx; C:/dev/proyectos/nexotalentos/src/components/MethodologySection.tsx; C:/dev/proyectos/nexotalentos/src/components/MetricStatsSection.tsx; C:/dev/proyectos/nexotalentos/src/components/jobhunting/JobhuntingPainPoints.tsx; C:/dev/proyectos/nexotalentos/src/components/jobhunting/JobhuntingPhases.tsx; C:/dev/proyectos/nexotalentos/src/components/jobhunting/JobhuntingPricing.tsx; C:/dev/proyectos/nexotalentos/src/components/jobhunting/JobhuntingForm.tsx; C:/dev/proyectos/nexotalentos/src/components/jobhunting/JobhuntingFaq.tsx; C:/dev/proyectos/nexotalentos/src/pages/JobhuntingPage.tsx; C:/dev/proyectos/nexotalentos/src/pages/ContactoPage.tsx; C:/dev/proyectos/nexotalentos/src/pages/ProcesoPage.tsx; C:/dev/proyectos/nexotalentos/AVANCE.md
+
+## [2026-11-24] - Nexo Talento - Codex
+**Qué se hizo:** Auditoría de las quejas del cliente y de las decisiones de la reunión del 24 de noviembre de 2026, con tres agentes en paralelo.
+**Resultado:** Se confirmó que el problema es real: el perfil genera subdominios `slug.nexotalento.com`, no el formato `pablo-garcia-nexotalento.com`; no existe portal de postulaciones ni recuperación/edición del perfil; los PDF escaneados no tienen OCR; el CV fuente puede quedar públicamente legible por reglas Storage; y siguen contradicciones de sede, dirección, Ecuador/Barcelona, correos, Jobhunting, precios, ROI y filtros. También se detectó una discrepancia crítica entre identificadores Firebase reportados en el código/entornos y falta de verificación de Vercel/Firebase en producción.
+**Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
+**Próximos pasos:** Corregir primero privacidad del CV y modelo de dominio; luego crear portal Mi Nexo, recuperación de perfiles y postulaciones; unificar contenido según la reunión; implementar OCR PDF; y validar Firebase/Vercel/DNS en producción antes de publicidad.
+**Archivos modificados:** C:/dev/proyectos/nexotalentos/AVANCE.md
+
+## [2026-11-24] - Nexo Talento - Codex
+**Qué se hizo:** Se corrigió el flujo de perfil y CV manteniendo el formato `slug.nexotalento.com`: separación de CV fuente privado y fotos públicas, eliminación del modo local engañoso, publicación condicionada a correo verificado, perfil público sin datos de contacto y recuperación básica del perfil guardado. Se añadió el módulo Mi Nexo para consultar postulaciones del usuario.
+**Resultado:** Las reglas Storage bloquean la lectura pública del CV fuente; Firestore valida que los perfiles públicos nuevos no incluyan email ni teléfono; Firebase queda anclado al proyecto `studio-2340725787-ed6b5`; `npm run lint` pasa.
+**Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
+**Próximos pasos:** Desplegar las reglas en Firebase, probar con un usuario real y confirmar que los documentos antiguos que contienen contacto o CV público se migren/revoquen.
+**Archivos modificados:** C:/dev/proyectos/nexotalentos/storage.rules; C:/dev/proyectos/nexotalentos/firestore.rules; C:/dev/proyectos/nexotalentos/src/lib/firebase.ts; C:/dev/proyectos/nexotalentos/src/pages/CreateProfilePage.tsx; C:/dev/proyectos/nexotalentos/src/features/profiles/publicProfile.ts; C:/dev/proyectos/nexotalentos/src/pages/PublicProfilePage.tsx; C:/dev/proyectos/nexotalentos/src/components/profile/AccountSetupCard.tsx; C:/dev/proyectos/nexotalentos/src/components/profile/MiNexoPortal.tsx; C:/dev/proyectos/nexotalentos/AVANCE.md
+## [2026-11-24] - nexotalentos - Codex
+**Qué se hizo:** Se ocultaron de la experiencia pública la calculadora ROI, los precios explícitos de Jobhunting y la barra superior de filtros rápidos de vacantes, conservando sus rutas, lógica y archivos para uso futuro.
+**Resultado:** La navegación y el render visible ya no muestran esos elementos; se mantuvo el diseño existente, el formato `slug.nexotalento.com` y la configuración Firebase sin cambios.
+**Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
+**Próximos pasos:** Resolver los tres errores de lint preexistentes de referencias a la sede Barcelona y hacer verificación visual en navegador.
+**Archivos modificados:** C:\dev\proyectos\nexotalentos\src\App.tsx, C:\dev\proyectos\nexotalentos\src\components\Navbar.tsx, C:\dev\proyectos\nexotalentos\src\components\Footer.tsx, C:\dev\proyectos\nexotalentos\src\components\jobhunting\JobhuntingPricing.tsx, C:\dev\proyectos\nexotalentos\src\components\JobsPortal.tsx.
+## [2026-11-24] - Nexo Talento - Codex
+**Qué se hizo:** Se actualizó únicamente el contenido visible acordado en la reunión: sede única en Madrid, correo corporativo, foco España y Latam, nomenclatura de servicios y vacantes.
+**Resultado:** Se conservaron las secciones y la estructura visual; las referencias secundarias de sede quedaron fuera de la interfaz activa. Firebase, autenticación y perfiles no fueron modificados.
+**Skills usadas/modificadas:** reglas-seguridad, registrar-avance, modularidad-archivos.
+**Próximos pasos:** Revisar visualmente la interfaz publicada y confirmar textos finales con el cliente.
+**Archivos modificados:** C:/dev/proyectos/nexotalentos/src/config/company.ts; C:/dev/proyectos/nexotalentos/data/site-content.json; C:/dev/proyectos/nexotalentos/src/components/ContactSection.tsx; C:/dev/proyectos/nexotalentos/src/pages/ContactoPage.tsx; C:/dev/proyectos/nexotalentos/src/components/Footer.tsx; C:/dev/proyectos/nexotalentos/src/pages/ServiciosPage.tsx; C:/dev/proyectos/nexotalentos/src/data/jobsData.ts.
+
+## [2026-11-24] - Nexo Talento - Codex
+**Qué se hizo:** Se alinearon textos visibles de portada, vacantes, contacto y datos estructurados con España/Latam, sede única en Calle Cabestrero 5 y correo info@nexotalento.com, conservando las secciones ocultas y el formato de perfil `slug.nexotalento.com`.
+**Resultado:** `npm run lint`, `npm run build` y `git diff --check` pasan. La configuración cliente de Firebase queda fijada al proyecto real `studio-2340725787-ed6b5`; no se modificó el formato de URLs de perfil. Persisten como tareas externas el despliegue de reglas Firebase y la verificación de Vercel/DNS.
+**Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
+**Próximos pasos:** Desplegar reglas, revisar datos antiguos en Storage, probar usuario real, validar OCR/PDF y hacer verificación visual final en producción.
+**Archivos modificados:** C:/dev/proyectos/nexotalentos/src/components/Hero.tsx; C:/dev/proyectos/nexotalentos/src/components/FeaturedVacanciesSummary.tsx; C:/dev/proyectos/nexotalentos/src/components/JobsPortal.tsx; C:/dev/proyectos/nexotalentos/src/pages/ContactoPage.tsx; C:/dev/proyectos/nexotalentos/index.html; C:/dev/proyectos/nexotalentos/public/llms-full.txt; C:/dev/proyectos/nexotalentos/AVANCE.md
+
+## [2026-11-24] - Nexo Talento - Codex
+**Qué se hizo:** Se rehizo la presentación pública de vacantes y servicios: campaña antes del listado, una sola búsqueda textual, cinco tarjetas compactas de servicios y cinco áreas/sectores unificados. Se preservó el contenido retirado en módulos legacy sin renderizar; se ocultaron ROI y precios públicos, y se unificó la cabecera oscura en ambos temas.
+**Resultado:** La portada sigue la secuencia métricas → impulso laboral → vacantes; `/vacantes` abre con una campaña y `/servicios#executive-search` no expone metodologías, SLAs ni listados de perfiles. Se comprobó visualmente en localhost y `npm run lint`, `npm run build` y `git diff --check` pasan.
+**Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance, documents.
+**Próximos pasos:** Desplegar únicamente tras revisión del usuario; antes de publicidad, aplicar las reglas Firebase en producción y hacer una prueba de alta, CV y postulación con una cuenta real.
+**Archivos modificados:** C:/dev/proyectos/nexotalentos/src/pages/HomePage.tsx; C:/dev/proyectos/nexotalentos/src/pages/VacantesPage.tsx; C:/dev/proyectos/nexotalentos/src/pages/ServiciosPage.tsx; C:/dev/proyectos/nexotalentos/src/components/JobsPortal.tsx; C:/dev/proyectos/nexotalentos/src/components/Navbar.tsx; C:/dev/proyectos/nexotalentos/src/index.css; C:/dev/proyectos/nexotalentos/src/components/services/CompactServicesGrid.tsx; C:/dev/proyectos/nexotalentos/src/components/services/legacySpecializationContent.ts; C:/dev/proyectos/nexotalentos/src/components/vacancies/VacancyCampaignHero.tsx; C:/dev/proyectos/nexotalentos/src/components/vacancies/LegacyVacancyFilters.tsx; C:/dev/proyectos/nexotalentos/src/components/JobhuntingTeaserSection.tsx; C:/dev/proyectos/nexotalentos/src/components/jobhunting/JobhuntingHero.tsx; C:/dev/proyectos/nexotalentos/src/components/jobhunting/JobhuntingForm.tsx; C:/dev/proyectos/nexotalentos/src/components/jobhunting/JobhuntingFaq.tsx; C:/dev/proyectos/nexotalentos/src/components/Hero.tsx; C:/dev/proyectos/nexotalentos/public/llms.txt; C:/dev/proyectos/nexotalentos/AVANCE.md
+
+## [2026-11-24] - Nexo Talento - Codex
+**Qué se hizo:** Se conectaron los endpoints de leads y bandejas administrativas a Firebase Admin mediante repositorios modulares; se añadió la bandeja de postulaciones y un aprovisionador manual de claims administrativos para cuentas existentes.
+**Resultado:** Sin las tres variables privadas de Firebase Admin, la API falla cerrada y no usa JSON en producción. Los roles admitidos por login y servidor quedaron alineados con las reglas: admin, super, superadmin y recruiter. No se crearon usuarios, no se cambiaron reglas, ni se desplegó configuración externa.
+**Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
+**Próximos pasos:** Configurar las tres variables privadas en Vercel, desplegar, crear o recuperar la cuenta corporativa y ejecutar el aprovisionador manual; después probar envío de lead y postulación en producción con datos de prueba.
+**Archivos modificados:** C:/dev/proyectos/nexotalentos/server.ts; C:/dev/proyectos/nexotalentos/src/server/firebase-admin.ts; C:/dev/proyectos/nexotalentos/src/server/firestore-repository.ts; C:/dev/proyectos/nexotalentos/src/server/legacy-leads.ts; C:/dev/proyectos/nexotalentos/src/components/admin/AdminDashboard.tsx; C:/dev/proyectos/nexotalentos/src/components/admin/AdminDashboardSecondaryTabs.tsx; C:/dev/proyectos/nexotalentos/src/components/admin/AdminApplicationsInbox.tsx; C:/dev/proyectos/nexotalentos/src/auth/adminAuth.ts; C:/dev/proyectos/nexotalentos/scripts/provision-admin.ts; C:/dev/proyectos/nexotalentos/AVANCE.md
+
+## [2026-11-24] - Nexo Talento - Codex
+**Qué se hizo:** Se migraron las funciones serverless publicadas en Vercel para que `/api/contact` y `/api/leads` guarden en Firestore con Firebase Admin; se añadieron rutas privadas para las bandejas de leads y postulaciones.
+**Resultado:** Las rutas publicadas ya no registran IP ni PII en logs, ni usan Google Sheets como persistencia. Sin Firebase Admin devuelven `503` y las bandejas sin token devuelven `401`. `npm run lint`, `npm run build` y `git diff --check` pasan.
+**Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
+**Próximos pasos:** Cargar las credenciales privadas de Firebase Admin en Vercel, desplegar y probar un lead y una postulación de extremo a extremo; crear/verificar la cuenta corporativa y asignar su claim administrativo.
+**Archivos modificados:** C:/dev/proyectos/nexotalentos/api/contact.ts; C:/dev/proyectos/nexotalentos/api/leads.ts; C:/dev/proyectos/nexotalentos/api/admin/leads.ts; C:/dev/proyectos/nexotalentos/api/admin/applications.ts; C:/dev/proyectos/nexotalentos/src/server/serverless-contact.ts; C:/dev/proyectos/nexotalentos/src/server/serverless-admin.ts; C:/dev/proyectos/nexotalentos/src/server/serverless-types.ts; C:/dev/proyectos/nexotalentos/AVANCE.md
+
+## [2026-11-24] - Nexo Talento - Codex
+**Qué se hizo:** Se verificó la vista local solicitada sin modificar código ni servicios externos.
+**Resultado:** El servidor del repositorio quedó disponible en http://127.0.0.1:3001 y respondió HTTP 200 en inicio, vacantes, servicios y Jobhunting.
+**Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
+**Próximos pasos:** Revisar visualmente los cambios locales y, cuando estén aprobados, configurar Firebase Admin en Vercel para activar las bandejas persistentes.
+**Archivos modificados:** C:/dev/proyectos/nexotalentos/AVANCE.md

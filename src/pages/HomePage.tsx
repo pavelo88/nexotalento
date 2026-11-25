@@ -4,10 +4,11 @@ import { BragBar } from '../components/BragBar';
 import { MetricStatsSection } from '../components/MetricStatsSection';
 import { PageRoute, AgentType } from '../types';
 import { NexoCommunitySection } from '../components/NexoCommunitySection';
+import { Reveal } from '../components/motion/Reveal';
 
 // Lazy loaded components for aggressive initial load code-splitting
 const FeaturedVacanciesSummary = lazy(() => import('../components/FeaturedVacanciesSummary').then(m => ({ default: m.FeaturedVacanciesSummary })));
-const MethodologySection = lazy(() => import('../components/MethodologySection').then(m => ({ default: m.MethodologySection })));
+// const MethodologySection = lazy(() => import('../components/MethodologySection').then(m => ({ default: m.MethodologySection })));
 const SuccessStories = lazy(() => import('../components/SuccessStories').then(m => ({ default: m.SuccessStories })));
 const FAQSection = lazy(() => import('../components/FAQSection').then(m => ({ default: m.FAQSection })));
 const ContactSection = lazy(() => import('../components/ContactSection').then(m => ({ default: m.ContactSection })));
@@ -56,40 +57,41 @@ export const HomePage: React.FC<HomePageProps> = ({
 
       <div className="relative z-10">
 
-        {/* 3. Vacantes en Selección Inmediata (Carrusel Interactivo Oficial) */}
-        <FeaturedVacanciesSummary
-          onNavigate={onNavigate}
-          onOpenCVAnalyzer={onOpenCVAnalyzer}
-        />
-
-        {/* 4. Métricas Clave de Desempeño (Garantía, Retención, Terna y Vacantes) */}
-        <MetricStatsSection />
+        {/* 3. Métricas Clave de Desempeño (Garantía, Retención, Terna y Vacantes) */}
+        <Reveal><MetricStatsSection /></Reveal>
 
         {/* Lazy-loaded sections with zero initial bundle footprint */}
         <Suspense fallback={<div className="h-32 flex items-center justify-center"><div className="w-6 h-6 border-2 border-cyan-500 border-t-transparent rounded-full animate-spin"></div></div>}>
 
-          {/* 5. Methodology Executive Summary (Terna en 18 días y garantía 3 a 6 meses) */}
-          <MethodologySection onNavigateToProcess={() => onNavigate('/proceso')} />
+          {/* 4. Acompañamiento para candidatos, antes de explorar oportunidades */}
+          <Reveal><JobhuntingTeaserSection onNavigate={onNavigate} /></Reveal>
+
+          {/* 5. Vacantes en Selección Inmediata (Carrusel Interactivo Oficial) */}
+          <Reveal><FeaturedVacanciesSummary
+              onNavigate={onNavigate}
+              onOpenCVAnalyzer={onOpenCVAnalyzer}
+            /></Reveal>
+
+          {/* Metodología de Selección Ágil & Predictiva: sección conservada en código,
+              oculta de la portada para no repetir la propuesta de valor del hero. */}
+          {/* <MethodologySection onNavigateToProcess={() => onNavigate('/proceso')} /> */}
 
           {/* 6. Áreas de Especialización Oficiales (Selección, Executive Search, Headhunting, etc.) */}
           <AreasEspecializacionSection onNavigate={onNavigate} />
 
           {/* 7. Áreas de Especialización - 7 Sectores Productivos Clave */}
-          <SpecializationSectorsSection onNavigate={onNavigate} />
+          <Reveal><SpecializationSectorsSection onNavigate={onNavigate} /></Reveal>
 
           {/* 8. Success Stories & Audited Testimonials */}
-          <SuccessStories onNavigateToTestimonials={() => onNavigate('/testimonios')} />
+          <Reveal><SuccessStories onNavigateToTestimonials={() => onNavigate('/testimonios')} /></Reveal>
 
-          {/* 8.1 Jobhunting ProProfile Teaser (Nuevo servicio para candidatos del PDF) */}
-          <JobhuntingTeaserSection onNavigate={onNavigate} />
-
-          <NexoCommunitySection onNavigate={onNavigate} />
+          <Reveal><NexoCommunitySection onNavigate={onNavigate} /></Reveal>
 
           {/* 9. FAQ Section */}
-          <FAQSection />
+          <Reveal><FAQSection /></Reveal>
 
           {/* 10. Contact Section (Con invitación directa a WhatsApp y llamada) */}
-          <ContactSection />
+          <Reveal><ContactSection /></Reveal>
         </Suspense>
       </div>
     </div>

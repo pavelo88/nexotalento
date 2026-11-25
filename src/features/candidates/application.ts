@@ -1,5 +1,5 @@
 import { createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword } from 'firebase/auth';
-import { collection, doc, serverTimestamp, setDoc } from 'firebase/firestore';
+import { collection, doc, getDocs, limit, query, serverTimestamp, setDoc, where } from 'firebase/firestore';
 import { deleteObject, ref, uploadBytes } from 'firebase/storage';
 import { auth, db, storage } from '../../lib/firebase';
 import { verifyEmailIsReal } from '../../lib/emailValidator';
@@ -35,6 +35,9 @@ export async function submitCandidateApplication(input: { user: { uid: string; e
   const validationError = validateCv(input.file);
   if (validationError) throw new Error(validationError);
   if (!input.user.email) throw new Error('La cuenta candidata no tiene un email válido.');
+  const duplicateQuery = query(collection(db, 'applications'), where('candidateUid', '==', input.user.uid), where('jobId', '==', input.jobId), limit(1));
+  const existingApplication = await getDocs(duplicateQuery);
+  if (!existingApplication.empty) throw new Error('Ya enviaste tu postulación a esta vacante. Puedes revisar su estado desde tu perfil.');
   const applicationRef = doc(collection(db, 'applications'));
   const safeName = input.file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
   const storagePath = `users/${input.user.uid}/cvs/${applicationRef.id}/${crypto.randomUUID()}-${safeName}`;

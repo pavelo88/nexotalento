@@ -8,8 +8,6 @@ export interface PublicProfile {
   summary?: string;
   photoUrl?: string;
   location?: string;
-  email?: string;
-  phone?: string;
   specialties?: string[];
   experience?: Array<{ role: string; company?: string; period?: string; description?: string }>;
   education?: Array<{ title: string; institution?: string; period?: string }>;

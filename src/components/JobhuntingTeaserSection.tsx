@@ -29,7 +29,7 @@ export const JobhuntingTeaserSection: React.FC<JobhuntingTeaserSectionProps> = (
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#00A896]/20 border border-[#00A896]/40 backdrop-blur-md">
                 <Sparkles className="w-3.5 h-3.5 text-[#00E5C9]" />
                 <span className="text-[11px] font-bold uppercase tracking-wider text-[#00E5C9]">
-                  Para Profesionales y Candidatos · ProProfile
+                  Para Profesionales y Candidatos · Impulso laboral
                 </span>
               </div>
 
@@ -41,7 +41,7 @@ export const JobhuntingTeaserSection: React.FC<JobhuntingTeaserSectionProps> = (
               </h2>
 
               <p className="text-sm sm:text-base text-slate-200 font-light leading-relaxed max-w-xl">
-                Descubre el <strong>Programa de Jobhunting ProProfile</strong>: un acompañamiento integral con psicólogos de RRHH y headhunters senior para redefinir tu posicionamiento real y acelerar tu colocación en España y LATAM.
+                Descubre <strong>Impulso laboral</strong>: un acompañamiento integral con psicólogos de RRHH y headhunters senior para redefinir tu posicionamiento real y acelerar tu colocación en España y LATAM.
               </p>
 
               {/* 3 Bullets con métricas del PDF */}
@@ -55,8 +55,8 @@ export const JobhuntingTeaserSection: React.FC<JobhuntingTeaserSectionProps> = (
                   <p className="text-[11px] text-slate-300">En periodo del programa</p>
                 </div>
                 <div className="p-3 rounded-xl bg-white/5 border border-white/10">
-                  <p className="text-xl font-black text-[#00E5C9]">2 Modelos</p>
-                  <p className="text-[11px] text-slate-300">A Éxito o Inversión Cerrada</p>
+                  <p className="text-xl font-black text-[#00E5C9]">A medida</p>
+                  <p className="text-[11px] text-slate-300">Plan según tu objetivo</p>
                 </div>
               </div>
 
@@ -66,15 +66,15 @@ export const JobhuntingTeaserSection: React.FC<JobhuntingTeaserSectionProps> = (
                   onClick={() => onNavigate('/jobhunting')}
                   className="px-6 py-3.5 rounded-xl font-bold text-xs sm:text-sm bg-gradient-to-r from-[#00A896] to-[#00C4AF] text-[#0A1826] hover:opacity-90 transition-all flex items-center justify-center gap-2 shadow-lg shadow-[#00A896]/25 group active:scale-95"
                 >
-                  <span>Conocer el Programa ProProfile</span>
+                  <span>Conocer Impulso laboral</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </button>
 
                 <button
-                  onClick={() => onNavigate('/jobhunting#modalidades-precios')}
+                  onClick={() => onNavigate('/jobhunting#formulario-postulacion')}
                   className="px-5 py-3.5 rounded-xl font-bold text-xs sm:text-sm bg-white/10 hover:bg-white/15 text-white border border-white/20 transition-all text-center"
                 >
-                  Ver Precios desde 300 €
+                  Solicitar información
                 </button>
               </div>
 

@@ -79,7 +79,7 @@ export const Hero: React.FC<HeroProps> = ({
               Firma Boutique de Executive Search &amp; Headhunting
             </span>
             <span className="bg-[#00A9A3]/20 text-cyan-300 text-[10px] font-black px-2.5 py-0.5 rounded-full border border-[#00A9A3]/40">
-              Ecuador &amp; LATAM 2026
+              España &amp; LATAM 2026
             </span>
           </div>
         </div>
@@ -95,7 +95,7 @@ export const Hero: React.FC<HeroProps> = ({
           </h1>
 
           <p className="mt-4 text-sm sm:text-base lg:text-lg max-w-2xl mx-auto leading-relaxed text-slate-200">
-            Garantizamos la máxima precisión de selección en Quito, Guayaquil y la región. Entrega de terna validada en <strong className="text-white">18 días hábiles</strong> con <strong className="text-white">garantía contractual de 3 a 6 meses</strong>.
+            Conectamos empresas de España y Latam con talento directivo y técnico de alto impacto. Entrega de terna validada en <strong className="text-white">18 días hábiles</strong> con <strong className="text-white">garantía contractual de 3 a 6 meses</strong>.
           </p>
         </div>
 
@@ -194,7 +194,7 @@ export const Hero: React.FC<HeroProps> = ({
               </h2>
 
               <p className="text-xs sm:text-sm leading-relaxed mb-6 text-slate-300">
-                Explora los 4 procesos oficiales de selección abiertos en Quito y Guayaquil con bandas salariales transparentes.
+                Explora procesos de selección abiertos en España y posiciones remotas para talento de Latam, con bandas salariales transparentes.
               </p>
             </div>
 

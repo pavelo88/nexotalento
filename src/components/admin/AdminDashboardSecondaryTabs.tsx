@@ -1,9 +1,10 @@
 import React from 'react';
 import { BarChart3, FileText, Users, Settings, Save, CheckCircle2, TrendingUp, Briefcase, Globe, MessageSquare, Search, Plus, Trash2, Edit, Eye, RefreshCw, Sparkles, Layers, Palette, ShieldCheck, Building2, Clock, Phone, Mail, ChevronRight, Menu, X, RotateCcw, Sun, Moon, Check, Archive } from 'lucide-react';
 import type { AdminDashboardPanelState } from './AdminDashboardPrimaryTabs';
+import { AdminApplicationsInbox } from './AdminApplicationsInbox';
 
 export const AdminDashboardSecondaryTabs: React.FC<{ state: AdminDashboardPanelState }> = ({ state }) => {
-  const { activeTab, siteContent, setSiteContent, vacancies, setVacancies, areasList, setAreasList, sectorsList, setSectorsList, isCreatingVacancy, setIsCreatingVacancy, newVacTitle, setNewVacTitle, newVacDept, setNewVacDept, newVacLoc, setNewVacLoc, newVacMod, setNewVacMod, newVacSalary, setNewVacSalary, newVacDesc, setNewVacDesc, leads, leadStatusFilter, setLeadStatusFilter, searchTerm, setSearchTerm, filteredLeads, handleAddVacancy, handleDeleteVacancy, handleDeleteLead, handleToggleLeadAttended } = state;
+  const { activeTab, siteContent, setSiteContent, vacancies, setVacancies, areasList, setAreasList, sectorsList, setSectorsList, isCreatingVacancy, setIsCreatingVacancy, newVacTitle, setNewVacTitle, newVacDept, setNewVacDept, newVacLoc, setNewVacLoc, newVacMod, setNewVacMod, newVacSalary, setNewVacSalary, newVacDesc, setNewVacDesc, leads, applications, leadStatusFilter, setLeadStatusFilter, searchTerm, setSearchTerm, filteredLeads, handleAddVacancy, handleDeleteVacancy, handleDeleteLead, handleToggleLeadAttended } = state;
   return (
     <>
             {/* TAB: SECTORES DE INDUSTRIA (EDITABLE) */}
@@ -206,6 +207,8 @@ export const AdminDashboardSecondaryTabs: React.FC<{ state: AdminDashboardPanelS
                 )}
               </div>
             )}
+
+            {activeTab === 'applications' && <AdminApplicationsInbox applications={applications} />}
 
             {/* TAB 5: CONFIGURACIÓN */}
             {activeTab === 'settings' && (

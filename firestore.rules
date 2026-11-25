@@ -136,6 +136,19 @@ service cloud.firestore {
         (!('ownerUid' in data) || (data.ownerUid is string && data.ownerUid.size() <= 128));
     }
 
+    function isValidPublicProfile(data) {
+      return data.ownerUid is string &&
+        data.name is string && data.name.size() > 0 && data.name.size() <= 120 &&
+        (!('email' in data)) && (!('phone' in data)) &&
+        (!('headline' in data) || (data.headline is string && data.headline.size() <= 200)) &&
+        (!('summary' in data) || (data.summary is string && data.summary.size() <= 5000)) &&
+        (!('photoUrl' in data) || (data.photoUrl == null || data.photoUrl is string)) &&
+        (!('specialties' in data) || (data.specialties is list && data.specialties.size() <= 50)) &&
+        (!('experience' in data) || (data.experience is list && data.experience.size() <= 50)) &&
+        (!('education' in data) || (data.education is list && data.education.size() <= 50)) &&
+        (!('published' in data) || data.published is bool);
+    }
+
     function isValidVacancy(data) {
       return data.title is string &&
         data.title.size() > 0 &&
@@ -282,12 +295,12 @@ service cloud.firestore {
 
       allow create: if isAuthenticated() &&
         request.resource.data.get('ownerUid', '') == request.auth.uid &&
-        isValidCandidate(request.resource.data);
+        isValidPublicProfile(request.resource.data);
 
       allow update: if isAuthenticated() &&
         (resource.data.get('ownerUid', '') == request.auth.uid || isAdmin()) &&
         (!('ownerUid' in resource.data) || request.resource.data.get('ownerUid', '') == resource.data.ownerUid) &&
-        isValidCandidate(request.resource.data);
+        isValidPublicProfile(request.resource.data);
 
       allow delete: if isAuthenticated() &&
         (resource.data.get('ownerUid', '') == request.auth.uid || isAdmin());

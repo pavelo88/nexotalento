@@ -9,6 +9,8 @@ import rateLimit from "express-rate-limit";
 import { AI_KNOWLEDGE_BASE } from "./ai-knowledge";
 import { verifyAdminToken } from "./src/server/firebase-admin";
 import { validateRealEmail } from "./src/server/emailValidator";
+import { createLead, listAdminApplications, listAdminLeads } from "./src/server/firestore-repository";
+import { readLegacyLeadsForDevelopment } from "./src/server/legacy-leads";
 
 dotenv.config();
 
@@ -964,15 +966,14 @@ app.post(["/api/contact", "/api/leads"], contactRateLimiter, async (req, res) =>
     const message = sanitizeInput(req.body?.message) || "Sin mensaje";
     const source = sanitizeInput(req.body?.source, 200) || "Formulario web";
     const attribution = sanitizeAttribution(req.body?.attribution);
-    const clientIP = (req.headers["x-forwarded-for"] as string || req.ip || "unknown").split(",")[0].trim();
-    const leadId = "lead_" + Date.now();
+    const leadId = await createLead({ name, email, phone, company, role, serviceType, message, source, attribution });
     const createdAt = new Date().toISOString();
 
-    const newLead = { id: leadId, createdAt, name, email, phone, company, role, serviceType, message, source, attribution, clientIP };
-    console.log("📨 [NUEVO LEAD — NEXO TALENTO]:", JSON.stringify(newLead, null, 2));
+    const newLead = { id: leadId, createdAt, name, email, phone, company, role, serviceType, message, source, attribution };
+    console.info("[Lead] Registrado en Firebase.", { leadId, source });
 
-    // ── 1. Backup JSON local ──────────────────────────────────────────
-    try {
+    // Legacy JSON solo para migraciones/desarrollo activado explícitamente.
+    if (process.env.NODE_ENV !== "production" && process.env.ALLOW_LEGACY_LEADS_JSON === "true") try {
       const dataDir = path.join(process.cwd(), "data");
       if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true });
       const leadsFile = path.join(dataDir, "leads.json");
@@ -1017,7 +1018,7 @@ app.post(["/api/contact", "/api/leads"], contactRateLimiter, async (req, res) =>
             </table>
           </div>
           <div style="padding:16px 28px;background:#0b1526;font-size:11px;color:#475569">
-            Enviado desde <strong>www.nexotalento.com</strong> · IP: ${clientIP}
+            Enviado desde <strong>www.nexotalento.com</strong>
           </div>
         </div>`;
 
@@ -1028,7 +1029,7 @@ app.post(["/api/contact", "/api/leads"], contactRateLimiter, async (req, res) =>
           subject: `🎯 Nuevo Lead: ${name} — ${serviceType}`,
           html: notifHtml,
           replyTo: email,
-        }).then(() => console.log(`[Email] ✅ Notificación enviada a ${toEmail}`))
+        }).then(() => console.log("[Email] Notificación interna enviada."))
           .catch((mailErr) => console.error("[Email] Error enviando notificación:", mailErr))
       );
 
@@ -1066,7 +1067,7 @@ app.post(["/api/contact", "/api/leads"], contactRateLimiter, async (req, res) =>
             subject: `✅ Recibimos tu solicitud, ${name} — Nexo Talento`,
             html: ackHtml,
             replyTo: toEmail,
-          }).then(() => console.log(`[Email] ✅ Acuse de recibo enviado a ${email}`))
+          }).then(() => console.log("[Email] Acuse de recibo enviado."))
             .catch((ackErr) => console.error("[Email] Error enviando acuse de recibo:", ackErr))
         );
       }
@@ -1201,16 +1202,32 @@ app.post("/api/validate-email", async (req, res) => {
   }
 });
 
-// 5. Obtener Leads Recibidos
-app.get("/api/admin/leads", adminAuth, (req, res) => {
+// 5. Obtener Leads Recibidos desde Firebase Admin (sin fallback en producción)
+app.get("/api/admin/leads", adminAuth, async (_req, res) => {
   try {
-    if (fs.existsSync(LEADS_FILE_PATH)) {
-      const data = fs.readFileSync(LEADS_FILE_PATH, "utf-8");
-      return res.json(JSON.parse(data));
-    }
-    res.json([]);
+    return res.json(await listAdminLeads());
   } catch (error) {
-    res.status(500).json({ error: "Error leyendo leads." });
+    const legacyLeads = readLegacyLeadsForDevelopment(LEADS_FILE_PATH);
+    if (legacyLeads) return res.json(legacyLeads);
+    const message = error instanceof Error ? error.message : "";
+    if (message.includes("no está configurado")) {
+      return res.status(503).json({ error: "Bandeja de leads no disponible hasta configurar Firebase Admin." });
+    }
+    console.error("[Admin] Error leyendo leads desde Firebase.", { message });
+    return res.status(500).json({ error: "Error leyendo leads." });
+  }
+});
+
+app.get("/api/admin/applications", adminAuth, async (_req, res) => {
+  try {
+    return res.json(await listAdminApplications());
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "";
+    if (message.includes("no está configurado")) {
+      return res.status(503).json({ error: "Bandeja de postulaciones no disponible hasta configurar Firebase Admin." });
+    }
+    console.error("[Admin] Error leyendo postulaciones desde Firebase.", { message });
+    return res.status(500).json({ error: "Error leyendo postulaciones." });
   }
 });
 

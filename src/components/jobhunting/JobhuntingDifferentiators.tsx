@@ -13,7 +13,7 @@ const diffCards = [
 
 export const JobhuntingDifferentiators: React.FC<JobhuntingDifferentiatorsProps> = ({ theme }) => {
   return (
-    <section className="py-12 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section data-reveal className="reveal-on-scroll py-12 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className={`p-5 sm:p-10 lg:p-14 rounded-3xl border ${
         theme === 'dark' 
           ? 'bg-gradient-to-br from-[#0E243A] to-[#0A1826] border-stone-800 text-white' 

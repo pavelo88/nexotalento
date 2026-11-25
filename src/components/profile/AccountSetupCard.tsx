@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
+import { createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword } from 'firebase/auth';
 import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
-import { Eye, EyeOff, LoaderCircle, ArrowRight, UserRound, ShieldCheck, Mail } from 'lucide-react';
+import { Eye, EyeOff, LoaderCircle, UserRound, ShieldCheck, Mail } from 'lucide-react';
 import { auth, db } from '../../lib/firebase';
 import { verifyEmailIsReal } from '../../lib/emailValidator';
 
@@ -11,7 +11,6 @@ interface AccountSetupCardProps {
   input: string;
   muted: string;
   onSuccess: (name: string, email: string) => void;
-  onContinueLocal: (name: string, email: string) => void;
 }
 
 export const AccountSetupCard: React.FC<AccountSetupCardProps> = ({
@@ -20,10 +19,10 @@ export const AccountSetupCard: React.FC<AccountSetupCardProps> = ({
   input,
   muted,
   onSuccess,
-  onContinueLocal,
 }) => {
   const [accountForm, setAccountForm] = useState({ name: '', email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
+  const [mode, setMode] = useState<'register' | 'login'>('register');
   const [isCreatingAccount, setIsCreatingAccount] = useState(false);
   const [accountError, setAccountError] = useState<string | null>(null);
 
@@ -43,6 +42,11 @@ export const AccountSetupCard: React.FC<AccountSetupCardProps> = ({
     setIsCreatingAccount(true);
 
     try {
+      if (mode === 'login') {
+        const credential = await signInWithEmailAndPassword(auth, cleanEmail, accountForm.password);
+        onSuccess(credential.user.displayName || cleanEmail.split('@')[0], cleanEmail);
+        return;
+      }
       // 1. Verificación exhaustiva de correo real (sintaxis RFC, anti-desechables y resolución DNS MX)
       const emailCheck = await verifyEmailIsReal(cleanEmail);
       if (!emailCheck.valid) {
@@ -62,8 +66,8 @@ export const AccountSetupCard: React.FC<AccountSetupCardProps> = ({
         uid: credential.user.uid,
         displayName: cleanName,
         email: cleanEmail,
-        role: 'afiliate',
-        accountType: 'afiliate',
+        role: 'candidate',
+        accountType: 'candidate',
         status: 'pending_verification',
         emailVerified: false,
         emailVerificationSentAt: serverTimestamp(),
@@ -109,17 +113,17 @@ export const AccountSetupCard: React.FC<AccountSetupCardProps> = ({
               <UserRound className="w-5 h-5" />
             </div>
             <div>
-              <p className="text-[10px] font-black uppercase tracking-wider text-cyan-500">Paso 1 de 4</p>
-              <h1 className="text-xl sm:text-2xl font-black font-heading leading-tight">Crea tu cuenta profesional</h1>
+              <p className="text-[10px] font-black uppercase tracking-wider text-cyan-500">{mode === 'register' ? 'Paso 1 de 4' : 'Acceso a Mi Nexo'}</p>
+              <h1 className="text-xl sm:text-2xl font-black font-heading leading-tight">{mode === 'register' ? 'Crea tu cuenta profesional' : 'Ingresa a tu perfil'}</h1>
             </div>
           </div>
 
           <p className={`text-xs leading-relaxed ${muted} mb-4`}>
-            Tu espacio privado para cargar tu CV, añadir tu fotografía y activar tu perfil profesional.
+            {mode === 'register' ? 'Tu espacio privado para cargar tu CV, añadir tu fotografía y activar tu perfil profesional.' : 'Continúa tu perfil y revisa las postulaciones que ya has enviado.'}
           </p>
 
           <div className="space-y-3">
-            <div>
+            {mode === 'register' && <div>
               <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Nombre completo *</label>
               <input
                 required
@@ -128,7 +132,7 @@ export const AccountSetupCard: React.FC<AccountSetupCardProps> = ({
                 placeholder="Ej. Pablo García"
                 className={`w-full rounded-xl border px-3.5 py-2.5 text-xs outline-none focus:border-cyan-500 transition-colors ${input}`}
               />
-            </div>
+            </div>}
 
             <div>
               <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
@@ -185,30 +189,18 @@ export const AccountSetupCard: React.FC<AccountSetupCardProps> = ({
           >
             {isCreatingAccount ? (
               <>
-                <LoaderCircle className="w-4 h-4 animate-spin" /> Verificando correo y creando espacio...
+                <LoaderCircle className="w-4 h-4 animate-spin" /> {mode === 'register' ? 'Creando espacio...' : 'Ingresando...' }
               </>
             ) : (
               <>
-                <ShieldCheck className="w-4 h-4" /> Crear mi cuenta protegida
+                <ShieldCheck className="w-4 h-4" /> {mode === 'register' ? 'Crear mi cuenta protegida' : 'Ingresar a mi perfil'}
               </>
             )}
           </button>
 
-          <div className="mt-4 pt-3 border-t border-slate-200 dark:border-slate-800 text-center">
-            <button
-              type="button"
-              onClick={() =>
-                onContinueLocal(
-                  accountForm.name.trim() || 'Pablo García',
-                  accountForm.email.trim() || 'pablofgarciaf@gmail.com'
-                )
-              }
-              className="text-xs text-cyan-500 hover:text-cyan-400 font-bold hover:underline active:scale-95 transition-all cursor-pointer inline-flex items-center gap-1.5"
-            >
-              <span>Continuar en modo de prueba local (sin Firebase)</span>
-              <ArrowRight className="w-3 h-3" />
-            </button>
-          </div>
+          <button type="button" onClick={() => { setMode((current) => current === 'register' ? 'login' : 'register'); setAccountError(null); }} className="mt-3 w-full text-center text-xs font-bold text-cyan-500 hover:text-cyan-400">
+            {mode === 'register' ? 'Ya tengo una cuenta · Iniciar sesión' : 'No tengo cuenta · Crear perfil'}
+          </button>
 
           <p className={`mt-3 text-[10px] text-center ${muted}`}>Tus documentos y datos quedan protegidos en tu espacio privado.</p>
         </form>

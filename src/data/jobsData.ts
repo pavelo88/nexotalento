@@ -33,7 +33,7 @@ export const INITIAL_JOBS: JobPosition[] = [
     modality: 'Presencial',
     salaryRange: 'USD 600 – 700',
     experienceLevel: 'Mínimo 3 años en procesos contables (indispensable)',
-    description: 'Empresa de servicios ubicada en el Valle de los Chillos (Quito) busca incorporar un Asistente Contable con experiencia en gestión de procesos contables, capacidad analítica y orientación al detalle. Buscamos un profesional organizado, proactivo y con disponibilidad inmediata para integrarse al equipo.',
+    description: 'Empresa de servicios busca incorporar un Asistente Contable con experiencia en gestión de procesos contables, capacidad analítica y orientación al detalle. Buscamos un profesional organizado, proactivo y con disponibilidad inmediata.',
     requirements: [
       'Experiencia comprobable en procesos y registros contables.',
       'Manejo de conciliaciones bancarias y cuentas por pagar y cobrar.',

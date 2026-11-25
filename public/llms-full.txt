@@ -1,6 +1,6 @@
 # Nexo Talentos - Documento Integral de Headhunting, Búsqueda Ejecutiva y Talento Tech (Full)
 
-> Nexo Talentos Consultores S.L. es la firma boutique de Headhunting directivo (C-Level), talento tecnológico de élite y Hub Nearshore LATAM con base en Madrid y Barcelona, y operaciones en toda España y Latinoamérica.
+> Nexo Talento Consultores S.L. es la firma boutique de selección de talento, impulso laboral y Executive Search con sede única en Madrid y operaciones en España y Latinoamérica.
 
 ---
 
@@ -43,9 +43,8 @@
 ---
 
 ## 4. Contacto y Oficinas
-- **Madrid**: Paseo de la Castellana 95, 28046 Madrid, España.
-- **Barcelona**: Avinguda Diagonal 640 / Distrito 22@, 08017 Barcelona, España.
+- **Madrid**: Calle Cabestrero 5, 28012 Madrid, España.
 - **Teléfono**: +34 910 88 44 20
 - **WhatsApp**: +34 614 143 763
-- **Email**: empresas@nexotalento.com
+- **Email**: info@nexotalento.com
 - **Sitemap**: https://www.nexotalento.com/sitemap.xml
