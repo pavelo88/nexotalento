@@ -297,3 +297,10 @@
 **Skills usadas/modificadas:** reglas-seguridad, registrar-avance.
 **Próximos pasos:** Mantener las credenciales fuera de Git y, al migrar de cuenta de Vercel, importar la configuración segura en el nuevo proyecto antes de desplegar.
 **Archivos modificados:** C:/dev/proyectos/nexotalentos/.env; C:/dev/proyectos/nexotalentos/AVANCE.md
+
+## [2026-11-25] - Nexo Talento - Codex
+**Qué se hizo:** Se corrigió la normalización de saltos de línea de la clave privada de Firebase Admin para aceptar el formato importado desde un archivo de entorno.
+**Resultado:** La corrección pasó lint y build y se publicó en `main`. Falta esperar y verificar que el siguiente despliegue de Vercel reemplace las respuestas 500 por los códigos esperados de cada ruta.
+**Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
+**Próximos pasos:** Verificar producción tras el despliegue automático y realizar pruebas funcionales autenticadas de Admin y formularios.
+**Archivos modificados:** C:/dev/proyectos/nexotalentos/src/server/firebase-admin.ts; C:/dev/proyectos/nexotalentos/AVANCE.md
