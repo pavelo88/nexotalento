@@ -22,7 +22,11 @@ export const AccountSetupCard: React.FC<AccountSetupCardProps> = ({
 }) => {
   const [accountForm, setAccountForm] = useState({ name: '', email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
-  const [mode, setMode] = useState<'register' | 'login'>('register');
+  const [mode, setMode] = useState<'register' | 'login'>(() =>
+    typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('modo') === 'ingresar'
+      ? 'login'
+      : 'register'
+  );
   const [isCreatingAccount, setIsCreatingAccount] = useState(false);
   const [accountError, setAccountError] = useState<string | null>(null);
 
@@ -87,17 +91,17 @@ export const AccountSetupCard: React.FC<AccountSetupCardProps> = ({
       const message = String(error?.message || '');
 
       if (code.includes('email-already-in-use') || message.includes('EMAIL_EXISTS')) {
-        setAccountError('Ese correo ya tiene una cuenta registrada en Firebase.');
+        setAccountError('Ese correo ya tiene una cuenta. Usa “Iniciar sesión” para continuar.');
       } else if (code.includes('configuration-not-found') || message.includes('CONFIGURATION_NOT_FOUND')) {
         setAccountError(
-          'Firebase Auth no está activo en este proyecto (studio-2340725787-ed6b5): Habilita "Authentication > Sign-in method > Correo/Contraseña" en Firebase Console, o usa el botón de prueba local abajo.'
+          'El registro no está disponible temporalmente. Escríbenos por WhatsApp y el equipo te ayudará a completar tu perfil.'
         );
       } else if (code.includes('operation-not-allowed')) {
-        setAccountError('El método Correo/Contraseña no está habilitado en Firebase Console (Authentication > Sign-in method).');
+        setAccountError('El registro no está disponible temporalmente. Escríbenos por WhatsApp y el equipo te ayudará a completar tu perfil.');
       } else if (code.includes('weak-password')) {
         setAccountError('La contraseña debe tener al menos 8 caracteres.');
       } else {
-        setAccountError(`No se pudo crear la cuenta: ${message || code || 'Error de conexión con Firebase. Puedes usar el modo de prueba abajo.'}`);
+        setAccountError('No pudimos crear tu cuenta en este momento. Revisa tus datos e inténtalo nuevamente.');
       }
     } finally {
       setIsCreatingAccount(false);

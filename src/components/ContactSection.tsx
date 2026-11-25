@@ -31,8 +31,8 @@ export const ContactSection: React.FC = () => {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [company, setCompany] = useState('');
-  const [role, setRole] = useState('Director General / C-Level');
-  const [serviceType, setServiceType] = useState('Executive Search');
+  const [role, setRole] = useState('Puesto operativo, comercial o técnico');
+  const [serviceType, setServiceType] = useState('Selección de talento');
   const [message, setMessage] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -200,7 +200,7 @@ Enviado desde el formulario web de Nexo Talento.`;
                     theme === 'dark' ? 'text-white' : 'text-slate-900'
                   }`}>
                     <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-                    Consultor Directo Senior
+                    Equipo de selección
                   </span>
                   <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${
                     theme === 'dark'
@@ -211,7 +211,7 @@ Enviado desde el formulario web de Nexo Talento.`;
                   </span>
                 </div>
                 <p className={`text-xs ${theme === 'dark' ? 'text-slate-300' : 'text-slate-600'}`}>
-                  Chatea directamente con nuestro Socio Director de Búsqueda Ejecutiva:
+                  Chatea con nuestro equipo para procesos de cualquier nivel y área:
                 </p>
                 <a
                   href={whatsappUrl}
@@ -303,7 +303,7 @@ Enviado desde el formulario web de Nexo Talento.`;
                   theme === 'dark' ? 'border-slate-700 text-slate-400' : 'border-slate-300 text-slate-700'
                 }`}>
                   <Clock className="w-3.5 h-3.5 shrink-0" />
-                  <span>Lunes a Viernes: 08:30 - 20:00 CEST (C-Level 24/7)</span>
+                  <span>Lunes a Viernes: 08:30 - 20:00 CEST</span>
                 </div>
               </div>
 
@@ -505,14 +505,20 @@ Enviado desde el formulario web de Nexo Talento.`;
                             : 'bg-white border-slate-300 text-slate-900 focus:border-cyan-500'
                         }`}
                       >
-                        <option value="Director General / CEO">Director General / CEO</option>
+                        <option value="Puesto operativo, comercial o técnico">Puesto operativo, comercial o técnico</option>
+                        <option value="Administración, finanzas o contabilidad">Administración, finanzas o contabilidad</option>
+                        <option value="Ventas, marketing o atención al cliente">Ventas, marketing o atención al cliente</option>
+                        <option value="Logística, producción u operaciones">Logística, producción u operaciones</option>
+                        <option value="Mando medio o jefatura">Mando medio o jefatura</option>
+                        <option value="Tecnología, datos o producto">Tecnología, datos o producto</option>
+                        <option value="Recursos humanos o People">Recursos humanos o People</option>
                         <option value="Chief Technology Officer (CTO)">Chief Technology Officer (CTO)</option>
                         <option value="Chief Financial Officer (CFO)">Chief Financial Officer (CFO)</option>
                         <option value="Chief Operating Officer (COO)">Chief Operating Officer (COO)</option>
                         <option value="Director Comercial / VP Sales">Director Comercial / VP Sales</option>
                         <option value="Tech Lead / Senior Engineer">Tech Lead / Senior Engineer</option>
                         <option value="Director de Recursos Humanos">Director de Recursos Humanos</option>
-                        <option value="Otro Puesto Ejecutivo">Otro Puesto Ejecutivo</option>
+                        <option value="Otro perfil o área">Otro perfil o área</option>
                       </select>
                     </div>
 
@@ -535,12 +541,14 @@ Enviado desde el formulario web de Nexo Talento.`;
                             : 'bg-white border-slate-300 text-slate-900 focus:border-cyan-500'
                         }`}
                       >
-                        <option value="Executive Search (18 días)">Executive Search (18 días)</option>
+                        <option value="Selección de talento">Selección de talento</option>
+                        <option value="Selección operativa, comercial y mandos medios">Selección operativa, comercial y mandos medios</option>
                         <option value="Selección Tech & Digital">Selección Tech &amp; Digital</option>
                         <option value="RPO / Escalado de Equipos">RPO / Escalado de Equipos</option>
                         <option value="Assessment Center & IA">Assessment Center &amp; IA</option>
                         <option value="Interim Management">Interim Management</option>
-                        <option value="Consultoría Salarial">Consultoría Salarial</option>
+                        <option value="Executive Search (dirección y especialistas)">Executive Search (dirección y especialistas)</option>
+                        <option value="Otro servicio">Otro servicio</option>
                       </select>
                     </div>
                   </div>
@@ -562,7 +570,7 @@ Enviado desde el formulario web de Nexo Talento.`;
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder={tab === 'empresa' 
                       ? 'Indica ubicación, banda salarial estimada o características clave...' 
-                      : 'Cuéntanos sobre tus últimos puestos directivos o áreas de especialización...'}
+                      : 'Cuéntanos sobre tu experiencia, el tipo de puesto que buscas o cómo podemos ayudarte...'}
                     className={`w-full px-4 py-2.5 border rounded-xl text-sm focus:outline-none transition-colors ${
                       theme === 'dark'
                         ? 'bg-slate-800 border-slate-700 text-white placeholder:text-slate-500 focus:border-cyan-400'
@@ -582,7 +590,7 @@ Enviado desde el formulario web de Nexo Talento.`;
                     ) : (
                       <>
                         <Send className="w-4 h-4" />
-                        <span>{tab === 'empresa' ? 'Solicitar Terna en 18 Días' : 'Enviar Mi Perfil Confidencial'}</span>
+                          <span>{tab === 'empresa' ? 'Solicitar talento' : 'Enviar Mi Perfil Confidencial'}</span>
                       </>
                     )}
                   </button>

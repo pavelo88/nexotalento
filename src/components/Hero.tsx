@@ -76,7 +76,7 @@ export const Hero: React.FC<HeroProps> = ({
               <span className="relative inline-flex rounded-full h-2 w-2 bg-[#00A9A3]" />
             </span>
             <span className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-100">
-              Firma Boutique de Executive Search &amp; Headhunting
+              Selección de talento para empresas
             </span>
             <span className="bg-[#00A9A3]/20 text-cyan-300 text-[10px] font-black px-2.5 py-0.5 rounded-full border border-[#00A9A3]/40">
               España &amp; LATAM 2026
@@ -87,15 +87,14 @@ export const Hero: React.FC<HeroProps> = ({
         {/* Hero Headings */}
         <div className="text-center max-w-4xl mx-auto mb-10">
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight font-heading leading-tight">
-            Contrata al mejor talento{' '}
+            Contrata el talento{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-[#00A9A3] to-blue-500">
-              directivo y técnico
-            </span>{' '}
-            para tu empresa
+              que tu empresa necesita
+            </span>
           </h1>
 
           <p className="mt-4 text-sm sm:text-base lg:text-lg max-w-2xl mx-auto leading-relaxed text-slate-200">
-            Conectamos empresas de España y Latam con talento directivo y técnico de alto impacto. Entrega de terna validada en <strong className="text-white">18 días hábiles</strong> con <strong className="text-white">garantía contractual de 3 a 6 meses</strong>.
+            Conectamos empresas de España y Latam con perfiles operativos, comerciales, técnicos, mandos medios y especializados. Diseñamos cada proceso según el puesto, la urgencia y tus necesidades reales.
           </p>
         </div>
 
@@ -154,7 +153,7 @@ export const Hero: React.FC<HeroProps> = ({
             <div>
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 mb-4">
                 <Building2 className="w-3.5 h-3.5" />
-                <span>Empresas &amp; Comités de Dirección</span>
+                <span>Empresas que necesitan contratar</span>
               </div>
 
               <h2 className="text-xl sm:text-2xl font-bold font-heading mb-2 group-hover:text-cyan-400 transition-colors">
@@ -162,14 +161,14 @@ export const Hero: React.FC<HeroProps> = ({
               </h2>
 
               <p className="text-xs sm:text-sm leading-relaxed mb-6 text-slate-300">
-                Publica un requerimiento o solicita headhunting directo. Te presentamos una terna finalista evaluada en 18 días hábiles.
+                Cuéntanos el puesto, área y urgencia. Te acompañamos desde perfiles operativos y comerciales hasta técnicos, mandos medios y especialistas.
               </p>
             </div>
 
             <div className="flex items-center justify-between pt-4 border-t border-slate-800">
               <span className="text-xs font-bold text-cyan-700 dark:text-cyan-300 flex items-center gap-1.5">
                 <Clock className="w-3.5 h-3.5" />
-                Terna en 18 días
+                Proceso a tu medida
               </span>
               <span className="px-4 py-2 rounded-xl bg-cyan-500 text-slate-950 font-extrabold text-xs group-hover:bg-cyan-400 transition-colors flex items-center gap-1.5">
                 <span>Solicitar Talento</span>

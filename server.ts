@@ -9,7 +9,7 @@ import rateLimit from "express-rate-limit";
 import { AI_KNOWLEDGE_BASE } from "./ai-knowledge";
 import { verifyAdminToken } from "./src/server/firebase-admin";
 import { validateRealEmail } from "./src/server/emailValidator";
-import { createLead, listAdminApplications, listAdminLeads } from "./src/server/firestore-repository";
+import { createLead, createTrackingEvent, listAdminApplications, listAdminLeads, listAdminTrackingEvents } from "./src/server/firestore-repository";
 import { readLegacyLeadsForDevelopment } from "./src/server/legacy-leads";
 
 dotenv.config();
@@ -965,8 +965,9 @@ app.post(["/api/contact", "/api/leads"], contactRateLimiter, async (req, res) =>
     const serviceType = sanitizeInput(req.body?.serviceType) || "Consulta General";
     const message = sanitizeInput(req.body?.message) || "Sin mensaje";
     const source = sanitizeInput(req.body?.source, 200) || "Formulario web";
+    const leadType = sanitizeInput(req.body?.leadType, 80) || "contact";
     const attribution = sanitizeAttribution(req.body?.attribution);
-    const leadId = await createLead({ name, email, phone, company, role, serviceType, message, source, attribution });
+    const leadId = await createLead({ name, email, phone, company, role, serviceType, message, source, leadType, attribution });
     const createdAt = new Date().toISOString();
 
     const newLead = { id: leadId, createdAt, name, email, phone, company, role, serviceType, message, source, attribution };
@@ -1075,15 +1076,7 @@ app.post(["/api/contact", "/api/leads"], contactRateLimiter, async (req, res) =>
       console.warn("[Email] SMTP_USER no configurado — emails omitidos.");
     }
 
-    // ── 3. Google Sheets en paralelo ──────────────────────────────────
-    asyncTasks.push(
-      appendToGoogleSheet([
-        leadId, createdAt, name, email, phone, company, role, serviceType, message, source, JSON.stringify(attribution)
-      ]).then(() => console.log("[Sheets] ✅ Lead registrado en Google Sheets."))
-        .catch((sheetErr) => console.warn("[Sheets] Error registrando en Google Sheets (no crítico):", sheetErr))
-    );
-
-    // Esperar todas las tareas concurrentemente para ultra velocidad (<1.5s)
+    // Firebase es la fuente única de los leads. Las notificaciones son opcionales.
     await Promise.allSettled(asyncTasks);
 
     res.json({ success: true, message: "Lead registrado, email enviado y guardado con éxito.", leadId });
@@ -1228,6 +1221,41 @@ app.get("/api/admin/applications", adminAuth, async (_req, res) => {
     }
     console.error("[Admin] Error leyendo postulaciones desde Firebase.", { message });
     return res.status(500).json({ error: "Error leyendo postulaciones." });
+  }
+});
+
+// Eventos sin PII para que las conversiones de WhatsApp, formularios y postulaciones
+// sean visibles también desde el panel administrativo local.
+app.post("/api/events", async (req, res) => {
+  const eventName = sanitizeInput(req.body?.eventName, 80);
+  if (!eventName) return res.status(400).json({ error: "Evento inválido." });
+
+  try {
+    await createTrackingEvent({
+      eventName,
+      category: sanitizeInput(req.body?.category, 80) || "General",
+      label: sanitizeInput(req.body?.label, 160),
+      path: sanitizeInput(req.body?.path, 200) || "/",
+      jobId: sanitizeInput(req.body?.jobId, 100) || undefined,
+      jobTitle: sanitizeInput(req.body?.jobTitle, 160) || undefined,
+      leadType: sanitizeInput(req.body?.leadType, 80) || undefined,
+    });
+    return res.status(202).json({ success: true });
+  } catch {
+    return res.status(202).json({ success: false });
+  }
+});
+
+app.get("/api/admin/events", adminAuth, async (_req, res) => {
+  try {
+    return res.json(await listAdminTrackingEvents());
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "";
+    if (message.includes("no está configurado")) {
+      return res.status(503).json({ error: "Bandeja de eventos no disponible hasta configurar Firebase Admin." });
+    }
+    console.error("[Admin] Error leyendo eventos de seguimiento.", { message });
+    return res.status(500).json({ error: "Error leyendo eventos de seguimiento." });
   }
 });
 

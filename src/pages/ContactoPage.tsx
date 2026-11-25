@@ -39,8 +39,8 @@ export const ContactoPage: React.FC<ContactoPageProps> = ({
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [company, setCompany] = useState('');
-  const [role, setRole] = useState('Director General / CEO');
-  const [serviceType, setServiceType] = useState('Executive Search (18 días)');
+  const [role, setRole] = useState('Puesto operativo, comercial o técnico');
+  const [serviceType, setServiceType] = useState('Selección de talento');
   const [message, setMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -48,7 +48,7 @@ export const ContactoPage: React.FC<ContactoPageProps> = ({
 
   const whatsappPhone = '34614143763';
   const whatsappUrl = `https://wa.me/${whatsappPhone}?text=${encodeURIComponent(
-    'Hola Nexo Talento, deseo contactar directamente con un Senior Talent Partner sobre procesos de Headhunting en España.'
+    'Hola Nexo Talento, deseo consultar un proceso de selección para mi empresa.'
   )}`;
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -66,7 +66,7 @@ export const ContactoPage: React.FC<ContactoPageProps> = ({
           email,
           phone,
           company: tab === 'empresa' ? company : 'Candidato Confidencial',
-          role: tab === 'empresa' ? role : 'Perfil Directivo',
+          role: tab === 'empresa' ? role : 'Perfil profesional / Candidatura',
           serviceType,
           message,
           source: 'Pagina Contacto',
@@ -118,12 +118,12 @@ export const ContactoPage: React.FC<ContactoPageProps> = ({
             <span>Atención Directa &amp; Confidencial</span>
           </div>
           <h1 className="text-2xl sm:text-5xl font-black tracking-tight leading-[1.08] text-balance font-heading">
-            Contacto y <span className="inline-block whitespace-nowrap text-transparent bg-clip-text bg-gradient-to-r from-[#00A9A3] to-blue-500">Consultor Directo</span>
+            Hablemos de tu <span className="inline-block whitespace-nowrap text-transparent bg-clip-text bg-gradient-to-r from-[#00A9A3] to-blue-500">próxima contratación</span>
           </h1>
           <p className={`mt-4 text-base leading-relaxed ${
             theme === 'dark' ? 'text-slate-300' : 'text-slate-600'
           }`}>
-            Oficinas en los principales distritos de negocios de España. Estamos a tu disposición para proyectos confidenciales de búsqueda y selección directiva.
+            Desde perfiles operativos, comerciales y técnicos hasta mandos medios y posiciones especializadas: cuéntanos qué necesitas y te orientamos.
           </p>
         </div>
 
@@ -140,10 +140,10 @@ export const ContactoPage: React.FC<ContactoPageProps> = ({
             </div>
             <div>
               <span className="text-xs font-bold text-emerald-500 uppercase tracking-wider block">
-                Canal Prioritario 24/7 para Empresas &amp; Directivos
+                Atención directa para empresas y candidatos
               </span>
               <h3 className="text-lg sm:text-xl font-bold font-heading">
-                WhatsApp Directo con Senior Talent Partner: +34 614 143 763
+                WhatsApp Nexo Talento: +34 614 143 763
               </h3>
               <p className={`text-xs ${
                 theme === 'dark' ? 'text-slate-300' : 'text-slate-600'
@@ -252,7 +252,7 @@ export const ContactoPage: React.FC<ContactoPageProps> = ({
               <div className={`flex items-center justify-between pb-2 border-b ${
                 theme === 'dark' ? 'border-slate-800' : 'border-slate-100'
               }`}>
-                <span className={theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}>Dirección General &amp; Búsqueda C-Level:</span>
+                <span className={theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}>Empresas y procesos de selección:</span>
                 <span className="text-[#00A9A3] font-semibold">info@nexotalento.com</span>
               </div>
               <div className={`flex items-center justify-between pb-2 border-b ${
@@ -271,7 +271,7 @@ export const ContactoPage: React.FC<ContactoPageProps> = ({
                 theme === 'dark' ? 'text-slate-400' : 'text-slate-500'
               }`}>
                 <Clock className="w-3.5 h-3.5 shrink-0" />
-                <span>Lunes a Viernes: 08:30 a 20:00 CEST. Atención directiva 24/7.</span>
+                <span>Lunes a Viernes: 08:30 a 20:00 CEST. Atención para empresas y candidatos.</span>
               </div>
             </div>
 
@@ -467,14 +467,20 @@ export const ContactoPage: React.FC<ContactoPageProps> = ({
                               : 'bg-slate-50 border-slate-300 text-slate-900'
                           }`}
                         >
-                          <option value="Director General / CEO">Director General / CEO</option>
+                          <option value="Puesto operativo, comercial o técnico">Puesto operativo, comercial o técnico</option>
+                          <option value="Administración, finanzas o contabilidad">Administración, finanzas o contabilidad</option>
+                          <option value="Ventas, marketing o atención al cliente">Ventas, marketing o atención al cliente</option>
+                          <option value="Logística, producción u operaciones">Logística, producción u operaciones</option>
+                          <option value="Mando medio o jefatura">Mando medio o jefatura</option>
+                          <option value="Tecnología, datos o producto">Tecnología, datos o producto</option>
+                          <option value="Recursos humanos o People">Recursos humanos o People</option>
                           <option value="Chief Technology Officer (CTO)">Chief Technology Officer (CTO)</option>
                           <option value="Chief Financial Officer (CFO)">Chief Financial Officer (CFO)</option>
                           <option value="Chief Operating Officer (COO)">Chief Operating Officer (COO)</option>
                           <option value="Director Comercial / VP Sales">Director Comercial / VP Sales</option>
                           <option value="Tech Lead / Senior Engineer">Tech Lead / Senior Engineer</option>
                           <option value="Director de Recursos Humanos">Director de Recursos Humanos</option>
-                          <option value="Otro Puesto Ejecutivo">Otro Puesto Ejecutivo</option>
+                          <option value="Otro perfil o área">Otro perfil o área</option>
                         </select>
                       </div>
 
@@ -498,12 +504,14 @@ export const ContactoPage: React.FC<ContactoPageProps> = ({
                               : 'bg-slate-50 border-slate-300 text-slate-900'
                           }`}
                         >
-                          <option value="Executive Search (18 días)">Executive Search (18 días)</option>
+                          <option value="Selección de talento">Selección de talento</option>
+                          <option value="Selección operativa, comercial y mandos medios">Selección operativa, comercial y mandos medios</option>
                           <option value="Selección Tech & Digital">Selección Tech &amp; Digital</option>
                           <option value="RPO / Escalado Rápido">RPO / Escalado Rápido</option>
                           <option value="Assessment Center & IA">Assessment Center &amp; IA</option>
                           <option value="Interim Management">Interim Management</option>
-                          <option value="Consultoría Salarial">Consultoría Salarial</option>
+                          <option value="Executive Search (dirección y especialistas)">Executive Search (dirección y especialistas)</option>
+                          <option value="Otro servicio">Otro servicio</option>
                         </select>
                       </div>
                     </div>
@@ -525,7 +533,7 @@ export const ContactoPage: React.FC<ContactoPageProps> = ({
                       aria-label={tab === 'empresa' ? 'Detalles de la posición o requerimiento' : 'Aspiraciones y resumen ejecutivo'}
                       data-webmcp-field="contacto-message"
                       placeholder={tab === 'empresa' 
-                        ? 'Indica banda salarial estimada, urgencia, si es confidencial o requisitos clave...' 
+                        ? 'Indica puesto, cantidad de personas, ubicación, modalidad, urgencia y requisitos clave...'
                         : 'Describe tus áreas de mayor experiencia y tipo de posición que te interesa explorar...'}
                       className={`w-full px-4 py-2.5 border rounded-xl text-sm focus:outline-none focus:border-[#00A9A3] transition-colors ${
                         theme === 'dark'
@@ -546,7 +554,7 @@ export const ContactoPage: React.FC<ContactoPageProps> = ({
                       ) : (
                         <>
                           <Send className="w-4 h-4" />
-                          <span>{tab === 'empresa' ? 'Solicitar Terna Directiva en 18 Días' : 'Enviar Mi Perfil Confidencial'}</span>
+                          <span>{tab === 'empresa' ? 'Solicitar talento' : 'Enviar Mi Perfil Confidencial'}</span>
                         </>
                       )}
                     </button>

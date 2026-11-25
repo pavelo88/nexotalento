@@ -9,7 +9,8 @@ import {
   FolderUp, 
   Cloud, 
   Send, 
-  CheckCircle2 
+  CheckCircle2,
+  ArrowRight
 } from 'lucide-react';
 
 interface JobApplicationModalProps {
@@ -77,8 +78,8 @@ export const JobApplicationModal: React.FC<JobApplicationModalProps> = ({
           <span className="text-xs font-black uppercase tracking-wide text-emerald-500">Postulación segura</span>
           <h2 className="mt-3 font-heading text-2xl font-black">Crea o ingresa a tu perfil primero</h2>
           <p className="mt-3 text-sm leading-relaxed text-slate-400">Para postular a <strong className="text-inherit">{job.title}</strong>, necesitamos asociar tu CV y el estado de tu proceso a una cuenta privada.</p>
-          <button type="button" onClick={() => { window.location.assign('/crear-perfil'); }} className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyan-400 to-emerald-400 px-4 py-3 font-black text-slate-950">Crear mi perfil o iniciar sesión <ArrowRight className="h-4 w-4" /></button>
-          <p className="mt-3 text-center text-xs text-slate-400">Si ya tienes cuenta, usa “Ya tengo una cuenta” en la siguiente pantalla.</p>
+          <button type="button" onClick={() => { window.location.assign('/crear-perfil'); }} className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyan-400 to-emerald-400 px-4 py-3 font-black text-slate-950">Crear mi perfil <ArrowRight className="h-4 w-4" /></button>
+          <button type="button" onClick={() => { window.location.assign('/crear-perfil?modo=ingresar'); }} className="mt-3 w-full rounded-xl border border-slate-600 px-4 py-3 text-sm font-bold text-slate-200 transition-colors hover:border-cyan-400 hover:text-cyan-300">Ya tengo una cuenta</button>
         </section>
       </div>
     );

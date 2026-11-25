@@ -276,3 +276,10 @@
 **Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
 **Próximos pasos:** Revisar visualmente los cambios locales y, cuando estén aprobados, configurar Firebase Admin en Vercel para activar las bandejas persistentes.
 **Archivos modificados:** C:/dev/proyectos/nexotalentos/AVANCE.md
+
+## [2026-11-25] - Nexo Talento - Codex
+**Qué se hizo:** Se amplió el mensaje comercial y el formulario de contacto para procesos operativos, comerciales, técnicos, mandos medios y especializados; se mejoró el acceso de candidatos con entradas separadas para crear cuenta o iniciar sesión. Se alinearon el servidor local y las funciones publicadas para clasificar leads y guardar eventos de conversión sin PII en Firebase.
+**Resultado:** Las 13 rutas públicas se validaron en localhost sin errores de aplicación y la compilación pasó. La producción sigue bloqueada para inversión: los endpoints públicos de contacto, leads y eventos responden 500, y faltan las variables privadas de Firebase Admin en el entorno local. La auditoría de dependencias redujo 52 hallazgos a 13; las correcciones restantes requieren una migración mayor de Firebase que no se forzó.
+**Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance, application-security-testing.
+**Próximos pasos:** Configurar Firebase Admin en Vercel, desplegar las reglas de Firebase y el commit actual, asignar el rol administrativo a la cuenta corporativa y ejecutar pruebas reales de alta, perfil, postulación, lead, WhatsApp y panel Admin antes de invertir en campañas.
+**Archivos modificados:** C:/dev/proyectos/nexotalentos/src/pages/ContactoPage.tsx; C:/dev/proyectos/nexotalentos/src/components/ContactSection.tsx; C:/dev/proyectos/nexotalentos/src/components/Hero.tsx; C:/dev/proyectos/nexotalentos/src/components/JobApplicationModal.tsx; C:/dev/proyectos/nexotalentos/src/components/profile/AccountSetupCard.tsx; C:/dev/proyectos/nexotalentos/server.ts; C:/dev/proyectos/nexotalentos/src/server/serverless-contact.ts; C:/dev/proyectos/nexotalentos/package-lock.json; C:/dev/proyectos/nexotalentos/AVANCE.md

@@ -61,7 +61,7 @@ export async function handleContactLead(req: ServerlessRequest, res: ServerlessR
     return res.status(201).json({ success: true, leadId, message: "Solicitud recibida correctamente." });
   } catch (error) {
     if (isFirebaseAdminConfigurationError(error)) {
-      return res.status(503).json({ error: "El formulario no está disponible hasta configurar Firebase Admin." });
+      return res.status(503).json({ error: "El formulario no está disponible temporalmente. Inténtalo de nuevo en unos minutos." });
     }
     console.error("[Contact] Firebase lead write failed.");
     return res.status(500).json({ error: "No fue posible registrar la solicitud." });
