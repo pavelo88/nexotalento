@@ -46,11 +46,23 @@ export function getFirebaseAdminFirestore(): Firestore {
 export async function verifyAdminToken(token: string): Promise<DecodedIdToken> {
   const decoded = await getFirebaseAdminAuth().verifyIdToken(token, true);
   const role = decoded.role;
-  const isAdmin = decoded.admin === true || ["super", "superadmin", "admin", "recruiter"].includes(role);
+  const hasAdminClaim = decoded.admin === true || (typeof role === "string" && ["super", "superadmin", "admin", "recruiter"].includes(role));
 
-  if (!isAdmin) {
-    throw new Error("El usuario autenticado no tiene permisos administrativos.");
+  if (hasAdminClaim) return decoded;
+
+  // El panel puede reconocer el rol asignado al usuario existente en Firestore
+  // mientras un Custom Claim se propaga. La identidad siempre viene primero del
+  // token verificado; nunca se confía en un UID enviado por el cliente.
+  const uid = decoded.uid;
+  if (typeof uid !== "string" || !uid) {
+    throw new Error("El token no contiene un identificador de usuario válido.");
   }
 
-  return decoded;
+  const userRecord = await getFirebaseAdminFirestore().collection("users").doc(uid).get();
+  const storedRole = userRecord.exists ? userRecord.data()?.role : undefined;
+  if (typeof storedRole === "string" && ["super", "superadmin", "admin", "recruiter"].includes(storedRole)) {
+    return decoded;
+  }
+
+  throw new Error("El usuario autenticado no tiene permisos administrativos.");
 }
