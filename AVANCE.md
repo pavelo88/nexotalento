@@ -292,6 +292,13 @@
 **Archivos modificados:** C:/dev/proyectos/nexotalentos/src/server/firebase-admin.ts; C:/dev/proyectos/nexotalentos/AVANCE.md
 
 ## [2026-11-25] - Nexo Talento - Codex
+**Qué se hizo:** Se corrigieron los imports internos de las funciones serverless para que el runtime ESM de Vercel resuelva los módulos compilados correctamente.
+**Resultado:** El despliegue `4812dd1` quedó publicado. La comprobación remota confirmó que `/api/contact` y `/api/events` devuelven 405 ante GET (solo admiten POST) y `/api/admin/leads` devuelve 401 sin sesión; se eliminó el fallo de arranque 500. Lint y build pasaron.
+**Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
+**Próximos pasos:** Iniciar sesión con la cuenta con rol `super`, comprobar `/admin` y realizar una postulación/formulario real controlado para validar la persistencia en Firestore.
+**Archivos modificados:** C:/dev/proyectos/nexotalentos/api/contact.ts; C:/dev/proyectos/nexotalentos/api/events.ts; C:/dev/proyectos/nexotalentos/api/leads.ts; C:/dev/proyectos/nexotalentos/api/admin/applications.ts; C:/dev/proyectos/nexotalentos/api/admin/events.ts; C:/dev/proyectos/nexotalentos/api/admin/leads.ts; C:/dev/proyectos/nexotalentos/src/server/firestore-repository.ts; C:/dev/proyectos/nexotalentos/src/server/serverless-admin.ts; C:/dev/proyectos/nexotalentos/src/server/serverless-contact.ts; C:/dev/proyectos/nexotalentos/src/server/serverless-events.ts; C:/dev/proyectos/nexotalentos/AVANCE.md
+
+## [2026-11-25] - Nexo Talento - Codex
 **Qué se hizo:** Se sincronizó la configuración privada de Firebase Admin con el entorno local ignorado por Git.
 **Resultado:** El proyecto local dispone de las tres variables requeridas por el servidor sin exponerlas en el repositorio ni en este registro.
 **Skills usadas/modificadas:** reglas-seguridad, registrar-avance.
