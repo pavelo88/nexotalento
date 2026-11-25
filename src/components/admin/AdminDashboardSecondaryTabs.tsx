@@ -170,6 +170,7 @@ export const AdminDashboardSecondaryTabs: React.FC<{ state: AdminDashboardPanelS
                               <td className="p-3 text-stone-700 dark:text-stone-300">
                                 <span className="font-semibold">{lead.company}</span>
                                 {lead.role && <span className="text-[11px] text-stone-500 block">{lead.role}</span>}
+                                {lead.leadType && <span className="mt-1 inline-flex rounded-full bg-cyan-500/10 px-1.5 py-0.5 text-[9px] font-black uppercase tracking-wide text-cyan-700 dark:text-cyan-300">{lead.leadType}</span>}
                               </td>
                               <td className="p-3 text-right whitespace-nowrap">
                                 <div className="flex items-center justify-end gap-1.5">

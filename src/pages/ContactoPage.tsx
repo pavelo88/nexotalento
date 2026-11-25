@@ -70,6 +70,7 @@ export const ContactoPage: React.FC<ContactoPageProps> = ({
           serviceType,
           message,
           source: 'Pagina Contacto',
+          leadType: tab === 'empresa' ? 'company_requirement' : 'candidate_contact',
           attribution: getMarketingAttribution()
         })
       });
@@ -126,12 +127,13 @@ export const ContactoPage: React.FC<ContactoPageProps> = ({
           </p>
         </div>
 
-        {/* Direct WhatsApp Callout Banner */}
-        <div className={`mb-12 p-6 rounded-3xl border shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-6 ${
-          theme === 'dark'
-            ? 'bg-gradient-to-r from-emerald-950/60 via-slate-900 to-slate-950 border-emerald-500/40'
-            : 'bg-gradient-to-r from-emerald-50 via-white to-emerald-50 border-emerald-200 shadow-xl'
-        }`}>
+        {/*
+          Banner de WhatsApp directo conservado y oculto por solicitud del cliente.
+          <div className={`mb-12 p-6 rounded-3xl border shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-6 ${
+            theme === 'dark'
+              ? 'bg-gradient-to-r from-emerald-950/60 via-slate-900 to-slate-950 border-emerald-500/40'
+              : 'bg-gradient-to-r from-emerald-50 via-white to-emerald-50 border-emerald-200 shadow-xl'
+          }`}>
           <div className="flex items-center gap-4">
             <div className="w-14 h-14 rounded-2xl bg-emerald-500 flex items-center justify-center text-slate-950 shrink-0 shadow-lg shadow-emerald-500/30">
               <MessageSquare className="w-7 h-7" />
@@ -160,7 +162,8 @@ export const ContactoPage: React.FC<ContactoPageProps> = ({
             <MessageSquare className="w-4 h-4" />
             <span>Abrir Chat de WhatsApp</span>
           </a>
-        </div>
+          </div>
+        */}
 
         {/* 2-Column Main Contact Block */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-16">

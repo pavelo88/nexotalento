@@ -64,6 +64,8 @@ export const TalentAssessmentWizard: React.FC = () => {
           company: formData.companyName,
           role: formData.profileCategory,
           serviceType: 'Diagnóstico de Talento & Headhunting',
+          source: 'Diagnóstico de talento',
+          leadType: 'talent_assessment',
           message: `Diagnóstico realizado: Empresa: ${formData.companyType}, Tamaño: ${formData.teamSize}, Urgencia: ${formData.urgency}, Posición: ${formData.profileCategory}, Ubicación: ${formData.location}`,
           attribution: getMarketingAttribution()
         })

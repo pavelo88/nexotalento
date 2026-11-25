@@ -51,6 +51,16 @@ export const Navbar: React.FC<NavbarProps> = ({
   const { theme, toggleTheme } = useTheme();
   const hasNavbarSurface = isScrolled || mobileMenuOpen || activeDropdown !== null;
   const headerUsesDarkBrand = theme === 'dark' || ((currentPath === '/' || currentPath === '/jobhunting') && !hasNavbarSurface);
+  const isTransparentDarkHero = (currentPath === '/' || currentPath === '/jobhunting') && !hasNavbarSurface;
+  const navItemClass = (isActive: boolean) => `px-3 py-1.5 rounded-lg text-xs xl:text-sm font-semibold tracking-tight transition-all duration-150 cursor-pointer ${
+    isActive
+      ? hasNavbarSurface && theme === 'light' ? 'bg-slate-900 text-white font-bold' : 'bg-slate-800 text-white font-bold'
+      : hasNavbarSurface && theme === 'light'
+        ? 'text-slate-800 hover:text-slate-950 hover:bg-slate-100'
+        : isTransparentDarkHero
+          ? 'text-white drop-shadow-md hover:text-cyan-200 hover:bg-white/10'
+          : 'text-slate-900 hover:text-slate-950 hover:bg-slate-100/80'
+  }`;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -116,11 +126,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <div className="relative">
               <button
                 onClick={() => toggleDropdown('servicios')}
-                className={`px-3 py-1.5 rounded-lg text-xs xl:text-sm font-semibold tracking-tight transition-all duration-150 flex items-center gap-1 cursor-pointer ${
-                  currentPath === '/servicios' || activeDropdown === 'servicios'
-                    ? 'bg-slate-800 text-white font-bold'
-                    : 'text-slate-300 hover:text-white hover:bg-slate-800/50'
-                }`}
+                className={`${navItemClass(currentPath === '/servicios' || activeDropdown === 'servicios')} flex items-center gap-1`}
               >
                 <span>Servicios</span>
                 <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${activeDropdown === 'servicios' ? 'rotate-180 text-[#00E5C9]' : ''}`} />
@@ -158,11 +164,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               id="nav-buscar-personal-btn"
               onClick={() => handleLinkClick('/proceso')}
-              className={`px-3 py-1.5 rounded-lg text-xs xl:text-sm font-semibold tracking-tight transition-all duration-150 cursor-pointer ${
-                currentPath === '/proceso'
-                  ? 'bg-slate-800 text-white font-bold'
-                  : 'text-slate-300 hover:text-white hover:bg-slate-800/50'
-              }`}
+              className={navItemClass(currentPath === '/proceso')}
             >
               Buscar Personal
             </button>
@@ -170,41 +172,24 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* 3. Vacantes (Para candidatos) */}
             <button
               onClick={() => handleLinkClick('/vacantes')}
-              className={`px-3 py-1.5 rounded-lg text-xs xl:text-sm font-semibold tracking-tight transition-all duration-150 cursor-pointer ${
-                currentPath === '/vacantes' 
-                  ? 'bg-slate-800 text-white font-bold'
-                  : 'text-slate-300 hover:text-white hover:bg-slate-800/50'
-              }`}
+              className={navItemClass(currentPath === '/vacantes')}
             >
               Vacantes
             </button>
 
             <button
               onClick={() => handleLinkClick('/jobhunting')}
-              className={`px-3 py-1.5 rounded-lg text-xs xl:text-sm font-semibold tracking-tight transition-all duration-150 cursor-pointer ${
-                currentPath === '/jobhunting' ? 'bg-slate-800 text-white font-bold' : 'text-slate-300 hover:text-white hover:bg-slate-800/50'
-              }`}
+              className={navItemClass(currentPath === '/jobhunting')}
             >
               Tu próximo empleo
             </button>
 
-            <button
-              onClick={() => handleLinkClick('/calculadora-roi')}
-              className={`px-3 py-1.5 rounded-lg text-xs xl:text-sm font-semibold tracking-tight transition-all duration-150 cursor-pointer ${
-                currentPath === '/calculadora-roi' ? 'bg-slate-800 text-white font-bold' : 'text-slate-300 hover:text-white hover:bg-slate-800/50'
-              }`}
-            >
-              Calculadora ROI
-            </button>
+            {/* Calculadora ROI conservada como ruta interna, oculta de la navegación pública. */}
 
             {/* 6. Contacto */}
             <button
               onClick={() => handleLinkClick('/contacto')}
-              className={`px-3 py-1.5 rounded-lg text-xs xl:text-sm font-semibold tracking-tight transition-all duration-150 cursor-pointer ${
-                currentPath === '/contacto'
-                  ? 'bg-slate-800 text-white font-bold'
-                  : 'text-slate-300 hover:text-white hover:bg-slate-800/50'
-              }`}
+              className={navItemClass(currentPath === '/contacto')}
             >
               Contacto
             </button>
@@ -306,6 +291,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span>Tu próximo empleo</span>
               <Sparkles className="w-3.5 h-3.5" />
             </button>
+            {/*
             <button
               onClick={() => handleLinkClick('/calculadora-roi')}
               className={`p-2.5 rounded-xl text-left text-xs font-bold ${
@@ -314,6 +300,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             >
               Calculadora de Costes
             </button>
+            */}
             <button
               onClick={() => handleLinkClick('/contacto')}
               className={`p-2.5 rounded-xl text-left text-xs font-bold ${

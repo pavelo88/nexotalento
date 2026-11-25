@@ -89,5 +89,21 @@ export const trackEvent = ({
         window.ttq.track('ClickButton', { contents: [{ content_name: 'WhatsApp' }] });
       }
     }
+
+    // Copia operativa sin PII para que el equipo pueda dar seguimiento desde Admin.
+    void fetch('/api/events', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      keepalive: true,
+      body: JSON.stringify({
+        eventName,
+        category,
+        label: label || '',
+        path: window.location.pathname,
+        jobId: jobId || '',
+        jobTitle: jobTitle || '',
+        leadType: leadType || ''
+      })
+    }).catch(() => undefined);
   }
 };

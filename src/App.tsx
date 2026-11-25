@@ -10,6 +10,7 @@ import { Bot, Sparkles, MessageSquare } from 'lucide-react';
 import { COMPANY_CONFIG } from './config/company';
 import { getPublicProfileSlug } from './features/profiles/profileHost';
 import { PublicProfilePage } from './pages/PublicProfilePage';
+import { trackEvent } from './lib/tracking';
 
 // Code-Splitting: Lazy load all secondary routes & heavy interactive modals
 const ServiciosPage = lazy(() => import('./pages/ServiciosPage').then(m => ({ default: m.ServiciosPage })));
@@ -96,6 +97,16 @@ function AppContent() {
     syncRouteWithLocation();
     window.addEventListener('popstate', syncRouteWithLocation);
     return () => window.removeEventListener('popstate', syncRouteWithLocation);
+  }, []);
+
+  useEffect(() => {
+    const registerWhatsAppClick = (event: MouseEvent) => {
+      const target = event.target instanceof Element ? event.target.closest('a[href*="wa.me"]') : null;
+      if (!target) return;
+      trackEvent({ eventName: 'whatsapp_click', category: 'WhatsApp', label: target.getAttribute('aria-label') || 'Enlace de WhatsApp' });
+    };
+    document.addEventListener('click', registerWhatsAppClick, true);
+    return () => document.removeEventListener('click', registerWhatsAppClick, true);
   }, []);
 
   // Sincronizar etiqueta canonical con la ruta activa para SEO A+ y evitar advertencias de canonicalización

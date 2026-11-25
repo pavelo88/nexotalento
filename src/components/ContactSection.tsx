@@ -101,6 +101,8 @@ Enviado desde el formulario web de Nexo Talento.`;
           role,
           serviceType: tab === 'empresa' ? serviceType : 'Candidatura Espontánea / Base de Talento',
           message: cleanMessage,
+          source: 'Formulario de contacto principal',
+          leadType: tab === 'empresa' ? 'company_requirement' : 'candidate_contact',
           attribution: getMarketingAttribution()
         })
       });

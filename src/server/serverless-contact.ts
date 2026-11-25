@@ -55,6 +55,7 @@ export async function handleContactLead(req: ServerlessRequest, res: ServerlessR
       serviceType: sanitizeInput(body.serviceType) || "Consulta general",
       message: sanitizeInput(body.message) || "Sin mensaje",
       source: sanitizeInput(body.source, 200) || "Formulario web",
+      leadType: sanitizeInput(body.leadType, 80) || "contact",
       attribution: sanitizeAttribution(body.attribution),
     });
     return res.status(201).json({ success: true, leadId, message: "Solicitud recibida correctamente." });

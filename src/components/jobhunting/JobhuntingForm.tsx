@@ -39,6 +39,7 @@ export const JobhuntingForm: React.FC<JobhuntingFormProps> = ({ theme }) => {
           serviceType: 'Programa Impulso laboral - solicitud de información',
           message: formData.notes,
           source: 'Landing /jobhunting',
+          leadType: 'jobhunting_application',
           attribution: getMarketingAttribution()
         })
       });
@@ -53,7 +54,7 @@ export const JobhuntingForm: React.FC<JobhuntingFormProps> = ({ theme }) => {
   };
 
   return (
-    <section id="formulario-postulacion" data-reveal className={`reveal-on-scroll py-24 border-t ${theme === 'dark' ? 'bg-[#090C11] border-stone-800' : 'bg-stone-100/70 border-stone-200'}`}>
+    <section id="formulario-postulacion" className={`py-24 border-t ${theme === 'dark' ? 'bg-[#090C11] border-stone-800' : 'bg-stone-100/70 border-stone-200'}`}>
       <div className="max-w-3xl mx-auto px-4 sm:px-6">
         <div className="glass-card p-8 sm:p-12 rounded-3xl border border-white/80 dark:border-white/10 shadow-2xl">
           

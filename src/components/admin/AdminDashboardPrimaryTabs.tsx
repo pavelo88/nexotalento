@@ -4,7 +4,9 @@ import { BarChart3, FileText, Users, Settings, Save, CheckCircle2, TrendingUp, B
 export interface AdminDashboardPanelState { [key: string]: any; }
 
 export const AdminDashboardPrimaryTabs: React.FC<{ state: AdminDashboardPanelState }> = ({ state }) => {
-  const { activeTab, siteContent, setSiteContent, vacancies, setVacancies, areasList, setAreasList, sectorsList, setSectorsList, isCreatingVacancy, setIsCreatingVacancy, newVacTitle, setNewVacTitle, newVacDept, setNewVacDept, newVacLoc, setNewVacLoc, newVacMod, setNewVacMod, newVacSalary, setNewVacSalary, newVacDesc, setNewVacDesc, leads, leadStatusFilter, setLeadStatusFilter, searchTerm, setSearchTerm, filteredLeads, handleAddVacancy, handleDeleteVacancy, handleDeleteLead, handleToggleLeadAttended } = state;
+  const { activeTab, siteContent, setSiteContent, vacancies, setVacancies, areasList, setAreasList, sectorsList, setSectorsList, isCreatingVacancy, setIsCreatingVacancy, newVacTitle, setNewVacTitle, newVacDept, setNewVacDept, newVacLoc, setNewVacLoc, newVacMod, setNewVacMod, newVacSalary, setNewVacSalary, newVacDesc, setNewVacDesc, leads, trackingEvents = [], leadStatusFilter, setLeadStatusFilter, searchTerm, setSearchTerm, filteredLeads, handleAddVacancy, handleDeleteVacancy, handleDeleteLead, handleToggleLeadAttended } = state;
+  const whatsappClicks = trackingEvents.filter((event: any) => event.eventName === 'whatsapp_click').length;
+  const submittedForms = trackingEvents.filter((event: any) => event.eventName === 'generate_lead' || event.eventName === 'contact_submit').length;
   return (
     <>
             {/* TAB 1: ANALÍTICA */}
@@ -16,7 +18,7 @@ export const AdminDashboardPrimaryTabs: React.FC<{ state: AdminDashboardPanelSta
                     <Users className="w-4 h-4 text-cyan-500" />
                   </div>
                   <p className="text-2xl font-black text-cyan-600 dark:text-cyan-400">{leads.length}</p>
-                  <p className="text-[10px] text-emerald-600 dark:text-emerald-400 font-bold mt-1">Conectado a Google Sheets</p>
+                  <p className="text-[10px] text-emerald-600 dark:text-emerald-400 font-bold mt-1">Bandeja de Firebase</p>
                 </div>
 
                 <div className="p-5 rounded-2xl bg-white dark:bg-stone-900/80 border border-stone-200 dark:border-stone-800">
@@ -39,11 +41,11 @@ export const AdminDashboardPrimaryTabs: React.FC<{ state: AdminDashboardPanelSta
 
                 <div className="p-5 rounded-2xl bg-white dark:bg-stone-900/80 border border-stone-200 dark:border-stone-800">
                   <div className="flex items-center justify-between text-stone-500 text-xs mb-1">
-                    <span>Meta &amp; TikTok Ads</span>
+                    <span>Seguimiento comercial</span>
                     <TrendingUp className="w-4 h-4 text-purple-500" />
                   </div>
-                  <p className="text-xs font-bold text-purple-600 dark:text-purple-300">fbq &amp; ttq Listos</p>
-                  <p className="text-[10px] text-stone-500 mt-1">Eventos: lead, apply_job, whatsapp</p>
+                  <p className="text-xs font-bold text-purple-600 dark:text-purple-300">{whatsappClicks} clics en WhatsApp</p>
+                  <p className="text-[10px] text-stone-500 mt-1">{submittedForms} envíos de formulario registrados</p>
                 </div>
               </div>
             )}

@@ -10,6 +10,7 @@ export interface LeadInput {
   serviceType: string;
   message: string;
   source: string;
+  leadType?: string;
   attribution: Record<string, string>;
 }
 
@@ -24,6 +25,7 @@ export interface AdminLead {
   serviceType: string;
   message: string;
   source: string;
+  leadType: string;
   attribution: Record<string, string>;
   status: string;
 }
@@ -70,6 +72,7 @@ function toAdminLead(snapshot: QueryDocumentSnapshot<DocumentData>): AdminLead {
     serviceType: asText(lead.serviceType),
     message: asText(lead.message),
     source: asText(lead.source),
+    leadType: asText(lead.leadType, "contact"),
     attribution: lead.attribution && typeof lead.attribution === "object" ? lead.attribution as Record<string, string> : {},
     status: asText(lead.status, "pending"),
   };
@@ -122,4 +125,46 @@ export async function listAdminApplications(limitCount = 100): Promise<AdminAppl
     .limit(limitCount)
     .get();
   return snapshot.docs.map(toAdminApplication);
+}
+
+export interface TrackingEventInput {
+  eventName: string;
+  category: string;
+  label: string;
+  path: string;
+  jobId?: string;
+  jobTitle?: string;
+  leadType?: string;
+}
+
+export interface AdminTrackingEvent extends TrackingEventInput {
+  id: string;
+  createdAt: string | null;
+}
+
+export async function createTrackingEvent(input: TrackingEventInput): Promise<void> {
+  await getFirebaseAdminFirestore().collection("analytics_events").add({
+    ...input,
+    createdAt: FieldValue.serverTimestamp(),
+    createdAtIso: new Date().toISOString(),
+  });
+}
+
+export async function listAdminTrackingEvents(limitCount = 250): Promise<AdminTrackingEvent[]> {
+  const snapshot = await getFirebaseAdminFirestore()
+    .collection("analytics_events")
+    .orderBy("createdAt", "desc")
+    .limit(limitCount)
+    .get();
+  return snapshot.docs.map((event) => ({
+    id: event.id,
+    eventName: asText(event.data().eventName),
+    category: asText(event.data().category),
+    label: asText(event.data().label),
+    path: asText(event.data().path),
+    jobId: asText(event.data().jobId) || undefined,
+    jobTitle: asText(event.data().jobTitle) || undefined,
+    leadType: asText(event.data().leadType) || undefined,
+    createdAt: asDate(event.data().createdAt) ?? (asText(event.data().createdAtIso) || null),
+  }));
 }

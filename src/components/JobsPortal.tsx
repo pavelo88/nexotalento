@@ -4,7 +4,6 @@ import { useTheme } from '../context/ThemeContext';
 import { INITIAL_JOBS } from '../data/jobsData';
 import { JobPosition } from '../types';
 import { JobApplicationModal } from './JobApplicationModal';
-import { Reveal } from './motion/Reveal';
 
 interface JobsPortalProps {
   onOpenCVAnalyzer: () => void;
@@ -91,7 +90,7 @@ export const JobsPortal: React.FC<JobsPortalProps> = ({ onOpenCVAnalyzer, isFull
       }`}
     >
       <div className={isFullPage ? '' : 'mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'}>
-        <Reveal className="mx-auto mb-8 max-w-3xl text-center sm:mb-10">
+        <div className="mx-auto mb-8 max-w-3xl text-center sm:mb-10">
           <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3.5 py-1.5 text-xs font-bold text-emerald-700 dark:text-emerald-300">
             <Sparkles className="h-3.5 w-3.5" />
             Oportunidades seleccionadas
@@ -102,9 +101,9 @@ export const JobsPortal: React.FC<JobsPortalProps> = ({ onOpenCVAnalyzer, isFull
           <p className={`mt-3 text-sm leading-relaxed sm:text-base ${theme === 'dark' ? 'text-slate-300' : 'text-slate-600'}`}>
             Encuentra la posición que mejor encaja con tu experiencia. Puedes buscar por cargo, área, habilidad o ubicación.
           </p>
-        </Reveal>
+        </div>
 
-        <Reveal delay={0.08} className={`sticky top-20 z-20 mb-8 rounded-2xl border p-3 shadow-lg backdrop-blur-xl ${
+        <div className={`sticky top-20 z-20 mb-8 rounded-2xl border p-3 shadow-lg backdrop-blur-xl ${
           theme === 'dark'
             ? 'border-slate-700/80 bg-slate-900/95 shadow-black/40'
             : 'border-slate-200 bg-white/95 shadow-slate-200/60'
@@ -146,10 +145,10 @@ export const JobsPortal: React.FC<JobsPortalProps> = ({ onOpenCVAnalyzer, isFull
               {filteredJobs.length} {filteredJobs.length === 1 ? 'resultado' : 'resultados'}
             </p>
           </div>
-        </Reveal>
+        </div>
 
         <div className="grid gap-6 lg:grid-cols-[280px_minmax(0,1fr)] lg:items-start">
-          <Reveal delay={0.12}><aside className={`rounded-3xl border p-5 lg:sticky lg:top-24 ${theme === 'dark' ? 'border-slate-700 bg-slate-900/95' : 'border-slate-200 bg-white shadow-sm'}`}>
+          <aside className={`rounded-3xl border p-5 lg:sticky lg:top-24 lg:max-h-[calc(100vh-7rem)] lg:overflow-y-auto ${theme === 'dark' ? 'border-slate-700 bg-slate-900/95' : 'border-slate-200 bg-white shadow-sm'}`}>
             <div className={`flex items-center justify-between border-b pb-4 ${theme === 'dark' ? 'border-slate-800' : 'border-slate-100'}`}>
               <div className="flex items-center gap-2"><Filter className="h-4 w-4 text-emerald-500" /><h3 className="text-xs font-black uppercase tracking-wide">Filtros avanzados</h3></div>
               <span className="rounded-md bg-emerald-500/10 px-2 py-1 text-xs font-black text-emerald-500">{filteredJobs.length} activas</span>
@@ -157,14 +156,13 @@ export const JobsPortal: React.FC<JobsPortalProps> = ({ onOpenCVAnalyzer, isFull
             <FilterGroup label="Modalidad de trabajo" values={['Presencial', 'Híbrido', '100% Remoto']} selected={selectedModalities} onToggle={(value) => toggleFilter(value, 'modality')} />
             <FilterGroup label="Sector / departamento" values={['Marketing', 'Finanzas', 'Logística', 'Ventas', 'Tecnología', 'People']} selected={selectedDepartments} onToggle={(value) => toggleFilter(value, 'department')} />
             <button type="button" onClick={onOpenCVAnalyzer} className="mt-5 w-full rounded-xl bg-emerald-500/10 px-3 py-3 text-xs font-black text-emerald-600 transition hover:bg-emerald-500/20 dark:text-emerald-300">No encuentro mi posición: preparar mi CV</button>
-          </aside></Reveal>
+          </aside>
 
           <div className="space-y-4">
             <div className={`flex items-center justify-between border-b pb-3 text-xs ${theme === 'dark' ? 'border-slate-800 text-slate-300' : 'border-slate-200 text-slate-600'}`}><span>Mostrando <strong>{filteredJobs.length}</strong> posiciones activas</span><span className="font-black text-emerald-500">Procesos actualizados</span></div>
         {filteredJobs.length > 0 ? (
           <div className="space-y-4">
-            {filteredJobs.map((job, index) => (
-              <Reveal key={job.id} delay={0.12 + index * 0.06}>
+            {filteredJobs.map((job) => (
               <article
                 key={job.id}
                 className={`flex min-h-full flex-col rounded-3xl border p-5 sm:p-6 shadow-sm transition duration-300 hover:shadow-xl ${
@@ -205,7 +203,6 @@ export const JobsPortal: React.FC<JobsPortalProps> = ({ onOpenCVAnalyzer, isFull
                   <ArrowRight className="h-4 w-4" />
                 </button>
               </article>
-              </Reveal>
             ))}
           </div>
         ) : (
