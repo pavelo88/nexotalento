@@ -20,6 +20,13 @@
 **Archivos modificados:** C:/dev/proyectos/nexotalentos/src/components/Navbar.tsx; C:/dev/proyectos/nexotalentos/AVANCE.md
 
 ## [2026-11-24] - Nexo Talento - Codex
+**Qué se hizo:** Se ajustó el disparador de las animaciones de scroll al centro visual del viewport mediante un margen inferior negativo del 45%.
+**Resultado:** Las secciones ya no inician su entrada apenas asoman por la parte inferior; comienzan cuando alcanzan la mitad de la pantalla. `npm run build` y `git diff --check` pasan.
+**Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
+**Próximos pasos:** Revisar el comportamiento de scroll en el despliegue una vez Vercel termine la publicación.
+**Archivos modificados:** C:/dev/proyectos/nexotalentos/src/components/motion/Reveal.tsx; C:/dev/proyectos/nexotalentos/AVANCE.md
+
+## [2026-11-24] - Nexo Talento - Codex
 **Qué se hizo:** Se añadió un sistema nativo de entradas al hacer scroll, escalonado de tarjetas y avance automático pausado por interacción en el carrusel restaurado de Áreas de Especialización.
 **Resultado:** La portada, Vacantes y las secciones de Jobhunting dejan de sentirse estáticas sin introducir una librería pesada ni alterar la paleta clara. Se respetan las preferencias de reducción de movimiento del dispositivo. `npm run lint`, `npm run build` y `git diff --check` pasan; se revisó la instancia local en `http://127.0.0.1:3001`.
 **Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
