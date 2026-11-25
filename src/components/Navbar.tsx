@@ -46,6 +46,8 @@ export const Navbar: React.FC<NavbarProps> = ({
 }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const navRef = useRef<HTMLDivElement>(null);
   const { theme, toggleTheme } = useTheme();
   // La navegación conserva la misma firma navy en ambos temas. El tema claro
   // queda reservado para el contenido, no para diluir la identidad de marca.
@@ -60,17 +62,33 @@ export const Navbar: React.FC<NavbarProps> = ({
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (navRef.current && !navRef.current.contains(event.target as Node)) {
+        setActiveDropdown(null);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   const handleLinkClick = (path: string) => {
     onNavigate(path as PageRoute);
+    setActiveDropdown(null);
     setMobileMenuOpen(false);
     if (!path.includes('#')) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
+  const toggleDropdown = (name: string) => {
+    setActiveDropdown((previous) => (previous === name ? null : name));
+  };
+
   return (
     <header
       id="main-header"
+      ref={navRef}
       className={`fixed top-0 left-0 right-0 z-50 border-b border-slate-800/80 bg-slate-950/95 backdrop-blur-2xl transition-all duration-300 ${
         isScrolled ? 'py-2.5 shadow-2xl shadow-slate-950/35' : 'py-3.5 shadow-lg shadow-slate-950/20'
       }`}
@@ -90,14 +108,46 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Desktop Navigation Links (Consistent, Unified Apple-Style System) */}
           <nav className="hidden lg:flex items-center gap-1 xl:gap-2" aria-label="Navegación principal">
             
-            <button
-              onClick={() => handleLinkClick('/servicios')}
-              className={`px-3 py-1.5 rounded-lg text-xs xl:text-sm font-semibold tracking-tight transition-all duration-150 cursor-pointer ${
-                currentPath === '/servicios' ? 'bg-slate-800 text-white font-bold' : 'text-slate-300 hover:text-white hover:bg-slate-800/50'
-              }`}
-            >
-              Servicios
-            </button>
+            <div className="relative">
+              <button
+                onClick={() => toggleDropdown('servicios')}
+                className={`px-3 py-1.5 rounded-lg text-xs xl:text-sm font-semibold tracking-tight transition-all duration-150 flex items-center gap-1 cursor-pointer ${
+                  currentPath === '/servicios' || activeDropdown === 'servicios'
+                    ? 'bg-slate-800 text-white font-bold'
+                    : 'text-slate-300 hover:text-white hover:bg-slate-800/50'
+                }`}
+              >
+                <span>Servicios</span>
+                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${activeDropdown === 'servicios' ? 'rotate-180 text-[#00E5C9]' : ''}`} />
+              </button>
+
+              {activeDropdown === 'servicios' && (
+                <div className="absolute top-full left-0 mt-2 w-80 rounded-2xl border border-slate-800 bg-slate-950/95 p-2 text-slate-100 shadow-2xl backdrop-blur-2xl animate-fadeIn z-50">
+                  <button
+                    onClick={() => handleLinkClick('/servicios#executive-search')}
+                    className="w-full text-left p-2.5 rounded-xl transition-all flex items-start gap-3 group cursor-pointer hover:bg-slate-900"
+                  >
+                    <div className="w-8 h-8 rounded-lg bg-cyan-500/10 text-cyan-500 flex items-center justify-center shrink-0 mt-0.5"><Briefcase className="w-4 h-4" /></div>
+                    <div><div className="text-xs font-bold text-cyan-300 flex items-center gap-1.5">Executive Search &amp; C-Level <span className="text-[9px] bg-cyan-500/20 text-cyan-300 px-1.5 py-0.2 rounded font-extrabold">18 Días</span></div><p className="text-[11px] leading-snug mt-0.5 text-slate-400">Caza confidencial para CEOs, CFOs, CTOs y Directores.</p></div>
+                  </button>
+                  <button
+                    onClick={() => handleLinkClick('/servicios#tech-digital')}
+                    className="w-full text-left p-2.5 rounded-xl transition-all flex items-start gap-3 group cursor-pointer hover:bg-slate-900"
+                  >
+                    <div className="w-8 h-8 rounded-lg bg-blue-500/10 text-blue-500 flex items-center justify-center shrink-0 mt-0.5"><Sparkles className="w-4 h-4" /></div>
+                    <div><div className="text-xs font-bold text-blue-300">Selección Tech &amp; Digital</div><p className="text-[11px] leading-snug mt-0.5 text-slate-400">Tech Leads, Desarrolladores, IA, DevOps y Product.</p></div>
+                  </button>
+                  <button
+                    onClick={() => handleLinkClick('/servicios#rpo-scaleup')}
+                    className="w-full text-left p-2.5 rounded-xl transition-all flex items-start gap-3 group cursor-pointer hover:bg-slate-900"
+                  >
+                    <div className="w-8 h-8 rounded-lg bg-indigo-500/10 text-indigo-500 flex items-center justify-center shrink-0 mt-0.5"><Users className="w-4 h-4" /></div>
+                    <div><div className="text-xs font-bold text-indigo-300">RPO &amp; Escalado de Equipos</div><p className="text-[11px] leading-snug mt-0.5 text-slate-400">Externalización de reclutamiento para scaleups y aperturas.</p></div>
+                  </button>
+                  <div className="mt-1.5 pt-1.5 border-t border-slate-800 px-2"><button onClick={() => handleLinkClick('/servicios')} className="text-xs text-cyan-300 font-bold hover:underline flex items-center gap-1 cursor-pointer"><span>Ver catálogo completo de soluciones</span><ArrowRight className="w-3 h-3" /></button></div>
+                </div>
+              )}
+            </div>
 
             {/* 2. Buscar Personal (Para empresas) */}
             <button
@@ -133,7 +183,14 @@ export const Navbar: React.FC<NavbarProps> = ({
               Tu próximo empleo
             </button>
 
-            {/* Calculadora ROI: conservada para uso interno, oculta de la navegación pública. */}
+            <button
+              onClick={() => handleLinkClick('/calculadora-roi')}
+              className={`px-3 py-1.5 rounded-lg text-xs xl:text-sm font-semibold tracking-tight transition-all duration-150 cursor-pointer ${
+                currentPath === '/calculadora-roi' ? 'bg-slate-800 text-white font-bold' : 'text-slate-300 hover:text-white hover:bg-slate-800/50'
+              }`}
+            >
+              Calculadora ROI
+            </button>
 
             {/* 6. Contacto */}
             <button
@@ -244,7 +301,14 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span>Tu próximo empleo</span>
               <Sparkles className="w-3.5 h-3.5" />
             </button>
-            {/* Calculadora ROI: conservada para uso interno, oculta del menú móvil. */}
+            <button
+              onClick={() => handleLinkClick('/calculadora-roi')}
+              className={`p-2.5 rounded-xl text-left text-xs font-bold ${
+                currentPath === '/calculadora-roi' ? 'bg-cyan-500 text-slate-950' : 'bg-slate-900 text-slate-200 hover:bg-slate-800'
+              }`}
+            >
+              Calculadora de Costes
+            </button>
             <button
               onClick={() => handleLinkClick('/contacto')}
               className={`p-2.5 rounded-xl text-left text-xs font-bold ${
