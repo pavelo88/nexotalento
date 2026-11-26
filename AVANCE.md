@@ -292,6 +292,13 @@
 **Archivos modificados:** C:/dev/proyectos/nexotalentos/src/server/firebase-admin.ts; C:/dev/proyectos/nexotalentos/AVANCE.md
 
 ## [2026-11-25] - Nexo Talento - Codex
+**Qué se hizo:** Se verificó en producción la función de análisis de CV y se revisaron las rutas, límites y permisos que respaldan la carga de hojas de vida y perfiles candidatos. Se aplicó el estándar de modularidad a los nuevos componentes de analítica y a la función serverless.
+**Resultado:** `POST /api/analyze-cv` respondió 200 desde producción. La carga de CV está implementada para cuentas autenticadas con PDF/DOC/DOCX de hasta 10 MB y almacenamiento privado; falta una prueba controlada con una cuenta candidata real para certificar el flujo completo en Firebase. Los enlaces de perfil se generan, pero `*.nexotalento.com` no está configurado todavía en DNS/Vercel, por lo que un subdominio como `pablo-garcia.nexotalento.com` no resuelve.
+**Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
+**Próximos pasos:** Configurar y verificar el dominio comodín para perfiles públicos; realizar una carga autenticada controlada y, si se requieren informes de tráfico GA4 en Admin, autorizar Google Analytics Data API para una cuenta de servicio específica.
+**Archivos modificados:** C:/dev/proyectos/nexotalentos/AVANCE.md
+
+## [2026-11-25] - Nexo Talento - Codex
 **Qué se hizo:** Se convirtió la medición comercial en un flujo con consentimiento explícito, se añadieron eventos de visita, WhatsApp y llamadas, y se renovó el resumen de métricas del Admin con datos persistidos. Se creó la función publicada para analizar CV y preparar perfiles.
 **Resultado:** GA4 y GTM solo se cargan después de la aceptación; el Admin muestra el embudo propio de Firebase sin presentar como reales las métricas de GA4 que aún no se consultan por API. Lint y build pasaron. Los enlaces de subdominio siguen requiriendo el DNS comodín de producción.
 **Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
