@@ -40,7 +40,8 @@ export async function handleTrackingEvent(req: ServerlessRequest, res: Serverles
       measurementScope: body.measurementScope === "consented" ? "consented" : "anonymous_operational",
     });
     return res.status(202).json({ success: true });
-  } catch {
+  } catch (error) {
+    console.error("[Analytics] No se pudo persistir el evento operativo.", error instanceof Error ? error.message : "Error desconocido");
     return res.status(202).json({ success: false });
   }
 }
