@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Check, Cookie, ShieldCheck, X } from 'lucide-react';
-import { trackEvent } from '../../lib/tracking';
+import { trackEvent, trackOperationalEvent } from '../../lib/tracking';
 
 const CONSENT_KEY = 'nexo-analytics-consent';
 const GTM_ID = 'GTM-PX6M5QSS';
@@ -55,6 +55,7 @@ export function AnalyticsConsent() {
   const reject = () => {
     window.localStorage.setItem(CONSENT_KEY, 'denied');
     setChoice('denied');
+    trackOperationalEvent({ eventName: 'analytics_consent_denied', category: 'Consentimiento', label: 'Banner de cookies' });
   };
 
   if (choice !== 'unknown') return null;
@@ -65,7 +66,7 @@ export function AnalyticsConsent() {
         <div className="mt-0.5 rounded-xl bg-cyan-400/15 p-2 text-cyan-300"><Cookie className="h-5 w-5" /></div>
         <div className="min-w-0 flex-1">
           <p className="text-sm font-extrabold">¿Nos ayudas a mejorar Nexo Talento?</p>
-          <p className="mt-1 text-xs leading-relaxed text-slate-300">Con tu permiso medimos visitas y acciones como formularios, WhatsApp o llamadas. No enviamos tus datos de contacto a Analytics.</p>
+          <p className="mt-1 text-xs leading-relaxed text-slate-300">Registramos de forma anónima el volumen de visitas y acciones de contacto para operar el sitio. Con tu permiso activamos además Google Analytics y etiquetas publicitarias. No enviamos tus datos de contacto a Analytics.</p>
           <div className="mt-4 flex flex-col gap-2 sm:flex-row sm:justify-end">
             <button type="button" onClick={reject} className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-slate-600 px-3 py-2 text-xs font-bold text-slate-200 hover:bg-slate-800"><X className="h-3.5 w-3.5" />Rechazar</button>
             <button type="button" onClick={accept} className="inline-flex items-center justify-center gap-1.5 rounded-xl bg-cyan-400 px-3 py-2 text-xs font-extrabold text-slate-950 hover:bg-cyan-300"><Check className="h-3.5 w-3.5" />Aceptar medición</button>

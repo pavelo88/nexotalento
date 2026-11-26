@@ -11,7 +11,7 @@ import { COMPANY_CONFIG } from './config/company';
 import { getPublicProfileSlug } from './features/profiles/profileHost';
 import { PublicProfilePage } from './pages/PublicProfilePage';
 import { trackEvent } from './lib/tracking';
-import { AnalyticsConsent, hasAnalyticsConsent } from './components/analytics/AnalyticsConsent';
+import { AnalyticsConsent } from './components/analytics/AnalyticsConsent';
 
 // Code-Splitting: Lazy load all secondary routes & heavy interactive modals
 const ServiciosPage = lazy(() => import('./pages/ServiciosPage').then(m => ({ default: m.ServiciosPage })));
@@ -118,9 +118,7 @@ function AppContent() {
   }, []);
 
   useEffect(() => {
-    if (hasAnalyticsConsent()) {
-      trackEvent({ eventName: 'page_view', category: 'Navegación', label: currentPath });
-    }
+    trackEvent({ eventName: 'page_view', category: 'Navegación', label: currentPath });
   }, [currentPath]);
 
   // Sincronizar etiqueta canonical con la ruta activa para SEO A+ y evitar advertencias de canonicalización

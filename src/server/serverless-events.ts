@@ -37,6 +37,7 @@ export async function handleTrackingEvent(req: ServerlessRequest, res: Serverles
       jobId: clean(body.jobId, 100) || undefined,
       jobTitle: clean(body.jobTitle) || undefined,
       leadType: clean(body.leadType, 80) || undefined,
+      measurementScope: body.measurementScope === "consented" ? "consented" : "anonymous_operational",
     });
     return res.status(202).json({ success: true });
   } catch {

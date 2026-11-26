@@ -26,6 +26,33 @@ export interface TrackingEventParams {
   [key: string]: any;
 }
 
+type OperationalEvent = Pick<TrackingEventParams, 'eventName' | 'category' | 'label' | 'jobId' | 'jobTitle' | 'leadType'>;
+
+/**
+ * Registra un contador operativo propio sin cookies, identificadores ni datos
+ * personales. Sirve para que Admin conozca volumen de visitas y contactos
+ * aunque la persona rechace analítica de terceros.
+ */
+export const trackOperationalEvent = ({ eventName, category = 'General', label, jobId, jobTitle, leadType }: OperationalEvent) => {
+  if (typeof window === 'undefined') return;
+
+  void fetch('/api/events', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    keepalive: true,
+    body: JSON.stringify({
+      eventName,
+      category,
+      label: label || '',
+      path: window.location.pathname,
+      jobId: jobId || '',
+      jobTitle: jobTitle || '',
+      leadType: leadType || '',
+      measurementScope: 'anonymous_operational',
+    }),
+  }).catch(() => undefined);
+};
+
 export const trackEvent = ({
   eventName,
   category = 'General',
@@ -37,9 +64,8 @@ export const trackEvent = ({
   leadType,
   ...extra
 }: TrackingEventParams) => {
-  if (typeof window === 'undefined' || window.localStorage.getItem('nexo-analytics-consent') !== 'granted') {
-    return;
-  }
+  trackOperationalEvent({ eventName, category, label, jobId, jobTitle, leadType });
+  if (typeof window === 'undefined' || window.localStorage.getItem('nexo-analytics-consent') !== 'granted') return;
   const eventData = {
     event: eventName,
     event_category: category,
@@ -93,20 +119,5 @@ export const trackEvent = ({
       }
     }
 
-    // Copia operativa sin PII para que el equipo pueda dar seguimiento desde Admin.
-    void fetch('/api/events', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      keepalive: true,
-      body: JSON.stringify({
-        eventName,
-        category,
-        label: label || '',
-        path: window.location.pathname,
-        jobId: jobId || '',
-        jobTitle: jobTitle || '',
-        leadType: leadType || ''
-      })
-    }).catch(() => undefined);
   }
 };

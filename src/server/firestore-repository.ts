@@ -135,6 +135,7 @@ export interface TrackingEventInput {
   jobId?: string;
   jobTitle?: string;
   leadType?: string;
+  measurementScope?: "anonymous_operational" | "consented";
 }
 
 export interface AdminTrackingEvent extends TrackingEventInput {
@@ -165,6 +166,7 @@ export async function listAdminTrackingEvents(limitCount = 250): Promise<AdminTr
     jobId: asText(event.data().jobId) || undefined,
     jobTitle: asText(event.data().jobTitle) || undefined,
     leadType: asText(event.data().leadType) || undefined,
+    measurementScope: asText(event.data().measurementScope) === "consented" ? "consented" : "anonymous_operational",
     createdAt: asDate(event.data().createdAt) ?? (asText(event.data().createdAtIso) || null),
   }));
 }

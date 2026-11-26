@@ -5,6 +5,13 @@
 **Próximos pasos:** Migrar autenticación, usuarios, leads y contenido a Firebase con reglas y verificación server-side; conectar GA4 Data API o una fuente equivalente al dashboard; retirar secretos del repositorio; validar producción, consentimiento, eventos y entrega real de leads antes de activar campañas.
 **Archivos modificados:** C:/dev/proyectos/nexotalentos/AVANCE.md
 
+## [2026-11-25] - Nexo Talento - Codex
+**Qué se hizo:** Se separó la medición operativa propia de las etiquetas analíticas y publicitarias de terceros. El panel de Admin ahora presenta visitas anónimas, consentimiento, clics de contacto, formularios, postulaciones y actividad reciente.
+**Resultado:** Las visitas y acciones comerciales se registran en Firebase sin cookies ni datos personales, incluso cuando se rechaza la medición ampliada. Google Analytics/GTM y futuros píxeles continúan sujetos a aceptación explícita. Lint y build pasaron.
+**Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
+**Próximos pasos:** Verificar el evento operativo tras el despliegue de producción; habilitar Google Analytics Data API si se requieren informes de sesiones, campañas y adquisición de GA4 dentro de Admin.
+**Archivos modificados:** C:/dev/proyectos/nexotalentos/src/App.tsx; C:/dev/proyectos/nexotalentos/src/lib/tracking.ts; C:/dev/proyectos/nexotalentos/src/components/analytics/AnalyticsConsent.tsx; C:/dev/proyectos/nexotalentos/src/components/admin/AdminAnalyticsOverview.tsx; C:/dev/proyectos/nexotalentos/src/server/firestore-repository.ts; C:/dev/proyectos/nexotalentos/src/server/serverless-events.ts; C:/dev/proyectos/nexotalentos/AVANCE.md
+
 ## [2026-11-24] - Nexo Talento - Codex
 **Qué se hizo:** Se corrigió el contraste del navbar claro, se ocultó ROI en las navegaciones, se fijó el panel de filtros de vacantes y se rehízo el bloque de etapas de Impulso laboral como lista izquierda y detalle derecho sin animaciones de entrada ni Fase 0. Se preservó y ocultó el banner de WhatsApp directo de contacto.
 **Resultado:** Formularios públicos quedan clasificados en Firestore por origen y tipo de lead; los clics de WhatsApp y envíos se registran sin PII en `analytics_events` y el admin los muestra como métricas. Se comprobó visualmente en localhost el navbar, los filtros sticky y las fases. `npm run lint`, `npm run build` y `git diff --check` pasan.
