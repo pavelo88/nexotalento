@@ -37,6 +37,9 @@ export const trackEvent = ({
   leadType,
   ...extra
 }: TrackingEventParams) => {
+  if (typeof window === 'undefined' || window.localStorage.getItem('nexo-analytics-consent') !== 'granted') {
+    return;
+  }
   const eventData = {
     event: eventName,
     event_category: category,

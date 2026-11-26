@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
+import { trackEvent } from '../lib/tracking';
 import { useTheme } from '../context/ThemeContext';
 import { 
   ShoppingBag, 
@@ -237,6 +238,7 @@ export const SpecializationSectorsSection: React.FC<SpecializationSectorsSection
       const whatsappUrl = `https://wa.me/34614143763?text=${encodeURIComponent(
         `Hola Nexo Talento, me gustaría consultar por perfiles especializados para el sector: ${sectorName}.`
       )}`;
+      trackEvent({ eventName: 'whatsapp_click', category: 'Sectores', label: sectorName });
       window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
     }
   };

@@ -292,6 +292,13 @@
 **Archivos modificados:** C:/dev/proyectos/nexotalentos/src/server/firebase-admin.ts; C:/dev/proyectos/nexotalentos/AVANCE.md
 
 ## [2026-11-25] - Nexo Talento - Codex
+**Qué se hizo:** Se convirtió la medición comercial en un flujo con consentimiento explícito, se añadieron eventos de visita, WhatsApp y llamadas, y se renovó el resumen de métricas del Admin con datos persistidos. Se creó la función publicada para analizar CV y preparar perfiles.
+**Resultado:** GA4 y GTM solo se cargan después de la aceptación; el Admin muestra el embudo propio de Firebase sin presentar como reales las métricas de GA4 que aún no se consultan por API. Lint y build pasaron. Los enlaces de subdominio siguen requiriendo el DNS comodín de producción.
+**Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
+**Próximos pasos:** Verificar en producción el endpoint de análisis de CV y configurar `*.nexotalento.com` en Vercel/DNS; para informes de GA4 en Admin, autorizar la API de Google Analytics para la cuenta de servicio correspondiente.
+**Archivos modificados:** C:/dev/proyectos/nexotalentos/index.html; C:/dev/proyectos/nexotalentos/src/App.tsx; C:/dev/proyectos/nexotalentos/src/lib/tracking.ts; C:/dev/proyectos/nexotalentos/src/components/analytics/AnalyticsConsent.tsx; C:/dev/proyectos/nexotalentos/src/components/admin/AdminAnalyticsOverview.tsx; C:/dev/proyectos/nexotalentos/src/components/admin/AdminDashboardPrimaryTabs.tsx; C:/dev/proyectos/nexotalentos/src/components/SpecializationSectorsSection.tsx; C:/dev/proyectos/nexotalentos/api/analyze-cv.ts; C:/dev/proyectos/nexotalentos/AVANCE.md
+
+## [2026-11-25] - Nexo Talento - Codex
 **Qué se hizo:** Se corrigieron los imports internos de las funciones serverless para que el runtime ESM de Vercel resuelva los módulos compilados correctamente.
 **Resultado:** El despliegue `4812dd1` quedó publicado. La comprobación remota confirmó que `/api/contact` y `/api/events` devuelven 405 ante GET (solo admiten POST) y `/api/admin/leads` devuelve 401 sin sesión; se eliminó el fallo de arranque 500. Lint y build pasaron.
 **Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.

@@ -11,6 +11,7 @@ import { COMPANY_CONFIG } from './config/company';
 import { getPublicProfileSlug } from './features/profiles/profileHost';
 import { PublicProfilePage } from './pages/PublicProfilePage';
 import { trackEvent } from './lib/tracking';
+import { AnalyticsConsent, hasAnalyticsConsent } from './components/analytics/AnalyticsConsent';
 
 // Code-Splitting: Lazy load all secondary routes & heavy interactive modals
 const ServiciosPage = lazy(() => import('./pages/ServiciosPage').then(m => ({ default: m.ServiciosPage })));
@@ -100,14 +101,27 @@ function AppContent() {
   }, []);
 
   useEffect(() => {
-    const registerWhatsAppClick = (event: MouseEvent) => {
-      const target = event.target instanceof Element ? event.target.closest('a[href*="wa.me"]') : null;
+    const registerContactClick = (event: MouseEvent) => {
+      const target = event.target instanceof Element ? event.target.closest('a') : null;
       if (!target) return;
-      trackEvent({ eventName: 'whatsapp_click', category: 'WhatsApp', label: target.getAttribute('aria-label') || 'Enlace de WhatsApp' });
+      const href = target.getAttribute('href') || '';
+      const label = target.getAttribute('aria-label') || target.textContent?.trim() || 'Enlace de contacto';
+      if (/https?:\/\/(wa\.me|api\.whatsapp\.com|web\.whatsapp\.com)/i.test(href)) {
+        trackEvent({ eventName: 'whatsapp_click', category: 'WhatsApp', label });
+      }
+      if (/^tel:/i.test(href)) {
+        trackEvent({ eventName: 'phone_click', category: 'Teléfono', label });
+      }
     };
-    document.addEventListener('click', registerWhatsAppClick, true);
-    return () => document.removeEventListener('click', registerWhatsAppClick, true);
+    document.addEventListener('click', registerContactClick, true);
+    return () => document.removeEventListener('click', registerContactClick, true);
   }, []);
+
+  useEffect(() => {
+    if (hasAnalyticsConsent()) {
+      trackEvent({ eventName: 'page_view', category: 'Navegación', label: currentPath });
+    }
+  }, [currentPath]);
 
   // Sincronizar etiqueta canonical con la ruta activa para SEO A+ y evitar advertencias de canonicalización
   useEffect(() => {
@@ -161,6 +175,7 @@ function AppContent() {
   const handleOpenAIAgent = (type?: 'headhunter' | 'evaluator' | 'salary' | 'advisor') => {
     // Redirigir a WhatsApp directo con consultor de talento humano
     setSelectedAgentType(type);
+    trackEvent({ eventName: 'whatsapp_click', category: 'Asistente IA', label: type || 'Asesor general' });
     window.open(COMPANY_CONFIG.whatsappUrl, '_blank');
   };
 
@@ -172,6 +187,7 @@ function AppContent() {
           ? 'bg-slate-950 text-slate-100' 
           : 'bg-white text-slate-900'
       }`}>
+      <AnalyticsConsent />
       
       {/* Background Ambient Glows */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">

@@ -1,53 +1,16 @@
 import React from 'react';
 import { BarChart3, FileText, Users, Settings, Save, CheckCircle2, TrendingUp, Briefcase, Globe, MessageSquare, Search, Plus, Trash2, Edit, Eye, RefreshCw, Sparkles, Layers, Palette, ShieldCheck, Building2, Clock, Phone, Mail, ChevronRight, Menu, X, RotateCcw, Sun, Moon, Check, Archive } from 'lucide-react';
+import { AdminAnalyticsOverview } from './AdminAnalyticsOverview';
 
 export interface AdminDashboardPanelState { [key: string]: any; }
 
 export const AdminDashboardPrimaryTabs: React.FC<{ state: AdminDashboardPanelState }> = ({ state }) => {
   const { activeTab, siteContent, setSiteContent, vacancies, setVacancies, areasList, setAreasList, sectorsList, setSectorsList, isCreatingVacancy, setIsCreatingVacancy, newVacTitle, setNewVacTitle, newVacDept, setNewVacDept, newVacLoc, setNewVacLoc, newVacMod, setNewVacMod, newVacSalary, setNewVacSalary, newVacDesc, setNewVacDesc, leads, trackingEvents = [], leadStatusFilter, setLeadStatusFilter, searchTerm, setSearchTerm, filteredLeads, handleAddVacancy, handleDeleteVacancy, handleDeleteLead, handleToggleLeadAttended } = state;
-  const whatsappClicks = trackingEvents.filter((event: any) => event.eventName === 'whatsapp_click').length;
-  const submittedForms = trackingEvents.filter((event: any) => event.eventName === 'generate_lead' || event.eventName === 'contact_submit').length;
   return (
     <>
             {/* TAB 1: ANALÍTICA */}
             {activeTab === 'analytics' && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div className="p-5 rounded-2xl bg-white dark:bg-stone-900/80 border border-stone-200 dark:border-stone-800">
-                  <div className="flex items-center justify-between text-stone-500 text-xs mb-1">
-                    <span>Leads Totales</span>
-                    <Users className="w-4 h-4 text-cyan-500" />
-                  </div>
-                  <p className="text-2xl font-black text-cyan-600 dark:text-cyan-400">{leads.length}</p>
-                  <p className="text-[10px] text-emerald-600 dark:text-emerald-400 font-bold mt-1">Bandeja de Firebase</p>
-                </div>
-
-                <div className="p-5 rounded-2xl bg-white dark:bg-stone-900/80 border border-stone-200 dark:border-stone-800">
-                  <div className="flex items-center justify-between text-stone-500 text-xs mb-1">
-                    <span>Google Analytics 4</span>
-                    <BarChart3 className="w-4 h-4 text-emerald-500" />
-                  </div>
-                  <p className="text-sm font-black font-mono text-emerald-600 dark:text-emerald-400">G-T4ZC2SJXHS</p>
-                  <p className="text-[10px] text-stone-500 mt-1">Medición de eventos activa</p>
-                </div>
-
-                <div className="p-5 rounded-2xl bg-white dark:bg-stone-900/80 border border-stone-200 dark:border-stone-800">
-                  <div className="flex items-center justify-between text-stone-500 text-xs mb-1">
-                    <span>Google Tag Manager</span>
-                    <Sparkles className="w-4 h-4 text-cyan-500" />
-                  </div>
-                  <p className="text-sm font-black font-mono text-cyan-600 dark:text-cyan-400">GTM-PX6M5QSS</p>
-                  <p className="text-[10px] text-stone-500 mt-1">Inyectado en head y body</p>
-                </div>
-
-                <div className="p-5 rounded-2xl bg-white dark:bg-stone-900/80 border border-stone-200 dark:border-stone-800">
-                  <div className="flex items-center justify-between text-stone-500 text-xs mb-1">
-                    <span>Seguimiento comercial</span>
-                    <TrendingUp className="w-4 h-4 text-purple-500" />
-                  </div>
-                  <p className="text-xs font-bold text-purple-600 dark:text-purple-300">{whatsappClicks} clics en WhatsApp</p>
-                  <p className="text-[10px] text-stone-500 mt-1">{submittedForms} envíos de formulario registrados</p>
-                </div>
-              </div>
+              <AdminAnalyticsOverview leads={leads} events={trackingEvents} />
             )}
 
             {/* TAB 2: HERO & TEXTOS */}
