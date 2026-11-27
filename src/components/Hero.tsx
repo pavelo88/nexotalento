@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import { PageRoute } from '../types';
 import { trackEvent } from '../lib/tracking';
+import { HeroGeometricShapes } from './motion/HeroGeometricShapes';
 
 interface HeroProps {
   onOpenAIAgent?: (type?: 'headhunter' | 'evaluator' | 'salary' | 'advisor') => void;
@@ -50,16 +51,17 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
   return (
     <section
       id="inicio"
-      className="nexo-hero relative isolate overflow-hidden pt-28 pb-10 text-white sm:pt-36 sm:pb-16 lg:pt-40 lg:pb-20"
+      className="nexo-hero relative isolate overflow-hidden pt-24 pb-8 text-stone-100 sm:pt-32 sm:pb-12 lg:pt-32 lg:pb-14"
     >
+      <HeroGeometricShapes />
       <div className="nexo-hero-grid pointer-events-none absolute inset-0" aria-hidden="true" />
       <div className="nexo-hero-glow nexo-hero-glow-one pointer-events-none absolute" aria-hidden="true" />
       <div className="nexo-hero-glow nexo-hero-glow-two pointer-events-none absolute" aria-hidden="true" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid items-center gap-12 lg:grid-cols-[1.08fr_.92fr] lg:gap-16">
-          <div className="max-w-3xl">
-            <div className="nexo-eyebrow mb-6 inline-flex items-center gap-2 rounded-full px-3.5 py-2 text-[10px] font-extrabold uppercase tracking-[0.16em] text-cyan-100 sm:text-xs">
+          <div className="nexo-hero-copy max-w-3xl">
+            <div className="nexo-eyebrow mb-4 inline-flex items-center gap-2 rounded-full px-3.5 py-2 text-[10px] font-extrabold uppercase tracking-[0.16em] text-cyan-100 sm:text-xs">
               <span className="relative flex h-2 w-2 shrink-0">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-cyan-300 opacity-70" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-cyan-300" />
@@ -69,20 +71,20 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
               <span className="hidden normal-case tracking-normal text-cyan-200 sm:inline">España · Latinoamérica</span>
             </div>
 
-            <h1 className="max-w-4xl font-heading text-[2.7rem] font-semibold leading-[1.02] tracking-[-0.045em] text-white sm:text-6xl lg:text-[5.15rem]">
+            <h1 className="max-w-4xl font-heading text-[2.7rem] font-semibold leading-[1.02] tracking-[-0.045em] text-white sm:text-6xl lg:text-[4.75rem]">
               El talento que mueve tu negocio
               <span className="nexo-gradient-text mt-2 block">empieza aquí.</span>
             </h1>
 
-            <p className="mt-6 max-w-2xl text-base leading-8 text-slate-200 sm:text-lg">
+            <p className="mt-4 max-w-2xl text-base leading-8 text-stone-300 sm:text-lg">
               Conectamos empresas con profesionales que encajan de verdad: por experiencia, contexto y ambición. Un proceso de selección claro, humano y diseñado alrededor de tu próximo reto.
             </p>
 
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <div className="nexo-hero-actions mt-6 flex flex-col gap-3 sm:flex-row">
               <button
                 type="button"
                 onClick={() => navigateTo('/contacto', 'hero_seek_talent_click')}
-                className="nexo-primary-button group inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl px-5 py-3.5 text-sm font-extrabold text-slate-950 sm:px-6"
+                className="nexo-primary-button group inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-2xl px-4 py-3.5 text-sm font-extrabold text-slate-950 sm:px-5"
               >
                 <Building2 className="h-4 w-4" />
                 Necesito contratar talento
@@ -91,7 +93,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
               <button
                 type="button"
                 onClick={() => navigateTo('/vacantes', 'hero_seek_job_click')}
-                className="nexo-secondary-button group inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl px-5 py-3.5 text-sm font-bold text-white sm:px-6"
+                className="nexo-secondary-button group inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-2xl px-4 py-3.5 text-sm font-bold text-white sm:px-5"
               >
                 <UsersRound className="h-4 w-4 text-cyan-300" />
                 Estoy buscando empleo
@@ -99,24 +101,24 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
               </button>
             </div>
 
-            <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs text-slate-300">
+            <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs text-stone-300">
               <span className="inline-flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-cyan-300" />Briefing consultivo</span>
               <span className="inline-flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-emerald-300" />Confidencialidad de principio a fin</span>
               <span className="inline-flex items-center gap-2"><Globe2 className="h-4 w-4 text-sky-300" />Cobertura España · Latam</span>
             </div>
           </div>
 
-          <div className="relative mx-auto w-full max-w-[34rem] lg:mx-0 lg:ml-auto">
+          <div className="nexo-hero-visual relative mx-auto w-full max-w-[34rem] lg:mx-0 lg:ml-auto">
             <div className="nexo-hero-orbit nexo-hero-orbit-one" aria-hidden="true" />
             <div className="nexo-hero-orbit nexo-hero-orbit-two" aria-hidden="true" />
-            <div className="nexo-showcase-card relative overflow-hidden rounded-[2rem] border border-white/15 bg-slate-950/65 p-3 shadow-2xl shadow-cyan-950/30 backdrop-blur-xl">
-              <div className="relative min-h-[27rem] overflow-hidden rounded-[1.55rem] border border-white/10 bg-slate-900">
+            <div className="nexo-showcase-card relative overflow-hidden rounded-[2rem] border border-cyan-100/80 bg-transparent p-1 shadow-[0_0_0_1px_rgba(125,211,252,0.28),0_24px_70px_rgba(2,16,36,0.28)]">
+              <div className="relative min-h-[27rem] overflow-hidden rounded-[1.75rem] border border-white/25 bg-slate-900">
                 <div
-                  className="absolute inset-0 bg-cover bg-center opacity-45"
-                  style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=85)' }}
+                  className="nexo-showcase-photo absolute inset-0 bg-cover bg-center"
+                  style={{ backgroundImage: 'url(/areas/executive-search.webp)' }}
                   aria-hidden="true"
                 />
-                <div className="absolute inset-0 bg-gradient-to-b from-slate-950/25 via-slate-950/50 to-slate-950/95" aria-hidden="true" />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/10 to-black/80" aria-hidden="true" />
 
                 <div className="relative flex min-h-[27rem] flex-col justify-between p-5 sm:p-7">
                   <div className="flex items-center justify-between">
@@ -139,20 +141,26 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
                     </p>
                   </div>
 
-                  <div className="grid grid-cols-3 gap-2 rounded-2xl border border-white/10 bg-slate-950/65 p-2 backdrop-blur-md">
-                    <div className="rounded-xl bg-white/[0.06] p-3">
-                      <Clock3 className="mb-3 h-4 w-4 text-cyan-300" />
-                      <p className="font-heading text-xl font-semibold text-white">18</p>
+                  <div className="grid grid-cols-2 gap-2 rounded-2xl border border-white/10 bg-slate-950/65 p-2 backdrop-blur-md sm:grid-cols-3">
+                    <div className="order-2 rounded-xl bg-white/[0.06] p-2.5 sm:order-none sm:p-3">
+                      <div className="flex items-center justify-center gap-2 sm:justify-start">
+                        <Clock3 className="h-4 w-4 shrink-0 text-cyan-300" />
+                        <p className="font-heading text-xl font-semibold text-white">18</p>
+                      </div>
                       <p className="mt-1 text-[10px] leading-4 text-slate-400">días para la terna</p>
                     </div>
-                    <div className="rounded-xl bg-white/[0.06] p-3">
-                      <Zap className="mb-3 h-4 w-4 text-amber-300" />
-                      <p className="font-heading text-xl font-semibold text-white">3–6</p>
+                    <div className="order-3 rounded-xl bg-white/[0.06] p-2.5 sm:order-none sm:p-3">
+                      <div className="flex items-center justify-center gap-2 sm:justify-start">
+                        <Zap className="h-4 w-4 shrink-0 text-amber-300" />
+                        <p className="font-heading text-xl font-semibold text-white">3–6</p>
+                      </div>
                       <p className="mt-1 text-[10px] leading-4 text-slate-400">meses de garantía</p>
                     </div>
-                    <div className="rounded-xl bg-white/[0.06] p-3">
-                      <Globe2 className="mb-3 h-4 w-4 text-sky-300" />
-                      <p className="font-heading text-xl font-semibold text-white">ES · LATAM</p>
+                    <div className="order-1 col-span-2 rounded-xl bg-cyan-300/[0.08] p-2.5 text-center sm:order-none sm:col-span-1 sm:p-3 sm:text-left">
+                      <div className="flex items-center justify-center gap-2 sm:justify-start">
+                        <Globe2 className="h-4 w-4 shrink-0 text-sky-300" />
+                        <p className="whitespace-nowrap font-heading text-base font-semibold tracking-tight text-white">ES · LATAM</p>
+                      </div>
                       <p className="mt-1 text-[10px] leading-4 text-slate-400">cobertura de búsqueda</p>
                     </div>
                   </div>
@@ -160,10 +168,6 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
               </div>
             </div>
 
-            <div className="nexo-floating-note absolute -bottom-5 -left-3 hidden items-center gap-3 rounded-2xl border border-white/15 bg-slate-950/90 px-4 py-3 shadow-xl backdrop-blur-xl sm:flex lg:-left-8">
-              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-cyan-400/15 text-cyan-300"><Search className="h-4 w-4" /></span>
-              <span><strong className="block text-xs text-white">Búsqueda a medida</strong><small className="text-[10px] text-slate-400">Sin fórmulas genéricas</small></span>
-            </div>
           </div>
         </div>
 
@@ -173,7 +177,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
             tabIndex={0}
             onClick={() => navigateTo('/contacto', 'hero_seek_talent_card_click')}
             onKeyDown={(event) => handleCardKeyDown(event, '/contacto', 'hero_seek_talent_card_click')}
-            className="nexo-path-card group rounded-3xl border border-cyan-300/20 bg-cyan-300/[0.07] p-5 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-200/45 hover:bg-cyan-300/[0.11] sm:p-6"
+            className="nexo-path-card nexo-path-card-enter nexo-path-card-enter-one group rounded-3xl border border-cyan-300/20 bg-cyan-300/[0.07] p-5 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-200/45 hover:bg-cyan-300/[0.11] sm:p-6"
             aria-label="Ir al formulario para contratar talento"
           >
             <div className="flex items-start justify-between gap-4">
@@ -190,7 +194,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
             tabIndex={0}
             onClick={() => navigateTo('/vacantes', 'hero_seek_job_card_click')}
             onKeyDown={(event) => handleCardKeyDown(event, '/vacantes', 'hero_seek_job_card_click')}
-            className="nexo-path-card group rounded-3xl border border-sky-200/15 bg-sky-200/[0.06] p-5 transition-all duration-300 hover:-translate-y-1 hover:border-sky-200/40 hover:bg-sky-200/[0.1] sm:p-6"
+            className="nexo-path-card nexo-path-card-enter nexo-path-card-enter-two group rounded-3xl border border-sky-200/15 bg-sky-200/[0.06] p-5 transition-all duration-300 hover:-translate-y-1 hover:border-sky-200/40 hover:bg-sky-200/[0.1] sm:p-6"
             aria-label="Ir a las vacantes activas"
           >
             <div className="flex items-start justify-between gap-4">

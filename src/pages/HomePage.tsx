@@ -33,19 +33,7 @@ export const HomePage: React.FC<HomePageProps> = ({
     <div className="nexo-home-shell w-full relative min-h-screen overflow-x-clip bg-slate-50 dark:bg-slate-950 transition-colors duration-500">
 
       {/* 1. Zona Hero + Marcas (Con fondo arquitectónico nítido, luminoso y visible) */}
-      <div className="nexo-hero-stage relative overflow-hidden bg-slate-950">
-        {/* Fondo fotográfico arquitectónico visible y claro */}
-        <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
-          <img
-            src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2400&q=95"
-            alt="Atmósfera corporativa Nexo Talento"
-            className="nexo-hero-photo w-full h-full object-cover object-center opacity-35 scale-105 transition-transform duration-1000"
-            fetchPriority="high"
-            decoding="async"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-950/40 via-slate-950/20 to-slate-950/90" />
-        </div>
-
+      <div className="nexo-hero-stage relative overflow-hidden">
         <div className="relative z-10">
           <Hero
             onOpenAIAgent={onOpenAIAgent}
@@ -75,7 +63,7 @@ export const HomePage: React.FC<HomePageProps> = ({
 
           {/* Metodología de Selección Ágil & Predictiva: sección conservada en código,
               oculta de la portada para no repetir la propuesta de valor del hero. */}
-          {/* <MethodologySection onNavigateToProcess={() => onNavigate('/proceso')} /> */}
+          {/* <MethodologySection onNavigateToProcess={() => onNavigate('/seleccion-de-personal')} /> */}
 
           {/* 6. Áreas de Especialización Oficiales (Selección, Executive Search, Headhunting, etc.) */}
           <AreasEspecializacionSection onNavigate={onNavigate} />

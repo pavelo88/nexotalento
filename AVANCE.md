@@ -6,6 +6,20 @@
 **Archivos modificados:** C:/dev/proyectos/nexotalentos/AVANCE.md
 
 ## [2026-11-27] - Nexo Talento - Codex
+**Qué se hizo:** Se ajustó el contraste del navbar en modo oscuro, se convirtió `/jobhunting` en un teaser visual independiente, se adelantaron las animaciones de scroll aproximadamente un 10%, se eliminó el solapamiento del buscador con los filtros de vacantes en escritorio y se renombró la ruta pública a `/seleccion-de-personal`, conservando `/proceso` como alias.
+**Resultado:** La revisión visual local confirmó letras blancas legibles en el navbar oscuro, teaser diferenciado, filtros completos en escritorio, filtros visibles en móvil, footer de selección sin la franja repetida y CTAs de WhatsApp sin mostrar el número. Lint, build y pre-render de 12 rutas pasan.
+**Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance, computer-use.
+**Próximos pasos:** Publicar estos cambios cuando Pablo lo confirme; después actualizar el remoto a `https://github.com/pavelo88/nexotalento.git` y revisar las vulnerabilidades transitivas de dependencias con una actualización controlada.
+**Archivos modificados:** C:/dev/proyectos/nexotalentos/src/components/Navbar.tsx; C:/dev/proyectos/nexotalentos/src/components/jobhunting/JobhuntingHero.tsx; C:/dev/proyectos/nexotalentos/src/components/JobsPortal.tsx; C:/dev/proyectos/nexotalentos/src/components/Footer.tsx; C:/dev/proyectos/nexotalentos/src/components/motion/Reveal.tsx; C:/dev/proyectos/nexotalentos/src/hooks/useScrollReveal.ts; C:/dev/proyectos/nexotalentos/src/App.tsx; C:/dev/proyectos/nexotalentos/src/types.ts; C:/dev/proyectos/nexotalentos/src/components/MethodologySection.tsx; C:/dev/proyectos/nexotalentos/src/pages/ProcesoPage.tsx; C:/dev/proyectos/nexotalentos/src/pages/ContactoPage.tsx; C:/dev/proyectos/nexotalentos/src/pages/PorQueElegirnosPage.tsx; C:/dev/proyectos/nexotalentos/src/pages/TestimoniosPage.tsx; C:/dev/proyectos/nexotalentos/src/components/ContactSection.tsx; C:/dev/proyectos/nexotalentos/src/components/FAQSection.tsx; C:/dev/proyectos/nexotalentos/src/components/NexoFloatingMenu.tsx; C:/dev/proyectos/nexotalentos/src/components/AIAgentsSuite.tsx; C:/dev/proyectos/nexotalentos/index.html; C:/dev/proyectos/nexotalentos/scripts/prerender.ts; C:/dev/proyectos/nexotalentos/public/sitemap.xml; C:/dev/proyectos/nexotalentos/public/llms.txt; C:/dev/proyectos/nexotalentos/public/llms-full.txt; C:/dev/proyectos/nexotalentos/AVANCE.md
+
+## [2026-11-27] - Nexo Talento - Codex
+**Qué se hizo:** Se añadió una redirección permanente de hosting desde `/proceso` hacia `/seleccion-de-personal` y se actualizó la fecha de modificación de la ruta canónica en el sitemap.
+**Resultado:** La ruta antigua conserva compatibilidad para usuarios y enlaces existentes, mientras los buscadores reciben la URL descriptiva y canónica.
+**Skills usadas/modificadas:** reglas-seguridad, registrar-avance.
+**Próximos pasos:** Después del despliegue, solicitar rastreo de `/seleccion-de-personal` en Google Search Console y Bing Webmaster Tools.
+**Archivos modificados:** C:/dev/proyectos/nexotalentos/vercel.json; C:/dev/proyectos/nexotalentos/public/sitemap.xml; C:/dev/proyectos/nexotalentos/AVANCE.md
+
+## [2026-11-27] - Nexo Talento - Codex
 **Qué se hizo:** Se rediseñó la portada con un sistema visual premium responsive, se mejoraron los CTA B2B/B2C y el menú móvil, se corrigieron metadatos/JSON-LD públicos y se limpiaron los archivos llms.txt/llms-full.txt para evitar afirmaciones no verificadas. Se separó HomePage en un chunk lazy para reducir el bundle inicial.
 **Resultado:** La portada local se verificó visualmente en escritorio y móvil; los CTA llegan a `/contacto` y `/vacantes`, el menú móvil ofrece “Necesito contratar talento” y “Crear mi perfil”, lint/build y JSON-LD pasan. El build aún conserva una advertencia de bundles grandes (~1.0 MB inicial y CreateProfile ~428 KB), pendiente de una fase posterior de code splitting más profundo.
 **Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance, computer-use.
@@ -353,3 +367,73 @@
 **Skills usadas/modificadas:** reglas-seguridad, registrar-avance.
 **Próximos pasos:** Si se autoriza su ejecución, convertirlo en un plan por fases con prioridades P0/P1/P2, matriz de accesos externos y checklist de aceptación.
 **Archivos modificados:** C:/dev/proyectos/nexotalentos/AVANCE.md
+
+## [2026-11-27] - Nexo Talento - Codex
+**Qué se hizo:** Se compactó el hero de la portada para que el texto y los dos CTA queden visibles en el primer pantallazo, se sustituyó la imagen de la tarjeta Nexo Talent Desk por una imagen ejecutiva distinta al fondo y se adelantaron aproximadamente un 10% las entradas de las animaciones de scroll. También se redujo el stagger de las tarjetas de Jobhunting para que aparezcan con más continuidad.
+**Resultado:** La revisión visual local confirmó los botones completos y la separación visual entre el fondo y la tarjeta; lint y build pasaron, con el aviso no bloqueante de chunks grandes de Vite. No se hizo push.
+**Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance, computer-use.
+**Próximos pasos:** Publicar cuando Pablo lo confirme y repetir la verificación visual en producción en escritorio y móvil.
+**Archivos modificados:** C:/dev/proyectos/nexotalentos/src/components/Hero.tsx; C:/dev/proyectos/nexotalentos/src/components/motion/Reveal.tsx; C:/dev/proyectos/nexotalentos/src/hooks/useScrollReveal.ts; C:/dev/proyectos/nexotalentos/src/components/jobhunting/JobhuntingPainPoints.tsx; C:/dev/proyectos/nexotalentos/AVANCE.md
+
+## [2026-11-27] - Nexo Talento - Codex
+**Qué se hizo:** Se corrigió el hero de la portada para reducir el dominante azul mediante una capa gráfica más neutra, subir el texto final 3 px y adelantar la entrada visual de la tarjeta y de las dos tarjetas de selección.
+**Resultado:** Las tarjetas ahora tienen una entrada escalonada anterior al texto principal y se mantiene una alternativa estática para quienes usan movimiento reducido. Lint, build y `git diff --check` pasaron; no se hizo push ni despliegue.
+**Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
+**Próximos pasos:** Revisar visualmente en `http://localhost:3001` y ajustar la altura del texto según la preferencia final de Pablo.
+**Archivos modificados:** C:/dev/proyectos/nexotalentos/src/components/Hero.tsx; C:/dev/proyectos/nexotalentos/src/index.css; C:/dev/proyectos/nexotalentos/AVANCE.md
+
+## [2026-11-27] - Nexo Talento - Codex
+**Qué se hizo:** Se compactó el footer en escritorio, se unificaron sus cinco acciones en una sola línea sin modificar el layout móvil y se actualizó la titularidad visible a SinergIA app. También se neutralizó la capa de fondo que mantenía demasiado azul el hero.
+**Resultado:** Lint y build pasan; el build conserva únicamente el aviso no bloqueante de chunks grandes de Vite. No se hizo push ni despliegue.
+**Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
+**Próximos pasos:** Recargar `http://localhost:3001` con caché limpia y confirmar visualmente footer, hero y versión móvil.
+**Archivos modificados:** C:/dev/proyectos/nexotalentos/src/components/Footer.tsx; C:/dev/proyectos/nexotalentos/src/pages/HomePage.tsx; C:/dev/proyectos/nexotalentos/src/index.css; C:/dev/proyectos/nexotalentos/AVANCE.md
+
+## [2026-11-27] - Nexo Talento - Codex
+**Qué se hizo:** Se reordenó el hero para dejar la frase principal en la columna izquierda y los dos CTA en la columna derecha, encima de la tarjeta visual. Se reemplazó el dominante azul del fondo por una atmósfera carbón neutra, conservando el turquesa como acento de marca.
+**Resultado:** El nuevo balance desktop quedó implementado y pasó lint, build y `git diff --check`. No se hizo push ni despliegue.
+**Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
+**Próximos pasos:** Revisar visualmente en `http://localhost:3001` con `Ctrl + F5`; si Pablo quiere, ajustar la proporción entre texto, CTA y tarjeta después de ver esta versión.
+**Archivos modificados:** C:/dev/proyectos/nexotalentos/src/components/Hero.tsx; C:/dev/proyectos/nexotalentos/src/pages/HomePage.tsx; C:/dev/proyectos/nexotalentos/src/index.css; C:/dev/proyectos/nexotalentos/AVANCE.md
+
+## [2026-11-27] - Nexo Talento - Codex
+**Qué se hizo:** En móvil se reorganizaron los indicadores de la tarjeta del hero: ES · LATAM ocupa la fila superior completa y 18 días junto a 3–6 meses quedan debajo en dos columnas.
+**Resultado:** El cambio está limitado al breakpoint móvil; en escritorio se conserva la distribución de tres columnas. Lint, build y `git diff --check` pasan.
+**Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
+**Próximos pasos:** Revisar en `http://localhost:3001` en viewport móvil y confirmar el espaciado final.
+**Archivos modificados:** C:/dev/proyectos/nexotalentos/src/components/Hero.tsx; C:/dev/proyectos/nexotalentos/AVANCE.md
+
+## [2026-11-27] - Nexo Talento - Codex
+**Qué se hizo:** Se compactaron las dos métricas inferiores del hero móvil colocando icono, valor y descripción en una fila más baja; la tarjeta ES · LATAM quedó centrada en la fila superior.
+**Resultado:** El ajuste aplica solo en móvil y conserva la distribución de escritorio. Lint, build y `git diff --check` pasan; el build mantiene únicamente el aviso no bloqueante de chunks grandes de Vite.
+**Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
+**Próximos pasos:** Recargar `http://localhost:3001` en móvil con `Ctrl + F5` y validar el alto final de las tarjetas.
+**Archivos modificados:** C:/dev/proyectos/nexotalentos/src/components/Hero.tsx; C:/dev/proyectos/nexotalentos/AVANCE.md
+
+## [2026-11-27] - Nexo Talento - Codex
+**Qué se hizo:** Se alineó el bloque de métricas del hero con la maqueta aprobada: en escritorio las tres métricas muestran icono y valor en la misma línea; en móvil ES · LATAM ocupa la fila superior y las otras dos quedan debajo, compactas.
+**Resultado:** Se modificó únicamente el bloque responsive de indicadores. Lint, build y `git diff --check` pasan; no se hizo push ni despliegue.
+**Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
+**Próximos pasos:** Revisar ambos breakpoints en `http://localhost:3001` con `Ctrl + F5`.
+**Archivos modificados:** C:/dev/proyectos/nexotalentos/src/components/Hero.tsx; C:/dev/proyectos/nexotalentos/AVANCE.md
+
+## [2026-11-27] - Nexo Talento - Codex
+**Qué se hizo:** Se redujo el tamaño de `ES · LATAM` para evitar que el texto aumente la altura de la métrica y se centró en móvil el conjunto de icono y valor de las dos métricas inferiores.
+**Resultado:** Ajuste puntual de alineación y densidad visual; lint y `git diff --check` pasan.
+**Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
+**Próximos pasos:** Recargar `http://localhost:3001` con `Ctrl + F5` y confirmar el acabado visual.
+**Archivos modificados:** C:/dev/proyectos/nexotalentos/src/components/Hero.tsx; C:/dev/proyectos/nexotalentos/AVANCE.md
+
+## [2026-11-27] - Nexo Talento - Codex
+**Qué se hizo:** Se redujo `ES · LATAM` en escritorio y se fijó en una sola línea para evitar que la tercera métrica aumente su altura. El layout móvil quedó sin cambios.
+**Resultado:** Ajuste puntual de tipografía y wrapping; lint y `git diff --check` pasan.
+**Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
+**Próximos pasos:** Recargar `http://localhost:3001` con `Ctrl + F5` y comprobar la tercera métrica en escritorio.
+**Archivos modificados:** C:/dev/proyectos/nexotalentos/src/components/Hero.tsx; C:/dev/proyectos/nexotalentos/AVANCE.md
+
+## [2026-11-27] - Nexo Talento - Codex
+**Qué se hizo:** Se sustituyó el marco azul grueso de la tarjeta fotográfica del hero por un borde fino blanco/turquesa con la imagen más al ras, siguiendo la referencia visual enviada.
+**Resultado:** El ajuste conserva la foto, el texto y las métricas; lint y `git diff --check` pasan.
+**Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
+**Próximos pasos:** Recargar `http://localhost:3001` con `Ctrl + F5` y confirmar el borde luminoso en escritorio y móvil.
+**Archivos modificados:** C:/dev/proyectos/nexotalentos/src/components/Hero.tsx; C:/dev/proyectos/nexotalentos/AVANCE.md

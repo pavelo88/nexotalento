@@ -22,13 +22,15 @@ interface FooterProps {
   onOpenAIAgent: (agentType?: 'headhunter' | 'evaluator' | 'salary' | 'advisor') => void;
   onOpenCVAnalyzer: () => void;
   onOpenConcierge?: () => void;
+  hideTopBanner?: boolean;
 }
 
 export const Footer: React.FC<FooterProps> = ({
   onNavigate,
   onOpenAIAgent,
   onOpenCVAnalyzer,
-  onOpenConcierge
+  onOpenConcierge,
+  hideTopBanner = false
 }) => {
   const { theme } = useTheme();
   const whatsappNumber = '34614143763';
@@ -50,7 +52,7 @@ export const Footer: React.FC<FooterProps> = ({
       }`}>
 
       {/* Top Banner: Direct Consultant & 18-Day Guarantee */}
-      <div className="border-b border-slate-800/80 bg-slate-950/60">
+      {!hideTopBanner && <div className="border-b border-slate-800/80 bg-slate-950/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3 text-slate-300 text-center md:text-left">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping shrink-0" />
@@ -67,7 +69,7 @@ export const Footer: React.FC<FooterProps> = ({
               className="px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl transition-all shadow-md flex items-center gap-1.5 hover:scale-105"
             >
               <MessageSquare className="w-4 h-4" />
-              <span>WhatsApp Consultor: +34 614 143 763</span>
+              <span>Chatear por WhatsApp</span>
             </a>
 
             {onOpenConcierge && (
@@ -81,10 +83,10 @@ export const Footer: React.FC<FooterProps> = ({
             )}
           </div>
         </div>
-      </div>
+      </div>}
 
       {/* Main Footer Links - 2 Columns on Mobile, clearance pb-28 for Apple Dock */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 pb-28 md:pb-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-10 pb-28 md:pb-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 md:gap-10">
 
           {/* Brand Col (2 cols on lg) */}
@@ -183,9 +185,9 @@ export const Footer: React.FC<FooterProps> = ({
                 </li>
                 {/* Calculadora ROI: ruta y código conservados, enlace público oculto. */}
                 <li>
-                  <button onClick={() => handleNav('/proceso')} className="w-full text-left p-1.5 md:p-0 rounded-lg bg-slate-900/60 md:bg-transparent border border-slate-800/60 md:border-0 hover:text-cyan-400 transition-colors flex items-center gap-1 active:scale-95">
+                  <button onClick={() => handleNav('/seleccion-de-personal')} className="w-full text-left p-1.5 md:p-0 rounded-lg bg-slate-900/60 md:bg-transparent border border-slate-800/60 md:border-0 hover:text-cyan-400 transition-colors flex items-center gap-1 active:scale-95">
                     <ChevronRight className="w-3 h-3 text-cyan-500 shrink-0" />
-                    <span className="truncate">Proceso 18 Días</span>
+                    <span className="truncate">Selección en 18 Días</span>
                   </button>
                 </li>
                 <li>
@@ -223,10 +225,11 @@ export const Footer: React.FC<FooterProps> = ({
         </div>
 
           {/* Bottom legal buttons and company copyright */}
-        <div className="mt-12 pt-8 border-t border-slate-800 flex flex-col items-center justify-center gap-3 text-center">
+        <div className="mt-12 pt-8 lg:mt-6 lg:pt-5 border-t border-slate-800 flex flex-col items-center justify-center gap-3 text-center">
           
-          {/* Fila 1: Los 3 botones con menos caracteres */}
-          <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-4 text-xs text-slate-300">
+          <div className="flex flex-col items-center justify-center gap-3 lg:flex-row lg:flex-nowrap">
+            {/* Fila 1: Los 3 botones con menos caracteres */}
+            <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-4 text-xs text-slate-300">
             <a
               href="https://www.linkedin.com/company/nexotalentos/"
               target="_blank"
@@ -245,10 +248,10 @@ export const Footer: React.FC<FooterProps> = ({
             <span className="hover:text-cyan-400 cursor-pointer active:scale-95 transition-colors py-1 px-3 rounded-lg bg-slate-900/80 border border-slate-800 hover:border-cyan-500/50">
               Canal Ético
             </span>
-          </div>
+            </div>
 
-          {/* Fila 2: Los 2 botones con más caracteres */}
-          <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-4 text-xs text-slate-300">
+            {/* Fila 2: Los 2 botones con más caracteres */}
+            <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-4 text-xs text-slate-300">
             <span className="hover:text-cyan-400 cursor-pointer active:scale-95 transition-colors py-1 px-3.5 rounded-lg bg-slate-900/80 border border-slate-800 hover:border-cyan-500/50">
               Política de Privacidad (RGPD)
             </span>
@@ -256,11 +259,12 @@ export const Footer: React.FC<FooterProps> = ({
             <span className="hover:text-cyan-400 cursor-pointer active:scale-95 transition-colors py-1 px-3.5 rounded-lg bg-slate-900/80 border border-slate-800 hover:border-cyan-500/50">
               Política de Cookies
             </span>
+            </div>
           </div>
 
-          {/* Marca propia del sitio: no sustituir por el proveedor técnico. */}
-          <div className="pt-2 text-[11px] text-slate-500 font-medium">
-            <p>© {new Date().getFullYear()} {COMPANY_CONFIG.legalName} · Todos los derechos reservados.</p>
+          {/* Titularidad de la aplicación. */}
+          <div className="pt-2 lg:pt-3 text-[11px] text-slate-500 font-medium lg:ml-2">
+            <p>© {new Date().getFullYear()} SinergIA app · Todos los derechos reservados.</p>
           </div>
 
         </div>
