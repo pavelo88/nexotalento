@@ -44,7 +44,7 @@ export const Footer: React.FC<FooterProps> = ({
   };
 
   return (
-    <footer className={`border-t text-xs relative overflow-hidden transition-colors duration-300 ${theme === 'dark'
+    <footer id="site-footer" className={`border-t text-xs relative overflow-hidden transition-colors duration-300 ${theme === 'dark'
         ? 'bg-slate-950 border-slate-800 text-slate-400'
         : 'bg-slate-900 border-slate-800 text-slate-300'
       }`}>

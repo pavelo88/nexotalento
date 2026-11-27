@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { MessageSquare } from 'lucide-react';
 import { COMPANY_CONFIG } from '../config/company';
 
@@ -8,9 +8,26 @@ interface NexoFloatingMenuProps {
 
 export const NexoFloatingMenu: React.FC<NexoFloatingMenuProps> = () => {
   const whatsappUrl = COMPANY_CONFIG.whatsappUrl;
+  const [isFooterVisible, setIsFooterVisible] = useState(false);
+
+  useEffect(() => {
+    const footer = document.getElementById('site-footer');
+    if (!footer) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsFooterVisible(entry.isIntersecting),
+      { threshold: 0.05 }
+    );
+    observer.observe(footer);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <div className="fixed bottom-6 right-6 z-40 hidden md:flex items-center">
+    <div className={`fixed bottom-6 right-6 z-40 hidden md:flex items-center transition-all duration-300 ${
+      isFooterVisible
+        ? 'opacity-0 pointer-events-none translate-y-3'
+        : 'opacity-100 pointer-events-auto translate-y-0'
+    }`}>
       {/* Botón flotante único, limpio y minimalista de WhatsApp (Desktop only) */}
       <a
         href={whatsappUrl}
