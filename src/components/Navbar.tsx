@@ -100,7 +100,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     <header
       id="main-header"
       ref={navRef}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`nexo-navbar fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         hasNavbarSurface
           ? theme === 'dark'
             ? 'bg-slate-950/90 backdrop-blur-2xl border-b border-slate-800/80 shadow-2xl py-2.5'
@@ -216,7 +216,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               id="theme-toggle-btn"
               onClick={toggleTheme}
-              className="p-2 rounded-xl border border-slate-800 bg-slate-900/90 text-amber-400 transition-all duration-200 focus:outline-none cursor-pointer hover:bg-slate-800"
+              className="nexo-theme-toggle p-2 rounded-xl border border-slate-800 bg-slate-900/90 text-amber-400 transition-all duration-200 focus:outline-none cursor-pointer hover:bg-slate-800"
               title={theme === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
               aria-label="Cambiar tema de color"
             >
@@ -231,7 +231,8 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="lg:hidden p-2 rounded-xl border border-slate-800 bg-slate-900 text-slate-200 transition-colors cursor-pointer hover:bg-slate-800"
-              aria-label="Abrir menú de navegación"
+              aria-label={mobileMenuOpen ? 'Cerrar menú de navegación' : 'Abrir menú de navegación'}
+              aria-expanded={mobileMenuOpen}
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
@@ -243,7 +244,23 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-b border-slate-800 bg-slate-950/98 px-4 pt-3 pb-6 space-y-3 text-slate-100 animate-fadeIn max-h-[85vh] overflow-y-auto">
+        <div className="nexo-mobile-drawer lg:hidden border-b border-slate-800 bg-slate-950/98 px-4 pt-3 pb-6 space-y-3 text-slate-100 animate-fadeIn max-h-[85vh] overflow-y-auto">
+          <div className="grid grid-cols-2 gap-2 border-b border-slate-800/80 pb-3">
+            <button
+              onClick={() => handleLinkClick('/contacto')}
+              className="rounded-2xl bg-gradient-to-r from-cyan-300 to-blue-400 px-3 py-3 text-left text-xs font-extrabold text-slate-950 shadow-lg shadow-cyan-950/30"
+            >
+              <span className="mb-1 block text-[9px] uppercase tracking-[0.12em] text-slate-800/70">Empresas</span>
+              Necesito contratar talento
+            </button>
+            <button
+              onClick={() => handleLinkClick('/crear-perfil')}
+              className="rounded-2xl border border-cyan-300/30 bg-cyan-300/10 px-3 py-3 text-left text-xs font-extrabold text-cyan-100"
+            >
+              <span className="mb-1 block text-[9px] uppercase tracking-[0.12em] text-cyan-200/70">Profesionales</span>
+              Crear mi perfil
+            </button>
+          </div>
           
           <div className="grid grid-cols-2 gap-2 pt-1">
             <button

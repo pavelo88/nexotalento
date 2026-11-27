@@ -5,6 +5,20 @@
 **Próximos pasos:** Migrar autenticación, usuarios, leads y contenido a Firebase con reglas y verificación server-side; conectar GA4 Data API o una fuente equivalente al dashboard; retirar secretos del repositorio; validar producción, consentimiento, eventos y entrega real de leads antes de activar campañas.
 **Archivos modificados:** C:/dev/proyectos/nexotalentos/AVANCE.md
 
+## [2026-11-27] - Nexo Talento - Codex
+**Qué se hizo:** Se rediseñó la portada con un sistema visual premium responsive, se mejoraron los CTA B2B/B2C y el menú móvil, se corrigieron metadatos/JSON-LD públicos y se limpiaron los archivos llms.txt/llms-full.txt para evitar afirmaciones no verificadas. Se separó HomePage en un chunk lazy para reducir el bundle inicial.
+**Resultado:** La portada local se verificó visualmente en escritorio y móvil; los CTA llegan a `/contacto` y `/vacantes`, el menú móvil ofrece “Necesito contratar talento” y “Crear mi perfil”, lint/build y JSON-LD pasan. El build aún conserva una advertencia de bundles grandes (~1.0 MB inicial y CreateProfile ~428 KB), pendiente de una fase posterior de code splitting más profundo.
+**Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance, computer-use.
+**Próximos pasos:** Revisar y refactorizar los archivos existentes que superan 500 líneas; completar auditoría real de leads/persistencia, admin, seguridad y pruebas end-to-end; no desplegar sin autorización explícita.
+**Archivos modificados:** C:/dev/proyectos/nexotalentos/src/components/Hero.tsx; C:/dev/proyectos/nexotalentos/src/components/MetricStatsSection.tsx; C:/dev/proyectos/nexotalentos/src/components/BragBar.tsx; C:/dev/proyectos/nexotalentos/src/components/Navbar.tsx; C:/dev/proyectos/nexotalentos/src/components/Footer.tsx; C:/dev/proyectos/nexotalentos/src/pages/HomePage.tsx; C:/dev/proyectos/nexotalentos/src/index.css; C:/dev/proyectos/nexotalentos/src/App.tsx; C:/dev/proyectos/nexotalentos/index.html; C:/dev/proyectos/nexotalentos/public/llms.txt; C:/dev/proyectos/nexotalentos/public/llms-full.txt; C:/dev/proyectos/nexotalentos/public/sitemap.xml; C:/dev/proyectos/nexotalentos/AVANCE.md
+
+## [2026-11-27] - Nexo Talento - Codex
+**Qué se hizo:** Se ejecutaron las comprobaciones finales antes de publicar: lint, build, pre-render de rutas, diff check y escaneo de patrones de secretos.
+**Resultado:** Lint, build y pre-render pasan correctamente; se generaron 12 rutas estáticas y no se detectaron secretos en los archivos modificados. `npm audit` mantiene vulnerabilidades transitivas heredadas en Firebase/Google Cloud, qs y uuid; las correcciones automáticas mayores no se aplicaron para no romper compatibilidad.
+**Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
+**Próximos pasos:** Planificar actualización controlada de Firebase Admin y dependencias transitivas, con pruebas de API y autenticación antes de aplicar cambios mayores.
+**Archivos modificados:** C:/dev/proyectos/nexotalentos/AVANCE.md
+
 ## [2026-11-25] - Nexo Talento - Codex
 **Qué se hizo:** Se separó la medición operativa propia de las etiquetas analíticas y publicitarias de terceros. El panel de Admin ahora presenta visitas anónimas, consentimiento, clics de contacto, formularios, postulaciones y actividad reciente.
 **Resultado:** Las visitas y acciones comerciales se registran en Firebase sin cookies ni datos personales, incluso cuando se rechaza la medición ampliada. Google Analytics/GTM y futuros píxeles continúan sujetos a aceptación explícita. Lint y build pasaron.
@@ -332,3 +346,10 @@
 **Skills usadas/modificadas:** reglas-seguridad, modularidad-archivos, registrar-avance.
 **Próximos pasos:** Verificar producción tras el despliegue automático y realizar pruebas funcionales autenticadas de Admin y formularios.
 **Archivos modificados:** C:/dev/proyectos/nexotalentos/src/server/firebase-admin.ts; C:/dev/proyectos/nexotalentos/AVANCE.md
+
+## [2026-11-27] - Nexo Talento - Codex
+**Qué se hizo:** Se analizó el prompt de auditoría, optimización y preparación comercial definitiva, contrastándolo con la estructura actual del repositorio y las reglas de trabajo compartidas.
+**Resultado:** Se identificó como un brief maestro sólido, pero demasiado amplio para ejecutarlo en una sola fase; requiere separar diagnóstico, correcciones críticas, crecimiento y preparación publicitaria, además de definir evidencias, aprobaciones y criterios de salida.
+**Skills usadas/modificadas:** reglas-seguridad, registrar-avance.
+**Próximos pasos:** Si se autoriza su ejecución, convertirlo en un plan por fases con prioridades P0/P1/P2, matriz de accesos externos y checklist de aceptación.
+**Archivos modificados:** C:/dev/proyectos/nexotalentos/AVANCE.md

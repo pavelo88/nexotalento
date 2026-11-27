@@ -4,7 +4,6 @@ import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { NexoFloatingMenu } from './components/NexoFloatingMenu';
 import { MobileActionBar } from './components/navigation/MobileActionBar';
-import { HomePage } from './pages/HomePage';
 import { PageRoute } from './types';
 import { Bot, Sparkles, MessageSquare } from 'lucide-react';
 import { COMPANY_CONFIG } from './config/company';
@@ -26,6 +25,7 @@ const GuiaSalarialPage = lazy(() => import('./pages/GuiaSalarialPage').then(m =>
 const CalculadoraRoiPage = lazy(() => import('./pages/CalculadoraRoiPage').then(m => ({ default: m.CalculadoraRoiPage })));
 const BlogPage = lazy(() => import('./pages/BlogPage').then(m => ({ default: m.BlogPage })));
 const AdminPage = lazy(() => import('./pages/AdminPage').then(m => ({ default: m.AdminPage })));
+const HomePage = lazy(() => import('./pages/HomePage').then(m => ({ default: m.HomePage })));
 // PRESERVADO COMENTADO SEGÚN SOLICITUD DE CLIENTE:
 // const AgentesIAPage = lazy(() => import('./pages/AgentesIAPage').then(m => ({ default: m.AgentesIAPage })));
 
@@ -215,23 +215,24 @@ function AppContent() {
 
         {/* Dynamic Page Router */}
         <main className="min-h-[70vh]">
-          {currentPath === '/' ? (
-            <HomePage
-              onNavigate={handleNavigate}
-              onOpenAIAgent={handleOpenAIAgent}
-              onOpenCVAnalyzer={() => setIsCVModalOpen(true)}
-              onOpenJobSpecGenerator={() => setIsJobSpecModalOpen(true)}
-              selectedAgentType={selectedAgentType}
-            />
-          ) : (
-            <Suspense fallback={
-              <div className="min-h-[60vh] flex items-center justify-center">
-                <div className="flex flex-col items-center gap-3">
-                  <div className="w-10 h-10 border-3 border-cyan-500 border-t-transparent rounded-full animate-spin" />
-                  <span className="text-xs font-bold text-slate-400">Cargando módulo...</span>
-                </div>
+          <Suspense fallback={
+            <div className="min-h-[60vh] flex items-center justify-center">
+              <div className="flex flex-col items-center gap-3">
+                <div className="w-10 h-10 border-3 border-cyan-500 border-t-transparent rounded-full animate-spin" />
+                <span className="text-xs font-bold text-slate-400">Cargando módulo...</span>
               </div>
-            }>
+            </div>
+          }>
+            {currentPath === '/' ? (
+              <HomePage
+                onNavigate={handleNavigate}
+                onOpenAIAgent={handleOpenAIAgent}
+                onOpenCVAnalyzer={() => setIsCVModalOpen(true)}
+                onOpenJobSpecGenerator={() => setIsJobSpecModalOpen(true)}
+                selectedAgentType={selectedAgentType}
+              />
+            ) : (
+              <>
               {currentPath === '/servicios' && (
                 <ServiciosPage
                   onNavigate={handleNavigate}
@@ -320,9 +321,10 @@ function AppContent() {
                *   />
                * )}
                * =====================================================================
-               */}
-            </Suspense>
-          )}
+              */}
+              </>
+            )}
+          </Suspense>
         </main>
 
         {/* Unified Footer (Oculto en /admin para espacio limpio de trabajo) */}

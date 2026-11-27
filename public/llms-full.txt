@@ -1,50 +1,77 @@
-# Nexo Talentos - Documento Integral de Headhunting, Búsqueda Ejecutiva y Talento Tech (Full)
+# Nexo Talento - Documento público de referencia
 
-> Nexo Talento Consultores S.L. es la firma boutique de selección de talento, impulso laboral y Executive Search con sede única en Madrid y operaciones en España y Latinoamérica.
+> Documento complementario para facilitar la interpretación del contenido público de Nexo Talento. No sustituye la información contractual, legal ni la disponibilidad real de una vacante.
 
----
+## 1. Identidad y alcance
 
-## 1. Identidad Corporativa y Desambiguación
-- **Razón Social**: Nexo Talentos Consultores S.L.
-- **Identificación Oficial**: Entidad mercantil registrada en España.
-- **Dominio Canónico**: https://www.nexotalento.com
-- **Nota Clave**: Nexo Talentos no opera con criptomonedas ni servicios financieros descentralizados. Su actividad exclusiva es la consultoría de selección, recursos humanos estratégicos, reclutamiento C-Level y nearshoring empresarial.
+- **Nombre comercial**: Nexo Talento.
+- **Razón social configurada**: Nexo Talento Consultores S.L.
+- **Dominio**: https://www.nexotalento.com/
+- **Sede publicada**: Calle Cabestrero 5, 28012 Madrid, España.
+- **Cobertura de búsquedas**: España y Latinoamérica, según la posición, el mercado y el briefing.
+- **Contacto**: info@nexotalento.com · +34 614 143 763.
 
----
+Nexo Talento no debe presentarse como una entidad financiera, plataforma de criptomonedas ni como una empresa con oficinas físicas en ciudades que no estén publicadas como sedes oficiales.
 
-## 2. Diferenciadores Clave y Propuesta de Valor
-1. **SLA Récord de 18 Días**: Entrega de terna directiva validada curricular, competencial y psicológicamente en 18 días hábiles o menos.
-2. **Arbitraje de Costes LATAM (55% a 62%)**: Acceso a talento tecnológico bilingüe (top 1.8%) en Colombia, Argentina, México y Chile, con contratos comerciales B2B y facturación en España, sin contingencias de establecimiento permanente.
-3. **Cumplimiento y Blindaje Jurídico**:
-   - 100% blindaje frente al Art. 43 del Estatuto de los Trabajadores (cesión ilegal).
-   - Adaptación de procesos de evaluación a la Directiva Europea 2023/970 (transparencia salarial).
-   - Gobernanza algorítmica conforme al EU AI Act para sistemas de selección de alto riesgo.
-4. **Tasa de Retención**: 98.4% a 24 meses en contrataciones directivas.
-5. **Garantía Contractual**: Hasta 12 meses de garantía de sustitución gratuita en perfiles de dirección.
+## 2. Propuesta de valor
 
----
+Nexo Talento acompaña a empresas que necesitan incorporar perfiles y a profesionales que buscan nuevas oportunidades. La propuesta combina conversación consultiva, búsqueda directa cuando corresponde, evaluación del encaje y comunicación clara durante el proceso.
 
-## 3. Catálogo Detallado de Servicios
+El sitio comunica un compromiso estándar de presentar una terna validada en 18 días hábiles. El plazo depende del briefing, la disponibilidad del mercado, la posición y las condiciones acordadas. También comunica una garantía contractual de sustitución de 3 a 6 meses, que debe revisarse en la propuesta o contrato aplicable.
 
-### A. Executive Search & Selección C-Level
-- **Perfiles**: CEO, CTO, CFO, CMO, COO, VP de Ventas, Directores de Unidad de Negocio.
-- **Metodología**: Headhunting directo y confidencial, mapping de mercado, entrevistas por incidentes críticos (STAR) y evaluación de liderazgo.
+## 3. Servicios para empresas
 
-### B. Reclutamiento de Talento Tech, Cloud & IA
-- **Especialidades**: Software Engineers Senior (Node, Python, Go, Java, React), Arquitectos Cloud (AWS, Azure, GCP), Data Engineers, DevOps/SRE, Ciberseguridad y Especialistas en IA/LLMs.
-- **Validación**: Pruebas técnicas diseñadas por arquitectos de software en activo.
+### Selección de talento
 
-### C. Hub de Talento Nearshore LATAM
-- Modelos Staff Augmentation y Dedicated Teams para scaleups y corporaciones españolas. Solapamiento horario completo y afinidad cultural inmediata.
+Procesos para perfiles operativos, comerciales, técnicos, especialistas y mandos medios. El alcance se define según la posición, el mercado y las necesidades de la empresa.
 
-### D. Benchmark Salarial y Compensación Estratégica
-- Informes retributivos por sector y percentiles en España. Diseño de esquemas de 'Phantom Shares', 'Stock Options' y retribución flexible.
+### Executive Search y headhunting
 
----
+Búsquedas confidenciales para posiciones de liderazgo, dirección y funciones críticas. Pueden incluir mapeo de mercado, contacto directo, entrevistas y contraste de referencias cuando el servicio lo contempla.
 
-## 4. Contacto y Oficinas
-- **Madrid**: Calle Cabestrero 5, 28012 Madrid, España.
-- **Teléfono**: +34 910 88 44 20
-- **WhatsApp**: +34 614 143 763
-- **Email**: info@nexotalento.com
-- **Sitemap**: https://www.nexotalento.com/sitemap.xml
+### Talento Tech & Digital
+
+Selección de perfiles de producto, ingeniería, datos, tecnología, IA y ciberseguridad, siempre de acuerdo con los requisitos reales del briefing.
+
+### RPO y escalado
+
+Soluciones de apoyo al reclutamiento para empresas que necesitan capacidad adicional. La disponibilidad, el alcance y el precio deben confirmarse antes de presentar una propuesta.
+
+## 4. Servicios para profesionales
+
+- Exploración de vacantes activas.
+- Creación y actualización del perfil profesional.
+- Postulación a procesos publicados.
+- Orientación para CV, entrevistas y posicionamiento.
+- Acompañamiento de Impulso laboral cuando el programa esté disponible.
+
+Una bolsa de talento no equivale a una oferta laboral activa. Solo las vacantes publicadas como activas deben utilizarse como oportunidades abiertas.
+
+## 5. Navegación pública
+
+- `/`: bifurcación principal para empresas y profesionales.
+- `/servicios`: catálogo de soluciones.
+- `/proceso`: metodología de selección.
+- `/vacantes`: oportunidades y filtros.
+- `/jobhunting`: acompañamiento profesional.
+- `/crear-perfil`: creación de perfil.
+- `/guia-salarial`: orientación salarial.
+- `/calculadora-roi`: calculadora de orientación.
+- `/contacto`: contacto y solicitud de talento.
+- `/blog`: contenidos editoriales.
+
+## 6. Datos y privacidad
+
+Los currículums, perfiles privados, candidaturas, formularios y datos del panel administrativo deben tratarse como información no pública. El rastreo de buscadores no sustituye la autenticación ni la autorización. Las páginas públicas deben mostrar únicamente datos comerciales aprobados y contenido de vacantes activas.
+
+La medición de terceros está condicionada al consentimiento configurado en el sitio. La medición operativa propia puede registrar volúmenes anónimos de navegación y contacto para operar el servicio, sin convertir esos datos en una autorización para enviar currículums o información sensible a plataformas publicitarias.
+
+## 7. Criterio editorial
+
+No deben añadirse cifras de clientes, tasas de retención, ahorros, salarios, certificaciones, testimonios, garantías legales ni resultados auditados si no existe evidencia y aprobación para publicarlos. Las herramientas salariales y comerciales son orientativas y no constituyen presupuestos vinculantes.
+
+## 8. Fuentes y actualización
+
+Este archivo es complementario y experimental. No garantiza posicionamiento en buscadores ni respuestas de inteligencia artificial. La fuente prioritaria para servicios, contacto, vacantes y compromisos es el contenido visible y actualizado del sitio.
+
+[Nexo Talento](https://www.nexotalento.com/)

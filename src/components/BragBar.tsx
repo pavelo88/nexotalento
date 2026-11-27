@@ -1,5 +1,5 @@
 import React from 'react';
-import { Building2, CheckCircle2 } from 'lucide-react';
+import { Building2, ShieldCheck } from 'lucide-react';
 
 export const BragBar: React.FC = () => {
   const trustedCompanies = [
@@ -25,12 +25,12 @@ export const BragBar: React.FC = () => {
           <div className="flex items-center gap-2">
             <Building2 className="w-4 h-4 text-cyan-600" />
             <span className="text-xs sm:text-sm font-bold tracking-wide uppercase text-slate-700">
-              Empresas con las que hemos trabajado · Confían en Nexo Talento
+              Equipos y empresas con los que hemos trabajado
             </span>
           </div>
           <div className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
-            <CheckCircle2 className="w-3.5 h-3.5" />
-            <span>100% Blindaje Legal Art. 43 ET &amp; Compliance 2026</span>
+            <ShieldCheck className="w-3.5 h-3.5" />
+            <span>Procesos confidenciales y acompañamiento cercano</span>
           </div>
         </div>
       </div>

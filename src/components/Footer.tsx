@@ -222,7 +222,7 @@ export const Footer: React.FC<FooterProps> = ({
 
         </div>
 
-        {/* Bottom legal buttons & SinergIA Tech copyright */}
+          {/* Bottom legal buttons and company copyright */}
         <div className="mt-12 pt-8 border-t border-slate-800 flex flex-col items-center justify-center gap-3 text-center">
           
           {/* Fila 1: Los 3 botones con menos caracteres */}
@@ -258,9 +258,9 @@ export const Footer: React.FC<FooterProps> = ({
             </span>
           </div>
 
-          {/* Debajo de esto: Todos los derechos reservados de SinergIA Tech */}
+          {/* Marca propia del sitio: no sustituir por el proveedor técnico. */}
           <div className="pt-2 text-[11px] text-slate-500 font-medium">
-            <p>© {new Date().getFullYear()} SinergIA Tech. Todos los derechos reservados.</p>
+            <p>© {new Date().getFullYear()} {COMPANY_CONFIG.legalName} · Todos los derechos reservados.</p>
           </div>
 
         </div>
